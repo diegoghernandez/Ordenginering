@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+---
+
+<Layout title="Menu page">
+	<main>
+		<article>
+			<img src="https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg" alt="">
+			<h2>Pepperoni</h2>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, deleniti? Accusamus officia asperiores at eos nihil amet. Inventore a dolorum quas rerum sed sunt consequatur, delectus cupiditate cumque vel neque.</p>
+			<select>
+				<option>Pequeña</option>
+				<option selected>Mediana</option>
+				<option>Grande</option>
+			</select>
+			<button>Agregar</button>
+			<a href="/customize/pepperoni">Personalizar</a>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	article {
+		width: 320px;
+		padding: 0 24px;
+		background-color: white;
+		& img {
+			width: 280px;
+			aspect-ratio: 4 / 2;
+		}
+		& select, button {
+			width: 100%;
+			margin-bottom: 12px;
+		}
+	}
+</style>

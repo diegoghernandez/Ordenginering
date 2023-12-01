@@ -1,0 +1,87 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const pages = [
+	{ name: 'Home', link: '/'},
+	{ name: 'Menu', link: '/menu'},
+]
+
+const socialLinks = [
+	{ name: 'Personal', link: 'https://diegoj4v.github.io/My-website'},
+	{ name: 'Github', link: 'https://github.com/DiegoJ4V'},
+	{ name: 'LinkedIn', link: 'https://www.linkedin.com/in/diegoj4v/'}
+]
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header>
+			<div>
+				{pages.map((page) => (
+					<a href={page.link}>
+						{page.name}
+					</a>
+				))}
+			</div>
+			<div>
+				<button>Account</button>
+				<button>Carrito</button>
+			</div>
+		</header>
+		<slot />
+		<footer>
+			{socialLinks.map((socialLink) => (
+				<a href={socialLink.link}>
+					{socialLink.name}
+				</a>
+			))}			
+		</footer>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: #13151a;
+		background-size: 224px;
+	}
+	header {
+		display: flex;
+		justify-content: space-between;
+		background-color: blueviolet;
+		& div {
+			display: inline-flex;
+			gap: 32px;
+			margin: 0 24px;
+		}
+	}
+	footer {
+		display: flex;
+		justify-content: center;
+		gap: 32px;
+		background-color: aqua;
+	}
+</style>
