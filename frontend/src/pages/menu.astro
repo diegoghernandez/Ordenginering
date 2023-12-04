@@ -1,5 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro"
+import { AddPizza } from "../components/AddPizza/index.tsx"
+import { Size } from "../constants/size";
+import { Quantity } from "../constants/quantity";
 
 ---
 
@@ -14,7 +17,12 @@ import Layout from "../layouts/Layout.astro";
 				<option selected>Mediana</option>
 				<option>Grande</option>
 			</select>
-			<button>Agregar</button>
+			<AddPizza client:only="react" pizza={{
+            name: "Pepperoni",
+            size: Size.MEDIUM,
+            cheese: Quantity.NORMAL,
+            ingredients: ["Pepperoni"]
+         }} />
 			<a href="/customize/pepperoni">Personalizar</a>
 		</article>
 	</main>

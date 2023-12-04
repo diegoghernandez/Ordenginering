@@ -1,4 +1,7 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+import { ShoppingCart } from '../components/ShoppingCart';
+
 interface Props {
 	title: string;
 }
@@ -26,6 +29,7 @@ const socialLinks = [
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions fallback="none" />
 	</head>
 	<body>
 		<header>
@@ -38,7 +42,7 @@ const socialLinks = [
 			</div>
 			<div>
 				<button>Account</button>
-				<button>Carrito</button>
+				<ShoppingCart client:only="react" transition:persist />
 			</div>
 		</header>
 		<slot />
@@ -49,39 +53,39 @@ const socialLinks = [
 				</a>
 			))}			
 		</footer>
+		<style is:global>
+			:root {
+				--accent: 136, 58, 234;
+				--accent-light: 224, 204, 250;
+				--accent-dark: 49, 10, 101;
+				--accent-gradient: linear-gradient(
+					45deg,
+					rgb(var(--accent)),
+					rgb(var(--accent-light)) 30%,
+					white 60%
+				);
+			}
+			html {
+				font-family: system-ui, sans-serif;
+				background: #13151a;
+				background-size: 224px;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				background-color: blueviolet;
+				& div {
+					display: inline-flex;
+					gap: 32px;
+					margin: 0 24px;
+				}
+			}
+			footer {
+				display: flex;
+				justify-content: center;
+				gap: 32px;
+				background-color: aqua;
+			}
+		</style>
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	header {
-		display: flex;
-		justify-content: space-between;
-		background-color: blueviolet;
-		& div {
-			display: inline-flex;
-			gap: 32px;
-			margin: 0 24px;
-		}
-	}
-	footer {
-		display: flex;
-		justify-content: center;
-		gap: 32px;
-		background-color: aqua;
-	}
-</style>

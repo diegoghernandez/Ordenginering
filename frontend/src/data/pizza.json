@@ -1,0 +1,16 @@
+[
+   {
+      "id": 1,
+      "name": "Pepperoni",
+      "size": "MEDIUM",
+      "cheese": "NORMAL",
+      "ingredients": ["Pepperoni"]
+   },
+   {
+      "id": 2,
+      "name": "Hawaiana",
+      "size": "LARGE",
+      "cheese": "EXTRA",
+      "ingredients": ["Ham, Pineapple"]
+   }
+]
