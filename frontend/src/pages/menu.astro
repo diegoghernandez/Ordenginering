@@ -3,43 +3,49 @@ import Layout from "../layouts/Layout.astro"
 import { AddPizza } from "../components/AddPizza/index.tsx"
 import { Size } from "../constants/size";
 import { Quantity } from "../constants/quantity";
+import CustomSelect from "../components/CustomSelect.astro";
 
 ---
 
 <Layout title="Menu page">
 	<main>
-		<article>
+		<article class="container">
 			<img src="https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg" alt="">
 			<h2>Pepperoni</h2>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, deleniti? Accusamus officia asperiores at eos nihil amet. Inventore a dolorum quas rerum sed sunt consequatur, delectus cupiditate cumque vel neque.</p>
-			<select>
-				<option>Pequeña</option>
-				<option selected>Mediana</option>
-				<option>Grande</option>
-			</select>
+			<p>Peperoni, Mozarella</p>
+			<CustomSelect />
 			<AddPizza client:only="react" pizza={{
             name: "Pepperoni",
             size: Size.MEDIUM,
             cheese: Quantity.NORMAL,
             ingredients: ["Pepperoni"]
          }} />
-			<a href="/customize/pepperoni">Personalizar</a>
+			<a class="container" href="/customize">Personalizar</a>
 		</article>
 	</main>
 </Layout>
 
 <style>
-	article {
-		width: 320px;
-		padding: 0 24px;
-		background-color: white;
-		& img {
-			width: 280px;
-			aspect-ratio: 4 / 2;
-		}
-		& select, button {
-			width: 100%;
-			margin-bottom: 12px;
+	main {
+		padding: 12px 16px;
+		& article {
+			display: flex;
+			gap: 8px;
+			flex-direction: column;
+			width: 320px;
+			padding: 12px 16px;
+			background-color: #FFC345;
+			& img {
+				width: 280px;
+				aspect-ratio: 4 / 2;
+			}
+			& h2 {
+				text-align: center;
+			}
+			& p {
+				text-align: center;
+			}
 		}
 	}
+	
 </style>

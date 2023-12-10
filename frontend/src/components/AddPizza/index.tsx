@@ -1,6 +1,7 @@
 import { useShoppingCart } from '../../hooks/useShoppingCart';
 import type { Pizza } from '../../types';
-import './AddPizza.css';
+import '../../index.css'
+import Styles from './AddPizza.module.css';
 
 interface Props {
    pizza: Pizza
@@ -24,7 +25,7 @@ export function AddPizza({ pizza }: React.FC<Props>) {
    }
 
    return (
-      <button onClick={handleClick} >
+      <button className={`${Styles.button} add-cart button-styles`} onClick={handleClick} >
          Agregar
       </button>
    )

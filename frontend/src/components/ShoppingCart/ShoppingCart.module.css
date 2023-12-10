@@ -1,0 +1,35 @@
+.button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: fit-content;
+   padding: 4px 8px;
+   & svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+   }
+   & .quantity {
+      display: inline-flex;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 100%;
+      justify-content: center;
+      align-items: center;
+      translate: 32px -16px;
+      border: 1px solid #000;
+   }
+   & span {
+      color: black;
+   }
+}
+
+.dialog {
+   padding: 8px 12px;
+   margin-left: auto;
+   top: 0;
+   right: 0;
+   translate: -8px 52px;
+}
