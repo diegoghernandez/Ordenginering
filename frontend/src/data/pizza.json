@@ -1,16 +1,77 @@
 [
    {
-      "id": 1,
       "name": "Pepperoni",
       "size": "MEDIUM",
-      "cheese": "NORMAL",
-      "ingredients": ["Pepperoni"]
+      "ingredients": ["Pepperoni", "Mozzarella"]
    },
    {
-      "id": 2,
       "name": "Hawaiana",
-      "size": "LARGE",
-      "cheese": "EXTRA",
-      "ingredients": ["Ham, Pineapple"]
+      "size": "MEDIUM",
+      "ingredients": ["Ham", "Pineapple", "Mozzarella"]
+   },
+   {
+      "name": "Margherita",
+      "size": "MEDIUM",
+      "ingredients": ["Tomato", "Mozzarella", "Basil"]
+   },
+   {
+      "name": "Four Cheese",
+      "size": "MEDIUM",
+      "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
+   },
+   {
+      "name": "Vegetarian",
+      "size": "MEDIUM",
+      "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
+   },
+   {
+      "name": "BBQ Chicken",
+      "size": "MEDIUM",
+      "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
+   },
+   {
+      "name": "Supreme",
+      "size": "MEDIUM",
+      "ingredients": ["Pepperoni", "Sausage", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
+   },
+   {
+      "name": "Mushroom",
+      "size": "MEDIUM",
+      "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
+   },
+   {
+      "name": "Seafood",
+      "size": "MEDIUM",
+      "ingredients": ["Shrimp", "Calamari", "Mussels", "Garlic", "Mozzarella"]
+   },
+   {
+      "name": "Pesto Chicken",
+      "size": "MEDIUM",
+      "ingredients": ["Pesto Sauce", "Grilled Chicken", "Sun-Dried Tomatoes", "Mozzarella", "Parmesan"]
+   },
+   {
+      "name": "Buffalo Chicken",
+      "size": "MEDIUM",
+      "ingredients": ["Buffalo Sauce", "Grilled Chicken", "Red Onions", "Mozzarella", "Blue Cheese"]
+   },
+   {
+      "name": "Tandoori Paneer",
+      "size": "MEDIUM",
+      "ingredients": ["Tandoori Sauce", "Paneer (Indian Cottage Cheese)", "Bell Peppers", "Red Onions", "Mozzarella"]
+   },
+   {
+      "name": "Breakfast Pizza",
+      "size": "MEDIUM",
+      "ingredients": ["Bacon", "Eggs", "Hash Browns", "Cheddar", "Mozzarella"]
+   },
+   {
+      "name": "Greek",
+      "size": "MEDIUM",
+      "ingredients": ["Spinach", "Feta Cheese", "Olives", "Tomatoes", "Red Onions", "Mozzarella"]
+   },
+   {
+      "name": "Truffle Mushroom",
+      "size": "MEDIUM",
+      "ingredients": ["Truffle Oil", "Mixed Mushrooms", "Fontina Cheese", "Mozzarella"]
    }
 ]

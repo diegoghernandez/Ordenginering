@@ -1,7 +1,11 @@
+import type { Quantity } from "./constants/quantity";
+
 export interface Pizza {
-   id:          number;
+   id?:         `${string}-${string}-${string}-${string}-${string}`;
    name:        string;
    size:        Size;
-   cheese:      Quantity;
-   ingredients: string[];
+   ingredients: {
+      name: string,
+      quantity?: Quantity
+   }[];
 }

@@ -1,5 +1,4 @@
-export const enum Quantity {
-   NONE = "NONE",
-   NORMAL = "NORMAL",
-   EXTRA = "EXTRA"
+export enum Quantity {
+   NORMAL = 'NORMAL',
+   EXTRA = 'EXTRA'
 }

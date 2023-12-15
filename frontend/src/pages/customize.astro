@@ -1,13 +1,9 @@
 ---
-import type { GetStaticPaths, InferGetStaticParamsType } from "astro"
+import { Image } from "astro:assets"
+import { FormWrapper } from "../components/FormWrapper"
 import Layout from "../layouts/Layout.astro"
-import { AddPizza } from "../components/AddPizza"
-import { Size } from "../constants/size"
-import { Quantity } from "../constants/quantity"
-import { IncreaseQuantity } from "../components/IncreaseQuantity"
-import CustomSelect from "../components/CustomSelect.astro"
 
-export const getStaticPaths = (() => {
+/* export const getStaticPaths = (() => {
 	return [
 		{ params: { pizza: "pepperoni"} }
 	]
@@ -15,34 +11,21 @@ export const getStaticPaths = (() => {
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
 
-const { pizza } = Astro.params as Params
+const { pizza } = Astro.params as Params */
 ---
 
 <Layout title={"Customize your pizza"}>
 	<main>
 		<h1>Customize your pizza</h1>
-		<img class="pizza-custom" src="https://thestarvingchefblog.com/wp-content/uploads/2022/04/everything-topping-pizza.jpg" alt="">
-		<AddPizza client:only="react" pizza={{
-			name: "Pepperoni",
-			size: Size.MEDIUM,
-			cheese: Quantity.NORMAL,
-			ingredients: ["Pepperoni"]
-		}} />
-		<h2>Quantity</h2>
-		<IncreaseQuantity client:idle />
-		<h2>Size</h2>
-		<CustomSelect />
-		<h2>Ingredients</h2>
-		<article class="container">
-			<img src="https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg" alt="">
-			<h3>Pepperoni</h3>
-			<input type="checkbox" name="" id="text">
-			<label for="text" class="container">
-				Add
-			</label>
-			<h4>Quantity</h4>
-			<CustomSelect />
-		</article>
+		<FormWrapper client:idle>
+			<Image 
+				class="pizza-custom" 
+				src="https://thestarvingchefblog.com/wp-content/uploads/2022/04/everything-topping-pizza.jpg" 
+				alt=""
+				width="320"
+				height="180"
+			/>
+		</FormWrapper>
 	</main>
 </Layout>
 
@@ -51,49 +34,30 @@ const { pizza } = Astro.params as Params
 	main {
 		display: flex;
 		flex-direction: column;
+		width: 100%;
 		padding: 12px 16px;
 		gap: 12px;
 		background-color: white;
+		@media (width > 760px) {
+			flex-wrap: wrap;
+			flex-direction: row;
+			gap: 32px;
+		}
 		& h1 {
+			width: 100%;
 			text-align: center;
 		}
+		& div {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
 		& .pizza-custom {
+			object-fit: contain;
+			width: 100%;
 			max-width: 460px;
 			aspect-ratio: 4 / 2;
 			margin: 0 auto;
-		}
-		& article {
-			display: flex;
-			gap: 8px;
-			flex-direction: column;
-			width: 160px;
-			padding: 12px 16px;
-			background-color: #FFC345;
-			& img {
-				object-fit: contain;
-			}
-			& h3 {
-				text-align: center;
-			}
-			& label {
-				width: 100%;
-				background-color: white;
-				text-align: center;
-			}
-			& input  {
-				display: none;
-				/* width: 120px;
-				height: 32px;
-				position: absolute;
-				translate: -32px -4px; */
-			}
-			& #text:checked ~ label {	
-				background-color: #FF8B2E;
-			}
-			& select {
-				width: 100%;
-				margin-bottom: 12px;
-			}
 		}
 	}
 </style>

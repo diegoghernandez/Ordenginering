@@ -1,27 +1,20 @@
 import { useShoppingCart } from '../../hooks/useShoppingCart';
+import '../../index.css';
 import type { Pizza } from '../../types';
-import '../../index.css'
-import Styles from './AddPizza.module.css';
+import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage';
+import Styles from './addPizza.module.css';
 
 interface Props {
-   pizza: Pizza
+   pizza?: Pizza
 }
 
-
-export function AddPizza({ pizza }: React.FC<Props>) {
+export function AddPizza({ pizza }: Props) {
    const addPizza = useShoppingCart((state) => state.addPizza)
-
-   const handleClick = () => {
-      const pizzaWithId = { id: crypto.randomUUID(), ...pizza}
-      addPizza(pizzaWithId)
-
-      const getLocalStorage = localStorage.getItem('allPizza') ?? ''
-      let newPizzaList: Pizza[] = []
-
-      if (getLocalStorage) newPizzaList = [JSON.parse(getLocalStorage), pizzaWithId].flat()
-      else newPizzaList = [pizzaWithId]
-
-      localStorage.setItem('allPizza', JSON.stringify(newPizzaList))
+   const handleClick = () => {      
+      if (pizza) {
+         addPizza(pizza)
+         pizzaToLocalStorage(pizza)
+      }
    }
 
    return (

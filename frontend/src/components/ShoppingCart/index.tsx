@@ -1,12 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 import '../../index.css'
-import Styles from './ShoppingCart.module.css'
+import Styles from './shoppingCart.module.css'
 
 export function ShoppingCart() {
    const [isOpen, setIsOpen] = useState(false)
    const pizzaList = useShoppingCart((state) => state.pizza)
+   const addPizza = useShoppingCart((state) => state.addPizza)
+
+   useEffect(() => {
+      if (pizzaList.length === 0) {
+         const getLocalStorage = localStorage.getItem('allPizza') ?? ''
+         if (getLocalStorage) {
+            const pizza = JSON.parse(getLocalStorage)
+   
+            for (const pizzaElement of pizza) {
+               addPizza(pizzaElement)
+            }
+         }
+      }
+   }, [])
    
    return (
       <>
@@ -24,8 +38,7 @@ export function ShoppingCart() {
                      <article key={pizza.id}>
                         <h3>{pizza.name}</h3>
                         <p>Size: {pizza.size}</p>
-                        <p>Cheese: {pizza.cheese}</p>
-                        <p>Ingredients: {pizza.ingredients}</p>
+                        <p>Ingredients: {pizza.ingredients.map((ingredient) => ingredient.name)}</p>
                      </article>
                   ))}
                   <button>Buy</button>

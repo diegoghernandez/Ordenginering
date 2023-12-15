@@ -14,6 +14,7 @@
       margin: 0;
       border: 1px solid #000;
       background-color: transparent;
+      cursor: pointer;
    }
    & .left {
       border-radius: 4px 0 0 4px;

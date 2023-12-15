@@ -1,49 +1,80 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import { Image } from "astro:assets"
 import { AddPizza } from "../components/AddPizza/index.tsx"
-import { Size } from "../constants/size";
+import PizzaList from "../data/pizza.json" with { type: 'json' }
+import Layout from "../layouts/Layout.astro"
 import { Quantity } from "../constants/quantity";
-import CustomSelect from "../components/CustomSelect.astro";
+import { Size } from "../constants/size";
 
 ---
 
 <Layout title="Menu page">
 	<main>
-		<article class="container">
-			<img src="https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg" alt="">
-			<h2>Pepperoni</h2>
-			<p>Peperoni, Mozarella</p>
-			<CustomSelect />
-			<AddPizza client:only="react" pizza={{
-            name: "Pepperoni",
-            size: Size.MEDIUM,
-            cheese: Quantity.NORMAL,
-            ingredients: ["Pepperoni"]
-         }} />
-			<a class="container" href="/customize">Personalizar</a>
-		</article>
+		<h1>Menu</h1>
+		{PizzaList.map((pizza) => (
+			<article class="container">
+				<Image 
+					src="https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg" 
+					alt={`${pizza.name} pizza`}
+					width="280"
+					height="160"
+				/>
+				<h2>{pizza.name}</h2>
+				<p>{pizza.ingredients.join(', ')}</p>
+				<div class="button-container">
+					<button style="display: none;">{pizza.ingredients.join(', ')}</button>
+					<AddPizza client:idle pizza={{
+						name: pizza.name,
+						size: Object.values(Size)
+							.map((key) => Size[key])
+							.filter((value) => value === pizza.size)[0],
+						ingredients: pizza.ingredients
+							.map((ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
+					}} />
+					<a class="container" href="/customize">Personalizar</a>
+				</div>
+			</article>
+		))}
 	</main>
 </Layout>
 
 <style>
 	main {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 12px;
 		padding: 12px 16px;
+		width: 100%;
+		& h1 {
+			width: 100%;
+			text-align: center;
+		}
 		& article {
 			display: flex;
-			gap: 8px;
 			flex-direction: column;
-			width: 320px;
+			gap: 4px;
+			min-width: 280px;
+			width: 100%;
+			max-width: 300px;
+			height: 380px;
 			padding: 12px 16px;
 			background-color: #FFC345;
 			& img {
-				width: 280px;
-				aspect-ratio: 4 / 2;
+				width: 100%;
 			}
 			& h2 {
 				text-align: center;
 			}
 			& p {
 				text-align: center;
+			}
+			& .button-container {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				margin-top: auto;
 			}
 		}
 	}
