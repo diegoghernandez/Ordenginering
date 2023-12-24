@@ -1,77 +1,106 @@
 [
    {
       "name": "Pepperoni",
-      "size": "MEDIUM",
+      "image": {
+         "url": "pepperoni",
+         "author": "Foto de Fernando Andrade en Unsplash"
+      },
       "ingredients": ["Pepperoni", "Mozzarella"]
    },
    {
       "name": "Hawaiana",
-      "size": "MEDIUM",
+      "image": {
+         "url": "hawaiana",
+         "author": "Foto de bckfwd en Unsplash"
+      },
       "ingredients": ["Ham", "Pineapple", "Mozzarella"]
    },
    {
       "name": "Margherita",
-      "size": "MEDIUM",
+      "image": {
+         "url": "margherita",
+         "author": "Foto de Aurélien Lemasson-Théobald en Unsplash"
+      },
       "ingredients": ["Tomato", "Mozzarella", "Basil"]
    },
    {
       "name": "Four Cheese",
-      "size": "MEDIUM",
+      "image": {
+         "url": "four-cheese",
+         "author": "Foto de Kristina Bratko en Unsplash"
+      },
       "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
    },
    {
       "name": "Vegetarian",
-      "size": "MEDIUM",
+      "image": {
+         "url": "vegetarian",
+         "author": "Foto de Edgar Castrejon en Unsplash"
+      },
       "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
    },
    {
       "name": "BBQ Chicken",
-      "size": "MEDIUM",
+      "image": {
+         "url": "bbq",
+         "author": "Foto de Sharan Pagadala en Unsplash"
+      },
       "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
    },
    {
       "name": "Supreme",
-      "size": "MEDIUM",
+      "image": {
+         "url": "supreme",
+         "author": "Foto de Drake Whitney en Unsplash"
+      },
       "ingredients": ["Pepperoni", "Sausage", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
    },
    {
       "name": "Mushroom",
-      "size": "MEDIUM",
+      "image": {
+         "url": "mushroom",
+         "author": "Foto de Lavi Perchik en Unsplash"
+      },
       "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
    },
    {
       "name": "Seafood",
-      "size": "MEDIUM",
-      "ingredients": ["Shrimp", "Calamari", "Mussels", "Garlic", "Mozzarella"]
+      "image": {
+         "url": "seafood",
+         "author": "Foto de Yana Hurska en Unsplash"
+      },
+      "ingredients": ["Shrimp", "Calamar", "Mussels", "Garlic", "Mozzarella"]
    },
    {
       "name": "Pesto Chicken",
-      "size": "MEDIUM",
+      "image": {
+         "url": "pesto",
+         "author": "generada por DALL·E 3"
+      },
       "ingredients": ["Pesto Sauce", "Grilled Chicken", "Sun-Dried Tomatoes", "Mozzarella", "Parmesan"]
    },
    {
       "name": "Buffalo Chicken",
-      "size": "MEDIUM",
+      "image": {
+         "url": "buffalo",
+         "author": "generada por DALL·E 3"
+      },
       "ingredients": ["Buffalo Sauce", "Grilled Chicken", "Red Onions", "Mozzarella", "Blue Cheese"]
    },
    {
-      "name": "Tandoori Paneer",
-      "size": "MEDIUM",
-      "ingredients": ["Tandoori Sauce", "Paneer (Indian Cottage Cheese)", "Bell Peppers", "Red Onions", "Mozzarella"]
-   },
-   {
-      "name": "Breakfast Pizza",
-      "size": "MEDIUM",
-      "ingredients": ["Bacon", "Eggs", "Hash Browns", "Cheddar", "Mozzarella"]
-   },
-   {
       "name": "Greek",
-      "size": "MEDIUM",
-      "ingredients": ["Spinach", "Feta Cheese", "Olives", "Tomatoes", "Red Onions", "Mozzarella"]
+      "image": {
+         "url": "greek",
+         "author": "generada por DALL·E 3"
+      },
+      "ingredients": ["Spinach", "Feta", "Olives", "Tomatoes", "Red Onions", "Mozzarella"]
    },
    {
-      "name": "Truffle Mushroom",
-      "size": "MEDIUM",
-      "ingredients": ["Truffle Oil", "Mixed Mushrooms", "Fontina Cheese", "Mozzarella"]
+      "name": "Mixed Mushrooms",
+      "image": {
+         "url": "mixed-mushrooms",
+         "author": "generada por DALL·E 3"
+      },
+      "ingredients": ["Mixed Mushrooms", "Fontina", "Mozzarella"]
    }
 ]

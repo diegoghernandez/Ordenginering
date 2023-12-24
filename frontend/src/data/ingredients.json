@@ -1,0 +1,163 @@
+[
+   {
+      "id": 1,
+      "name": "Vegetables",
+      "types": [{
+         "name": "Pineapple",
+         "img": "vegetables/pineapple",
+         "author": "Foto de Phoenix Han en Unsplash"
+      }, {
+         "name": "Tomato",
+         "img": "vegetables/tomato",
+         "author": "Foto de Deniz Altindas en Unsplash"
+      }, {
+         "name": "Basil",
+         "img": "vegetables/basil",
+         "author": "Foto de Yakov Leonov en Unsplash"
+      }, {
+         "name": "Bell Peppers",
+         "img": "vegetables/bell-peppers",
+         "author": "Foto de Mire Carlo en Unsplash"
+      }, {
+         "name": "Onions",
+         "img": "vegetables/onions",
+         "author": "Foto de Obed Hernández en Unsplash"
+      }, {
+         "name": "Mushrooms",
+         "img": "vegetables/mushrooms",
+         "author": "Foto de Waldemar en Unsplash"
+      }, {
+         "name": "Olives",
+         "img": "vegetables/olives",
+         "author": "Foto de Furkan Dokuzlar en Unsplash"
+      }, {
+         "name": "Red Onions",
+         "img": "vegetables/red-onions",
+         "author": "Foto de Richard R en Unsplash"
+      }, {
+         "name": "Black Olives",
+         "img": "vegetables/black-olives",
+         "author": "Foto de Furkan Dokuzlar en Unsplash"
+      }, {
+         "name": "Garlic",
+         "img": "vegetables/garlic",
+         "author": "Foto de Matthew Pilachowski en Unsplash"
+      }, {
+         "name": "Oregano",
+         "img": "vegetables/oregano",
+         "author": "Foto de Charles C. Collingwood en Unsplash"
+      }, {
+         "name": "Sun-Dried Tomatoes",
+         "img": "vegetables/sun-dried-tomatoes",
+         "author": "Foto de engin akyurt en Unsplash"
+      }, {
+         "name": "Spinach",
+         "img": "vegetables/spinach",
+         "author": "Foto de Soo Ann Woon en Unsplash"
+      }, {
+         "name": "Mixed Mushrooms",
+         "img": "vegetables/mixed-mushrooms",
+         "author": "Foto de Andrew Ridley en Unsplash"
+      }]
+   },
+   {
+      "id": 2,
+      "name": "Meat",
+      "types": [{
+         "name": "Grilled Chicken", 
+         "img": "meat/grilled-chicken",
+         "author": "Foto de Daniel Hooper 🌊 en Unsplash"
+      }, { 
+         "name": "Ham",
+         "img": "meat/ham",
+         "author": "Foto de Karo Kujanpaa en Unsplash"
+      }, { 
+         "name": "Peperoni",
+         "img": "meat/peperoni",
+         "author": "Foto de Payam Tahery en Unsplash"
+      }, { 
+         "name": "Turkey",
+         "img": "meat/turkey",
+         "author": "Foto de Claudio Schwarz en Unsplash"
+      }, { 
+         "name": "Tuna",
+         "img": "meat/tuna",
+         "author": "Foto de Artiom Vallat en Unsplash"
+      }, { 
+         "name": "Bacon",
+         "img": "meat/bacon",
+         "author": "Foto de Wright Brand Bacon en Unsplash"
+      }, { 
+         "name": "Chorizo",
+         "img": "meat/chorizo",
+         "author": "Foto de Wesual Click en Unsplash"
+      }, { 
+         "name": "Shrimp",
+         "img": "meat/shrimp",
+         "author": "Foto de Daniel Klein en Unsplash"
+      }, { 
+         "name": "Calamar",
+         "img": "meat/calamar",
+         "author": "Foto de Alex Knight en Unsplash"
+      }, { 
+         "name": "Mussels",
+         "img": "meat/mussels",
+         "author": "Foto de Nick Karvounis en Unsplash"
+      }]
+   },
+   {
+      "id": 3,
+      "name": "Cheese",
+      "types": [{
+         "name": "Mozzarella",
+         "img": "cheese/mozzarella",
+         "author": "Image by Racool_studio on Freepik"
+      }, { 
+         "name": "Cheddar",
+         "img": "cheese/cheddar",
+         "author": "Foto de Önder Örtel en Unsplash"
+      }, { 
+         "name": "Parmesan",
+         "img": "cheese/parmesan",
+         "author": "Foto de Samuele Pieretti en Unsplash"
+      }, { 
+         "name": "Gouda",
+         "img": "cheese/gouda",
+         "author": "Image By Sketchepedia on Freepik"
+      }, { 
+         "name": "Feta",
+         "img": "cheese/feta",
+         "author": "Image By Vectonauta on Freepik"
+      }, { 
+         "name": "Blue Cheese",
+         "img": "cheese/blue-cheese",
+         "author": "Foto de Towfiqu barbhuiya en Unsplash"
+      }, { 
+         "name": "Fontina",
+         "img": "cheese/fontina",
+         "author": "Image by Racool_studio on Freepik"
+      }]
+   },
+   {
+      "id": 4,
+      "name": "Sauces",
+
+      "types": [{
+         "name": "BBQ", 
+         "img": "sauces/bbq",
+         "author": "Image by KamranAydinov on Freepik"
+      },{ 
+         "name": "Pesto", 
+         "img": "sauces/pesto",
+         "author": "Foto de Artur Rutkowski en Unsplash"
+      },{ 
+         "name": "Buffalo", 
+         "img": "sauces/buffalo",
+         "author": "Image by jcomp on Freepik"
+      },{ 
+         "name": "Tomato sauce",
+         "img": "sauces/tomato",
+         "author": "Foto de D. L. Samuels en Unsplash"
+      }]
+   }
+]

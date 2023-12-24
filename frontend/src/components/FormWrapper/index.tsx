@@ -1,26 +1,22 @@
-import { useEffect, useId, useState, type FormEvent, type ReactElement } from 'react'
+import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
-import type { Pizza } from '../../types'
-import { AddPizza } from '../AddPizza'
-import { IncreaseQuantity } from '../IncreaseQuantity'
+import ingredientsCollection from "../../data/ingredients.json"
 import { useShoppingCart } from '../../hooks/useShoppingCart'
+import type { Pizza } from '../../types'
 import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage'
+import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
+import { IncreaseQuantity } from '../IncreaseQuantity'
 import Style from './customizeForm.module.css'
 
-interface Props {
-   children: ReactElement,
-}
-
-export function FormWrapper({ children }: Props) {
+export function FormWrapper() {
    const [characteristics, setCharacteristics] = useState({
       quantity: 1,
       size: Size.SMALL,
       ingredients: 0
    })
    const [price, setPrice] = useState(0)
-   const ingredientId = useId()
    const addPizza = useShoppingCart((state) => state.addPizza)
 
    useEffect(() => {
@@ -78,6 +74,7 @@ export function FormWrapper({ children }: Props) {
       event.stopPropagation()      
 
       const articles = event.currentTarget.getElementsByTagName('article')
+      
       const desireArticles: HTMLElement[] = []
       for (const element of articles) {
          const input = element.querySelector('input')
@@ -88,7 +85,7 @@ export function FormWrapper({ children }: Props) {
          name: 'Custom',
          size: characteristics.size,
          ingredients: desireArticles.map((element) => ({ 
-            name: element.querySelector('h3')?.innerText ?? '', 
+            name: element.querySelector('h3')?.innerHTML ?? '', 
             quantity: Object.values(Quantity)
                .map((key) => Quantity[key])
                .filter((value) => value === element.querySelector('select')?.value)[0]
@@ -99,34 +96,61 @@ export function FormWrapper({ children }: Props) {
          addPizza(newPizza)
          pizzaToLocalStorage(newPizza)
       }      
+
    }
 
    return (
-      <form onChange={handleChange} onSubmit={handleSubmit}>
-         <div>
-            {children}
+      <form className={Style.form} onChange={handleChange} onSubmit={handleSubmit}>
+         <div className={Style.form__customize}>
+            <figure>
+               <img 
+                  className='pizza-custom' 
+                  src='/images/pizza/empty.jpeg' 
+                  alt='Empty pizza'
+                  width='320'
+                  height='260'
+                  decoding='sync'
+               />
+               <figcaption>Image by KamranAydinov on Freepik</figcaption>
+            </figure>
             <p>${price}</p>
-            <div slot="pizza-characteristics">
-				<AddPizza />
-				<h2>Quantity</h2>
-				<IncreaseQuantity setValue={setCharacteristics} />
-				<h2>Size</h2>
-				<CustomSelect values={Object.values(Size).map((value) => value)} />
-			</div>
+            <div>
+               <AddPizza />
+               <h2>Quantity</h2>
+               <IncreaseQuantity setValue={setCharacteristics} />
+               <h2>Size</h2>
+               <CustomSelect values={Object.values(Size).map((value) => value)} />
+            </div>
          </div>
          <div>
 				<h2>Ingredients</h2>
-				<article className={`${Style.article} container`}>
-					<img 
-						src='https://static.phdvasia.com/br/menu/single/desktop_thumbnail_1b3ba745-698b-4866-aa54-c551cbcff003.jpg' 
-						alt=''
-					/>
-					<h3>Pepperoni</h3>
-					<input type='checkbox' className={Style.check} id={ingredientId} />
-					<label htmlFor={ingredientId} className='container'>Add</label>
-					<h4>Quantity</h4>
-               <CustomSelect values={Object.values(Quantity).map((value) => value)} />
-				</article>
+            {ingredientsCollection.map((ingredientType) => (
+               <details key={ingredientType.id}>
+                  <summary>{ingredientType.name}</summary>
+                  <div className={Style.ingredientsContainer}>
+                     {ingredientType.types.map((ingredient) => (
+                        <article key={ingredient.name} className={`${Style.article} container`}>
+                           <figure>
+                              <img 
+                                 src={`/images/${ingredient.img}.jpg`}
+                                 alt={ingredient.name}
+                                 width='130'
+                                 height='80'
+                                 loading='lazy'
+                                 decoding='async'
+                              />
+                              <figcaption>{ingredient.author}</figcaption>
+                           </figure>
+                           <h3>{ingredient.name}</h3>
+                           <input type='checkbox' className={Style.check} id={ingredient.name} />
+                           <label htmlFor={ingredient.name} className='container'>Add</label>
+                           <h4>Quantity</h4>
+                           <CustomSelect values={Object.values(Quantity).map((value) => value)} />
+                        </article>
+                     ))}
+                  </div>
+               </details>
+            ))}
 			</div>
       </form>
    )

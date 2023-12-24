@@ -38,7 +38,7 @@ export function ShoppingCart() {
                      <article key={pizza.id}>
                         <h3>{pizza.name}</h3>
                         <p>Size: {pizza.size}</p>
-                        <p>Ingredients: {pizza.ingredients.map((ingredient) => ingredient.name)}</p>
+                        <p>Ingredients: {pizza.ingredients.map((ingredient) => ingredient.name).join(', ')}</p>
                      </article>
                   ))}
                   <button>Buy</button>

@@ -7,7 +7,7 @@ interface Props {
 export function CustomSelect({ values }: Props) {
    return (
       <div className={Style.selectContainer}>
-         <select className="container">
+         <select defaultValue={values[1]} className="container">
             {values?.map((value) => (
                <option key={value} value={value}>{value}</option>
             ))}

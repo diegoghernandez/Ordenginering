@@ -1,11 +1,11 @@
 ---
-import { Image } from "astro:assets"
-import { FormWrapper } from "../components/FormWrapper"
-import Layout from "../layouts/Layout.astro"
+import { Image } from 'astro:assets'
+import { FormWrapper } from '../components/FormWrapper'
+import Layout from '../layouts/Layout.astro'
 
 /* export const getStaticPaths = (() => {
 	return [
-		{ params: { pizza: "pepperoni"} }
+		{ params: { pizza: 'pepperoni'} }
 	]
 }) satisfies GetStaticPaths
 
@@ -14,18 +14,10 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { pizza } = Astro.params as Params */
 ---
 
-<Layout title={"Customize your pizza"}>
+<Layout title={'Customize your pizza'}>
 	<main>
 		<h1>Customize your pizza</h1>
-		<FormWrapper client:idle>
-			<Image 
-				class="pizza-custom" 
-				src="https://thestarvingchefblog.com/wp-content/uploads/2022/04/everything-topping-pizza.jpg" 
-				alt=""
-				width="320"
-				height="180"
-			/>
-		</FormWrapper>
+		<FormWrapper client:idle />
 	</main>
 </Layout>
 
@@ -38,26 +30,9 @@ const { pizza } = Astro.params as Params */
 		padding: 12px 16px;
 		gap: 12px;
 		background-color: white;
-		@media (width > 760px) {
-			flex-wrap: wrap;
-			flex-direction: row;
-			gap: 32px;
-		}
 		& h1 {
 			width: 100%;
 			text-align: center;
-		}
-		& div {
-			display: flex;
-			flex-direction: column;
-			gap: 8px;
-		}
-		& .pizza-custom {
-			object-fit: contain;
-			width: 100%;
-			max-width: 460px;
-			aspect-ratio: 4 / 2;
-			margin: 0 auto;
 		}
 	}
 </style>
