@@ -1,13 +1,14 @@
 import Style from "./customSelect.module.css";
 
 interface Props {
-   values: string[]
+   values: string[],
+   selectedValue?: number
 }
 
-export function CustomSelect({ values }: Props) {
+export function CustomSelect({ values, selectedValue = 1 }: Props) {
    return (
       <div className={Style.selectContainer}>
-         <select defaultValue={values[1]} className="container">
+         <select defaultValue={values[selectedValue]} className="container">
             {values?.map((value) => (
                <option key={value} value={value}>{value}</option>
             ))}

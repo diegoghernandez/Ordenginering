@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import ingredientsCollection from "../../data/ingredients.json"
@@ -17,6 +17,7 @@ export function FormWrapper() {
       ingredients: 0
    })
    const [price, setPrice] = useState(0)
+   const [selectedIngredients, setSelectedIngredients] = useState('Vegetables')
    const addPizza = useShoppingCart((state) => state.addPizza)
 
    useEffect(() => {
@@ -122,35 +123,45 @@ export function FormWrapper() {
                <CustomSelect values={Object.values(Size).map((value) => value)} />
             </div>
          </div>
-         <div>
+         <div className={Style.select__container}>
 				<h2>Ingredients</h2>
-            {ingredientsCollection.map((ingredientType) => (
-               <details key={ingredientType.id}>
-                  <summary>{ingredientType.name}</summary>
-                  <div className={Style.ingredientsContainer}>
-                     {ingredientType.types.map((ingredient) => (
-                        <article key={ingredient.name} className={`${Style.article} container`}>
-                           <figure>
-                              <img 
-                                 src={`/images/${ingredient.img}.jpg`}
-                                 alt={ingredient.name}
-                                 width='130'
-                                 height='80'
-                                 loading='lazy'
-                                 decoding='async'
-                              />
-                              <figcaption>{ingredient.author}</figcaption>
-                           </figure>
-                           <h3>{ingredient.name}</h3>
-                           <input type='checkbox' className={Style.check} id={ingredient.name} />
-                           <label htmlFor={ingredient.name} className='container'>Add</label>
-                           <h4>Quantity</h4>
-                           <CustomSelect values={Object.values(Quantity).map((value) => value)} />
-                        </article>
-                     ))}
-                  </div>
-               </details>
-            ))}
+            <ul>
+               {ingredientsCollection.map((ingredientType, index) => (
+                  <li key={ingredientType.id}>
+                     <button 
+                        type='button'
+                        onClick={() => setSelectedIngredients(ingredientsCollection[index].name)}
+                     >{ingredientType.name}</button>
+                  </li>
+               ))}
+            </ul>
+            <div className={Style.ingredients__container}>
+               {ingredientsCollection.map((ingredientList) => (
+                  ingredientList.types.map((ingredient) => (
+                     <article 
+                        key={ingredient.name} 
+                        id={(selectedIngredients === ingredientList.name) ? '' : 'no-display'} 
+                        className='container'>
+                        <figure>
+                           <img 
+                              src={`/images/${ingredient.img}.jpg`}
+                              alt={ingredient.name}
+                              width='130'
+                              height='80'
+                              loading='lazy'
+                              decoding='async'
+                           />
+                           <figcaption>{ingredient.author}</figcaption>
+                        </figure>
+                        <h3>{ingredient.name}</h3>
+                        <input type='checkbox' className={Style.check} id={ingredient.name} />
+                        <label htmlFor={ingredient.name} className='container'>Add</label>
+                        <h4>Quantity</h4>
+                        <CustomSelect values={Object.values(Quantity).map((value) => value)} selectedValue={0} />
+                     </article>
+                  )
+               )))}
+            </div>
 			</div>
       </form>
    )
