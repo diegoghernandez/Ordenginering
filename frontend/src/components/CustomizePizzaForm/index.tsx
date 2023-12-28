@@ -1,20 +1,35 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
-import ingredientsCollection from "../../data/ingredients.json"
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 import type { Pizza } from '../../types'
 import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage'
 import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
 import { IncreaseQuantity } from '../IncreaseQuantity'
-import Style from './customizeForm.module.css'
+import ingredientsCollection from "../../data/ingredients.json"
+import pizzaList from "../../data/pizza.json"
+import Style from './CustomizePizzaForm.module.css'
 
-export function FormWrapper() {
+interface Props {
+   selectedPizza?: string,
+   children: ReactElement
+}
+
+export function CustomizePizzaForm({ selectedPizza, children }: Props) {
+   const getIngredientsFromSelectedPizza = () => {
+      return pizzaList
+      .filter((pizzaName) => pizzaName.name.toLowerCase().includes(selectedPizza ?? 'no text'))
+      .map((pizza) => ({
+         imageAuthor: pizza.image.author,
+         ingredients: pizza.ingredients.map((element) => element.toLowerCase())
+      }))[0]
+   }   
+
    const [characteristics, setCharacteristics] = useState({
       quantity: 1,
       size: Size.SMALL,
-      ingredients: 0
+      ingredients: getIngredientsFromSelectedPizza()?.ingredients?.length ?? 0
    })
    const [price, setPrice] = useState(0)
    const [selectedIngredients, setSelectedIngredients] = useState('Vegetables')
@@ -104,15 +119,8 @@ export function FormWrapper() {
       <form className={Style.form} onChange={handleChange} onSubmit={handleSubmit}>
          <div className={Style.form__customize}>
             <figure>
-               <img 
-                  className='pizza-custom' 
-                  src='/images/pizza/empty.jpeg' 
-                  alt='Empty pizza'
-                  width='320'
-                  height='260'
-                  decoding='sync'
-               />
-               <figcaption>Image by KamranAydinov on Freepik</figcaption>
+               {children}
+               <figcaption>{getIngredientsFromSelectedPizza()?.imageAuthor ?? 'Image by KamranAydinov on Freepik'}</figcaption>
             </figure>
             <p>${price}</p>
             <div>
@@ -154,7 +162,12 @@ export function FormWrapper() {
                            <figcaption>{ingredient.author}</figcaption>
                         </figure>
                         <h3>{ingredient.name}</h3>
-                        <input type='checkbox' className={Style.check} id={ingredient.name} />
+                        <input 
+                           id={ingredient.name} 
+                           defaultChecked={getIngredientsFromSelectedPizza()?.ingredients?.includes(ingredient.name.toLowerCase())}
+                           type='checkbox' 
+                           className={Style.check} 
+                        />
                         <label htmlFor={ingredient.name} className='container'>Add</label>
                         <h4>Quantity</h4>
                         <CustomSelect values={Object.values(Quantity).map((value) => value)} selectedValue={0} />

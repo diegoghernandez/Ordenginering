@@ -72,7 +72,7 @@
          "img": "meat/ham",
          "author": "Foto de Karo Kujanpaa en Unsplash"
       }, { 
-         "name": "Peperoni",
+         "name": "Pepperoni",
          "img": "meat/peperoni",
          "author": "Foto de Payam Tahery en Unsplash"
       }, { 
@@ -143,15 +143,15 @@
       "name": "Sauces",
 
       "types": [{
-         "name": "BBQ", 
+         "name": "BBQ sauce", 
          "img": "sauces/bbq",
          "author": "Image by KamranAydinov on Freepik"
       },{ 
-         "name": "Pesto", 
+         "name": "Pesto sauce", 
          "img": "sauces/pesto",
          "author": "Foto de Artur Rutkowski en Unsplash"
       },{ 
-         "name": "Buffalo", 
+         "name": "Buffalo sauce", 
          "img": "sauces/buffalo",
          "author": "Image by jcomp on Freepik"
       },{ 

@@ -11,7 +11,7 @@ const { title } = Astro.props;
 const pages = [
 	{ name: 'Home', link: '/'},
 	{ name: 'Menu', link: '/menu'},
-	{ name: 'Customize', link: '/customize'}
+	{ name: 'Customize', link: '/customize/empty'}
 ]
 
 const socialLinks = [
@@ -30,7 +30,7 @@ const socialLinks = [
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<ViewTransitions fallback="none" />
+		{/*<ViewTransitions fallback="animate" /> */}
 	</head>
 	<body>
 		<nav>
@@ -76,6 +76,7 @@ const socialLinks = [
 	}
 	nav {
 		display: flex;
+		height: 50px;
 		padding: 4px 8px;
 		justify-content: space-between;
 		background-color: #FF8B2E;

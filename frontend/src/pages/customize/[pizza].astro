@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
+import { CustomizePizzaForm } from '../../components/CustomizePizzaForm'
+import Layout from '../../layouts/Layout.astro'
+import pizzaList from '../../data/pizza.json'
+
+
+export const getStaticPaths = (() => {
+	return [
+		{ params: { pizza: 'empty' }},
+		...pizzaList.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
+	]
+}) satisfies GetStaticPaths
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>
+
+const { pizza } = Astro.params as Params
+
+const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
+---
+
+<Layout title={`Customize your ${pizza.replace('-', ' ')} pizza`}>
+	<main>
+		<h1>Customize your {getDefaultName(pizza)} pizza</h1>
+		<CustomizePizzaForm selectedPizza={pizza.replace('-', ' ')} client:load >
+			<img 
+				class='pizza-custom' 
+				src={`/images/pizza/${pizza}.jpg`}
+				alt='Empty pizza'
+				width='320'
+				height='260'
+				decoding='sync'
+				transition:name={`image-${pizza.replace('-', ' ')}`}
+			/>
+		</CustomizePizzaForm>
+	</main>
+</Layout>
+
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		min-height: 90svh;
+		padding: 12px 16px;
+		gap: 12px;
+		background-color: white;
+		& h1 {
+			width: 100%;
+			text-align: center;
+		}
+	}
+</style>

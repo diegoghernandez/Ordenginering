@@ -13,12 +13,16 @@ import { Size } from "../constants/size";
 		<h1>Menu</h1>
 		{PizzaList.map((pizza) => (
 			<article class="container">
-				<Image 
-					src={`/images/pizza/${pizza.image.url}.jpg`}
-					alt={`${pizza.name} pizza`}
-					width="280"
-					height="220"
-				/>
+				<figure>
+					<Image 
+						src={`/images/pizza/${pizza.image.url}.jpg`}
+						alt={`${pizza.name} pizza`}
+						width="280"
+						height="220"
+						transition:name={`image-${pizza.name.replace(' ', '-').toLowerCase()}`}
+					/>
+					<figcaption>{pizza.image.author}</figcaption>
+				</figure>
 				<h2>{pizza.name}</h2>
 				<p>{pizza.ingredients.join(', ')}</p>
 				<div class="button-container">
@@ -29,7 +33,7 @@ import { Size } from "../constants/size";
 						ingredients: pizza.ingredients
 							.map((ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
 					}} />
-					<a class="container" href="/customize">Personalizar</a>
+					<a class="container" href={`/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 				</div>
 			</article>
 		))}

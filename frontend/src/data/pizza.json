@@ -42,7 +42,7 @@
    {
       "name": "BBQ Chicken",
       "image": {
-         "url": "bbq",
+         "url": "bbq-chicken",
          "author": "Foto de Sharan Pagadala en Unsplash"
       },
       "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
@@ -74,7 +74,7 @@
    {
       "name": "Pesto Chicken",
       "image": {
-         "url": "pesto",
+         "url": "pesto-chicken",
          "author": "generada por DALL·E 3"
       },
       "ingredients": ["Pesto Sauce", "Grilled Chicken", "Sun-Dried Tomatoes", "Mozzarella", "Parmesan"]
@@ -82,7 +82,7 @@
    {
       "name": "Buffalo Chicken",
       "image": {
-         "url": "buffalo",
+         "url": "buffalo-chicken",
          "author": "generada por DALL·E 3"
       },
       "ingredients": ["Buffalo Sauce", "Grilled Chicken", "Red Onions", "Mozzarella", "Blue Cheese"]
