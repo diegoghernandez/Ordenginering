@@ -1,0 +1,16 @@
+.spin {
+   width: 56px;
+   height: 56px;
+   border-style: outset;
+   border-width: 4px;
+   border-color: brown;
+   border-right-color: blue;
+   border-radius: 9999px;
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   100% {
+      transform: rotate(360deg);
+   }
+}

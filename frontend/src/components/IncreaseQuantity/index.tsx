@@ -1,6 +1,6 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import type { Size } from "../../constants/size";
-import Styles from "./increaseQuality.module.css";
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import type { Size } from '../../constants/size';
+import Styles from './IncreaseQuality.module.css';
 
 type Value = {
    quantity: number,
@@ -9,14 +9,15 @@ type Value = {
 }
 
 interface Props {
-   setValue: Dispatch<SetStateAction<Value>>
+   defaultValue?: number
+   setValue?: Dispatch<SetStateAction<Value>>
 }
 
-export function IncreaseQuantity({ setValue }: Props) {
-   const [number, setNumber] = useState(1)
+export function IncreaseQuantity({ defaultValue = 1, setValue }: Props) {
+   const [number, setNumber] = useState(defaultValue)
 
    useEffect(() => {
-      setValue((prevState) => ({
+      setValue?.((prevState) => ({
          ...prevState,
          quantity: number
       }))
@@ -34,9 +35,9 @@ export function IncreaseQuantity({ setValue }: Props) {
 
    return (
       <div className={`${Styles.increase}`}>
-         <button type="button" className={`${Styles.left}`} onClick={decrease}>-</button>
+         <button type='button' className={`${Styles.left}`} onClick={decrease}>-</button>
          <p>{number}</p>
-         <button type="button" className={`${Styles.right}`} onClick={increase}>+</button>
+         <button type='button' className={`${Styles.right}`} onClick={increase}>+</button>
       </div>
    )
 }

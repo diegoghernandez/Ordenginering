@@ -8,4 +8,5 @@ export interface Pizza {
       name: string,
       quantity?: Quantity
    }[];
+   quantity?: number
 }

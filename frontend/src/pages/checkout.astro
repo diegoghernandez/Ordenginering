@@ -1,0 +1,72 @@
+---
+import { ShowOrders } from "../components/ShowOrders";
+import Layout from "../layouts/Layout.astro";
+
+type Inputs = {
+   name: string,
+   type: astroHTML.JSX.HTMLInputTypeAttribute,
+   required?: boolean
+}
+
+const locationInputs: Inputs[] = [
+   { name: 'Country', type: 'text' },
+   { name: 'City', type: 'text' },
+   { name: 'Street', type: 'text' },
+   { name: 'House number', type: 'number' },
+   { name: 'Aparment', type: 'number', required: false },
+   { name: 'Floor', type: 'number', required: false },
+]
+
+---
+
+<Layout title="Checkout order">
+   <main>
+      <h1>Cart</h1>
+      <div>
+         <h2>Delivery address</h2>
+         <form>
+            {locationInputs.map((element) => (
+               <label>
+                  {element.name}
+                  <input 
+                     type={element.type}
+                     required={element?.required ?? true}
+                  >
+               </label>
+            ))}
+            <button>Accept</button>
+         </form>
+      </div>
+      <div>
+         <h2>Your order</h2>   
+         <ShowOrders client:idle />
+      </div>
+   </main>
+</Layout>
+
+<script>
+   const formulary = document.forms[0]
+
+   formulary.addEventListener('submit', (event) => {
+      event.preventDefault()
+
+      const { elements } = event.currentTarget
+
+      for (const element of elements) {
+         if (element instanceof HTMLInputElement && element.value) {
+            console.log(element.value);
+         }
+      }      
+   })
+</script>
+
+<style>
+   main {
+      display: flex;
+      flex-wrap: wrap;
+      & h1 {
+         display: block;
+         width: 100%;
+      }
+   }
+</style>

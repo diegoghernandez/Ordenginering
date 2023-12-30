@@ -1,6 +1,6 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
 import { ShoppingCart } from '../components/ShoppingCart';
+import '../index.css'
 
 interface Props {
 	title: string;
@@ -41,7 +41,9 @@ const socialLinks = [
 					</a>
 				))}
 			</div>
-			<ShoppingCart client:only="react" transition:persist />
+			<div>
+				<ShoppingCart client:idle transition:persist />
+			</div>
 		</nav>
 		<slot />
 		<footer>

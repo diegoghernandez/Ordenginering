@@ -1,14 +1,13 @@
 import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
+import ingredientsCollection from "../../data/ingredients.json"
+import pizzaList from "../../data/pizza.json"
 import { useShoppingCart } from '../../hooks/useShoppingCart'
-import type { Pizza } from '../../types'
 import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage'
 import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
 import { IncreaseQuantity } from '../IncreaseQuantity'
-import ingredientsCollection from "../../data/ingredients.json"
-import pizzaList from "../../data/pizza.json"
 import Style from './CustomizePizzaForm.module.css'
 
 interface Props {
@@ -97,22 +96,19 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
          if (input?.checked) desireArticles.push(element)
       }
 
-      const newPizza: Pizza = {
-         name: 'Custom',
+      const newPizza = {
+         name: `Custom ${selectedPizza}`,
          size: characteristics.size,
          ingredients: desireArticles.map((element) => ({ 
             name: element.querySelector('h3')?.innerHTML ?? '', 
             quantity: Object.values(Quantity)
                .map((key) => Quantity[key])
                .filter((value) => value === element.querySelector('select')?.value)[0]
-         }))
+         })),
+         quantity: characteristics.quantity
       }
-
-      for (let i = 0; i < characteristics.quantity; i++) {
-         addPizza(newPizza)
-         pizzaToLocalStorage(newPizza)
-      }      
-
+      addPizza(newPizza)
+      pizzaToLocalStorage(newPizza)
    }
 
    return (
