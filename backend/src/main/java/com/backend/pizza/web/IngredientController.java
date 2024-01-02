@@ -15,7 +15,7 @@ import java.util.List;
 public class IngredientController {
 
    @GetMapping(value = "/all", produces = {"application/json"})
-   public ResponseEntity<List<IngredientEntity>> getAllPizza() {
+   public ResponseEntity<List<IngredientEntity>> getAllIngredients() {
       var ingredientList = new ArrayList<IngredientEntity>();
 
       ingredientList.add(IngredientEntity.builder()
