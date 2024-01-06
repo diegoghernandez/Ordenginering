@@ -15,11 +15,13 @@ describe('Shopping cart tests', () => {
    it('Should render number correctly', () => {
       useShoppingCart.setState({
          pizza: [{
-            id: 1,
+            id: '9398812b-8ba2-4a20-8613-339c13df14ca',
             name: 'Pepperoni',
             size: Size.MEDIUM,
-            cheese: Quantity.NORMAL,
-            ingredients: ['Pepperoni']
+            ingredients: [{
+               name: 'Pepperoni',
+               quantity: Quantity.EXTRA
+            }]
          }]
       })
       
@@ -27,10 +29,8 @@ describe('Shopping cart tests', () => {
 
       expect(screen.getByText('1')).toBeDefined()
       fireEvent.click(screen.getByRole('button'))
-
       expect(screen.getByText('Pepperoni')).toBeDefined()
       expect(screen.getByText('Size: MEDIUM')).toBeDefined()
-      expect(screen.getByText('Cheese: NORMAL')).toBeDefined()
       expect(screen.getByText('Ingredients: Pepperoni')).toBeDefined()
    })
 })
