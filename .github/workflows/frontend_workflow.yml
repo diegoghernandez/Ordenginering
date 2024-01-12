@@ -1,0 +1,32 @@
+name: Deploy to Chromatic and Azure
+
+on:
+   push:
+      paths: [fronted/**, .github/workflows/fronted_workflow.yml, '!**.md', '!**.MD']
+      branches:
+         - main 
+
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
+
+jobs:
+   test:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: fronted
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: fronted
+            fetch-depth: 0
+         - uses: actions/setup-node@v4
+           with:
+            node-version: 18
+            cache: 'npm'
+            cache-dependency-path: fronted/package-lock.json
+         - name: Install dependencies
+           run: npm ci
+         - name: Test project
+           run: npm run test
