@@ -1,4 +1,4 @@
-name: Deploy to Chromatic and Azure
+name: Test frontend workflow
 
 on:
    push:
@@ -15,17 +15,17 @@ jobs:
       runs-on: ubuntu-22.04
       defaults:
          run:
-            working-directory: fronted
+            working-directory: frontend
       steps:
          - uses: actions/checkout@v4
            with:
-            sparse-checkout: fronted
+            sparse-checkout: frontend
             fetch-depth: 0
          - uses: actions/setup-node@v4
            with:
             node-version: 18
             cache: 'npm'
-            cache-dependency-path: fronted/package-lock.json
+            cache-dependency-path: frontend/package-lock.json
          - name: Install dependencies
            run: npm ci
          - name: Test project
