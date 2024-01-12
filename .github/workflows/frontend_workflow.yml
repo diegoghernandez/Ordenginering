@@ -2,7 +2,7 @@ name: Deploy to Chromatic and Azure
 
 on:
    push:
-      paths: [fronted/**, .github/workflows/fronted_workflow.yml, '!**.md', '!**.MD']
+      paths: [fronted/**, .github/workflows/frontend_workflow.yml, '!**.md', '!**.MD']
       branches:
          - main 
 
