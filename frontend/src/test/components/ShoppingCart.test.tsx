@@ -4,7 +4,7 @@ import { useShoppingCart } from '../../hooks/useShoppingCart'
 import { Quantity } from '../../constants/quantity'
 import { ShoppingCart } from '../../components/ShoppingCart'
 
-describe('Shopping cart tests', () => {
+describe('ShoppingCart component tests', () => {
    it('Should render correctly', () => {
       render(<ShoppingCart />)
    
@@ -19,6 +19,7 @@ describe('Shopping cart tests', () => {
             name: 'Pepperoni',
             size: Size.MEDIUM,
             ingredients: [{
+               id: 1,
                name: 'Pepperoni',
                quantity: Quantity.EXTRA
             }]

@@ -26,7 +26,7 @@ const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.sli
 			<img 
 				class='pizza-custom' 
 				src={`/images/pizza/${pizza}.jpg`}
-				alt='Empty pizza'
+				alt={`${getDefaultName(pizza)} pizza`}
 				width='320'
 				height='260'
 				decoding='sync'

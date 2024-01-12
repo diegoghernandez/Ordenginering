@@ -9,7 +9,7 @@ export interface Pizza {
 }
 
 export interface Ingredient {
-   id: number
+   id?: number
    name: string,
    quantity?: Quantity
 }

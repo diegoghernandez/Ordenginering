@@ -144,6 +144,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
                   ingredientList.types.map((ingredient) => (
                      <article 
                         key={ingredient.name} 
+                        hidden={selectedIngredients === ingredientList.name}
                         id={(selectedIngredients === ingredientList.name) ? '' : 'no-display'} 
                         className='container'>
                         <figure>

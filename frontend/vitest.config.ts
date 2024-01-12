@@ -6,5 +6,5 @@ export default getViteConfig({
       globals: true,
       environment: 'happy-dom',
       setupFiles: './src/test/setup-vitest.ts'
-   },
-});
+   }
+})

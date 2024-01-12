@@ -28,9 +28,7 @@ export function IncreaseQuantity({ defaultValue = 1, setValue }: Props) {
    }
 
    const decrease = () => {
-      if (number > 1) {
-         setNumber((prev) => prev - 1)
-      }
+      if (number > 1) setNumber((prev) => prev - 1)
    }
 
    return (

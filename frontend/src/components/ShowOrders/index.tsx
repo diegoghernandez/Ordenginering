@@ -15,10 +15,10 @@ export function ShowOrders() {
       if (id) {
          removePizza(id)
 
-         const getLocalStorage = localStorage.getItem('allPizza') ?? ''
+         const getLocalStorage = localStorage.getItem('allPizza') ?? '[]'
          const pizzaLocalStorage: Pizza[] = JSON.parse(getLocalStorage)
 
-         localStorage.setItem('allPizza', JSON.stringify(pizzaLocalStorage.filter((element) => element.id !== id)))
+         localStorage.setItem('allPizza', JSON.stringify(pizzaLocalStorage?.filter((element) => element.id !== id)))
       }
    }
    
@@ -33,7 +33,7 @@ export function ShowOrders() {
                   <IncreaseQuantity defaultValue={element.quantity} />
                   <button type='button' onClick={() => removeElement(element.id ?? '')}>X</button>
                </article>
-            )) : <div className={Styles.spin}></div>
+            )) : <div role="progressbar" aria-labelledby="loading content" className={Styles.spin}></div>
          }
       </div>
    )
