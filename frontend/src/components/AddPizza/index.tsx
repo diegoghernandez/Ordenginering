@@ -1,6 +1,6 @@
 import { useShoppingCart } from '../../hooks/useShoppingCart';
 import '../../index.css';
-import type { Pizza } from '../../types';
+import type { Pizza } from '../../../types';
 import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage';
 import Styles from './addPizza.module.css';
 

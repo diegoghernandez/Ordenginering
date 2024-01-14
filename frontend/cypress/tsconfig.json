@@ -1,0 +1,7 @@
+{
+   "extends": "astro/tsconfigs/strict",
+   "include": ["./e2e", "./support", "../types.d.ts"],
+   "compilerOptions": {
+     "types": ["cypress", "@testing-library/cypress"]
+   }
+ }

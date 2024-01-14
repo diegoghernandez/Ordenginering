@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
-import type { Pizza } from '../../types'
+import type { Pizza } from '../../../types'
 import '../../index.css'
 import Styles from './shoppingCart.module.css'
 
@@ -43,7 +43,7 @@ export function ShoppingCart() {
                         <h3>{pizza.name}</h3>
                         <p>Size: {pizza.size}</p>
                         <p>Ingredients: {pizza.ingredients.map((ingredient) => ingredient.name).join(', ')}</p>
-                        {pizza.quantity ? <p>{pizza.quantity}</p> : null}
+                        {pizza.quantity ? <p>Quantity: {pizza.quantity}</p> : null}
                      </article>
                   ))}
                   <button

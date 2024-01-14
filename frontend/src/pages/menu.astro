@@ -26,7 +26,7 @@ import { Size } from "../constants/size";
 				<h2>{pizza.name}</h2>
 				<p>{pizza.ingredients.join(', ')}</p>
 				<div class="button-container">
-					<button style="display: none;">{pizza.ingredients.join(', ')}</button>
+					<p style="display: none;">{pizza.ingredients.join(', ')}</p>
 					<AddPizza client:idle pizza={{
 						name: pizza.name,
 						size: Size.MEDIUM,

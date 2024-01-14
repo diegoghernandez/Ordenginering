@@ -1,5 +1,5 @@
+import type { Pizza } from "../../types";
 import type { ThrowStatement } from "typescript";
-import type { Pizza } from "../types";
 import { StatusError } from "./exceptions/StatusError";
 
 const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";

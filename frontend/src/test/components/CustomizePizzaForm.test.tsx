@@ -19,7 +19,7 @@ describe('CustomizePizzaForm component tests', () => {
 
       expect(screen.getByRole('heading', { name: 'Ingredients' })).toBeInTheDocument()
       expect(screen.getByRole('img', { name: 'Pepperoni pizza' })).toBeInTheDocument()
-      expect(screen.getByText('$50')).toBeInTheDocument()
+      expect(screen.getByText('$100')).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Vegetables' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Meat' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Cheese' })).toBeInTheDocument()
@@ -45,7 +45,7 @@ describe('CustomizePizzaForm component tests', () => {
       )
 
       expect(screen.getByRole('img', { name: 'Hawaiana pizza' })).toBeInTheDocument()
-      expect(screen.getByText('$110')).toBeInTheDocument()
+      expect(screen.getByText('$160')).toBeInTheDocument()
       expect(container.querySelectorAll('input:checked')).toHaveLength(3)
    })
 
@@ -64,27 +64,27 @@ describe('CustomizePizzaForm component tests', () => {
       )
       const user = userEvent.setup()
 
-      expect(screen.getByText('$50')).toBeInTheDocument()
+      expect(screen.getByText('$100')).toBeInTheDocument()
       expect(container.querySelectorAll('input:checked')).toHaveLength(0)
       
       await user.click(within(container.querySelectorAll('article')?.[0]).getByLabelText('Add'))
       await user.click(within(container.querySelectorAll('article')?.[1]).getByLabelText('Add'))
       
-      expect(screen.getByText('$90')).toBeInTheDocument()
+      expect(screen.getByText('$140')).toBeInTheDocument()
       expect(container.querySelectorAll('input:checked')).toHaveLength(2)
 
       await user.click(within(container.querySelectorAll('article')?.[1]).getByLabelText('Add'))
 
-      expect(screen.getByText('$70')).toBeInTheDocument()
+      expect(screen.getByText('$120')).toBeInTheDocument()
       expect(container.querySelectorAll('input:checked')).toHaveLength(1)
       
       await user.click(screen.getByText("+"))
+      
+      expect(screen.getByText('$240')).toBeInTheDocument()
 
-      expect(screen.getByText('$140')).toBeInTheDocument()
-      
-      await user.selectOptions(screen.getAllByRole('combobox')[0], 'LARGE')
-      
+      await user.selectOptions(screen.getAllByRole('combobox')[0], 'LARGE')      
       expect(screen.getByText('$340')).toBeInTheDocument()
+      
    })
 
    it('Should show the ingredient cards according to the desire type', () => {

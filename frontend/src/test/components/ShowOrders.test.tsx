@@ -4,35 +4,14 @@ import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 
-useShoppingCart.setState({
-   pizza: [{
-      id: '9398812b-8ba2-4a20-8613-339c13df14ca',
-      name: 'Pepperoni',
-      size: Size.MEDIUM,
-      quantity: 2,
-      ingredients: [{
-         id: 1,
-         name: 'Pepperoni',
-         quantity: Quantity.EXTRA
-      }]
-   }, {
-      id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
-      name: 'Custom',
-      size: Size.MEDIUM,
-      ingredients: [{
-         id: 1,
-         name: 'Pepperoni',
-         quantity: Quantity.EXTRA
-      }, {
-         id: 6,
-         name: 'Blue Cheese',
-         quantity: Quantity.EXTRA
-      }]
-   }]
-})
-
 describe('ShowOrders component tests', () => { 
+   it('Should show a message if there is no pizza' , () => {
+      render(<ShowOrders />)
+      expect(screen.getByText('No orders')).toBeInTheDocument()
+   })
+
    it('Should render correctly', async () => {
+      setPizza()
       render(<ShowOrders />)
       const pizzaContainers = screen.getAllByRole('article')
 
@@ -44,6 +23,7 @@ describe('ShowOrders component tests', () => {
    })
 
    it('Should delete correctly one card', async () => {
+      setPizza()
       render(<ShowOrders />)
 
       expect(screen.getAllByRole('article')).toHaveLength(2)
@@ -53,3 +33,32 @@ describe('ShowOrders component tests', () => {
       expect(screen.getAllByRole('article')).toHaveLength(1)
    })
 })
+
+const setPizza = () => {
+   useShoppingCart.setState({
+      pizza: [{
+         id: '9398812b-8ba2-4a20-8613-339c13df14ca',
+         name: 'Pepperoni',
+         size: Size.MEDIUM,
+         quantity: 2,
+         ingredients: [{
+            id: 1,
+            name: 'Pepperoni',
+            quantity: Quantity.EXTRA
+         }]
+      }, {
+         id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
+         name: 'Custom',
+         size: Size.MEDIUM,
+         ingredients: [{
+            id: 1,
+            name: 'Pepperoni',
+            quantity: Quantity.EXTRA
+         }, {
+            id: 6,
+            name: 'Blue Cheese',
+            quantity: Quantity.EXTRA
+         }]
+      }]
+   })
+}

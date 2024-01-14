@@ -1,4 +1,4 @@
-import type { Pizza } from "../types";
+import type { Pizza } from "../../types"
 
 export function pizzaToLocalStorage(pizza: Pizza) {
    const pizzaWithId = { id: crypto.randomUUID(), ...pizza}

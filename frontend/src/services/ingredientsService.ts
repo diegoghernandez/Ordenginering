@@ -1,4 +1,4 @@
-import type { Ingredient } from "../types";
+import type { Ingredient } from "../../types";
 
 const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";
 const API = URL +  "/ingredient";

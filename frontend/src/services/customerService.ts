@@ -1,4 +1,4 @@
-import type { Customer } from "../types";
+import type { Customer } from "../../types";
 
 const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";
 const API = URL +  "/customer";

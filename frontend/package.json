@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@astrojs/check": "0.3.1",
@@ -22,12 +23,15 @@
     "zustand": "4.4.7"
   },
   "devDependencies": {
+    "@testing-library/cypress": "10.0.1",
     "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.2",
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
+    "cypress": "13.6.2",
     "eslint-plugin-react": "7.33.2",
+    "eslint-plugin-cypress": "2.15.1",
     "happy-dom": "12.10.3",
     "msw": "2.0.11",
     "typescript": "5.2.2",

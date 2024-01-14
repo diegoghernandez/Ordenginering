@@ -18,16 +18,16 @@ interface Props {
 export function CustomizePizzaForm({ selectedPizza, children }: Props) {
    const getIngredientsFromSelectedPizza = () => {
       return pizzaList
-      .filter((pizzaName) => pizzaName.name.toLowerCase().includes(selectedPizza ?? 'no text'))
-      .map((pizza) => ({
-         imageAuthor: pizza.image.author,
-         ingredients: pizza.ingredients.map((element) => element.toLowerCase())
-      }))[0]
+         .filter((pizzaName) => pizzaName.name.toLowerCase().includes(selectedPizza ?? 'no text'))
+         .map((pizza) => ({
+            imageAuthor: pizza.image.author,
+            ingredients: pizza.ingredients.map((element) => element.toLowerCase())
+         }))[0]
    }   
 
    const [characteristics, setCharacteristics] = useState({
       quantity: 1,
-      size: Size.SMALL,
+      size: Size.MEDIUM,
       ingredients: getIngredientsFromSelectedPizza()?.ingredients?.length ?? 0
    })
    const [price, setPrice] = useState(0)
@@ -91,6 +91,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
       const articles = event.currentTarget.getElementsByTagName('article')
       
       const desireArticles: HTMLElement[] = []
+
       for (const element of articles) {
          const input = element.querySelector('input')
          if (input?.checked) desireArticles.push(element)
