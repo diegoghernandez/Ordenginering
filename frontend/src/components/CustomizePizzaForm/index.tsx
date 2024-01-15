@@ -4,7 +4,6 @@ import { Size } from '../../constants/size'
 import ingredientsCollection from "../../data/ingredients.json"
 import pizzaList from "../../data/pizza.json"
 import { useShoppingCart } from '../../hooks/useShoppingCart'
-import { pizzaToLocalStorage } from '../../utils/pizzaToLocalStorage'
 import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
 import { IncreaseQuantity } from '../IncreaseQuantity'
@@ -109,7 +108,6 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
          quantity: characteristics.quantity
       }
       addPizza(newPizza)
-      pizzaToLocalStorage(newPizza)
    }
 
    return (

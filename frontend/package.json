@@ -10,7 +10,7 @@
     "astro": "astro",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives",
     "test": "vitest",
-    "cy:run": "cypress run --headed --browser electron",
+    "cy:run": "cypress run",
     "cy:open": "cypress open"
   },
   "dependencies": {

@@ -12,14 +12,7 @@ export function ShowOrders() {
    useEffect(() => setPizza(pizzaList), [pizzaList])
    
    const removeElement = (id: string) => {
-      if (id) {
-         removePizza(id)
-
-         const getLocalStorage = localStorage.getItem('allPizza') ?? '[]'
-         const pizzaLocalStorage: Pizza[] = JSON.parse(getLocalStorage)
-
-         localStorage.setItem('allPizza', JSON.stringify(pizzaLocalStorage?.filter((element) => element.id !== id)))
-      }
+      if (id) removePizza(id)
    }
    
 

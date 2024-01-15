@@ -10,9 +10,17 @@ interface CartState {
 export const useShoppingCart = create<CartState>()((set) => ({
    pizza: [],
    addPizza: (pizza) => {
-      set((state) => ({ pizza: [...state.pizza,  {id: crypto.randomUUID(), ...pizza}] }))
+      set((state) => {
+         const pizzaList = [...state.pizza,  {id: crypto.randomUUID(), ...pizza}]
+         localStorage.setItem('allPizza', JSON.stringify(pizzaList))
+         return { pizza: pizzaList }
+      })
    },
    removePizza: (id) => {
-      set((state) => ({ pizza: [...state.pizza.filter((element) => element.id !== id)] }))
+      set((state) => {
+         const pizzaList = [...state.pizza.filter((element) => element.id !== id)]
+         localStorage.setItem('allPizza', JSON.stringify(pizzaList))
+         return { pizza: pizzaList }
+      })
    }
 }))
