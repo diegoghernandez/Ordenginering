@@ -28,7 +28,8 @@ module.exports = {
 	},
 	"plugins": [
 		"@typescript-eslint",
-		"react"
+		"react",
+		"cypress"
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",

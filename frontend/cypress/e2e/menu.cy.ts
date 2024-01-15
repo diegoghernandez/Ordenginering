@@ -12,7 +12,7 @@ describe('Menu page e2e tests', () => {
       cy.findAllByRole('article').should('have.length', '13')
    })
 
-   it('Should a pizza to the shopping cart', () => {
+   it('Should save a pizza to the shopping cart', () => {
       cy.checkIfShoppingCartIsEmpty()
 
       cy.get('article').first().within(() => cy.get('button').click())

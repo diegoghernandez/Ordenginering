@@ -13,7 +13,7 @@ describe('Checkout page e2e tests', () => {
       locationInputs.forEach((name) => cy.findByLabelText(name).should('exist'))
       cy.findByRole('button', { name: 'Accept' }).should('exist')
 
-      cy.wait(200)
+      //cy.wait(200)
       cy.findByRole('heading', { name: 'Your order' }).should('exist')
       cy.findByText('No orders').should('exist')
    })
