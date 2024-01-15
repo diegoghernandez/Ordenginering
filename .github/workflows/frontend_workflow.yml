@@ -2,7 +2,7 @@ name: Test frontend workflow
 
 on:
    push:
-      paths: [fronted/**, .github/workflows/frontend_workflow.yml, '!**.md', '!**.MD']
+      paths: [frontend/**, .github/workflows/frontend_workflow.yml, '!**.md', '!**.MD']
       branches:
          - main 
 
