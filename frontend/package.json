@@ -10,7 +10,8 @@
     "astro": "astro",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives",
     "test": "vitest",
-    "cypress:open": "cypress open"
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@astrojs/check": "0.3.1",
