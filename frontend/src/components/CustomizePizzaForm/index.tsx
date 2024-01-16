@@ -7,6 +7,7 @@ import { useShoppingCart } from '../../hooks/useShoppingCart'
 import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
 import { IncreaseQuantity } from '../IncreaseQuantity'
+import { IngredientCard } from './IngredientCard'
 import Style from './CustomizePizzaForm.module.css'
 
 interface Props {
@@ -141,35 +142,14 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
             <div className={Style.ingredients__container}>
                {ingredientsCollection.map((ingredientList) => (
                   ingredientList.types.map((ingredient) => (
-                     <article 
-                        key={ingredient.name} 
-                        hidden={selectedIngredients === ingredientList.name}
-                        id={(selectedIngredients === ingredientList.name) ? '' : 'no-display'} 
-                        className='container'>
-                        <figure>
-                           <img 
-                              src={`/images/${ingredient.img}.jpg`}
-                              alt={ingredient.name}
-                              width='130'
-                              height='80'
-                              loading='lazy'
-                              decoding='async'
-                           />
-                           <figcaption>{ingredient.author}</figcaption>
-                        </figure>
-                        <h3>{ingredient.name}</h3>
-                        <input 
-                           id={ingredient.name} 
-                           defaultChecked={getIngredientsFromSelectedPizza()?.ingredients?.includes(ingredient.name.toLowerCase())}
-                           type='checkbox' 
-                           className={Style.check} 
-                        />
-                        <label htmlFor={ingredient.name} className='container'>Add</label>
-                        <h4>Quantity</h4>
-                        <CustomSelect values={Object.values(Quantity).map((value) => value)} selectedValue={0} />
-                     </article>
-                  )
-               )))}
+                     <IngredientCard 
+                        key={ingredient.name}
+                        isType={selectedIngredients === ingredientList.name} 
+                        ingredient={ingredient}
+                        isUsed={getIngredientsFromSelectedPizza()?.ingredients?.includes(ingredient.name.toLowerCase())}
+                     />
+                  ))
+               ))}
             </div>
 			</div>
       </form>

@@ -11,11 +11,6 @@ export function ShowOrders() {
 
    useEffect(() => setPizza(pizzaList), [pizzaList])
    
-   const removeElement = (id: string) => {
-      if (id) removePizza(id)
-   }
-   
-
    return (
       <div>
          {pizza ? 
@@ -25,7 +20,7 @@ export function ShowOrders() {
                      <h3>{element.name}</h3>
                      <p>{element.ingredients.map((ingredient) => ingredient.name).join(', ')}</p>
                      <IncreaseQuantity defaultValue={element.quantity} />
-                     <button type='button' onClick={() => removeElement(element.id ?? '')}>X</button>
+                     <button type='button' onClick={() => removePizza(element.id ?? '')}>X</button>
                   </article>
                )) 
             : <div role="progressbar" aria-labelledby="loading content" className={Styles.spin}></div>
