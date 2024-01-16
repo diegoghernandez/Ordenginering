@@ -34,7 +34,7 @@ Cypress.Commands.add('checkIfShoppingCartIsEmpty' , () => {
    const shoppingCart = cy.findByText('Cart')
    shoppingCart.within(() => cy.get('span').should('have.text', 0))
    
-   cy.wait(400)
+   cy.wait(600)
    
    shoppingCart.click()
    cy.findByRole('dialog').within(() => cy.get('article').should('have.length', 0))
