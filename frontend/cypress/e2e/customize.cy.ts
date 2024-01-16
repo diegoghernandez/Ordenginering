@@ -101,7 +101,7 @@ describe('Menu page e2e tests', () => {
          cy.findByText('Size: SMALL').should('exist')
          cy.findByText('Ingredients: Bell Peppers, Turkey, Chorizo, Calamar, Cheddar, BBQ sauce, Buffalo sauce').should('exist')
          cy.findByText('Quantity: 3').should('exist')
-         cy.findByRole('button').should('exist')
+         cy.findByRole('link').should('exist')
       })
    })
 })

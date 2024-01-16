@@ -69,7 +69,7 @@ describe('Tests for the customization of a prebuilt pizza from the menu page', (
          cy.findByText('Size: LARGE').should('exist')
          cy.findByText('Ingredients: Pineapple, Bell Peppers, Grilled Chicken, Pepperoni, Mozzarella').should('exist')
          cy.findByText('Quantity: 2').should('exist')
-         cy.findByRole('button').should('exist')
+         cy.findByRole('link').should('exist')
       })
    })
 })

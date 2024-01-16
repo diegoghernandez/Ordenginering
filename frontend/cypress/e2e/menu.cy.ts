@@ -38,7 +38,7 @@ describe('Menu page e2e tests', () => {
          cy.findByRole('heading', { name: 'Pepperoni' }).should('exist')
          cy.findByText('Size: MEDIUM').should('exist')
          cy.findByText('Ingredients: Pepperoni, Mozzarella').should('exist')
-         cy.findByRole('button').should('exist')
+         cy.findByRole('link').should('exist')
       })
    })
 })

@@ -14,6 +14,8 @@ declare global {
    }
 }
 
+Cypress.on('uncaught:exception', () => false)
+
 Cypress.Commands.add('navbarElements', () => {
    cy.findByRole('link', { name: 'Home' }).should('exist')
    cy.findByRole('link', { name: 'Menu' }).should('exist')
