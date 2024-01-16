@@ -50,13 +50,15 @@ const locationInputs: Inputs[] = [
    formulary.addEventListener('submit', (event) => {
       event.preventDefault()
 
-      const { elements } = event.currentTarget
-
-      for (const element of elements) {
-         if (element instanceof HTMLInputElement && element.value) {
-            console.log(element.value);
-         }
-      }      
+      if (event.currentTarget instanceof HTMLFormElement) {
+         const { elements } = event.currentTarget
+         
+         for (const element of elements) {
+            if (element instanceof HTMLInputElement && element.value) {
+               console.log(element.value);
+            }
+         }      
+      }
    })
 </script>
 

@@ -5,7 +5,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "target": "es2022",
-    "lib": ["es5", "dom"],
+    "lib": ["es5", "dom", "DOM.Iterable"],
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   }
 }
