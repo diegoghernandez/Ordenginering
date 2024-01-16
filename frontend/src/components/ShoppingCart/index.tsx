@@ -46,9 +46,7 @@ export function ShoppingCart() {
                         {pizza.quantity ? <p>Quantity: {pizza.quantity}</p> : null}
                      </article>
                   ))}
-                  <button
-                     onClick={() => globalThis.location.pathname = 'checkout'}
-                  >Buy</button>
+                  <a href='/checkout'>Buy</a>
                </dialog>
             , document.body) : null
          }
