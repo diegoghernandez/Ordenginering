@@ -1,13 +1,12 @@
 import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
-import ingredientsCollection from "../../data/ingredients.json"
 import pizzaList from "../../data/pizza.json"
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 import { AddPizza } from '../AddPizza'
 import { CustomSelect } from '../CustomSelect'
 import { IncreaseQuantity } from '../IncreaseQuantity'
-import { IngredientCard } from './IngredientCard'
+import { IngredientsContainer } from '../Ingredients/IngredientsContainer'
 import Style from './CustomizePizzaForm.module.css'
 
 interface Props {
@@ -31,7 +30,6 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
       ingredients: getIngredientsFromSelectedPizza()?.ingredients?.length ?? 0
    })
    const [price, setPrice] = useState(0)
-   const [selectedIngredients, setSelectedIngredients] = useState('Vegetables')
    const addPizza = useShoppingCart((state) => state.addPizza)
 
    useEffect(() => {
@@ -108,6 +106,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
          })),
          quantity: characteristics.quantity
       }
+      
       addPizza(newPizza)
    }
 
@@ -127,31 +126,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
                <CustomSelect values={Object.values(Size).map((value) => value)} />
             </div>
          </div>
-         <div className={Style.select__container}>
-				<h2>Ingredients</h2>
-            <ul>
-               {ingredientsCollection.map((ingredientType, index) => (
-                  <li key={ingredientType.id}>
-                     <button 
-                        type='button'
-                        onClick={() => setSelectedIngredients(ingredientsCollection[index].name)}
-                     >{ingredientType.name}</button>
-                  </li>
-               ))}
-            </ul>
-            <div className={Style.ingredients__container}>
-               {ingredientsCollection.map((ingredientList) => (
-                  ingredientList.types.map((ingredient) => (
-                     <IngredientCard 
-                        key={ingredient.name}
-                        isType={selectedIngredients === ingredientList.name} 
-                        ingredient={ingredient}
-                        isUsed={getIngredientsFromSelectedPizza()?.ingredients?.includes(ingredient.name.toLowerCase())}
-                     />
-                  ))
-               ))}
-            </div>
-			</div>
+         <IngredientsContainer preSelectedIngredients={getIngredientsFromSelectedPizza()?.ingredients} />
       </form>
    )
 }

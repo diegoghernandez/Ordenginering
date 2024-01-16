@@ -1,20 +1,23 @@
-import type { Ingredient } from "../../types";
+import type { IngredientRequest } from '../../types';
+import ingredientList from '../mocks/fixtures/ingredients.json';
 
-const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";
-const API = URL +  "/ingredient";
+const URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4436';
+const API = URL +  '/ingredient';
 
-type IngredientResponse = (Omit<Response, "json"> & {
+/* type IngredientResponse = (Omit<Response, 'json'> & {
    status: 200
-   json: () => Ingredient | PromiseLike<Ingredient>
-})
+   json: () => IngredientRequest | PromiseLike<IngredientRequest>
+}) */
 
-export async function getAllIngredients(): Promise<IngredientResponse> {
-   const response = await fetch(`${API}/all`, {
-      method: "GET",
+export async function getAllIngredients() {
+   /* const response = await fetch(`${API}/all`, {
+      method: 'GET',
       headers: {
-         "Content-Type": "application/json",
+         'Content-Type': 'application/json',
       },
-   })
+   }) */
 
-   return response.json()
+   //return response.json()
+   const formatList: IngredientRequest[] = ingredientList.map((ingredient, index) => ({ id: index + 1, ...ingredient }))
+   return Promise.resolve(formatList)
 }

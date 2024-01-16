@@ -1,6 +1,6 @@
 import { Quantity } from '../../constants/quantity'
 import { CustomSelect } from '../CustomSelect'
-import Style from './CustomizePizzaForm.module.css'
+import Styles from './Ingredients.module.css';
 
 interface Props {
    isType: boolean,
@@ -34,7 +34,7 @@ export function IngredientCard({ isType, ingredient, isUsed } : Props) {
             id={ingredient.name} 
             defaultChecked={isUsed}
             type='checkbox' 
-            className={Style.check} 
+            className={Styles.check} 
          />
          <label htmlFor={ingredient.name} className='container'>Add</label>
          <h4>Quantity</h4>

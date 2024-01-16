@@ -20,10 +20,10 @@ describe('CustomizePizzaForm component tests', () => {
       expect(screen.getByRole('heading', { name: 'Ingredients' })).toBeInTheDocument()
       expect(screen.getByRole('img', { name: 'Pepperoni pizza' })).toBeInTheDocument()
       expect(screen.getByText('$100')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Vegetables' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Vegetable' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Meat' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Cheese' })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Sauces' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Sauce' })).toBeInTheDocument()
       expect(screen.getAllByRole('article', { hidden: true })).toHaveLength(35)
       expect(container.querySelectorAll('#no-display')).toHaveLength(21)
       expect(container.querySelectorAll('article:not(#no-display)')).toHaveLength(14)
@@ -128,7 +128,7 @@ describe('CustomizePizzaForm component tests', () => {
       expect(container.querySelectorAll('#no-display')).toHaveLength(25)
       expect(container.querySelectorAll('article:not(#no-display)')).toHaveLength(10)
 
-      fireEvent.click(screen.getByRole('button', { name: 'Sauces' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Sauce' }))
 
       expect(container.querySelectorAll('#no-display')).toHaveLength(31)
       expect(container.querySelectorAll('article:not(#no-display)')).toHaveLength(4)

@@ -14,6 +14,14 @@ export interface Ingredient {
    quantity?: Quantity
 }
 
+export interface IngredientRequest {
+   id: number
+   name: string,
+   type: string,
+   img: string,
+   author: string
+}
+
 export interface Customer {
    id: number,
    name: string,

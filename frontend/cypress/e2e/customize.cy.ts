@@ -22,10 +22,10 @@ describe('Menu page e2e tests', () => {
       
       cy.findByRole('heading', { name: 'Ingredients' }).should('exist')
       cy.findByRole('list').within(() => {
-         cy.findByRole('button', { name: 'Vegetables' }).should('exist')
+         cy.findByRole('button', { name: 'Vegetable' }).should('exist')
          cy.findByRole('button', { name: 'Meat' }).should('exist')
          cy.findByRole('button', { name: 'Cheese' }).should('exist')
-         cy.findByRole('button', { name: 'Sauces' }).should('exist')
+         cy.findByRole('button', { name: 'Sauce' }).should('exist')
       })
       cy.get('article').not('#no-display').should('have.length', '14')
    })
@@ -46,7 +46,7 @@ describe('Menu page e2e tests', () => {
       cy.clickVisibleArticleInCustomizePizza(1)
       cy.findByText('$200').should('exist')
       
-      cy.findByRole('button', { name: 'Sauces' }).click()
+      cy.findByRole('button', { name: 'Sauce' }).click()
       cy.clickVisibleArticleInCustomizePizza(0)
       cy.clickVisibleArticleInCustomizePizza(2)
       cy.findByText('$240').should('exist')
