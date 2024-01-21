@@ -1,20 +1,20 @@
-import type { Pizza } from "../../types";
-import type { ThrowStatement } from "typescript";
-import { StatusError } from "./exceptions/StatusError";
+import type { Pizza } from '../../types'
+import type { ThrowStatement } from 'typescript'
+import { StatusError } from './exceptions/StatusError'
 
-const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";
-const API = URL +  "/pizza";
+const URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4436'
+const API = URL +  '/pizza'
 
-type PizzaResponse = (Omit<Response, "json"> & {
+type PizzaResponse = (Omit<Response, 'json'> & {
    status: 200
    json: () => Pizza | PromiseLike<Pizza>
 })
 
 export async function getPizzaByAccount(id: number): Promise<PizzaResponse | ThrowStatement> {
    const response = await fetch(`${API}/account/${id}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-         "Content-Type": "application/json",
+         'Content-Type': 'application/json',
       },
    }) 
 

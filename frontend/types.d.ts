@@ -26,3 +26,14 @@ export interface Customer {
    id: number,
    name: string,
 }
+
+export interface Order {
+   idCustomer: number,
+   country: string,
+   city: string,
+   street: string,
+   houseNumber: number,
+   apartment?: number,
+   floor?: number,
+   pizzaList: Pizza[]
+}

@@ -15,7 +15,7 @@ describe('Menu page e2e tests', () => {
    it('Should save a pizza to the shopping cart', () => {
       cy.checkIfShoppingCartIsEmpty()
 
-      cy.get('article').first().within(() => cy.get('button').click())
+      cy.addPizzaInMenu(0)
 
       const pizzaList = [{
          name: 'Pepperoni',

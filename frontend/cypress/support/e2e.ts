@@ -7,6 +7,7 @@ declare global {
    namespace Cypress {
       interface Chainable {
          navbarElements(): void,
+         addPizzaInMenu(position: number): void
          clickVisibleArticleInCustomizePizza(position: number): Chainable<JQuery<HTMLElement>>,
          checkIfShoppingCartIsEmpty(): void,
          checkIfPizzaIsAddToShoppingCart(pizzaList: Pizza[]): void
@@ -23,6 +24,10 @@ Cypress.Commands.add('navbarElements', () => {
    cy.findByText('Cart').should('exist')
    cy.findByText('0').should('exist')
 })
+
+Cypress.Commands.add('addPizzaInMenu', (position) => 
+cy.get('article').eq(position).within(() => cy.get('button').click())
+)
 
 Cypress.Commands.add('clickVisibleArticleInCustomizePizza', (position) => 
    cy.get('article').not('#no-display').eq(position).within(() => cy.findByText('Add').click())

@@ -41,10 +41,16 @@ const locationInputs: Inputs[] = [
          <h2>Your order</h2>   
          <ShowOrders client:idle />
       </div>
+      <dialog>
+         <p>Order made correctly</p>
+      </dialog>
    </main>
 </Layout>
 
 <script>
+   import type { Order } from "../../types"
+   import { saveOrder } from "../services/orderService"
+
    const formulary = document.forms[0]
 
    formulary.addEventListener('submit', (event) => {
@@ -52,12 +58,30 @@ const locationInputs: Inputs[] = [
 
       if (event.currentTarget instanceof HTMLFormElement) {
          const { elements } = event.currentTarget
+         const location: string[] = []
          
          for (const element of elements) {
             if (element instanceof HTMLInputElement && element.value) {
-               console.log(element.value);
+               location.push(element.value);
             }
-         }      
+         }
+         
+         const order: Order = {
+            idCustomer: 1,
+            country: location[0],
+            city: location[1],
+            street: location[2],
+            houseNumber: Number(location[3]),
+            pizzaList: JSON.parse(localStorage.getItem('allPizza') ?? '')
+         }
+
+         saveOrder(order)
+            .then((result) => {
+               const modal = document.querySelector('dialog')
+               if (result) {
+                  modal?.showModal()
+               }
+            })
       }
    })
 </script>

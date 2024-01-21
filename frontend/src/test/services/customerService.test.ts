@@ -2,6 +2,10 @@ import { getCustomerData } from "../../services/customerService"
 
 describe('Customer service tests', () => {
    describe('getAccountData tests', () => {
+      it('Should be a function', () => {
+         expect(typeof getCustomerData).toBe('function')
+      })
+
       it('Should return the right values', async () => {
          const content = await getCustomerData('random@random.com')
 

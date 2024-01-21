@@ -2,6 +2,10 @@ import { getPizzaByAccount } from "../../services/pizzaService"
 
 describe('Pizza service tests', () => { 
    describe('getPizzaByAccount tests', () => { 
+      it('Should be a function', () => {
+         expect(typeof getPizzaByAccount).toBe('function')
+      })
+
       it('Should throw an StatusError if there is no element', async () => {
          await expect(getPizzaByAccount(321423))
             .rejects.toThrow('Pizza not found')
