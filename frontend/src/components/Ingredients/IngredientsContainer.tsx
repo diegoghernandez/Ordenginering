@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { IngredientTypes } from "../../constants/ingredientTypes";
+import { useItemMenu } from "../../hooks/useItemMenu";
 import { getAllIngredients } from "../../services/ingredientsService";
 import { IngredientCard } from "./IngredientCard";
 import Styles from './Ingredients.module.css';
@@ -11,26 +11,20 @@ interface Props {
 }
 
 export function IngredientsContainer({ preSelectedIngredients }: Props) {
-   const [selectedType, setSelectedType] = useState('VEGETABLE')
+   const { type, selectorButtons } = useItemMenu({
+      buttonTextList: Object.values(IngredientTypes),
+      typeList: Object.keys(IngredientTypes)
+   })
 
    return (
       <div className={Styles.select__container}>
          <h2>Ingredients</h2>
-         <ul>
-            {Object.entries(IngredientTypes).map((type) => (
-               <li key={type[0]}>
-                  <button 
-                     type='button'
-                     onClick={() => setSelectedType(type[0])}
-                  >{type[1]}</button>
-               </li>
-            ))}
-         </ul>
+         {selectorButtons}
          <div className={Styles.ingredients__container}>
             {ingredientsCollection.map((ingredient) => (
                <IngredientCard
                   key={ingredient.id}
-                  isType={selectedType === ingredient.type} 
+                  isType={type === ingredient.type} 
                   ingredient={{
                      name: ingredient.name,
                      author: ingredient.author,

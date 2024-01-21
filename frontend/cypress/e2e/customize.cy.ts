@@ -10,15 +10,15 @@ describe('Menu page e2e tests', () => {
 
       cy.findByRole('heading', { name: 'Customize your Empty pizza' }).should('exist')
 
-      cy.findByRole('img').first().should('have.attr', 'alt', 'Empty pizza')
+      cy.findAllByRole('img').first().should('have.attr', 'alt', 'Empty pizza')
       cy.findByText('$100').should('exist')
       cy.findByText('Agregar').should('exist')
-      cy.findByRole('heading', { name: 'Quantity' }).should('exist')
+      cy.findByRole('heading', { level: 2, name: 'Quantity' }).should('exist')
       cy.findByRole('button', { name: '-' }).should('exist')
       cy.findByText('1').should('exist')
       cy.findByRole('button', { name: '+' }).should('exist')
       cy.findByRole('heading', { name: 'Size' }).should('exist')
-      cy.findByRole('combobox').should('have.value', 'MEDIUM')
+      cy.findAllByRole('combobox').first().should('have.value', 'MEDIUM')
       
       cy.findByRole('heading', { name: 'Ingredients' }).should('exist')
       cy.findByRole('list').within(() => {
@@ -51,8 +51,8 @@ describe('Menu page e2e tests', () => {
       cy.clickVisibleArticleInCustomizePizza(2)
       cy.findByText('$240').should('exist')
       
-      cy.findByRole('combobox').select('SMALL')
-      cy.findByRole('combobox').should('have.value', 'SMALL')
+      cy.findAllByRole('combobox').first().select('SMALL')
+      cy.findAllByRole('combobox').first().should('have.value', 'SMALL')
       cy.findByText('$190').should('exist')
       
       cy.findByText('+').dblclick()

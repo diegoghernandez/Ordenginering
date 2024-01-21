@@ -14,7 +14,7 @@ interface Props {
 
 export function IngredientCard({ isType, ingredient, isUsed } : Props) {
    return (
-      <article 
+      <article
          hidden={isType}
          id={(isType) ? '' : 'no-display'} 
          className='container'>
