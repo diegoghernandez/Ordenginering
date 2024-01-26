@@ -1,9 +1,7 @@
 package com.backend.pizza.controller;
 
 import com.backend.pizza.TestDataUtil;
-import com.backend.pizza.constants.Size;
-import com.backend.pizza.persistence.entity.PizzaEntity;
-import com.backend.pizza.web.PizzaController;
+import com.backend.pizza.web.OrderController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -15,32 +13,39 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@WebMvcTest(PizzaController.class)
-class PizzaControllerTest {
+@WebMvcTest(OrderController.class)
+class OrderControllerTest {
 
    @Autowired
    private MockMvc mockMvc;
 
    @Test
-   void getPizzaByAccount() throws Exception {
+   void saveOrder() {
+      assertAll(
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/order/save")
+                              .contentType(MediaType.APPLICATION_JSON))
+                      .andExpect(MockMvcResultMatchers.status().isCreated())
+      );
+   }
+
+   @Test
+   void getOrdersByAccount() {
       var objectMapper = new ObjectMapper();
       objectMapper.registerModule(new JavaTimeModule());
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/pizza/account/432432")
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/account/6456546")
+                              .contentType(MediaType.APPLICATION_JSON))
+                      .andExpect(MockMvcResultMatchers.status().isNotFound()),
+
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/account/34")
                               .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestDataUtil.getPizzaList()))),
+                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestDataUtil.getOrderList())))
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/pizza/account/321980")
-                              .contentType(MediaType.APPLICATION_JSON))
-                      .andExpect(MockMvcResultMatchers.status().isNotFound())
       );
    }
 }

@@ -1,18 +1,22 @@
 package com.backend.pizza.persistence.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "customer")
 public class CustomerEntity {
 
@@ -29,6 +33,10 @@ public class CustomerEntity {
     @Column(length = 60, nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    private List<PizzaEntity> pizzaList;
+    @Column(name = "birth_date",nullable = false)
+    private LocalDate birthDate;
+
+    @Builder.Default
+    @Column(name = "creation_timestamp", nullable = false)
+    private LocalDateTime creationTimestamp = LocalDateTime.now();
 }

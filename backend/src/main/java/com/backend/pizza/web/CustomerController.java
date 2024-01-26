@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -19,6 +22,8 @@ public class CustomerController {
               .customerName("Customer")
               .email("random@random.com")
               .password("1234")
+              .birthDate(LocalDate.of(2020, 5, 23))
+              .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))
               .build();
 
       if (id == 3213) return new ResponseEntity<>(customer, HttpStatus.OK);

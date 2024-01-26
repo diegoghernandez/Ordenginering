@@ -2,27 +2,30 @@ package com.backend.pizza.persistence.entity;
 
 import com.backend.pizza.constants.Size;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
 
-@Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "pizza")
 public class PizzaEntity {
 
     @Id
     @Column(name = "id_pizza")
-    private Long idPizza;
+    private UUID idPizza;
 
-    @Column(name = "id_customer")
-    private Long idCustomer;
+    @Column(name = "id_order")
+    private UUID idOrder;
 
-    @Column(name = "pizza_name", length = 50, nullable = false)
+    @Column(name = "pizza_name", length = 50, nullable = false, unique = true)
     private String pizzaName;
 
     @Column(nullable = false, columnDefinition = "Decimal(5,2)")
@@ -32,14 +35,13 @@ public class PizzaEntity {
     @Column(nullable = false)
     private Size size;
 
-    @Builder.Default
-    @Column(name = "pizza_timestamp", nullable = false)
-    private LocalDateTime pizzaTimestamp = LocalDateTime.now();
+    @Column(name = "pizza_timestamp", nullable = false, columnDefinition = "DATETIME")
+    private LocalDateTime pizzaTimestamp;
 
     /*@OneToMany(mappedBy = "pizzaList")
     private List<IngredientEntity> ingredientList;*/
 
     @ManyToOne
-    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
-    private CustomerEntity customer;
+    @JoinColumn(name = "id_order", referencedColumnName = "id_order", insertable = false, updatable = false)
+    private OrderEntity order;
 }
