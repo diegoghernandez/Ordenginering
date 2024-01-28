@@ -1,12 +1,15 @@
 package com.backend.pizza;
 
 import com.backend.pizza.constants.Size;
+import com.backend.pizza.persistence.entity.CustomerEntity;
 import com.backend.pizza.persistence.entity.IngredientEntity;
 import com.backend.pizza.persistence.entity.OrderEntity;
 import com.backend.pizza.persistence.entity.PizzaEntity;
+import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +19,25 @@ import java.util.UUID;
 public final class TestDataUtil {
 
    private TestDataUtil() {}
+
+   public static CustomerEntity getCustomer() {
+      return CustomerEntity.builder()
+              .idCustomer(3213L)
+              .customerName("Customer")
+              .email("random@random.com")
+              .password("1234")
+              .birthDate(LocalDate.of(2020, 5, 23))
+              .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))
+              .build();
+   }
+
+   public static NecessaryValuesForChangeDto getDtoToExceptionInUpdateMethods() {
+      return new NecessaryValuesForChangeDto(34L,"Fake password");
+   }
+
+   public static NecessaryValuesForChangeDto getDtoToUpdateMethods() {
+      return new NecessaryValuesForChangeDto(64536L,"Correct password");
+   }
 
    public static List<IngredientEntity> getIngredientList() {
       return Arrays.asList(

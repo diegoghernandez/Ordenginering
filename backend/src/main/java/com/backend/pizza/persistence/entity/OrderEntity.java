@@ -42,7 +42,7 @@ public class OrderEntity {
 
    private Integer floor;
 
-   @Column(name = "order_timestamp", nullable = false, columnDefinition = "DATETIME")
+   @Column(name = "order_timestamp", columnDefinition = "TIMESTAMP")
    private LocalDateTime orderTimestamp;
 
    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)

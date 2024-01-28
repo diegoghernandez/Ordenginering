@@ -33,10 +33,9 @@ public class CustomerEntity {
     @Column(length = 60, nullable = false)
     private String password;
 
-    @Column(name = "birth_date",nullable = false)
+    @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
 
-    @Builder.Default
-    @Column(name = "creation_timestamp", nullable = false)
-    private LocalDateTime creationTimestamp = LocalDateTime.now();
+    @Column(name = "creation_timestamp", columnDefinition = "TIMESTAMP")
+    private LocalDateTime creationTimestamp;
 }

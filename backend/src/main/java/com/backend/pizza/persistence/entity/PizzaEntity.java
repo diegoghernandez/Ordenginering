@@ -35,7 +35,7 @@ public class PizzaEntity {
     @Column(nullable = false)
     private Size size;
 
-    @Column(name = "pizza_timestamp", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "pizza_timestamp", columnDefinition = "TIMESTAMP")
     private LocalDateTime pizzaTimestamp;
 
     /*@OneToMany(mappedBy = "pizzaList")
