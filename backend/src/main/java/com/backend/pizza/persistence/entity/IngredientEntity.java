@@ -4,13 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -21,7 +19,7 @@ public class IngredientEntity {
     @Column(name = "id_ingredient")
     private Long idIngredient;
 
-    @Column(name = "ingredient_name", length = 50, nullable = false)
+    @Column(name = "ingredient_name", length = 50, nullable = false, unique = true)
     private String ingredientName;
 
     @Column(name = "url_image", length = 50, nullable = false)

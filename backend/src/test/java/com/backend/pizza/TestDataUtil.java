@@ -40,7 +40,7 @@ public final class TestDataUtil {
    }
 
    public static List<IngredientEntity> getIngredientList() {
-      return Arrays.asList(
+      return List.of(
               IngredientEntity.builder()
                       .idIngredient(4324L)
                       .ingredientName("Queso")
@@ -48,12 +48,12 @@ public final class TestDataUtil {
                       .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
                       .build(),
 
-            IngredientEntity.builder()
-                    .idIngredient(65437L)
-                    .ingredientName("Pizza")
-                    .urlImage("Author")
-                    .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
-                    .build()
+              IngredientEntity.builder()
+                      .idIngredient(65437L)
+                      .ingredientName("Pizza")
+                      .urlImage("Author")
+                      .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .build()
       );
    }
 

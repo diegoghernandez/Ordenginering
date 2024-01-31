@@ -1,11 +1,14 @@
 package com.backend.pizza.web;
 
+import com.backend.pizza.domain.service.IngredientService;
+import com.backend.pizza.exceptions.NotAllowedException;
 import com.backend.pizza.persistence.entity.IngredientEntity;
+import com.backend.pizza.web.dto.IngredientDto;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,24 +17,39 @@ import java.util.List;
 @RequestMapping("/ingredient")
 public class IngredientController {
 
+   private final IngredientService ingredientService;
+
+   @Autowired
+   public IngredientController(IngredientService ingredientService) {
+      this.ingredientService = ingredientService;
+   }
+
    @GetMapping(value = "/all", produces = {"application/json"})
    public ResponseEntity<List<IngredientEntity>> getAllIngredients() {
-      var ingredientList = new ArrayList<IngredientEntity>();
+      var ingredientList = ingredientService.getAllIngredients();
 
-      ingredientList.add(IngredientEntity.builder()
-                      .idIngredient(4324L)
-                      .ingredientName("Queso")
-                      .urlImage("Author")
-                      .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
-              .build());
+      return (ingredientList.isEmpty()) ?
+              new ResponseEntity<>(HttpStatus.NOT_FOUND) :
+              new ResponseEntity<>(ingredientList, HttpStatus.OK);
+   }
 
-      ingredientList.add(IngredientEntity.builder()
-                      .idIngredient(65437L)
-                      .ingredientName("Pizza")
-                      .urlImage("Author")
-                      .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
-              .build());
+   @PostMapping(value = "/save/one", produces = {"application/json"})
+   public ResponseEntity<String> saveIngredient(@Valid @RequestBody IngredientDto ingredientDto) {
+      try {
+         ingredientService.saveIngredient(ingredientDto);
+         return new ResponseEntity<>("Ingredient save correctly", HttpStatus.OK);
+      } catch (NotAllowedException e) {
+         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+      }
+   }
 
-      return new ResponseEntity<>(ingredientList, HttpStatus.OK);
+   @PostMapping(value = "/save/list", produces = {"application/json"})
+   public ResponseEntity<String> saveIngredientList(@Valid @RequestBody List<IngredientDto> ingredientDto) {
+      try {
+         ingredientService.saveIngredientList(ingredientDto);
+         return new ResponseEntity<>("All ingredients save correctly", HttpStatus.OK);
+      } catch (NotAllowedException e) {
+         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+      }
    }
 }
