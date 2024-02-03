@@ -8,6 +8,7 @@ import com.backend.pizza.web.IngredientController;
 import com.backend.pizza.web.dto.IngredientDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ class IngredientControllerTest {
    private IngredientService ingredientService;
 
    @Test
+   @DisplayName("Should return a not found status instead of all ingredients")
    void getAllIngredients__NOT__FOUND() throws Exception {
       Mockito.when(ingredientService.getAllIngredients())
               .thenReturn(List.of());
@@ -42,6 +44,7 @@ class IngredientControllerTest {
    }
 
    @Test
+   @DisplayName("Should return all ingredients available using the repository if exist")
    void getAllIngredients__OK() throws Exception {
       Mockito.when(ingredientService.getAllIngredients())
               .thenReturn(TestDataUtil.getIngredientList());
@@ -55,6 +58,7 @@ class IngredientControllerTest {
    }
 
    @Test
+   @DisplayName("Should catch an error instead of save it and return a bad request with a message")
    void saveIngredient__BAD__REQUEST() throws Exception {
       Mockito.doThrow(new NotAllowedException("No repeat name"))
               .when(ingredientService).saveIngredient(Mockito.isA(IngredientDto.class));
@@ -75,6 +79,7 @@ class IngredientControllerTest {
    }
 
    @Test
+   @DisplayName("Should save one ingredientDto using the service")
    void saveIngredient__OK() throws Exception {
       Mockito.doNothing().when(ingredientService).saveIngredient(Mockito.isA(IngredientDto.class));
 
@@ -94,6 +99,7 @@ class IngredientControllerTest {
    }
 
    @Test
+   @DisplayName("Should catch an error instead of save them and return a bad request with a message")
    void saveIngredientList__BAD__REQUEST() throws Exception {
       Mockito.doThrow(new NotAllowedException("No repeat name"))
               .when(ingredientService).saveIngredientList(Mockito.anyList());
@@ -121,6 +127,7 @@ class IngredientControllerTest {
    }
 
    @Test
+   @DisplayName("Should save the ingredientDto list using the service")
    void saveIngredientList__OK() throws Exception {
       Mockito.doNothing().when(ingredientService).saveIngredientList(Mockito.anyList());
 
@@ -138,7 +145,7 @@ class IngredientControllerTest {
       );
 
       var objectMapper = new ObjectMapper();
-
+      
       mockMvc.perform(MockMvcRequestBuilders.post("/ingredient/save/list")
                       .contentType(MediaType.APPLICATION_JSON)
                       .content(objectMapper.writeValueAsString(ingredientDtoList)))
