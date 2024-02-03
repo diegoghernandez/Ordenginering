@@ -2,16 +2,15 @@ package com.backend.pizza.persistence.entity;
 
 import com.backend.pizza.constants.Size;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,12 +27,15 @@ public class PizzaEntity {
     @Column(name = "pizza_name", length = 50, nullable = false, unique = true)
     private String pizzaName;
 
-    @Column(nullable = false, columnDefinition = "Decimal(5,2)")
-    private Double price;
+    @NotNull
+    private Integer price;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Size size;
+
+    @NotNull
+    private Integer quantity;
 
     @Column(name = "pizza_timestamp", columnDefinition = "TIMESTAMP")
     private LocalDateTime pizzaTimestamp;

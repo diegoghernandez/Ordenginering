@@ -1,8 +1,12 @@
 package com.backend.pizza.web;
 
 import com.backend.pizza.constants.Size;
+import com.backend.pizza.domain.service.OrderService;
 import com.backend.pizza.persistence.entity.OrderEntity;
 import com.backend.pizza.persistence.entity.PizzaEntity;
+import com.backend.pizza.web.dto.OrderDto;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,68 +21,26 @@ import java.util.UUID;
 @RequestMapping("/order")
 public class OrderController {
 
-   @PostMapping("/save")
-   public ResponseEntity<Void> saveOrder() {
-      return new ResponseEntity<>(HttpStatus.CREATED);
+   private final OrderService orderService;
+
+   @Autowired
+   public OrderController(OrderService orderService) {
+      this.orderService = orderService;
    }
 
    @GetMapping(value = "/account/{id}", produces = "application/json")
    public ResponseEntity<List<OrderEntity>> getOrdersByAccount(@PathVariable long id) {
-      var orderList = List.of(
-              OrderEntity.builder()
-                      .idOrder(UUID.fromString("7ff6dd1d-40c3-4e3b-be84-a6795afc15c6"))
-                      .idCustomer(4234L)
-                      .country("México")
-                      .city("City")
-                      .street("Street")
-                      .orderTimestamp(LocalDateTime.of(2024, 2, 2, 15, 43, 54))
-                      .pizzaList(Arrays.asList(
-                              PizzaEntity.builder()
-                                      .idPizza(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
-                                      .idOrder(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
-                                      .pizzaName("custom")
-                                      .price(3123.32)
-                                      .size(Size.LARGE)
-                                      .pizzaTimestamp(LocalDateTime.of(2024, 2, 2, 12, 23, 43))
-                                      .build(),
+      var orderList = orderService.getOrdersByAccount(id);
 
-                              PizzaEntity.builder()
-                                      .idPizza(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
-                                      .idOrder(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
-                                      .pizzaName("custom")
-                                      .price(3123.32)
-                                      .size(Size.LARGE)
-                                      .pizzaTimestamp(LocalDateTime.of(2024, 2, 2, 12, 23, 43))
-                                      .build()
-                      ))
-                      .build(),
+      return (id == 34) ?
+         new ResponseEntity<>(orderList, HttpStatus.OK) :
+         new ResponseEntity<>(HttpStatus.NOT_FOUND);
+   }
 
-              OrderEntity.builder()
-                      .idOrder(UUID.fromString("bf8faf9e-02b8-479a-879c-8d7f228222d0"))
-                      .idCustomer(4234L)
-                      .country("México")
-                      .city("City")
-                      .street("Street")
-                      .houseNumber(342)
-                      .floor(34)
-                      .orderTimestamp(LocalDateTime.of(2024, 2, 2, 15, 43, 54))
-                      .pizzaList(Collections.singletonList(
-                              PizzaEntity.builder()
-                                      .idPizza(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
-                                      .idOrder(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
-                                      .pizzaName("custom")
-                                      .price(3123.32)
-                                      .size(Size.LARGE)
-                                      .pizzaTimestamp(LocalDateTime.of(2024, 2, 2, 12, 23, 43))
-                                      .build()
-                      ))
-                      .build()
-      );
+   @PostMapping(value = "/save", consumes = "application/json")
+   public ResponseEntity<String> saveOrder(@Valid @RequestBody OrderDto orderDto) {
+      orderService.saveOrder(orderDto);
 
-      if (id == 34) {
-         return new ResponseEntity<>(orderList, HttpStatus.OK);
-      }
-
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("Order save correctly", HttpStatus.CREATED);
    }
 }

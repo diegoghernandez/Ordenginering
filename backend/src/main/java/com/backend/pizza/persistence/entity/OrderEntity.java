@@ -2,10 +2,7 @@ package com.backend.pizza.persistence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -41,6 +39,9 @@ public class OrderEntity {
    private Integer apartment;
 
    private Integer floor;
+
+   @NotNull
+   private Integer total;
 
    @Column(name = "order_timestamp", columnDefinition = "TIMESTAMP")
    private LocalDateTime orderTimestamp;
