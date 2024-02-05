@@ -145,7 +145,7 @@ class IngredientControllerTest {
       );
 
       var objectMapper = new ObjectMapper();
-      
+
       mockMvc.perform(MockMvcRequestBuilders.post("/ingredient/save/list")
                       .contentType(MediaType.APPLICATION_JSON)
                       .content(objectMapper.writeValueAsString(ingredientDtoList)))

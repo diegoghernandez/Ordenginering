@@ -3,16 +3,28 @@ package com.backend.pizza.domain;
 import com.backend.pizza.domain.service.CustomerService;
 import com.backend.pizza.exceptions.NotAllowedException;
 import com.backend.pizza.persistence.entity.CustomerEntity;
+import com.backend.pizza.persistence.repository.CustomerRepository;
 import com.backend.pizza.web.dto.CustomerDto;
 import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
+
+   private final CustomerRepository customerRepository;
+
+   @Autowired
+   public CustomerServiceImpl(CustomerRepository customerRepository) {
+      this.customerRepository = customerRepository;
+   }
 
    @Override
    public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
@@ -26,38 +38,51 @@ public class CustomerServiceImpl implements CustomerService {
               .password(customerDto.password())
               .birthDate(customerDto.birthDate())
               .build();
+
+      customerRepository.save(customer);
    }
 
    @Override
    public Optional<CustomerEntity> getCustomerById(long id) {
-      if (id == 3213) {
-         return Optional.of(CustomerEntity.builder()
-                 .idCustomer(3213L)
-                 .customerName("Customer")
-                 .email("random@random.com")
-                 .password("1234")
-                 .birthDate(LocalDate.of(2020, 5, 23))
-                 .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))
-                 .build());
+      return customerRepository.findById(id);
+   }
+
+   @Override
+   public Map.Entry<Integer, String> changeName(String newName, NecessaryValuesForChangeDto forChangeDto) {
+      var result = validateNecessaryValues(forChangeDto, "Change name correctly");
+
+      if (result.getKey().equals(200)) customerRepository.changeName(newName, forChangeDto.id());
+
+      return result;
+   }
+
+   @Override
+   public Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto){
+      var result = validateNecessaryValues(forChangeDto, "Change password correctly");
+
+      if (result.getKey().equals(200)) customerRepository.changePassword(newPassword, forChangeDto.id());
+
+      return result;
+   }
+
+   @Override
+   public Map.Entry<Integer, String> changeEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto) {
+      var result = validateNecessaryValues(forChangeDto, "Change email correctly");
+
+      if (result.getKey().equals(200)) customerRepository.changeEmail(newEmail, forChangeDto.id());
+
+      return result;
+   }
+
+   private Map.Entry<Integer, String> validateNecessaryValues(NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
+      if (customerRepository.existsById(valuesForChangeDto.id())) return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
+
+      Optional<CustomerEntity> customerEntity = customerRepository.findById(valuesForChangeDto.id());
+      if (!valuesForChangeDto.password().equals(customerEntity.get().getPassword())) {
+         return new AbstractMap.SimpleEntry<>(400, "Incorrect password");
       }
-      return Optional.empty();
+
+      return new AbstractMap.SimpleEntry<>(200, desireMessage);
    }
 
-   @Override
-   public void updateName(String newName, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException {
-      if (forChangeDto.id() == 34) throw new NotAllowedException("Id doesn't exist");
-   }
-
-   @Override
-   public void updatePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException {
-      if (forChangeDto.id() == 34) throw new NotAllowedException("Id doesn't exist");
-
-   }
-
-   @Override
-   public void updateEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException {
-      if (forChangeDto.id() == 34) throw new NotAllowedException("Id doesn't exist");
-      else if (newEmail.equals("norepeat@name.com")) throw new NotAllowedException("Email already used");
-
-   }
 }

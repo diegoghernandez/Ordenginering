@@ -5,6 +5,7 @@ import com.backend.pizza.persistence.entity.CustomerEntity;
 import com.backend.pizza.web.dto.CustomerDto;
 import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface CustomerService {
@@ -13,9 +14,9 @@ public interface CustomerService {
 
    Optional<CustomerEntity> getCustomerById(long id);
 
-   void updateName(String newName, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException;
+   Map.Entry<Integer, String> changeName(String newName, NecessaryValuesForChangeDto forChangeDto);
 
-   void updatePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException;
+   Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto);
 
-   void updateEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto) throws NotAllowedException;
+   Map.Entry<Integer, String> changeEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto);
 }

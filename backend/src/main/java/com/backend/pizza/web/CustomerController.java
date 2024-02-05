@@ -43,29 +43,29 @@ public class CustomerController {
    public ResponseEntity<String> changeName(
            @NotBlank @PathVariable String name,
            @Valid @RequestBody NecessaryValuesForChangeDto forChangeDto
-   ) throws NotAllowedException {
-      customerService.updateName(name, forChangeDto);
+   ) {
+      var result = customerService.changeName(name, forChangeDto);
 
-      return new ResponseEntity<>("Change name successfully", HttpStatus.OK);
+      return new ResponseEntity<>(result.getValue(), HttpStatus.valueOf(result.getKey()));
    }
 
    @PatchMapping(value = "/change-password/{password}", consumes = {"application/json"})
    public ResponseEntity<String> changePassword(
            @NotBlank @PathVariable String password,
            @Valid @RequestBody NecessaryValuesForChangeDto forChangeDto
-   ) throws NotAllowedException {
-      customerService.updatePassword(password, forChangeDto);
+   ) {
+      var result = customerService.changePassword(password, forChangeDto);
 
-      return new ResponseEntity<>("Change password successfully", HttpStatus.OK);
+      return new ResponseEntity<>(result.getValue(), HttpStatus.valueOf(result.getKey()));
    }
 
    @PatchMapping(value = "/change-email/{email}", consumes = {"application/json"})
    public ResponseEntity<String> changeEmail(
            @NotBlank @PathVariable String email,
            @Valid @RequestBody NecessaryValuesForChangeDto forChangeDto
-   ) throws NotAllowedException {
-      customerService.updateEmail(email, forChangeDto);
+   ) {
+      var result =customerService.changeEmail(email, forChangeDto);
 
-      return new ResponseEntity<>("Change email successfully", HttpStatus.OK);
+      return new ResponseEntity<>(result.getValue(), HttpStatus.valueOf(result.getKey()));
    }
 }

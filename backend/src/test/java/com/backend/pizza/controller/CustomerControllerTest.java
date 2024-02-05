@@ -3,7 +3,6 @@ package com.backend.pizza.controller;
 import com.backend.pizza.TestDataUtil;
 import com.backend.pizza.domain.service.CustomerService;
 import com.backend.pizza.exceptions.NotAllowedException;
-import com.backend.pizza.persistence.entity.CustomerEntity;
 import com.backend.pizza.web.CustomerController;
 import com.backend.pizza.web.dto.CustomerDto;
 import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
@@ -22,7 +21,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,8 +100,9 @@ class CustomerControllerTest {
 
    @Test
    @DisplayName("Should save a new name")
-   void changeName() throws NotAllowedException {
-      Mockito.doNothing().when(customerService).updateName("name", TestDataUtil.getDtoToUpdateMethods());
+   void changeName() {
+      Mockito.when(customerService.changeName("name", TestDataUtil.getDtoToUpdateMethods()))
+              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change name successfully"));
 
       var objectMapper = new ObjectMapper();
 
@@ -112,14 +114,15 @@ class CustomerControllerTest {
                       .andExpect(MockMvcResultMatchers.content().string("Change name successfully")),
 
               () -> Mockito.verify(customerService, Mockito.times(1))
-                      .updateName(Mockito.eq("name"), Mockito.isA(NecessaryValuesForChangeDto.class))
+                      .changeName(Mockito.eq("name"), Mockito.isA(NecessaryValuesForChangeDto.class))
       );
    }
 
    @Test
    @DisplayName("Should save a new password")
-   void changePassword() throws NotAllowedException {
-      Mockito.doNothing().when(customerService).updatePassword("123456", TestDataUtil.getDtoToUpdateMethods());
+   void changePassword() {
+      Mockito.when(customerService.changePassword("123456", TestDataUtil.getDtoToUpdateMethods()))
+              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change password successfully"));
 
       var objectMapper = new ObjectMapper();
 
@@ -131,14 +134,15 @@ class CustomerControllerTest {
                       .andExpect(MockMvcResultMatchers.content().string("Change password successfully")),
 
               () -> Mockito.verify(customerService, Mockito.times(1))
-                      .updatePassword(Mockito.eq("123456"), Mockito.isA(NecessaryValuesForChangeDto.class))
+                      .changePassword(Mockito.eq("123456"), Mockito.isA(NecessaryValuesForChangeDto.class))
       );
    }
 
    @Test
    @DisplayName("Should save a new email")
-   void changeEmail() throws NotAllowedException {
-      Mockito.doNothing().when(customerService).updateEmail("email@random.com", TestDataUtil.getDtoToUpdateMethods());
+   void changeEmail() {
+      Mockito.when(customerService.changeEmail("email@random.com", TestDataUtil.getDtoToUpdateMethods()))
+              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change email successfully"));
 
       var objectMapper = new ObjectMapper();
 
@@ -150,7 +154,7 @@ class CustomerControllerTest {
                       .andExpect(MockMvcResultMatchers.content().string("Change email successfully")),
 
               () -> Mockito.verify(customerService, Mockito.times(1))
-                      .updateEmail(Mockito.eq("email@random.com"), Mockito.isA(NecessaryValuesForChangeDto.class))
+                      .changeEmail(Mockito.eq("email@random.com"), Mockito.isA(NecessaryValuesForChangeDto.class))
       );
    }
 }

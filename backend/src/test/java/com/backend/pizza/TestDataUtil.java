@@ -6,8 +6,6 @@ import com.backend.pizza.persistence.entity.IngredientEntity;
 import com.backend.pizza.persistence.entity.OrderEntity;
 import com.backend.pizza.persistence.entity.PizzaEntity;
 import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +20,7 @@ public final class TestDataUtil {
 
    public static CustomerEntity getCustomer() {
       return CustomerEntity.builder()
-              .idCustomer(3213L)
+              .idCustomer(4532L)
               .customerName("Customer")
               .email("random@random.com")
               .password("1234")
@@ -31,8 +29,12 @@ public final class TestDataUtil {
               .build();
    }
 
-   public static NecessaryValuesForChangeDto getDtoToExceptionInUpdateMethods() {
-      return new NecessaryValuesForChangeDto(34L,"Fake password");
+   public static NecessaryValuesForChangeDto getWrongNecessaryDtoForChangeMethods(long id) {
+      return new NecessaryValuesForChangeDto(id,"Fake password");
+   }
+
+   public static NecessaryValuesForChangeDto getGoodNecessaryDtoForChangeMethods() {
+      return new NecessaryValuesForChangeDto(4532L, "1234");
    }
 
    public static NecessaryValuesForChangeDto getDtoToUpdateMethods() {
