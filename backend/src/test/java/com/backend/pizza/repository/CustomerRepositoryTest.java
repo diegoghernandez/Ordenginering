@@ -1,5 +1,6 @@
 package com.backend.pizza.repository;
 
+import com.backend.pizza.containers.SetUpForTestWithContainers;
 import com.backend.pizza.persistence.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,15 +19,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Testcontainers
-@Sql("/db/pizzaservice_data.sql")
-class CustomerRepositoryTest {
-
-   @Container
-   private static final MySQLContainer<?> databaseContainer = new MySQLContainer<>("mysql:8.2.0")
-           .withDatabaseName("pizzadatabase")
-           .withUsername("myuser")
-           .withPassword("verysecret");
+class CustomerRepositoryTest extends SetUpForTestWithContainers {
 
    @Autowired
    private CustomerRepository customerRepository;

@@ -19,9 +19,10 @@ public class OrderEntity {
 
    @Id
    @Column(name = "id_order")
+   @ToString.Exclude
    private UUID idOrder;
 
-   @Column(name = "id_customer")
+   @Column(name = "id_customer", nullable = false)
    private Long idCustomer;
 
    @NotNull
@@ -43,9 +44,11 @@ public class OrderEntity {
    @NotNull
    private Integer total;
 
-   @Column(name = "order_timestamp", columnDefinition = "TIMESTAMP")
+   @ToString.Exclude
+   @Column(name = "order_timestamp", columnDefinition = "DATETIME", nullable = false)
    private LocalDateTime orderTimestamp;
 
-   @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   @ToString.Exclude
    private List<PizzaEntity> pizzaList;
 }

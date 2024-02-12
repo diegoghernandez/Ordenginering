@@ -1,9 +1,6 @@
 package com.backend.pizza.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +18,7 @@ import java.time.LocalDateTime;
 public class CustomerEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_customer")
     private Long idCustomer;
 
@@ -36,6 +34,6 @@ public class CustomerEntity {
     @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
 
-    @Column(name = "creation_timestamp", columnDefinition = "TIMESTAMP")
+    @Column(name = "creation_timestamp", columnDefinition = "DATETIME")
     private LocalDateTime creationTimestamp;
 }

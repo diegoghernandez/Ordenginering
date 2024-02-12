@@ -4,7 +4,6 @@ import com.backend.pizza.TestDataUtil;
 import com.backend.pizza.domain.service.IngredientService;
 import com.backend.pizza.exceptions.NotAllowedException;
 import com.backend.pizza.persistence.entity.IngredientEntity;
-import com.backend.pizza.persistence.repository.IngredientRepository;
 import com.backend.pizza.web.dto.IngredientDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ class IngredientServiceImplTest {
    private IngredientService ingredientService;
 
    @MockBean
-   private IngredientRepository ingredientRepository;
+   private com.backend.pizza.persistence.repository.IngredientRepository ingredientRepository;
 
    @Test
    @DisplayName("Should return all ingredients available using the repository")

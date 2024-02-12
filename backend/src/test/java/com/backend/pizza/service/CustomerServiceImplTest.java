@@ -6,18 +6,13 @@ import com.backend.pizza.exceptions.NotAllowedException;
 import com.backend.pizza.persistence.entity.CustomerEntity;
 import com.backend.pizza.persistence.repository.CustomerRepository;
 import com.backend.pizza.web.dto.CustomerDto;
-import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDate;
 import java.util.Optional;

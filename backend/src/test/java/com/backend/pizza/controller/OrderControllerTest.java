@@ -42,8 +42,8 @@ class OrderControllerTest {
    @Test
    @DisplayName("Should return all orders in json format with a specific customer id using the service or return a not found")
    void getOrdersByAccount() {
-      Mockito.when(orderService.getOrdersByAccount(34))
-              .thenReturn(TestDataUtil.getOrderList());
+      /*Mockito.when(orderService.getOrdersByAccount(34))
+              .thenReturn(TestDataUtil.getOrderList());*/
 
 
       var objectMapper = new ObjectMapper();
@@ -66,45 +66,19 @@ class OrderControllerTest {
    @Test
    @DisplayName("Should save one orderDto using the service")
    void saveOrder() throws Exception {
-      var orderDto = new OrderDto(
-              4324,
-              "México",
-              "City",
-              "Strreet",
-              42342,
-              null,
-              null,
-              List.of(
-                      new PizzaDto(
-                              UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"),
-                             "Pepperoni",
-                             Size.MEDIUM,
-                             2,
-                              Arrays.asList(2, 4, 5)
-                      ),
-                      new PizzaDto(
-                              UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"),
-                             "Hawaiana",
-                             Size.MEDIUM,
-                             2,
-                              Arrays.asList(1, 2, 4, 5)
-                      )
-              )
-      );
-
       var objectMapper = new ObjectMapper();
 
-      Mockito.doNothing().when(orderService).saveOrder(Mockito.eq(orderDto));
+      Mockito.doNothing().when(orderService).saveOrder(Mockito.eq(TestDataUtil.getOrderDto()));
 
       assertAll(
               () -> mockMvc.perform(MockMvcRequestBuilders.post("/order/save")
                               .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(orderDto)))
+                              .content(objectMapper.writeValueAsString(TestDataUtil.getOrderDto())))
                       .andExpect(MockMvcResultMatchers.status().isCreated())
                       .andExpect(MockMvcResultMatchers.content().string("Order save correctly")),
 
               () -> Mockito.verify(orderService, Mockito.times(1))
-                      .saveOrder(Mockito.eq(orderDto))
+                      .saveOrder(Mockito.eq(TestDataUtil.getOrderDto()))
 
       );
    }

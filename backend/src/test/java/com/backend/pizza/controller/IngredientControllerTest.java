@@ -3,10 +3,8 @@ package com.backend.pizza.controller;
 import com.backend.pizza.TestDataUtil;
 import com.backend.pizza.domain.service.IngredientService;
 import com.backend.pizza.exceptions.NotAllowedException;
-import com.backend.pizza.persistence.entity.IngredientEntity;
 import com.backend.pizza.web.IngredientController;
 import com.backend.pizza.web.dto.IngredientDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,8 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @WebMvcTest(IngredientController.class)

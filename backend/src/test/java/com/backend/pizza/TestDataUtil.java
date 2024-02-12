@@ -6,6 +6,10 @@ import com.backend.pizza.persistence.entity.IngredientEntity;
 import com.backend.pizza.persistence.entity.OrderEntity;
 import com.backend.pizza.persistence.entity.PizzaEntity;
 import com.backend.pizza.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizza.web.dto.OrderDto;
+import com.backend.pizza.web.dto.PizzaDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,15 +48,15 @@ public final class TestDataUtil {
    public static List<IngredientEntity> getIngredientList() {
       return List.of(
               IngredientEntity.builder()
-                      .idIngredient(4324L)
-                      .ingredientName("Queso")
+                      .idIngredient(2)
+                      .ingredientName("Mozzarella")
                       .urlImage("Author")
                       .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
                       .build(),
 
               IngredientEntity.builder()
-                      .idIngredient(65437L)
-                      .ingredientName("Pizza")
+                      .idIngredient(3)
+                      .ingredientName("Pineapple")
                       .urlImage("Author")
                       .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
                       .build()
@@ -60,50 +64,67 @@ public final class TestDataUtil {
    }
 
    public static List<PizzaEntity> getPizzaList() {
-      return Arrays.asList(
+      return List.of(
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
                  .idOrder(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
-                 .pizzaName("custom")
-                 .price(3123)
+                 .pizzaName("Custom something 1")
+                 .price(534)
+                 .quantity(2)
                  .size(Size.LARGE)
-                 .pizzaTimestamp(LocalDateTime.of(2024, 2, 2, 12, 23, 43))
+                 .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .build(),
 
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
                  .idOrder(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
-                 .pizzaName("custom")
-                 .price(3123)
+                 .pizzaName("Custom something 2")
+                 .price(534)
+                 .quantity(2)
                  .size(Size.LARGE)
-                 .pizzaTimestamp(LocalDateTime.of(2024, 2, 2, 12, 23, 43))
+                 .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .build()
       );
    }
 
-   public static List<OrderEntity> getOrderList() {
-      return Arrays.asList(
+   public static Page<OrderEntity> getOrderList() {
+      return new PageImpl<>(List.of(
               OrderEntity.builder()
                       .idOrder(UUID.fromString("7ff6dd1d-40c3-4e3b-be84-a6795afc15c6"))
                       .idCustomer(4234L)
                       .country("México")
                       .city("City")
                       .street("Street")
-                      .orderTimestamp(LocalDateTime.of(2024, 2, 2, 15, 43, 54))
-                      .pizzaList(getPizzaList())
-                      .build(),
-
-              OrderEntity.builder()
-                      .idOrder(UUID.fromString("bf8faf9e-02b8-479a-879c-8d7f228222d0"))
-                      .idCustomer(4234L)
-                      .country("México")
-                      .city("City")
-                      .street("Street")
-                      .houseNumber(342)
-                      .floor(34)
-                      .orderTimestamp(LocalDateTime.of(2024, 2, 2, 15, 43, 54))
-                      .pizzaList(Collections.singletonList(getPizzaList().getFirst()))
+                      .houseNumber(4324)
+                      .total(98723)
+                      .orderTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                       .build()
+      ));
+   }
+
+   public static OrderDto getOrderDto() {
+      return new OrderDto(
+              2,
+              "México",
+              "City",
+              "Street",
+              42342,
+              null,
+              null,
+              List.of(
+                      new PizzaDto(
+                              "Pepperoni",
+                              Size.MEDIUM,
+                              1,
+                              Arrays.asList(1, 2)
+                      ),
+                      new PizzaDto(
+                              "Hawaiana",
+                              Size.MEDIUM,
+                              2,
+                              Arrays.asList(2, 3, 4)
+                      )
+              )
       );
    }
 }
