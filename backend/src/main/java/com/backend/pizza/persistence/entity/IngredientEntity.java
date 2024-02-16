@@ -18,7 +18,6 @@ public class IngredientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ingredient")
-    @ToString.Exclude
     private Integer idIngredient;
 
     @Column(name = "ingredient_name", length = 50, nullable = false, unique = true)

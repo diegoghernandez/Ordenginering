@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Long> {
 
+   boolean existsByEmail(String email);
+
    @Modifying
    @Transactional
    @Query("UPDATE CustomerEntity AS cust SET cust.customerName = :name WHERE cust.idCustomer = :id")

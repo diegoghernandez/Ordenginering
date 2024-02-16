@@ -23,9 +23,11 @@ public class OrderController {
 
    @GetMapping(value = "/account/{id}", produces = "application/json")
    public ResponseEntity<Page<OrderEntity>> getOrdersByAccount(@PathVariable long id, @RequestParam int page) {
-      return orderService.getOrdersByAccount(id, page)
-              .map(orderEntities -> new ResponseEntity<>(orderEntities, HttpStatus.OK))
-              .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+      var orderPage = orderService.getOrdersByAccount(id, page).get();
+
+      return orderPage.isEmpty() ?
+              new ResponseEntity<>(HttpStatus.NOT_FOUND) :
+              new ResponseEntity<>(orderPage, HttpStatus.OK);
    }
 
    @PostMapping(value = "/save", consumes = "application/json")

@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Override
    public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
-      if (customerDto.email().equals("norepeat@name.com")) throw new NotAllowedException("Email already used");
+      if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used");
       else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
          throw new NotAllowedException("No older enough");
 
@@ -37,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
               .email(customerDto.email())
               .password(customerDto.password())
               .birthDate(customerDto.birthDate())
+              .creationTimestamp(LocalDateTime.now())
               .build();
 
       customerRepository.save(customer);
@@ -75,10 +76,10 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    private Map.Entry<Integer, String> validateNecessaryValues(NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
-      if (customerRepository.existsById(valuesForChangeDto.id())) return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
+      if (!customerRepository.existsById(valuesForChangeDto.id())) return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
-      Optional<CustomerEntity> customerEntity = customerRepository.findById(valuesForChangeDto.id());
-      if (!valuesForChangeDto.password().equals(customerEntity.get().getPassword())) {
+      var customerEntity = customerRepository.findById(valuesForChangeDto.id()).get();
+      if (!valuesForChangeDto.password().equals(customerEntity.getPassword())) {
          return new AbstractMap.SimpleEntry<>(400, "Incorrect password");
       }
 

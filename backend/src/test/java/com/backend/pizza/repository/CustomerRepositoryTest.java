@@ -27,9 +27,9 @@ class CustomerRepositoryTest extends SetUpForTestWithContainers {
    @Test
    @DisplayName("Should update the name of a specific account with its id in the database")
    void changeName() {
-      customerRepository.changeName("New name", 1);
+      customerRepository.changeName("New name", 31);
 
-      var customerChange = customerRepository.findById(1L).get();
+      var customerChange = customerRepository.findById(31L).get();
 
       assertNotEquals("Customer", customerChange.getCustomerName());
    }
@@ -37,19 +37,19 @@ class CustomerRepositoryTest extends SetUpForTestWithContainers {
    @Test
    @DisplayName("Should update the password of a specific account with its id in the database")
    void changePassword() {
-      customerRepository.changePassword("6435674356", 1);
+      customerRepository.changePassword("6435674356", 31);
 
-      var customerChange = customerRepository.findById(1L).get();
+      var customerChange = customerRepository.findById(31L).get();
 
-      assertNotEquals("1234", customerChange.getPassword());
+      assertNotEquals("31234", customerChange.getPassword());
    }
 
    @Test
    @DisplayName("Should update the email of a specific account with its id in the database")
    void changeEmail() {
-      customerRepository.changeEmail("new@names.com", 1);
+      customerRepository.changeEmail("new@names.com", 31);
 
-      var customerChange = customerRepository.findById(1L).get();
+      var customerChange = customerRepository.findById(31L).get();
 
       assertNotEquals("random@names.com", customerChange.getEmail());
    }

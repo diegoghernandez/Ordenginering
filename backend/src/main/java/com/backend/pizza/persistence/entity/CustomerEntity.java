@@ -1,16 +1,14 @@
 package com.backend.pizza.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,6 +32,7 @@ public class CustomerEntity {
     @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
 
+    @ToString.Exclude
     @Column(name = "creation_timestamp", columnDefinition = "DATETIME")
     private LocalDateTime creationTimestamp;
 }

@@ -10,13 +10,11 @@ import com.backend.pizza.web.dto.OrderDto;
 import com.backend.pizza.web.dto.PizzaDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public final class TestDataUtil {
 
@@ -24,11 +22,11 @@ public final class TestDataUtil {
 
    public static CustomerEntity getCustomer() {
       return CustomerEntity.builder()
-              .idCustomer(4532L)
+              .idCustomer(4234L)
               .customerName("Customer")
-              .email("random@random.com")
+              .email("random@names.com")
               .password("1234")
-              .birthDate(LocalDate.of(2020, 5, 23))
+              .birthDate(LocalDate.of(2003, 10, 9))
               .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))
               .build();
    }
@@ -38,7 +36,7 @@ public final class TestDataUtil {
    }
 
    public static NecessaryValuesForChangeDto getGoodNecessaryDtoForChangeMethods() {
-      return new NecessaryValuesForChangeDto(4532L, "1234");
+      return new NecessaryValuesForChangeDto(4234L, "1234");
    }
 
    public static NecessaryValuesForChangeDto getDtoToUpdateMethods() {
@@ -48,17 +46,31 @@ public final class TestDataUtil {
    public static List<IngredientEntity> getIngredientList() {
       return List.of(
               IngredientEntity.builder()
+                      .idIngredient(1)
+                      .ingredientName("Pepperoni")
+                      .authorImage("Author")
+                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .build(),
+
+              IngredientEntity.builder()
                       .idIngredient(2)
                       .ingredientName("Mozzarella")
-                      .urlImage("Author")
-                      .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .authorImage("Author")
+                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(3)
                       .ingredientName("Pineapple")
-                      .urlImage("Author")
-                      .authorImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .authorImage("Author")
+                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .build(),
+
+              IngredientEntity.builder()
+                      .idIngredient(4)
+                      .ingredientName("Ham")
+                      .authorImage("Author")
+                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
                       .build()
       );
    }
@@ -73,6 +85,7 @@ public final class TestDataUtil {
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
+                 .ingredientEntities(Set.of(getIngredientList().get(0), getIngredientList().get(1)))
                  .build(),
 
          PizzaEntity.builder()
@@ -83,6 +96,7 @@ public final class TestDataUtil {
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
+                 .ingredientEntities(Set.of(getIngredientList().get(1), getIngredientList().get(2), getIngredientList().get(3)))
                  .build()
       );
    }
@@ -98,8 +112,9 @@ public final class TestDataUtil {
                       .houseNumber(4324)
                       .total(98723)
                       .orderTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
+                      .pizzaList(getPizzaList())
                       .build()
-      ));
+      ), Pageable.ofSize(1), 1);
    }
 
    public static OrderDto getOrderDto() {
