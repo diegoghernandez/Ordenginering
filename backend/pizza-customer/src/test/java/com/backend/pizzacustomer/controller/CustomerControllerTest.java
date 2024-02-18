@@ -58,13 +58,13 @@ class CustomerControllerTest {
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/customer/register")
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
                               .contentType(MediaType.APPLICATION_JSON)
                               .content(objectMapper.writeValueAsString(passwordErrorCustomer)))
                       .andExpect(MockMvcResultMatchers.status().isBadRequest())
                       .andExpect(MockMvcResultMatchers.content().string("Passwords don't match")),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/customer/register")
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
                               .contentType(MediaType.APPLICATION_JSON)
                               .content(objectMapper.writeValueAsString(successCustomer)))
                       .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -84,74 +84,14 @@ class CustomerControllerTest {
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/customer/54345216")
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/54345216")
                               .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.status().isNotFound()),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/customer/3213")
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/3213")
                               .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.status().isOk())
                       .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestDataUtil.getCustomer())))
-      );
-   }
-
-   @Test
-   @DisplayName("Should save a new name")
-   void changeName() {
-      Mockito.when(customerService.changeName("name", TestDataUtil.getDtoToUpdateMethods()))
-              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change name successfully"));
-
-      var objectMapper = new ObjectMapper();
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.patch("/customer/change-name/name")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(TestDataUtil.getDtoToUpdateMethods())))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("Change name successfully")),
-
-              () -> Mockito.verify(customerService, Mockito.times(1))
-                      .changeName(Mockito.eq("name"), Mockito.isA(NecessaryValuesForChangeDto.class))
-      );
-   }
-
-   @Test
-   @DisplayName("Should save a new password")
-   void changePassword() {
-      Mockito.when(customerService.changePassword("123456", TestDataUtil.getDtoToUpdateMethods()))
-              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change password successfully"));
-
-      var objectMapper = new ObjectMapper();
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.patch("/customer/change-password/123456")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(TestDataUtil.getDtoToUpdateMethods())))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("Change password successfully")),
-
-              () -> Mockito.verify(customerService, Mockito.times(1))
-                      .changePassword(Mockito.eq("123456"), Mockito.isA(NecessaryValuesForChangeDto.class))
-      );
-   }
-
-   @Test
-   @DisplayName("Should save a new email")
-   void changeEmail() {
-      Mockito.when(customerService.changeEmail("email@random.com", TestDataUtil.getDtoToUpdateMethods()))
-              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change email successfully"));
-
-      var objectMapper = new ObjectMapper();
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.patch("/customer/change-email/email@random.com")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(TestDataUtil.getDtoToUpdateMethods())))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("Change email successfully")),
-
-              () -> Mockito.verify(customerService, Mockito.times(1))
-                      .changeEmail(Mockito.eq("email@random.com"), Mockito.isA(NecessaryValuesForChangeDto.class))
       );
    }
 }
