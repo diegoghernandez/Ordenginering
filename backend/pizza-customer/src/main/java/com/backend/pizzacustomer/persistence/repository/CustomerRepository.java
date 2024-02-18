@@ -1,6 +1,6 @@
-package com.backend.pizzadata.persistence.repository;
+package com.backend.pizzacustomer.persistence.repository;
 
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

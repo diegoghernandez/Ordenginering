@@ -1,4 +1,4 @@
-package com.backend.pizzadata.web.dto;
+package com.backend.pizzacustomer.web.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

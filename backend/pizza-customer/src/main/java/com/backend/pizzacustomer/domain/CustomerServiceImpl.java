@@ -1,11 +1,11 @@
-package com.backend.pizzadata.domain;
+package com.backend.pizzacustomer.domain;
 
-import com.backend.pizzadata.domain.service.CustomerService;
-import com.backend.pizzadata.exceptions.NotAllowedException;
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
-import com.backend.pizzadata.persistence.repository.CustomerRepository;
-import com.backend.pizzadata.web.dto.CustomerDto;
-import com.backend.pizzadata.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.exceptions.NotAllowedException;
+import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
+import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,10 @@
-package com.backend.pizzadata.controller;
+package com.backend.pizzacustomer.controller;
 
-import com.backend.pizzadata.TestDataUtil;
-import com.backend.pizzadata.domain.service.CustomerService;
-import com.backend.pizzadata.web.CustomerController;
-import com.backend.pizzadata.web.dto.CustomerDto;
-import com.backend.pizzadata.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.TestDataUtil;
+import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.web.CustomerController;
+import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.AbstractMap;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @WebMvcTest(CustomerController.class)
 class CustomerControllerTest {

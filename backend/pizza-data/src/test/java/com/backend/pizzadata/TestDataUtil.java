@@ -1,47 +1,24 @@
 package com.backend.pizzadata;
 
 import com.backend.pizzadata.constants.Size;
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
 import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
-import com.backend.pizzadata.web.dto.NecessaryValuesForChangeDto;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public final class TestDataUtil {
 
    private TestDataUtil() {}
-
-   public static CustomerEntity getCustomer() {
-      return CustomerEntity.builder()
-              .idCustomer(4234L)
-              .customerName("Customer")
-              .email("random@names.com")
-              .password("1234")
-              .birthDate(LocalDate.of(2003, 10, 9))
-              .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))
-              .build();
-   }
-
-   public static NecessaryValuesForChangeDto getWrongNecessaryDtoForChangeMethods(long id) {
-      return new NecessaryValuesForChangeDto(id,"Fake password");
-   }
-
-   public static NecessaryValuesForChangeDto getGoodNecessaryDtoForChangeMethods() {
-      return new NecessaryValuesForChangeDto(4234L, "1234");
-   }
-
-   public static NecessaryValuesForChangeDto getDtoToUpdateMethods() {
-      return new NecessaryValuesForChangeDto(64536L,"Correct password");
-   }
 
    public static List<IngredientEntity> getIngredientList() {
       return List.of(

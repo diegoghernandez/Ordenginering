@@ -1,9 +1,9 @@
-package com.backend.pizzadata.domain.service;
+package com.backend.pizzacustomer.domain.service;
 
-import com.backend.pizzadata.exceptions.NotAllowedException;
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
-import com.backend.pizzadata.web.dto.CustomerDto;
-import com.backend.pizzadata.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.exceptions.NotAllowedException;
+import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 
 import java.util.Map;
 import java.util.Optional;

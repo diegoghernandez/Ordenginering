@@ -1,12 +1,11 @@
-package com.backend.pizzadata.service;
+package com.backend.pizzacustomer.service;
 
-import com.backend.pizzadata.TestDataUtil;
-import com.backend.pizzadata.containers.SetUpForServiceTestWithContainers;
-import com.backend.pizzadata.domain.service.CustomerService;
-import com.backend.pizzadata.exceptions.NotAllowedException;
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
-import com.backend.pizzadata.persistence.repository.CustomerRepository;
-import com.backend.pizzadata.web.dto.CustomerDto;
+import com.backend.pizzacustomer.TestDataUtil;
+import com.backend.pizzacustomer.containers.SetUpForServiceTestWithContainers;
+import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.exceptions.NotAllowedException;
+import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.web.dto.CustomerDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
 
    @Autowired
    private CustomerService customerService;
-
-   @Autowired
-   private CustomerRepository customerRepository;
 
    private final static long ID__TO__REJECT = 34L;
    private final static long ID__TO__ACCEPT = 4234L;

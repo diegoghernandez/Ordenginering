@@ -1,9 +1,9 @@
-package com.backend.pizzadata.web;
+package com.backend.pizzacustomer.web;
 
-import com.backend.pizzadata.domain.service.CustomerService;
-import com.backend.pizzadata.persistence.entity.CustomerEntity;
-import com.backend.pizzadata.web.dto.CustomerDto;
-import com.backend.pizzadata.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,13 @@
-package com.backend.pizzadata.repository;
+package com.backend.pizzacustomer.repository;
 
-import com.backend.pizzadata.containers.SetUpForTestWithContainers;
-import com.backend.pizzadata.persistence.repository.CustomerRepository;
+import com.backend.pizzacustomer.containers.SetUpForTestWithContainers;
+import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 class CustomerRepositoryTest extends SetUpForTestWithContainers {
