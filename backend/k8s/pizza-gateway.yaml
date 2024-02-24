@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-gateway
+  labels:
+    app: pizza-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizza-gateway
+  template:
+    metadata:
+      name: pizza-gateway
+      labels:
+        app: pizza-gateway
+    spec:
+      containers:
+        - name: pizza-gateway
+          image: diegoj4v/pizza-gateway:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 5640
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 5640
+              path: /actuator/health/liveness
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+          ports:
+            - containerPort: 5640
+          env:
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: eureka-0
+            - name: EUREKA_HOSTNAME
+              value: eureka-0.eureka.default.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-gateway-svc
+spec:
+  selector:
+    app: pizza-gateway
+  ports:
+    - port: 5640
+      targetPort: 5640
+  type: LoadBalancer

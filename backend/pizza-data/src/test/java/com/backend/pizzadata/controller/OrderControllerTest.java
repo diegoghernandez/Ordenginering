@@ -35,7 +35,7 @@ class OrderControllerTest {
 
    @Test
    @DisplayName("Should return all orders in json format with a specific customer id using the service or return a not found")
-   void getOrdersByAccount() throws JsonProcessingException {
+   void getOrdersByAccount() {
       Mockito.when(orderService.getOrdersByAccount(6456546L, 0))
               .thenReturn(Optional.of(new PageImpl<>(List.of())));
 
@@ -45,8 +45,6 @@ class OrderControllerTest {
       var objectMapper = new ObjectMapper();
       objectMapper.registerModule(new JavaTimeModule());
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-      System.out.println(objectMapper.writeValueAsString(TestDataUtil.getOrderList()));
 
       assertAll(
               () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/account/6456546")

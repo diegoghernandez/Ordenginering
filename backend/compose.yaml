@@ -1,10 +1,10 @@
 services:
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql:8.2.0'
     environment:
+      - 'MYSQL_ROOT_PASSWORD=-ppassword'
       - 'MYSQL_DATABASE=pizzadatabase'
       - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=-ppassword'
       - 'MYSQL_USER=myuser'
     ports:
       - '3306'

@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-lb
+  labels:
+    app: eureka
+spec:
+  selector:
+    app: eureka
+  type: NodePort
+  ports:
+    - port: 3213
+      targetPort: 3213
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka
+  labels:
+    app: eureka
+spec:
+  clusterIP: None
+  ports:
+    - port: 3213
+      name: eureka
+  selector:
+    app: eureka
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eureka
+spec:
+  serviceName: "eureka"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka
+  template:
+    metadata:
+      labels:
+        app: eureka
+    spec:
+      containers:
+        - name: eureka
+          image: diegoj4v/pizza-register-service:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 3213
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 3213
+              path: /actuator/health/liveness
+          ports:
+            - containerPort: 3213
+          env:
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: eureka-0.eureka

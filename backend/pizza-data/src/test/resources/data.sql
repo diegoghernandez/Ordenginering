@@ -1,8 +1,3 @@
-INSERT INTO `customer` (id_customer, customer_name, email, password, birth_date, creation_timestamp) VALUES
-(31, 'Customer', 'first@names.com', '1234', '2003-10-09', '2024-2-09 20:10:12'),
-(2, 'Empty', 'second@names.com', '1234', '2003-10-09', '2024-2-09 20:10:12'),
-(4234, 'Customer', 'random@names.com', '1234', '2003-10-09', '2024-2-09 20:10:12');
-
 INSERT INTO `ingredient` (ingredient_name, author_image, url_image) VALUES
 ('Pepperoni', 'Author', 'https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/'),
 ('Mozzarella', 'Author', 'https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/'),

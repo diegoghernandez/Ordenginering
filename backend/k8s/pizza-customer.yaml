@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-customer
+  labels:
+    app: pizza-customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizza-customer
+  template:
+    metadata:
+      name: pizza-customer
+      labels:
+        app: pizza-customer
+    spec:
+      containers:
+        - name: pizza-customer
+          image: diegoj4v/pizza-customer:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 8765
+              path: /customer/actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8765
+              path: /customer/actuator/health/liveness
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+          ports:
+            - containerPort: 8765
+          env:
+              - name: SPRING_DATASOURCE_URL
+                value: jdbc:mysql://mysql-svc/pizzadatabase?createDatabaseIfNotExist=true
+              - name: SPRING_DATASOURCE_USERNAME
+                value: myuser
+              - name: SPRING_DATASOURCE_PASSWORD
+                value: secret
+              - name: EUREKA_INSTANCE_HOSTNAME
+                value: eureka-0
+              - name: EUREKA_HOSTNAME
+                value: eureka-0.eureka.default.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-customer-svc
+spec:
+  selector:
+    app: pizza-customer
+  ports:
+    - port: 8765
+      targetPort: 8765
