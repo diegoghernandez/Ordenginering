@@ -15,7 +15,7 @@ jobs:
       runs-on: ubuntu-22.04
       defaults:
          run:
-            working-directory: backend/pizza-customer
+            working-directory: pizza-customer
       steps:
          - uses: actions/checkout@v4
            with:
