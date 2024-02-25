@@ -15,11 +15,11 @@ jobs:
       runs-on: ubuntu-22.04
       defaults:
          run:
-            working-directory: pizza-customer
+            working-directory: backend/pizza-customer
       steps:
          - uses: actions/checkout@v4
            with:
-            sparse-checkout: pizza-customer
+            sparse-checkout: backend/pizza-customer
             fetch-depth: 0
          - name: Test and publish image
            run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKER_PASSWORD }}
