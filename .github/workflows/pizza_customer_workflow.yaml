@@ -1,0 +1,25 @@
+name: Publish pizza customer image
+
+on:
+   push:
+      paths: [backend/pizza-customer/**, .github/workflows/pizza_customer_workflow.yaml, '!**.md', '!**.MD']
+      branches:
+         - main 
+
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
+
+jobs:
+   test:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: /backend/pizza-customer
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: pizza-customer
+            fetch-depth: 0
+         - name: Test and publish image
+           run: ./mvnw spring-boot:build-image -Ddocker-password="${{ secrets.DOCKER_PASSWORD }}"
