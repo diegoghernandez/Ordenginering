@@ -22,4 +22,4 @@ jobs:
             sparse-checkout: pizza-customer
             fetch-depth: 0
          - name: Test and publish image
-           run: ./mvnw spring-boot:build-image -Ddocker-password="${{ secrets.DOCKER_PASSWORD }}"
+           run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKER_PASSWORD }}
