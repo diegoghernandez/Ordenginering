@@ -1,8 +1,8 @@
-name: Publish pizza customer image
+name: Publish pizza gateway image
 
 on:
    push:
-      paths: [backend/pizza-customer/**, .github/workflows/pizza_customer_workflow.yaml, '!**.md', '!**.MD']
+      paths: [backend/pizza-gateway/**, .github/workflows/pizza_gateway_workflow.yaml, '!**.md', '!**.MD']
       branches:
          - main 
 
@@ -15,11 +15,11 @@ jobs:
       runs-on: ubuntu-22.04
       defaults:
          run:
-            working-directory: backend/pizza-customer
+            working-directory: backend/pizza-gateway
       steps:
          - uses: actions/checkout@v4
            with:
-            sparse-checkout: backend/pizza-customer
+            sparse-checkout: backend/pizza-gateway
             fetch-depth: 0
          - uses: actions/setup-java@v4
            with:
