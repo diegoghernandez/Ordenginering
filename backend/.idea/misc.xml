@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/pizza-config-server/pom.xml" />
         <option value="$PROJECT_DIR$/pizza-customer/pom.xml" />
         <option value="$PROJECT_DIR$/pizza-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/pizza-security/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pizza-customer" />
+        <module name="pizza-security" />
         <module name="pizza-register-service" />
         <module name="pizza-data" />
         <module name="pizza-gateway" />
@@ -24,6 +25,7 @@
       <module name="pizza-data" options="-parameters" />
       <module name="pizza-gateway" options="-parameters" />
       <module name="pizza-register-service" options="-parameters" />
+      <module name="pizza-security" options="-parameters" />
     </option>
   </component>
 </project>
