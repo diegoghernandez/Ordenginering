@@ -1,0 +1,5 @@
+{
+   "yaml.schemas": {
+      "kubernetes://schema/gateway.networking.k8s.io/v1%40gateway": "file:///home/diego/Portfolio/PizzaService/backend/k8s/pizza-gw.yaml"
+   }
+}

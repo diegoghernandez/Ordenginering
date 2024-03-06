@@ -20,6 +20,9 @@
                   <Item>
                     <option name="path" value="k8s/pizza-data.yaml" />
                   </Item>
+                  <Item>
+                    <option name="path" value="k8s/pizza-api-gateway.yaml" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>

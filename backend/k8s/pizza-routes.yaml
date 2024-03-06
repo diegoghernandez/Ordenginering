@@ -1,0 +1,35 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pizza-customer-route
+spec:
+  parentRefs:
+    - name: pizza-gw
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /customer
+      backendRefs:
+        - kind: Service
+          name: pizza-customer-svc
+          port: 8765
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pizza-data-route
+spec:
+  parentRefs:
+    - name: pizza-gw
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /data
+      backendRefs:
+        - kind: Service
+          name: pizza-data-svc
+          port: 4436
