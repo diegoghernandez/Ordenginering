@@ -25,6 +25,5 @@ jobs:
            with:
             distribution: 'temurin'
             java-version: '21'
-            cache: 'maven'
          - name: Test and publish image
            run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKER_PASSWORD }}
