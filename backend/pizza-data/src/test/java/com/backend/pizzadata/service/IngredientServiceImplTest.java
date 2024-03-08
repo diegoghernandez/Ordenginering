@@ -1,6 +1,7 @@
 package com.backend.pizzadata.service;
 
 import com.backend.pizzadata.TestDataUtil;
+import com.backend.pizzadata.constants.IngredientType;
 import com.backend.pizzadata.containers.SetUpForServiceTestWithContainers;
 import com.backend.pizzadata.domain.service.IngredientService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
@@ -40,21 +41,24 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
                       "No repeat",
-                      "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.VEGETABLE,
+                      "/meat/peperoni",
                       "Author"
               )));
 
       ingredientService.saveIngredient(new IngredientDto(
               "Good",
-              "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+              IngredientType.VEGETABLE,
+              "/meat/peperoni",
               "Author"
       ));
 
       var ingredientEntity = IngredientEntity.builder()
               .idIngredient(5)
               .ingredientName("Good")
+              .ingredientType(IngredientType.VEGETABLE)
               .authorImage("Author")
-              .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+              .urlImage("/meat/peperoni")
               .build();
 
       assertAll(
@@ -69,12 +73,14 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
       var ingredientDtoList = List.of(
               new IngredientDto(
                  "Cheese",
-                 "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.CHEESE,
+                 "/meat/peperoni",
                  "Author"
               ),
               new IngredientDto(
                  "Lettuce",
-                 "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.VEGETABLE,
+                 "/meat/peperoni",
                  "Author"
               )
       );
@@ -82,7 +88,8 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredientList(Collections.singletonList(new IngredientDto(
                       "No repeat",
-                      "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.VEGETABLE,
+                      "/meat/peperoni",
                       "Author"
               ))));
 
@@ -95,15 +102,17 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
               IngredientEntity.builder()
                       .idIngredient(6)
                       .ingredientName("Cheese")
+                      .ingredientType(IngredientType.CHEESE)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/meat/peperoni")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(7)
                       .ingredientName("Lettuce")
+                      .ingredientType(IngredientType.VEGETABLE)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/meat/peperoni")
                       .build()
       ).toString();
 

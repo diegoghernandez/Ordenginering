@@ -1,20 +1,22 @@
 import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
-import { Quantity } from '../../constants/quantity'
-import { Size } from '../../constants/size'
-import pizzaList from "../../data/pizza.json"
-import { useShoppingCart } from '../../hooks/useShoppingCart'
-import { AddPizza } from '../AddPizza'
-import { CustomSelect } from '../CustomSelect'
-import { IncreaseQuantity } from '../IncreaseQuantity'
-import { IngredientsContainer } from '../Ingredients/IngredientsContainer'
+import { Quantity } from '@/constants/quantity'
+import { Size } from '@/constants/size'
+import pizzaList from '@/data/pizza.json'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { AddPizza } from '@/components/AddPizza'
+import { CustomSelect } from '@/components/CustomSelect'
+import { IncreaseQuantity } from '@/components/IncreaseQuantity'
+import { IngredientsContainer } from '@/components/Ingredients/IngredientsContainer'
 import Style from './CustomizePizzaForm.module.css'
+import type { IngredientRequest } from '@/types'
 
 interface Props {
+   ingredients: IngredientRequest[]
    selectedPizza?: string,
    children: ReactElement
 }
 
-export function CustomizePizzaForm({ selectedPizza, children }: Props) {
+export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Props) {
    const getIngredientsFromSelectedPizza = () => {
       return pizzaList
          .filter((pizzaName) => pizzaName.name.toLowerCase().includes(selectedPizza ?? 'no text'))
@@ -43,7 +45,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
                return 150
          
             default:
-               return 0;
+               return 0
          }
       }
 
@@ -126,7 +128,7 @@ export function CustomizePizzaForm({ selectedPizza, children }: Props) {
                <CustomSelect values={Object.values(Size).map((value) => value)} />
             </div>
          </div>
-         <IngredientsContainer preSelectedIngredients={getIngredientsFromSelectedPizza()?.ingredients} />
+         <IngredientsContainer ingredients={ingredients} preSelectedIngredients={getIngredientsFromSelectedPizza()?.ingredients} />
       </form>
    )
 }

@@ -1,6 +1,7 @@
 package com.backend.pizzadata.controller;
 
 import com.backend.pizzadata.TestDataUtil;
+import com.backend.pizzadata.constants.IngredientType;
 import com.backend.pizzadata.domain.service.IngredientService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.web.IngredientController;
@@ -61,7 +62,8 @@ class IngredientControllerTest {
 
       var ingredientDto =  new IngredientDto(
               "Repeat name",
-              "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+              IngredientType.VEGETABLE,
+              "/meat/peperoni",
               "Author"
       );
 
@@ -81,7 +83,8 @@ class IngredientControllerTest {
 
       var ingredientDto =  new IngredientDto(
               "Good",
-              "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+              IngredientType.VEGETABLE,
+              "/meat/peperoni",
               "Author"
       );
 
@@ -103,12 +106,14 @@ class IngredientControllerTest {
       var ingredientDtoList = List.of(
               new IngredientDto(
                  "Repeat",
-                 "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                 IngredientType.VEGETABLE,
+                 "/meat/peperoni",
                  "Author"
               ),
               new IngredientDto(
                  "Repeat",
-                 "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                 IngredientType.VEGETABLE,
+                 "/meat/peperoni",
                  "Author"
               )
       );
@@ -130,12 +135,14 @@ class IngredientControllerTest {
       var ingredientDtoList = List.of(
               new IngredientDto(
                       "Good 1",
-                      "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.VEGETABLE,
+                      "/meat/peperoni",
                       "Author"
               ),
               new IngredientDto(
                       "Good 2",
-                      "https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/",
+                      IngredientType.VEGETABLE,
+                      "/meat/peperoni",
                       "Author"
               )
       );

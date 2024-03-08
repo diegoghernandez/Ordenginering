@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useShoppingCart } from "../../hooks/useShoppingCart"
-import { IncreaseQuantity } from "../IncreaseQuantity";
-import type { Pizza } from "../../../types";
+import { useEffect, useState } from 'react'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { IncreaseQuantity } from '@/components/IncreaseQuantity'
+import type { Pizza } from '@/types'
 import Styles from './ShowOrders.module.css'
 
 export function ShowOrders() {
@@ -23,7 +23,7 @@ export function ShowOrders() {
                      <button type='button' onClick={() => removePizza(element.id ?? '')}>X</button>
                   </article>
                )) 
-            : <div role="progressbar" aria-labelledby="loading content" className={Styles.spin}></div>
+            : <div role='progressbar' aria-labelledby='loading content' className={Styles.spin}></div>
          }
       </div>
    )

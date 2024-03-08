@@ -1,5 +1,6 @@
 package com.backend.pizzadata.persistence.entity;
 
+import com.backend.pizzadata.constants.IngredientType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,6 +23,10 @@ public class IngredientEntity {
 
     @Column(name = "ingredient_name", length = 50, nullable = false, unique = true)
     private String ingredientName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ingredient_type", nullable = false)
+    private IngredientType ingredientType;
 
     @Column(name = "author_image", length = 50, nullable = false)
     private String authorImage;

@@ -1,6 +1,6 @@
 ---
-import { ShowOrders } from "../components/ShowOrders";
-import Layout from "../layouts/Layout.astro";
+import { ShowOrders } from "@/components/ShowOrders";
+import Layout from "@/layouts/Layout.astro";
 
 type Inputs = {
    name: string,
@@ -48,8 +48,8 @@ const locationInputs: Inputs[] = [
 </Layout>
 
 <script>
-   import type { Order } from "../../types"
-   import { saveOrder } from "../services/orderService"
+   import type { Order } from "@/types"
+   import { saveOrder } from "@/services/orderService"
 
    const formulary = document.forms[0]
 
@@ -62,7 +62,7 @@ const locationInputs: Inputs[] = [
          
          for (const element of elements) {
             if (element instanceof HTMLInputElement && element.value) {
-               location.push(element.value);
+               location.push(element.value)
             }
          }
          

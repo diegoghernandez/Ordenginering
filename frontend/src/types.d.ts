@@ -1,4 +1,4 @@
-import type { Quantity } from "./src/constants/quantity";
+import type { Quantity } from '@/constants/quantity'
 
 export interface Pizza {
    id?:         `${string}-${string}-${string}-${string}-${string}`;
@@ -15,16 +15,24 @@ export interface Ingredient {
 }
 
 export interface IngredientRequest {
-   id: number
-   name: string,
-   type: string,
-   img: string,
-   author: string
+   idIngredient: number
+   ingredientName: string,
+   ingredientType: string,
+   authorImage: string,
+   urlImage: string
 }
 
 export interface Customer {
    id: number,
    name: string,
+}
+
+export interface CustomerDto {
+   customerName: string,
+   email: string,
+   password: string,
+   matchingPassword: string,
+   birthDate: Date
 }
 
 export interface Order {

@@ -9,13 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pizza-customer" />
         <module name="pizza-security" />
-        <module name="pizza-register-service" />
         <module name="pizza-data" />
-        <module name="pizza-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="pizza-config-server" target="21" />
+      <module name="pizza-gateway" target="21" />
+      <module name="pizza-register-service" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

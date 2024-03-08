@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import type { Pizza } from '../../types';
+import { create } from 'zustand'
+import type { Pizza } from '@/types'
 
 interface CartState {
    pizza: Pizza[],

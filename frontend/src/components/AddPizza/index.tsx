@@ -1,7 +1,7 @@
-import type { Pizza } from '../../../types';
-import { useShoppingCart } from '../../hooks/useShoppingCart';
-import '../../index.css';
-import Styles from './addPizza.module.css';
+import type { Pizza } from '@/types'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
+import '@/index.css'
+import Styles from './addPizza.module.css'
 
 interface Props {
    pizza?: Pizza

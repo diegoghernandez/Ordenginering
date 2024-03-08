@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useShoppingCart } from '../../hooks/useShoppingCart'
-import type { Pizza } from '../../../types'
-import '../../index.css'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
+import type { Pizza } from '@/types'
+import '@/index.css'
 import Styles from './shoppingCart.module.css'
 
 export function ShoppingCart() {

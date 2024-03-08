@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw';
 
-const API = 'http://localhost:4436/pizza';
+const API = 'http://localhost/pizza';
 
 export const pizzaHandler = [
    http.get(`${API}/account/:id`, ({ params }) => {

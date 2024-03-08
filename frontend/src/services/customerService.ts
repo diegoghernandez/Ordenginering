@@ -1,20 +1,34 @@
-import type { Customer } from "../../types";
+import type { Customer, CustomerDto } from '@/types'
 
-const URL = import.meta.env.VITE_API_URL ?? "http://localhost:4436";
-const API = URL +  "/customer";
+const URL = import.meta.env.VITE_API_URL ?? 'http://localhost'
+const API = URL +  '/data/customer'
 
-type CustomerResponse = (Omit<Response, "json"> & {
+type CustomerResponseJson = (Omit<Response, 'json'> & {
    status: 200
    json: () => Customer | PromiseLike<Customer>
 })
 
-export async function getCustomerData(email: string): Promise<CustomerResponse> {
-   const response = await fetch(`${API}/email/${email}`, {
-      method: "GET",
+type CustomerResponseText = (Omit<Response, string>)
+
+export async function getCustomerData(id: number): Promise<CustomerResponseJson> {
+   const response = await fetch(`${API}/id/${id}`, {
+      method: 'GET',
       headers: {
-         "Content-Type": "application/json",
+         'Content-Type': 'application/json',
       },
    })
 
    return response.json()
+}
+
+export async function registerCustomer(customerDto: CustomerDto): Promise<CustomerResponseText> {
+   const response = await fetch(`${API}/register`, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(customerDto)
+   })
+
+   return response.text()
 }

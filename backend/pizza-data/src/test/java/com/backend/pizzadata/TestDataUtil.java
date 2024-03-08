@@ -1,5 +1,6 @@
 package com.backend.pizzadata;
 
+import com.backend.pizzadata.constants.IngredientType;
 import com.backend.pizzadata.constants.Size;
 import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
@@ -25,29 +26,33 @@ public final class TestDataUtil {
               IngredientEntity.builder()
                       .idIngredient(1)
                       .ingredientName("Pepperoni")
+                      .ingredientType(IngredientType.MEAT)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/meat/peperoni/")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(2)
                       .ingredientName("Mozzarella")
+                      .ingredientType(IngredientType.CHEESE)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/cheese/mozzarella")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(3)
                       .ingredientName("Pineapple")
+                      .ingredientType(IngredientType.VEGETABLE)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/vegetables/pineapple")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(4)
                       .ingredientName("Ham")
+                      .ingredientType(IngredientType.MEAT)
                       .authorImage("Author")
-                      .urlImage("https://dominos.ua/en/kyiv/pizza/pitsa-toni-peperoni/")
+                      .urlImage("/meat/ham")
                       .build()
       );
    }

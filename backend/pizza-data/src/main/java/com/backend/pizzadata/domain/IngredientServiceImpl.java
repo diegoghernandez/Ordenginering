@@ -51,6 +51,7 @@ public class IngredientServiceImpl implements IngredientService {
          ingredientList.add(
             IngredientEntity.builder()
                     .ingredientName(ingredientDto.ingredientName())
+                    .ingredientType(ingredientDto.ingredientType())
                     .urlImage(ingredientDto.urlImage())
                     .authorImage(ingredientDto.authorImage())
                     .build()

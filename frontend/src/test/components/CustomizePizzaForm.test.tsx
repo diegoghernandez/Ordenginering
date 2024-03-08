@@ -1,14 +1,17 @@
-import { fireEvent, render, screen, within } from "@testing-library/react"
-import { CustomizePizzaForm } from "../../components/CustomizePizzaForm"
-import userEvent from "@testing-library/user-event"
+import { fireEvent, render, screen, within } from '@testing-library/react'
+import { CustomizePizzaForm } from '@/components/CustomizePizzaForm'
+import userEvent from '@testing-library/user-event'
+import { getAllIngredients } from '@/services/ingredientsService'
+
+const ingredients = await getAllIngredients()
 
 describe('CustomizePizzaForm component tests', () => { 
    it('Should render correctly', () => {
       const { container } = render(
-         <CustomizePizzaForm>
+         <CustomizePizzaForm ingredients={ingredients}>
             <img 
                className='pizza-custom' 
-               src={`/images/pizza/pepperoni.jpg`}
+               src='/images/pizza/pepperoni.jpg'
                alt='Pepperoni pizza'
                width='320'
                height='260'
@@ -32,10 +35,10 @@ describe('CustomizePizzaForm component tests', () => {
 
    it('Should render correctly a prebuild pizza', () => {
       const { container } = render(
-         <CustomizePizzaForm selectedPizza='hawaiana'>
+         <CustomizePizzaForm ingredients={ingredients} selectedPizza='hawaiana'>
             <img 
                className='pizza-custom' 
-               src={`/images/pizza/hawaiana.jpg`}
+               src='/images/pizza/hawaiana.jpg'
                alt='Hawaiana pizza'
                width='320'
                height='260'
@@ -51,10 +54,10 @@ describe('CustomizePizzaForm component tests', () => {
 
    it('Should change the price correctly according to the selected ingredients', async () => {
       const { container } = render(
-         <CustomizePizzaForm>
+         <CustomizePizzaForm ingredients={ingredients}>
             <img 
                className='pizza-custom' 
-               src={`/images/pizza/hawaiana.jpg`}
+               src='/images/pizza/hawaiana.jpg'
                alt='Hawaiana pizza'
                width='320'
                height='260'
@@ -78,7 +81,7 @@ describe('CustomizePizzaForm component tests', () => {
       expect(screen.getByText('$120')).toBeInTheDocument()
       expect(container.querySelectorAll('input:checked')).toHaveLength(1)
       
-      await user.click(screen.getByText("+"))
+      await user.click(screen.getByText('+'))
       
       expect(screen.getByText('$240')).toBeInTheDocument()
 
@@ -89,10 +92,10 @@ describe('CustomizePizzaForm component tests', () => {
 
    it('Should show the ingredient cards according to the desire type', () => {
       const { container } = render(
-         <CustomizePizzaForm>
+         <CustomizePizzaForm ingredients={ingredients}>
             <img 
                className='pizza-custom' 
-               src={`/images/pizza/hawaiana.jpg`}
+               src='/images/pizza/hawaiana.jpg'
                alt='Hawaiana pizza'
                width='320'
                height='260'
@@ -108,10 +111,10 @@ describe('CustomizePizzaForm component tests', () => {
    })
    it('Should show the ingredient cards according to the desire type', () => {
       const { container } = render(
-         <CustomizePizzaForm>
+         <CustomizePizzaForm ingredients={ingredients}>
             <img 
                className='pizza-custom' 
-               src={`/images/pizza/hawaiana.jpg`}
+               src='/images/pizza/hawaiana.jpg'
                alt='Hawaiana pizza'
                width='320'
                height='260'

@@ -1,29 +1,8 @@
-import { HttpResponse, http } from 'msw';
+import { HttpResponse, http } from 'msw'
+import ingredientList from '@/mocks/fixtures/ingredients.json'
 
-const API = 'http://localhost:4436/ingredient';
+const API = 'http://localhost/data/ingredient'
 
 export const ingredientsHandler = [
-   http.get(`${API}/all`, () => HttpResponse.json([
-      {
-         'id': 1,
-         'name': 'BBQ sauce', 
-         'urlImage': 'sauces/bbq',
-         'authorImage': 'Image by KamranAydinov on Freepik'
-      },{ 
-         'id': 2,
-         'name': 'Pesto sauce', 
-         'urlImage': 'sauces/pesto',
-         'authorImage': 'Foto de Artur Rutkowski en Unsplash'
-      },{ 
-         'id': 3,
-         'name': 'Buffalo sauce', 
-         'urlImage': 'sauces/buffalo',
-         'authorImage': 'Image by jcomp on Freepik'
-      },{ 
-         'id': 4,
-         'name': 'Tomato sauce',
-         'urlImage': 'sauces/tomato',
-         'authorImage': 'Foto de D. L. Samuels en Unsplash'
-      }
-   ]))
+   http.get(`${API}/all`, () => HttpResponse.json(ingredientList))
 ]

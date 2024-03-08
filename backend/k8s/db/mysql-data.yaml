@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-svc
+  name: mysql-data-svc
 spec:
   selector:
-    app: mysql
+    app: mysql-data
   ports:
     - protocol: TCP
       port: 3306
@@ -16,22 +16,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-data
   labels:
-    app: mysql
+    app: mysql-data
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: mysql-data
   template:
     metadata:
-      name: mysql
+      name: mysql-data
       labels:
-        app: mysql
+        app: mysql-data
     spec:
       containers:
-        - name: mysql
+        - name: mysql-data
           image: mysql:8.2.0
           imagePullPolicy: IfNotPresent
           env:
@@ -46,12 +46,12 @@ spec:
           ports:
             - containerPort: 3306
           volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
+            - name: mysql-data-persistent-storage
+              mountPath: /var/lib/mysql-data
       volumes:
-        - name: mysql-persistent-storage
+        - name: mysql-data-persistent-storage
           persistentVolumeClaim:
-            claimName: mysql-pv-claim
+            claimName: mysql-data-pv-claim
       restartPolicy: Always
 
 ---
@@ -59,7 +59,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv-volume
+  name: mysql-data-pv-volume
   labels:
     type: local
 spec:
@@ -75,7 +75,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: mysql-data-pv-claim
 spec:
   storageClassName: manual
   accessModes:
