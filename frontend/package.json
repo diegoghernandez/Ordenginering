@@ -15,11 +15,11 @@
     "cy:ci-cd": "cypress run --headed"
   },
   "dependencies": {
-    "@astrojs/check": "0.5.6",
-    "@astrojs/react": "3.0.10",
-    "@types/react": "18.2.64",
+    "@astrojs/check": "0.5.8",
+    "@astrojs/react": "3.1.0",
+    "@types/react": "18.2.65",
     "@types/react-dom": "18.2.21",
-    "astro": "4.4.15",
+    "astro": "4.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "zustand": "4.5.2"
@@ -29,8 +29,8 @@
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "14.2.1",
     "@testing-library/user-event": "14.5.2",
-    "@typescript-eslint/eslint-plugin": "7.1.1",
-    "@typescript-eslint/parser": "7.1.1",
+    "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@typescript-eslint/parser": "7.2.0",
     "cypress": "13.6.5",
     "cypress-vite": "1.5.0",
     "eslint-plugin-cypress": "2.15.1",
