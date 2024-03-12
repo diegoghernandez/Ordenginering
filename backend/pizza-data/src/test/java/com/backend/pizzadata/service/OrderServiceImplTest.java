@@ -75,7 +75,7 @@ class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
               () -> assertEquals(1, pageOrderSaved.getTotalElements()),
               () -> assertEquals(orderString, Collections.singletonList(order).toString()),
               () -> assertEquals(pizzaString, order.getPizzaList().toString()),
-              () -> assertEquals(5, order.getPizzaList().stream().map(PizzaEntity::getIngredientEntities).flatMap(Collection::stream).toList().size())
+              () -> assertEquals(5, order.getPizzaList().stream().map(PizzaEntity::getPizzaIngredients).flatMap(Collection::stream).toList().size())
       );
    }
 }

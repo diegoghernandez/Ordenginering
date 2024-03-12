@@ -1,9 +1,10 @@
 import type { IngredientRequest } from '@/types'
+import { StatusError } from './exceptions/StatusError'
 
 const URL = import.meta.env.VITE_API_URL ?? 'http://localhost'
 const API = URL +  '/data/ingredient'
 
-export async function getAllIngredients(): Promise<Array<IngredientRequest>> {
+export async function getAllIngredients(): Promise<Array<IngredientRequest>> {   
    const response = await fetch(`${API}/all`, {
       method: 'GET',
       mode: 'no-cors',
@@ -11,5 +12,10 @@ export async function getAllIngredients(): Promise<Array<IngredientRequest>> {
          'Content-Type': 'application/json',
       },
    })
-   return await response.json()
+
+   if (response.ok) {
+      return await response.json()
+   }
+
+   throw new StatusError('Ingredients not found')
 }   

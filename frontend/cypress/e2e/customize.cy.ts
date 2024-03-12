@@ -1,4 +1,5 @@
-import { Quantity } from "../../src/constants/quantity"
+import { Quantity } from '../../src/constants/quantity'
+import type { Pizza } from '../../src/types'
 
 describe('Menu page e2e tests', () => {
    beforeEach(() => cy.visit('/customize/empty'))
@@ -63,29 +64,29 @@ describe('Menu page e2e tests', () => {
 
       cy.findByText('Agregar').click()
 
-      const pizzaList = [{
-         name: 'Custom empty',
+      const pizzaList: Pizza[] = [{
+         pizzaName: 'Custom empty',
          size: 'SMALL',
-         ingredients: [{
-               name: "Bell Peppers",
+         ingredientNameDtoList: [{
+               name: 'Bell Peppers',
                quantity: Quantity.NORMAL
             }, {
-               name: "Turkey",
+               name: 'Turkey',
                quantity: Quantity.NORMAL
             }, {
-               name: "Chorizo",
+               name: 'Chorizo',
                quantity: Quantity.NORMAL
             }, {
-               name: "Calamar",
+               name: 'Calamar',
                quantity: Quantity.NORMAL
             }, {
-               name: "Cheddar",
+               name: 'Cheddar',
                quantity: Quantity.NORMAL
             }, {
-               name: "BBQ sauce",
+               name: 'BBQ sauce',
                quantity: Quantity.NORMAL
             }, {
-               name: "Buffalo sauce",
+               name: 'Buffalo sauce',
                quantity: Quantity.NORMAL
          }],
          quantity: 3,

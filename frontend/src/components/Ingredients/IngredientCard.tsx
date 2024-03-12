@@ -1,6 +1,6 @@
 import { Quantity } from '../../constants/quantity'
 import { CustomSelect } from '../CustomSelect'
-import Styles from './Ingredients.module.css';
+import Styles from './Ingredients.module.css'
 
 interface Props {
    isType: boolean,
@@ -12,7 +12,7 @@ interface Props {
    isUsed: boolean
 }
 
-export function IngredientCard({ isType, ingredient, isUsed } : Props) {
+export function IngredientCard({ isType, ingredient, isUsed } : Props) {   
    return (
       <article
          hidden={isType}

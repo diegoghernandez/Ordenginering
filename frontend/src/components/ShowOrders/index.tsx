@@ -17,8 +17,8 @@ export function ShowOrders() {
             pizza.length === 0 ? <p>No orders</p> 
                : pizza?.map((element) => (
                   <article key={element.id}>
-                     <h3>{element.name}</h3>
-                     <p>{element.ingredients.map((ingredient) => ingredient.name).join(', ')}</p>
+                     <h3>{element?.pizzaName}</h3>
+                     <p>{element.ingredientNameDtoList?.map((ingredient) => ingredient.name).join(', ')}</p>
                      <IncreaseQuantity defaultValue={element.quantity} />
                      <button type='button' onClick={() => removePizza(element.id ?? '')}>X</button>
                   </article>

@@ -98,9 +98,9 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
       }
 
       const newPizza = {
-         name: `Custom ${selectedPizza}`,
+         pizzaName: `Custom ${selectedPizza}`,
          size: characteristics.size,
-         ingredients: desireArticles.map((element) => ({ 
+         ingredientNameDtoList: desireArticles.map((element) => ({ 
             name: element.querySelector('h3')?.innerHTML ?? '', 
             quantity: Object.values(Quantity)
                .map((key) => Quantity[key])
@@ -117,7 +117,7 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
          <div className={Style.form__customize}>
             <figure>
                {children}
-               <figcaption>{getIngredientsFromSelectedPizza()?.imageAuthor ?? 'Image by KamranAydinov on Freepik'}</figcaption>
+               <figcaption>{getIngredientsFromSelectedPizza()?.imageAuthor}</figcaption>
             </figure>
             <p>${price}</p>
             <div>

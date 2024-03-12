@@ -39,7 +39,7 @@ spec:
             - containerPort: 8765
           env:
               - name: SPRING_DATASOURCE_URL
-                value: jdbc:mysql://mysql-customer-svc/pizzadatabase?createDatabaseIfNotExist=true
+                value: jdbc:mysql://mysql-svc/pizzadatabase?createDatabaseIfNotExist=true
               - name: SPRING_DATASOURCE_USERNAME
                 value: myuser
               - name: SPRING_DATASOURCE_PASSWORD

@@ -7,11 +7,13 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin(origins = "http://localhost:4321")
 public class OrderController {
 
    private final OrderService orderService;
@@ -21,7 +23,7 @@ public class OrderController {
       this.orderService = orderService;
    }
 
-   @GetMapping(value = "/account/{id}", produces = "application/json")
+   @GetMapping(value = "/account/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<Page<OrderEntity>> getOrdersByAccount(@PathVariable long id, @RequestParam int page) {
       var orderPage = orderService.getOrdersByAccount(id, page).get();
 
@@ -30,7 +32,7 @@ public class OrderController {
               new ResponseEntity<>(orderPage, HttpStatus.OK);
    }
 
-   @PostMapping(value = "/save", consumes = "application/json")
+   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<String> saveOrder(@Valid @RequestBody OrderDto orderDto) {
       orderService.saveOrder(orderDto);
 

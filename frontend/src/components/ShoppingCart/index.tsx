@@ -40,9 +40,9 @@ export function ShoppingCart() {
                <dialog className={Styles.dialog} open={isOpen}>
                   {pizza?.map((pizza) => (
                      <article key={pizza.id}>
-                        <h3>{pizza.name}</h3>
+                        <h3>{pizza.pizzaName}</h3>
                         <p>Size: {pizza.size}</p>
-                        <p>Ingredients: {pizza.ingredients.map((ingredient) => ingredient.name).join(', ')}</p>
+                        <p>Ingredients: {pizza.ingredientNameDtoList?.map((ingredient) => ingredient.name).join(', ')}</p>
                         {pizza.quantity ? <p>Quantity: {pizza.quantity}</p> : null}
                      </article>
                   ))}

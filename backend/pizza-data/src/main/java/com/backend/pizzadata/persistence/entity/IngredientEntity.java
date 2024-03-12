@@ -34,8 +34,8 @@ public class IngredientEntity {
     @Column(name = "url_image", length = 100, nullable = false)
     private String urlImage;
 
-    @ManyToMany(mappedBy = "ingredientEntities")
+    @OneToMany(mappedBy = "ingredientEntity")
     @ToString.Exclude
     @JsonIgnore
-    private Set<PizzaEntity> pizzaEntities;
+    private Set<PizzaIngredients> pizzaIngredients;
 }

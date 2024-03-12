@@ -46,14 +46,9 @@ public class PizzaEntity {
     @Column(name = "pizza_timestamp", columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime pizzaTimestamp;
 
-    @ManyToMany
-    @JoinTable(
-            name = "pizza_ingredients",
-            joinColumns = @JoinColumn(name = "id_pizza"),
-            inverseJoinColumns = @JoinColumn(name = "id_ingredient", insertable = false, updatable = false)
-    )
+    @OneToMany(mappedBy = "pizzaEntity")
     @ToString.Exclude
-    private Set<IngredientEntity> ingredientEntities;
+    private Set<PizzaIngredients> pizzaIngredients;
 
     @ManyToOne
     @JoinColumn(name = "id_order", referencedColumnName = "id_order", insertable = false, updatable = false)

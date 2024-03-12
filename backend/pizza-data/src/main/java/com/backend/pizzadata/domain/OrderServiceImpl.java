@@ -4,6 +4,7 @@ import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
+import com.backend.pizzadata.persistence.entity.PizzaIngredients;
 import com.backend.pizzadata.persistence.repository.IngredientRepository;
 import com.backend.pizzadata.persistence.repository.OrderRepository;
 import com.backend.pizzadata.web.dto.OrderDto;
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
       var pizzaEntityList = new ArrayList<PizzaEntity>();
 
       for (var pizzaDto : pizzaDtoList) {
-         int price = pizzaDto.ingredientIdList().size() * 20;
+         int price = pizzaDto.ingredientNameDtoList().size() * 20;
 
          price += switch (pizzaDto.size()) {
             case LARGE -> 150;
@@ -71,9 +72,14 @@ public class OrderServiceImpl implements OrderService {
 
          price *= pizzaDto.quantity();
 
-         var pizzaIngredients = pizzaDto.ingredientIdList().stream().map((id) -> {
+         var pizzaIngredients = pizzaDto.ingredientNameDtoList().stream().map((ingredientNameDto) -> {
             try {
-               return ingredientRepository.findById(id).orElseThrow(() -> new NotAllowedException("Ingredient doesn't exist"));
+               var ingredient = ingredientRepository.findByIngredientName(ingredientNameDto.name())
+                       .orElseThrow(() -> new NotAllowedException("Ingredient doesn't exist"));
+               return PizzaIngredients.builder()
+                       .ingredientEntity(ingredient)
+                       .ingredienQuantity(ingredientNameDto.quantity())
+                       .build();
             } catch (NotAllowedException e) {
                throw new RuntimeException(e);
             }
@@ -84,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
                          .pizzaName(pizzaDto.pizzaName())
                          .size(pizzaDto.size())
                          .quantity(pizzaDto.quantity())
-                         .ingredientEntities(pizzaIngredients)
+                         .pizzaIngredients(pizzaIngredients)
                          .price(price)
                          .pizzaTimestamp(LocalDateTime.now())
                  .build()

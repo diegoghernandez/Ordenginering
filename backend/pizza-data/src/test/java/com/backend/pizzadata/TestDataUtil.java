@@ -1,10 +1,13 @@
 package com.backend.pizzadata;
 
 import com.backend.pizzadata.constants.IngredientType;
+import com.backend.pizzadata.constants.Quantity;
 import com.backend.pizzadata.constants.Size;
 import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
+import com.backend.pizzadata.persistence.entity.PizzaIngredients;
+import com.backend.pizzadata.web.dto.IngredientNameDto;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
 import org.springframework.data.domain.Page;
@@ -12,10 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public final class TestDataUtil {
 
@@ -67,8 +67,10 @@ public final class TestDataUtil {
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
-                 .ingredientEntities(Set.of(getIngredientList().get(0), getIngredientList().get(1)))
-                 .build(),
+                 .pizzaIngredients(Set.of(
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(0)).ingredienQuantity(Quantity.NORMAL).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredienQuantity(Quantity.NORMAL).build()
+                 )).build(),
 
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
@@ -78,8 +80,11 @@ public final class TestDataUtil {
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
-                 .ingredientEntities(Set.of(getIngredientList().get(1), getIngredientList().get(2), getIngredientList().get(3)))
-                 .build()
+                 .pizzaIngredients(Set.of(
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredienQuantity(Quantity.NORMAL).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(2)).ingredienQuantity(Quantity.NORMAL).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(3)).ingredienQuantity(Quantity.NORMAL).build()
+                 )).build()
       );
    }
 
@@ -113,13 +118,18 @@ public final class TestDataUtil {
                               "Pepperoni",
                               Size.MEDIUM,
                               1,
-                              Arrays.asList(1, 2)
+                              List.of(new IngredientNameDto("Pepperoni", Quantity.NORMAL),
+                                      new IngredientNameDto("Mozzarella" ,Quantity.NORMAL)
+                              )
                       ),
                       new PizzaDto(
                               "Hawaiana",
                               Size.MEDIUM,
                               2,
-                              Arrays.asList(2, 3, 4)
+                              List.of(new IngredientNameDto("Mozzarella", Quantity.NORMAL),
+                                     new IngredientNameDto( "Pineapple", Quantity.NORMAL),
+                                     new IngredientNameDto( "Ham", Quantity.NORMAL)
+                              )
                       )
               )
       );

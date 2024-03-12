@@ -16,9 +16,9 @@ describe('ShoppingCart component tests', () => {
       useShoppingCart.setState({
          pizza: [{
             id: '9398812b-8ba2-4a20-8613-339c13df14ca',
-            name: 'Pepperoni',
+            pizzaName: 'Pepperoni',
             size: Size.MEDIUM,
-            ingredients: [{
+            ingredientNameDtoList: [{
                id: 1,
                name: 'Pepperoni',
                quantity: Quantity.EXTRA

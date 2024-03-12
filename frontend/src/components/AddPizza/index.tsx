@@ -7,7 +7,8 @@ interface Props {
    pizza?: Pizza
 }
 
-export function AddPizza({ pizza }: Props) {
+export function AddPizza({ pizza }: Props) {   
+   
    const addPizza = useShoppingCart((state) => state.addPizza)
    const handleClick = () => {      
       if (pizza) {

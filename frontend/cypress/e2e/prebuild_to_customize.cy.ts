@@ -1,4 +1,5 @@
-import { Quantity } from "../../src/constants/quantity"
+import { Quantity } from '../../src/constants/quantity'
+import type { Pizza } from '../../src/types'
 
 describe('Tests for the customization of a prebuilt pizza from the menu page', () => { 
    beforeEach(() => {
@@ -37,23 +38,23 @@ describe('Tests for the customization of a prebuilt pizza from the menu page', (
 
       cy.findByText('Agregar').click()
 
-      const pizzaList = [{
-         name: 'Custom pepperoni',
+      const pizzaList: Pizza[] = [{
+         pizzaName: 'Custom pepperoni',
          size: 'LARGE',
-         ingredients: [{
-               name: "Pineapple",
+         ingredientNameDtoList: [{
+               name: 'Pineapple',
                quantity: Quantity.NORMAL
             }, {
-               name: "Bell Peppers",
+               name: 'Bell Peppers',
                quantity: Quantity.NORMAL
             }, {
-               name: "Grilled Chicken",
+               name: 'Grilled Chicken',
                quantity: Quantity.NORMAL
             }, {
-               name: "Pepperoni",
+               name: 'Pepperoni',
                quantity: Quantity.NORMAL
             }, {
-               name: "Mozzarella",
+               name: 'Mozzarella',
                quantity: Quantity.NORMAL
             }],
          quantity: 2,

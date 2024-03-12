@@ -32,7 +32,7 @@ class OrderRepositoryTest extends SetUpForTestWithContainers {
               () -> assertEquals(1, orderEntityPage.getTotalElements()),
               () -> assertEquals(TestDataUtil.getOrderList().get().toList().toString(), Collections.singletonList(order).toString()),
               () -> assertEquals(TestDataUtil.getPizzaList().toString(), order.getPizzaList().toString()),
-              () -> assertEquals(5, order.getPizzaList().stream().map(PizzaEntity::getIngredientEntities).flatMap(Collection::stream).toList().size())
+              () -> assertEquals(5, order.getPizzaList().stream().map(PizzaEntity::getPizzaIngredients).flatMap(Collection::stream).toList().size())
       );
    }
 }

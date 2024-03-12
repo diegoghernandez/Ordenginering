@@ -1,7 +1,7 @@
 import { HttpResponse, http, type PathParams } from 'msw'
 import type { Order } from '@/types'
 
-const API = 'http://localhost/order'
+const API = 'http://localhost/data/order'
 
 export const orderHandler = [
    http.post<PathParams<never>, Order>(`${API}/save`, async ({ request }) => {

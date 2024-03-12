@@ -1,4 +1,5 @@
-import { Quantity } from "../../src/constants/quantity"
+import { Quantity } from '../../src/constants/quantity'
+import type { Pizza } from '../../src/types'
 
 describe('Menu page e2e tests', () => {
    beforeEach(() => cy.visit('/menu'))
@@ -17,14 +18,15 @@ describe('Menu page e2e tests', () => {
 
       cy.addPizzaInMenu(0)
 
-      const pizzaList = [{
-         name: 'Pepperoni',
+      const pizzaList: Pizza[] = [{
+         pizzaName: 'Pepperoni',
          size: 'MEDIUM',
-         ingredients: [{
-               name: "Pepperoni",
+         quantity: 1,
+         ingredientNameDtoList: [{
+               name: 'Pepperoni',
                quantity: Quantity.NORMAL
             },{
-               name: "Mozzarella",
+               name: 'Mozzarella',
                quantity: Quantity.NORMAL
          }]
       }]

@@ -1,6 +1,6 @@
 /// <reference types="@testing-library/cypress" />
 import '@testing-library/cypress/add-commands'
-import type { Pizza } from '../../types'
+import type { Pizza } from '../../src/types'
 
 declare global {
    // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -48,8 +48,11 @@ Cypress.Commands.add('checkIfShoppingCartIsEmpty' , () => {
 
 Cypress.Commands.add('checkIfPizzaIsAddToShoppingCart' , (pizzaList) => {
    cy.getAllLocalStorage().then((result) => { 
-      const localStoragePizza = JSON.parse(result['http://localhost:4321'].allPizza ?? '[]')
-      localStoragePizza.forEach((object) => delete object.id)
+      let localStoragePizza = JSON.parse(result['http://localhost:4321'].allPizza ?? '[]')
+      localStoragePizza = localStoragePizza.map((object: Pizza) => {
+         const { id, ...rest } = object
+         return rest
+      })
 
       const resultModified = {
          'http://localhost:4321' : {

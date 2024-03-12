@@ -1,6 +1,7 @@
 package com.backend.pizzadata.web.dto;
 
 import com.backend.pizzadata.constants.Size;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,5 +13,5 @@ public record PizzaDto(
         @NotBlank String pizzaName,
         @NotNull Size size,
         @Min(1) @NotNull int quantity,
-        @NotEmpty List<Integer> ingredientIdList
+        @NotEmpty List<@Valid  IngredientNameDto> ingredientNameDtoList
 ) {}

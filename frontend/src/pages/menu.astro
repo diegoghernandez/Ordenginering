@@ -28,10 +28,11 @@ import { Size } from "../constants/size";
 				<div class="button-container">
 					<p style="display: none;">{pizza.ingredients.join(', ')}</p>
 					<AddPizza client:idle pizza={{
-						name: pizza.name,
+						pizzaName: pizza.name,
 						size: Size.MEDIUM,
-						ingredients: pizza.ingredients
-							.map((ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
+						quantity: 1,
+						ingredientNameDtoList: pizza.ingredients.map(
+							(ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
 					}} />
 					<a class="container" href={`/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 				</div>
