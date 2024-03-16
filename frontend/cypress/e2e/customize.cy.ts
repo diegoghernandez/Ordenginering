@@ -1,7 +1,7 @@
 import { Quantity } from '../../src/constants/quantity'
 import type { Pizza } from '../../src/types'
 
-describe('Menu page e2e tests', () => {
+describe('Customize page e2e tests', () => {
    beforeEach(() => cy.visit('/customize/empty'))
 
    it('Should render the page correctly', () => {

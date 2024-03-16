@@ -50,6 +50,10 @@ describe('Checkout page e2e tests', () => {
       cy.findByLabelText('Street').type('stree')
       cy.findByLabelText('House number').type('4242')
 
+      cy.intercept('POST', 'http://localhost/data/order/save', {
+         statusCode: 201
+      })
+
       cy.findByRole('button', { name: 'Accept' }).click()
       cy.findByText('Order made correctly').should('be.visible')
    })

@@ -1,6 +1,6 @@
 import type { Customer, CustomerDto } from '@/types'
 
-const URL = import.meta.env.VITE_API_URL ?? 'http://localhost'
+const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
 const API = URL +  '/data/customer'
 
 type CustomerResponseJson = (Omit<Response, 'json'> & {

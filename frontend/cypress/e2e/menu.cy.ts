@@ -31,10 +31,11 @@ describe('Menu page e2e tests', () => {
          }]
       }]
 
+      
       cy.checkIfPizzaIsAddToShoppingCart(pizzaList)
-
+      
       cy.findByText('Cart').click()
-
+      
       cy.findByRole('dialog').within(() => {
          cy.findByRole('article').should('have.length', 1)
          cy.findByRole('heading', { name: 'Pepperoni' }).should('exist')

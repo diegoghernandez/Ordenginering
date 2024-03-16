@@ -1,7 +1,7 @@
 import type { IngredientRequest } from '@/types'
 import { StatusError } from './exceptions/StatusError'
 
-const URL = import.meta.env.VITE_API_URL ?? 'http://localhost'
+const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
 const API = URL +  '/data/ingredient'
 
 export async function getAllIngredients(): Promise<Array<IngredientRequest>> {   

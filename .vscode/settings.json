@@ -1,5 +1,8 @@
 {
    "yaml.schemas": {
-      "kubernetes://schema/gateway.networking.k8s.io/v1%40gateway": "file:///home/diego/Portfolio/PizzaService/backend/k8s/pizza-gw.yaml"
+      "kubernetes://schema/gateway.networking.k8s.io/v1%40gateway": [
+         "file:///home/diego/Portfolio/PizzaService/backend/k8s/pizza-gw.yaml"
+      ],
+      "https://json.schemastore.org/kustomization.json": "file:///home/diego/Portfolio/PizzaService/k8-aws/cluster.yaml"
    }
 }
