@@ -1,6 +1,7 @@
 package com.backend.pizzacustomer.web;
 
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import jakarta.validation.Valid;
@@ -21,10 +22,12 @@ public class CustomerController {
    }
 
    @PostMapping(value = "/register", consumes = {"application/json"})
-   public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) {
+   public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
       if (!customerDto.password().equals(customerDto.matchingPassword())) {
          return new ResponseEntity<>("Passwords don't match", HttpStatus.BAD_REQUEST);
       }
+
+      customerService.saveCustomer(customerDto);
 
       return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
    }

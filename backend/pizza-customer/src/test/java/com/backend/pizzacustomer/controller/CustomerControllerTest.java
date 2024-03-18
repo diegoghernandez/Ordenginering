@@ -64,11 +64,17 @@ class CustomerControllerTest {
                       .andExpect(MockMvcResultMatchers.status().isBadRequest())
                       .andExpect(MockMvcResultMatchers.content().string("Passwords don't match")),
 
+              () -> Mockito.verify(customerService, Mockito.times(0))
+                      .saveCustomer(Mockito.eq(successCustomer)),
+
               () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
                               .contentType(MediaType.APPLICATION_JSON)
                               .content(objectMapper.writeValueAsString(successCustomer)))
                       .andExpect(MockMvcResultMatchers.status().isCreated())
-                      .andExpect(MockMvcResultMatchers.content().string("Account create successfully"))
+                      .andExpect(MockMvcResultMatchers.content().string("Account create successfully")),
+
+              () -> Mockito.verify(customerService, Mockito.times(1))
+                      .saveCustomer(Mockito.eq(successCustomer))
 
       );
    }
