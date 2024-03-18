@@ -31,7 +31,7 @@ jobs:
          - name: Test and publish image
            run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKER_PASSWORD }}
 
-   cd: 
+   login__and__update__deployment: 
       needs: test__and__build__image
       runs-on: ubuntu-22.04
       steps:
