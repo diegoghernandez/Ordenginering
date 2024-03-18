@@ -23,7 +23,7 @@ public class IngredientController {
       this.ingredientService = ingredientService;
    }
 
-   @GetMapping(value = "/all", produces = {"application/json"})
+   @GetMapping(value = "/", produces = {"application/json"})
    public ResponseEntity<List<IngredientEntity>> getAllIngredients() {
       var ingredientList = ingredientService.getAllIngredients();
 

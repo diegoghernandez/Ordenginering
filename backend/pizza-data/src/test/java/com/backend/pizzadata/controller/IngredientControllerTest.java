@@ -48,7 +48,7 @@ class IngredientControllerTest {
 
       var objectMapper = new ObjectMapper();
 
-      mockMvc.perform(MockMvcRequestBuilders.get("/ingredient/all")
+      mockMvc.perform(MockMvcRequestBuilders.get("/ingredient/")
                   .contentType(MediaType.APPLICATION_JSON))
               .andExpect(MockMvcResultMatchers.status().isOk())
               .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestDataUtil.getIngredientList())));
