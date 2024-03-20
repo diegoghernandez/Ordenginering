@@ -1,6 +1,6 @@
 ---
-import { ShowOrders } from "@/components/ShowOrders";
-import Layout from "@/layouts/Layout.astro";
+import { ShowOrders } from '@/components/ShowOrders'
+import Layout from '@/layouts/Layout.astro'
 
 type Inputs = {
    name: string,
@@ -19,7 +19,7 @@ const locationInputs: Inputs[] = [
 
 ---
 
-<Layout title="Checkout order">
+<Layout title='Checkout order'>
    <main>
       <h1>My order</h1>
       <div>
@@ -48,9 +48,9 @@ const locationInputs: Inputs[] = [
 </Layout>
 
 <script>
-   import type { Order } from "@/types"
-   import { saveOrder } from "@/services/orderService"
-import type { Pizza } from "@/types"
+   import type { Order } from '@/types'
+   import { saveOrder } from '@/services/orderService'
+import type { Pizza } from '@/types'
 
    const formulary = document.forms[0]
 

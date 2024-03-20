@@ -1,17 +1,11 @@
 import type { Customer, CustomerDto } from '@/types'
 
-const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
-const API = URL +  '/data/customer'
+const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
+const PRIVATE_URL = import.meta.env.PRIVATE_URL ?? 'http://localhost'
+const API = (url: string)  => url +  '/customer'
 
-type CustomerResponseJson = (Omit<Response, 'json'> & {
-   status: 200
-   json: () => Customer | PromiseLike<Customer>
-})
-
-type CustomerResponseText = (Omit<Response, string>)
-
-export async function getCustomerData(id: number): Promise<CustomerResponseJson> {
-   const response = await fetch(`${API}/id/${id}`, {
+export async function getCustomerData(id: number): Promise<Customer> {
+   const response = await fetch(`${API(PRIVATE_URL)}/${id}`, {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
@@ -21,8 +15,8 @@ export async function getCustomerData(id: number): Promise<CustomerResponseJson>
    return response.json()
 }
 
-export async function registerCustomer(customerDto: CustomerDto): Promise<CustomerResponseText> {
-   const response = await fetch(`${API}/register`, {
+export async function registerCustomer(customerDto: CustomerDto): Promise<string> {
+   const response = await fetch(`${API(PUBLIC_URL)}/register`, {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',

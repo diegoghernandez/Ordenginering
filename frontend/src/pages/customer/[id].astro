@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getCustomerData } from '@/services/customerService'
+
+export const prerender = false
+
+const { id } = Astro.params
+
+const customer = await getCustomerData(Number(id))
+---
+
+<Layout title='Checkout order'>
+   <h1>{customer.customerName}</h1>
+   <p>{customer.email}</p>
+   <p>{new Intl.DateTimeFormat('en-US', { dateStyle: "long" })
+      .format(new Date(customer.birthDate))}
+   </p>
+</Layout>

@@ -20,7 +20,7 @@ export function IngredientCard({ isType, ingredient, isUsed } : Props) {
          className='container'>
          <figure>
             <img 
-               src={`/images/${ingredient.img}.jpg`}
+               src={`/client/images/${ingredient.img}.jpg`}
                alt={ingredient.name}
                width='130'
                height='80'

@@ -27,7 +27,7 @@ const ingredients = await getAllIngredients()
 		<CustomizePizzaForm ingredients={ingredients} selectedPizza={pizza.replace('-', ' ')} client:load >
 			<img 
 				class='pizza-custom' 
-				src={`/images/pizza/${pizza}.jpg`}
+				src={`/client/images/pizza/${pizza}.jpg`}
 				alt={`${getDefaultName(pizza)} pizza`}
 				width='320'
 				height='260'

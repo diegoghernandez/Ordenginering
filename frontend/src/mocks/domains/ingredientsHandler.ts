@@ -4,5 +4,5 @@ import ingredientList from '@/mocks/fixtures/ingredients.json'
 const API = 'http://localhost/data/ingredient'
 
 export const ingredientsHandler = [
-   http.get(`${API}/all`, () => HttpResponse.json(ingredientList))
+   http.get(`${API}/`, () => HttpResponse.json(ingredientList))
 ]

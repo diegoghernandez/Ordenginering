@@ -5,7 +5,7 @@ const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
 const API = URL +  '/data/ingredient'
 
 export async function getAllIngredients(): Promise<Array<IngredientRequest>> {   
-   const response = await fetch(`${API}/all`, {
+   const response = await fetch(`${API}/`, {
       method: 'GET',
       mode: 'no-cors',
       headers: {

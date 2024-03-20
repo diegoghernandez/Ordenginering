@@ -1,16 +1,16 @@
 import { http, HttpResponse, type PathParams } from 'msw'
 import type { CustomerDto } from '@/types'
 
-const API = 'http://localhost/data/customer'
+const API = 'http://localhost/customer'
 
 export const customerHandler = [
-   http.get(`${API}/id/:id`, ({ params }) => {
+   http.get(`${API}/:id`, ({ params }) => {
       const { id } = params
       if (id === '32') {
          return HttpResponse.json({
-            'idCustomer': 3213,
             'customerName': 'Customer',
             'email': 'random@random.com',
+            'birthDate': '2002-06-12'
          })
       }
    }),

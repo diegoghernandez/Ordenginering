@@ -15,7 +15,7 @@ import { Size } from "../constants/size";
 			<article class="container">
 				<figure>
 					<Image 
-						src={`/images/pizza/${pizza.image.url}.jpg`}
+						src={`/client/images/pizza/${pizza.image.url}.jpg`}
 						alt={`${pizza.name} pizza`}
 						width="280"
 						height="220"
@@ -34,7 +34,7 @@ import { Size } from "../constants/size";
 						ingredientNameDtoList: pizza.ingredients.map(
 							(ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
 					}} />
-					<a class="container" href={`/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
+					<a class="container" href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 				</div>
 			</article>
 		))}

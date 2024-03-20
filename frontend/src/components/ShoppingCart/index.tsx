@@ -46,7 +46,7 @@ export function ShoppingCart() {
                         {pizza?.quantity ? <p>Quantity: {pizza?.quantity}</p> : null}
                      </article>
                   ))}
-                  <a href='/checkout'>Buy</a>
+                  <a href='/client/checkout'>Buy</a>
                </dialog>
             , document.body) : null
          }

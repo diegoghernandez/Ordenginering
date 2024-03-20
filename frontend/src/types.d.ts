@@ -23,8 +23,9 @@ export interface IngredientRequest {
 }
 
 export interface Customer {
-   id: number;
-   name: string;
+   customerName: string;
+   email: string;
+   birthDate: Date;
 }
 
 export interface CustomerDto {

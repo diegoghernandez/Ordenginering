@@ -12,14 +12,15 @@
     "test": "vitest",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "cy:ci-cd": "cypress run --headed"
+    "cy:ci-cd": "cypress run --headed --no-runner-ui"
   },
   "dependencies": {
     "@astrojs/check": "0.5.9",
+    "@astrojs/node": "8.2.5",
     "@astrojs/react": "3.1.0",
-    "@types/react": "18.2.66",
+    "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",
-    "astro": "4.5.5",
+    "astro": "4.5.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "zustand": "4.5.2"
@@ -27,17 +28,17 @@
   "devDependencies": {
     "@testing-library/cypress": "10.0.1",
     "@testing-library/jest-dom": "6.4.2",
-    "@testing-library/react": "14.2.1",
+    "@testing-library/react": "14.2.2",
     "@testing-library/user-event": "14.5.2",
-    "@typescript-eslint/eslint-plugin": "7.2.0",
-    "@typescript-eslint/parser": "7.2.0",
+    "@typescript-eslint/eslint-plugin": "7.3.1",
+    "@typescript-eslint/parser": "7.3.1",
     "cypress": "13.7.0",
     "cypress-vite": "1.5.0",
     "eslint-plugin-cypress": "2.15.1",
     "eslint-plugin-react": "7.34.1",
     "happy-dom": "13.7.0",
-    "msw": "2.2.4",
-    "typescript": "5.4.2",
+    "msw": "2.2.9",
+    "typescript": "5.4.3",
     "vitest": "1.4.0"
   }
 }

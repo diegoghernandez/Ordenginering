@@ -10,9 +10,9 @@ describe('Customer service tests', () => {
          const content = await getCustomerData(32)
 
          expect(content).toStrictEqual({
-            idCustomer: 3213,
             customerName: 'Customer',
             email: 'random@random.com',
+            birthDate: '2002-06-12'
          })
       })
    }),
