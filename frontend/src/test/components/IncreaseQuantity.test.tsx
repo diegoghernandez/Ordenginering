@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { IncreaseQuantity } from '../../components/IncreaseQuantity';
+import { SelectQuantity } from '../../components/SelectQuantity';
 
 describe('IncreaseQuantity component tests', () => { 
    it('Should render correctly', () => {
-      render(<IncreaseQuantity />)
+      render(<SelectQuantity />)
 
       expect(screen.getByRole('button', { name: '-' })).toBeDefined()
       expect(screen.getByText(1)).toBeDefined()
@@ -11,7 +11,7 @@ describe('IncreaseQuantity component tests', () => {
    })
 
    it('Should subtract the number correctly', () => {
-      render(<IncreaseQuantity defaultValue={2} />)
+      render(<SelectQuantity defaultValue={2} />)
 
       expect(screen.getByText(2)).toBeDefined()
       fireEvent.click(screen.getByRole('button', { name: '-' }))
@@ -19,7 +19,7 @@ describe('IncreaseQuantity component tests', () => {
    })
 
    it('Should increase the number correctly', () => {
-      render(<IncreaseQuantity defaultValue={2} />)
+      render(<SelectQuantity defaultValue={2} />)
 
       expect(screen.getByText(2)).toBeDefined()
       fireEvent.click(screen.getByRole('button', { name: '+' }))

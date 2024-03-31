@@ -1,5 +1,5 @@
 ---
-import { ShowOrders } from '@/components/ShowOrders'
+import { ShowOrder } from '@/components/ShowOrders'
 import Layout from '@/layouts/Layout.astro'
 
 type Inputs = {
@@ -39,7 +39,7 @@ const locationInputs: Inputs[] = [
       </div>
       <div>
          <h2>Your order</h2>   
-         <ShowOrders client:idle />
+         <ShowOrder client:idle />
       </div>
       <dialog>
          <p>Order made correctly</p>

@@ -15,9 +15,9 @@ describe('Customize page e2e tests', () => {
       cy.findByText('$100').should('exist')
       cy.findByText('Agregar').should('exist')
       cy.findByRole('heading', { level: 2, name: 'Quantity' }).should('exist')
-      cy.findByRole('button', { name: '-' }).should('exist')
+      cy.findByLabelText('Subtract pizza').should('exist')
       cy.findByText('1').should('exist')
-      cy.findByRole('button', { name: '+' }).should('exist')
+      cy.findByLabelText('Add pizza').should('exist')
       cy.findByRole('heading', { name: 'Size' }).should('exist')
       cy.findAllByRole('combobox').first().should('have.value', 'MEDIUM')
       
@@ -94,15 +94,14 @@ describe('Customize page e2e tests', () => {
 
       cy.checkIfPizzaIsAddToShoppingCart(pizzaList)
 
-      cy.findByText('Cart').click()
+      cy.findByLabelText('Shopping cart').click()
 
       cy.findByRole('dialog').within(() => {
          cy.findByRole('article').should('have.length', 1)
          cy.findByRole('heading', { name: 'Custom empty' }).should('exist')
          cy.findByText('Size: SMALL').should('exist')
-         cy.findByText('Ingredients: Bell Peppers, Turkey, Chorizo, Calamar, Cheddar, BBQ sauce, Buffalo sauce').should('exist')
-         cy.findByText('Quantity: 3').should('exist')
-         cy.findByRole('link').should('exist')
+         cy.findByText('Bell Peppers, Turkey, Chorizo, Calamar, Cheddar, BBQ sauce, Buffalo sauce').should('exist')
+         cy.findByText('3').should('exist')
       })
    })
 })

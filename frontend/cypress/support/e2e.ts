@@ -18,10 +18,15 @@ declare global {
 Cypress.on('uncaught:exception', () => false)
 
 Cypress.Commands.add('navbarElements', () => {
+   cy.findByLabelText('Open menu').click()
+   
    cy.findByRole('link', { name: 'Home' }).should('exist')
    cy.findByRole('link', { name: 'Menu' }).should('exist')
    cy.findByRole('link', { name: 'Customize' }).should('exist')
-   cy.findByText('Cart').should('exist')
+
+   cy.findByRole('dialog').within(() => cy.findByLabelText('Close menu', { }).click())
+
+   cy.findByLabelText('Shopping cart').should('exist')
    cy.findByText('0').should('exist')
 })
 
@@ -36,14 +41,14 @@ Cypress.Commands.add('clickVisibleArticleInCustomizePizza', (position) =>
 Cypress.Commands.add('checkIfShoppingCartIsEmpty' , () => {
    cy.getAllLocalStorage().then((result) => expect(result).to.be.deep.equal({}))
    
-   const shoppingCart = cy.findByText('Cart')
+   const shoppingCart = cy.findByLabelText('Shopping cart')
    shoppingCart.within(() => cy.get('span').should('have.text', 0))
    
    cy.wait(600)
    
    shoppingCart.click()
    cy.findByRole('dialog').within(() => cy.get('article').should('have.length', 0))
-   shoppingCart.click()
+   cy.findByRole('dialog').within(() => cy.findByLabelText('Close menu', { }).click())
 })
 
 Cypress.Commands.add('checkIfPizzaIsAddToShoppingCart' , (pizzaList) => {
@@ -67,5 +72,5 @@ Cypress.Commands.add('checkIfPizzaIsAddToShoppingCart' , (pizzaList) => {
       })
    })
 
-   cy.findByText('Cart').within(() => cy.get('span').should('have.text', 1))
+   cy.findByLabelText('Shopping cart').within(() => cy.get('span').should('have.text', 1))
 })

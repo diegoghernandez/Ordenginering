@@ -1,18 +1,18 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { ShowOrders } from '../../components/ShowOrders'
+import { ShowOrder } from '../../components/ShowOrders'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 
 describe('ShowOrders component tests', () => { 
    it('Should show a message if there is no pizza' , () => {
-      render(<ShowOrders />)
+      render(<ShowOrder />)
       expect(screen.getByText('No orders')).toBeInTheDocument()
    })
 
    it('Should render correctly', async () => {
       setPizza()
-      render(<ShowOrders />)
+      render(<ShowOrder />)
       const pizzaContainers = screen.getAllByRole('article')
 
       expect(pizzaContainers).toHaveLength(2)
@@ -24,7 +24,7 @@ describe('ShowOrders component tests', () => {
 
    it('Should delete correctly one card', async () => {
       setPizza()
-      render(<ShowOrders />)
+      render(<ShowOrder />)
 
       expect(screen.getAllByRole('article')).toHaveLength(2)
       

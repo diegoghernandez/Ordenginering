@@ -5,7 +5,7 @@ import pizzaList from '@/data/pizza.json'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { AddPizza } from '@/components/AddPizza'
 import { CustomSelect } from '@/components/CustomSelect'
-import { IncreaseQuantity } from '@/components/IncreaseQuantity'
+import { SelectQuantity } from '@/components/SelectQuantity'
 import { IngredientsContainer } from '@/components/Ingredients/IngredientsContainer'
 import Style from './CustomizePizzaForm.module.css'
 import type { IngredientRequest } from '@/types'
@@ -123,7 +123,7 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
             <div>
                <AddPizza />
                <h2>Quantity</h2>
-               <IncreaseQuantity setValue={setCharacteristics} />
+               <SelectQuantity setValue={setCharacteristics} />
                <h2>Size</h2>
                <CustomSelect values={Object.values(Size).map((value) => value)} />
             </div>

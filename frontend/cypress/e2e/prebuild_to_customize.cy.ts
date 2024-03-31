@@ -28,7 +28,7 @@ describe('Tests for the customization of a prebuilt pizza from the menu page', (
       cy.clickVisibleArticleInCustomizePizza(0)
       cy.findByText('$200').should('exist')
       
-      cy.findByRole('button', { name: '+' }).click()
+      cy.findByLabelText('Add pizza').click()
       cy.findByText('$400').should('exist')
       
       cy.findByRole('combobox').select('LARGE')
@@ -62,15 +62,14 @@ describe('Tests for the customization of a prebuilt pizza from the menu page', (
 
       cy.checkIfPizzaIsAddToShoppingCart(pizzaList)
 
-      cy.findByText('Cart').click()
+      cy.findByLabelText('Shopping cart').click()
 
       cy.findByRole('dialog').within(() => {
          cy.findByRole('article').should('have.length', 1)
          cy.findByRole('heading', { name: 'Custom pepperoni' }).should('exist')
          cy.findByText('Size: LARGE').should('exist')
-         cy.findByText('Ingredients: Pineapple, Bell Peppers, Grilled Chicken, Pepperoni, Mozzarella').should('exist')
-         cy.findByText('Quantity: 2').should('exist')
-         cy.findByRole('link').should('exist')
+         cy.findByText('Pineapple, Bell Peppers, Grilled Chicken, Pepperoni, Mozzarella').should('exist')
+         cy.findByText('2').should('exist')
       })
    })
 })

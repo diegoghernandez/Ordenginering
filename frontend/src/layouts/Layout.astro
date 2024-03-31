@@ -1,12 +1,12 @@
 ---
+import ModalContainer from '@/components/containers/ModalContainer.astro';
 import { ShoppingCart } from '../components/ShoppingCart'
 import '../index.css'
+import { ShowOrder } from '@/components/ShowOrders';
 
 interface Props {
 	title: string;
 }
-
-const { title } = Astro.props
 
 const pages = [
 	{ name: 'Home', link: '/'},
@@ -19,36 +19,57 @@ const socialLinks = [
 	{ name: 'Github', link: 'https://github.com/DiegoJ4V'},
 	{ name: 'LinkedIn', link: 'https://www.linkedin.com/in/diegoj4v/'}
 ]
+
+const { title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='UTF-8' />
+		<meta name='description' content='Astro description' />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/client/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
-		{/*<ViewTransitions fallback="animate" /> */}
+		{/*<ViewTransitions fallback='animate' /> */}
 	</head>
 	<body>
 		<nav>
-			<div>
-				{pages.map((page) => (
-					<a class="container" href={`/client${page.link}`} data-astro-prefetch>
-						{page.name}
-					</a>
-				))}
+			<div class='menu--movil'>
+				<button aria-label='Open menu'>
+					<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>
+						<path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
+					</svg>
+				</button>
+				<ModalContainer>
+					{pages.map((page) => (
+						<li>
+							<a href={`/client${page.link}`} data-astro-prefetch>
+								{page.name}
+							</a>
+						</li>
+					))}
+				</ModalContainer>
 			</div>
-			<div>
+			<div class='buttons--row'>
+				<a href='/client/customer/1'>
+					Account
+					<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
+						<path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
+					</svg>
+				</a>
 				<ShoppingCart client:idle transition:persist />
+				<ModalContainer>
+					<p slot='description'>Your order</p>
+					<ShowOrder client:idle />
+				</ModalContainer>
 			</div>
 		</nav>
 		<slot />
 		<footer>
 			{socialLinks.map((socialLink) => (
-				<a class="container" href={socialLink.link}>
+				<a href={socialLink.link}>
 					{socialLink.name}
 				</a>
 			))}			
@@ -57,50 +78,77 @@ const socialLinks = [
 </html>
 
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	* {
-		box-sizing: border-box;
-		padding: 0;
-		margin: 0;
-	}
-	html {
-		font-family: system-ui, sans-serif;
-	}
-	nav {
-		display: flex;
-		height: 50px;
-		padding: 4px 8px;
-		justify-content: space-between;
-		background-color: #FF8B2E;
-		& div {
-			display: inline-flex;
-			gap: 16px;
+	body {
+		background-color: var(--neutral-100);
+		& nav {
+			display: flex;
+			height: 56px;
+			justify-content: space-between;
+			padding: 16px 24px;
+			border-bottom: 1px solid var(--neutral-300);
+			background-color: var(--neutral-000);	
+		}
+		& h1 {
+			text-align: center;
+			font-size: 3rem;
+			font-weight: 400;
+			line-height: 3.875rem;
+			color: var(--primary-400);
 		}
 	}
-	footer {
-		display: flex;
-		justify-content: center;
-		gap: 32px;
-		background-color: #FF8B2E;
-		padding: 12px 0;
+
+	.menu--movil {
+		& button {
+			background-color: transparent;
+			border: none;
+		}
+		& a {
+			display: inline-flex;
+			height: 64px;
+			width: 100%;
+			padding: 24px;
+			align-items: center;
+			color: var(--neutral-600);
+			border-bottom: 1px solid var(--neutral-300);
+		}
 	}
-	a {
-		display: block;
-		height: fit-content;
-		cursor: pointer;
-		background-color: #FCEB74;
-		text-align: center;
-		color: #000;
-		text-decoration: none;
+	
+	.buttons--row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		font-size: 1rem;
+		font-weight: 500;
+		color: var(--neutral-900);
+		& a, button {
+			display: flex;
+			justify-content: center;
+			gap: 4px;
+		}
 	}
 </style>
+
+<script>
+	const openMovilMenuButton = document.querySelector('.menu--movil button')
+	const movilMenuModal = document.querySelector('.menu--movil dialog')
+	const closeMovilMenuButton = document.querySelector('.menu--movil dialog button')
+
+	if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
+		openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
+	}
+	if (closeMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
+		closeMovilMenuButton.addEventListener('click', () => movilMenuModal.close())
+	}
+
+	const openCartButton = document.querySelector('.buttons--row button')
+	const cartModal = document.querySelector('.buttons--row dialog')
+	const closeCartButton = document.querySelector('.buttons--row dialog button')
+
+	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
+		openCartButton.addEventListener('click', () => cartModal.showModal())
+	}
+	if (closeCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
+		closeCartButton.addEventListener('click', () => cartModal.close())
+	}
+</script>

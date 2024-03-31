@@ -34,14 +34,13 @@ describe('Menu page e2e tests', () => {
       
       cy.checkIfPizzaIsAddToShoppingCart(pizzaList)
       
-      cy.findByText('Cart').click()
+      cy.findByLabelText('Shopping cart').click()
       
       cy.findByRole('dialog').within(() => {
          cy.findByRole('article').should('have.length', 1)
          cy.findByRole('heading', { name: 'Pepperoni' }).should('exist')
          cy.findByText('Size: MEDIUM').should('exist')
-         cy.findByText('Ingredients: Pepperoni, Mozzarella').should('exist')
-         cy.findByRole('link').should('exist')
+         cy.findByText('Pepperoni, Mozzarella').should('exist')
       })
    })
 })
