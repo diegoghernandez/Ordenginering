@@ -3,9 +3,10 @@ import type { Quantity } from '@/constants/quantity'
 export interface Pizza {
    id?:         `${string}-${string}-${string}-${string}-${string}`;
    pizzaName:        string;
+   image: string;
    size:        Size;
+   quantity: number;
    ingredientNameDtoList: Ingredient[];
-   quantity?: number
 }
 
 export interface Ingredient {

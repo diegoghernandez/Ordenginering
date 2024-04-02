@@ -1,6 +1,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
-import type { Size } from '../../constants/size'
+import type { Size } from '@/constants/size'
 import Styles from './SelectQuantity.module.css'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
 
 type Value = {
    quantity: number,
@@ -11,24 +12,35 @@ type Value = {
 interface Props {
    defaultValue?: number
    setValue?: Dispatch<SetStateAction<Value>>
+   pizzaId?: `${string}-${string}-${string}-${string}-${string}` | '';
 }
 
-export function SelectQuantity({ defaultValue = 1, setValue }: Props) {
-   const [number, setNumber] = useState(defaultValue)
+export function SelectQuantity({ pizzaId = '' }: Props) {
+   const [number, setNumber] = useState<number>(1)
+   const pizza = useShoppingCart((state) => state.pizza)
+   const updatePizzaQuantity  = useShoppingCart((state) => state.updatePizzaQuantity)
+   const removePizza  = useShoppingCart((state) => state.removePizza)
 
    useEffect(() => {
-      setValue?.((prevState) => ({
-         ...prevState,
-         quantity: number
-      }))
-   }, [number])
+      const selecTedPizza = pizza.filter(({ id }) => id === pizzaId)[0]
+      if (selecTedPizza) {
+         setNumber(selecTedPizza.quantity)
+      }
+   }, [pizza])
+   
 
    const increase = () => {
       setNumber((prev) => prev + 1)
+      updatePizzaQuantity(pizzaId, 'add')
    }
 
    const decrease = () => {
-      if (number > 1) setNumber((prev) => prev - 1)
+      setNumber((prev) => prev - 1)
+      updatePizzaQuantity(pizzaId, 'subs')
+      
+      if (number - 1 === 0) {
+         removePizza(pizzaId)
+      }
    }
 
    return (

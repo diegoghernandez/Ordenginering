@@ -58,18 +58,8 @@ Cypress.Commands.add('checkIfPizzaIsAddToShoppingCart' , (pizzaList) => {
          const { id, ...rest } = object
          return rest
       })
-
-      const resultModified = {
-         'http://localhost:4321' : {
-            allPizza: JSON.stringify(localStoragePizza)
-         }
-      }      
       
-      expect(resultModified).to.deep.equal({
-         'http://localhost:4321': {
-            allPizza: JSON.stringify(pizzaList),
-         },
-      })
+      expect(JSON.stringify(localStoragePizza)).to.deep.equal(JSON.stringify(pizzaList))
    })
 
    cy.findByLabelText('Shopping cart').within(() => cy.get('span').should('have.text', 1))

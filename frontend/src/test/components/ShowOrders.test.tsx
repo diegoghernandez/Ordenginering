@@ -16,21 +16,68 @@ describe('ShowOrders component tests', () => {
       const pizzaContainers = screen.getAllByRole('article')
 
       expect(pizzaContainers).toHaveLength(2)
+      expect(screen.getByRole('heading', { name: 'Total $1180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Remove all items' })).toBeInTheDocument()
       expect(within(pizzaContainers[0]).getByRole('heading', { name: 'Pepperoni' })).toBeInTheDocument()
+      expect(within(pizzaContainers[0]).getByRole('img', { name: 'Pepperoni pizza' })).toBeInTheDocument()
       expect(within(pizzaContainers[0]).getByText(2)).toBeInTheDocument()
-      expect(within(pizzaContainers[1]).getByText('Custom')).toBeInTheDocument()
-      expect(within(pizzaContainers[1]).getByText('Pepperoni, Blue Cheese')).toBeInTheDocument()
+      expect(within(pizzaContainers[0]).getByText('$280')).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getByRole('heading', { name: 'BBQ Chicken' })).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getByRole('img', { name: 'BBQ Chicken pizza' })).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getByText(5)).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getByText('$900')).toBeInTheDocument()
    })
 
-   it('Should delete correctly one card', async () => {
+   it('Should update the price and products correctly when you interact with the select quantity component', async () => {
+      setPizza()
+      render(<ShowOrder />)
+      const pizzaContainers = screen.getAllByRole('article')
+
+      expect(screen.getByRole('heading', { name: 'Total $1180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
+      
+      fireEvent.click(within(pizzaContainers[1]).getByRole('button', { name: 'Subtract pizza' }))
+      fireEvent.click(within(pizzaContainers[1]).getByRole('button', { name: 'Subtract pizza' }))
+
+      expect(screen.getByRole('heading', { name: 'Total $820' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (5 products)' })).toBeInTheDocument()
+
+      fireEvent.click(within(pizzaContainers[0]).getByRole('button', { name: 'Add pizza' }))
+      fireEvent.click(within(pizzaContainers[0]).getByRole('button', { name: 'Add pizza' }))
+
+      expect(screen.getByRole('heading', { name: 'Total $1100' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
+   })
+
+   it('Should delete one card and update the price and products correctly', async () => {
       setPizza()
       render(<ShowOrder />)
 
+      expect(screen.getByRole('heading', { name: 'Total $1180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(2)
       
-      fireEvent.click(screen.getAllByRole('button', { name: 'X' })[0])
+      fireEvent.click(screen.getAllByText('Delete')[0])
 
+      expect(screen.getByRole('heading', { name: 'Total $900' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (5 products)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(1)
+   })
+
+   it('Should delete all cards and update the price and products correctly', async () => {
+      setPizza()
+      render(<ShowOrder />)
+
+      expect(screen.getByRole('heading', { name: 'Total $1180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
+      expect(screen.getAllByRole('article')).toHaveLength(2)
+      
+      fireEvent.click(screen.getByText('Remove all items'))
+
+      expect(screen.getByRole('heading', { name: 'Total $0' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout (0 products)' })).toBeInTheDocument()
+      expect(screen.getByText('No orders')).toBeInTheDocument()
    })
 })
 
@@ -39,25 +86,40 @@ const setPizza = () => {
       pizza: [{
          id: '9398812b-8ba2-4a20-8613-339c13df14ca',
          pizzaName: 'Pepperoni',
+         image: '/client/images/pizza/pepperoni.jpg',
          size: Size.MEDIUM,
          quantity: 2,
          ingredientNameDtoList: [{
             id: 1,
             name: 'Pepperoni',
-            quantity: Quantity.EXTRA
+            quantity: Quantity.NORMAL
+         }, {
+            id: 2,
+            name: 'Mozzarella',
+            quantity: Quantity.NORMAL
          }]
       }, {
          id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
-         pizzaName: 'Custom',
+         pizzaName: 'BBQ Chicken',
+         image: '/client/images/pizza/pepperoni.jpg',
          size: Size.MEDIUM,
+         quantity: 5,
          ingredientNameDtoList: [{
-            id: 1,
-            name: 'Pepperoni',
-            quantity: Quantity.EXTRA
+            id: 5,
+            name: 'BBQ Sauce',
+            quantity: Quantity.NORMAL
          }, {
-            id: 6,
-            name: 'Blue Cheese',
-            quantity: Quantity.EXTRA
+            id: 7,
+            name: 'Grilled Chicken',
+            quantity: Quantity.NORMAL
+         }, {
+            id: 8,
+            name: 'Red Onions',
+            quantity: Quantity.NORMAL
+         }, {
+            id: 9,
+            name: 'Mozzarella',
+            quantity: Quantity.NORMAL
          }]
       }]
    })

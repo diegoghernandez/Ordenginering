@@ -1,5 +1,68 @@
+.order__styles {
+   display: flex;
+   flex-direction: column;
+   padding: 16px;
+   gap: 12px;
+   container-type: inline-size;
+   & h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--primary-400);
+   }
+   & a {
+      padding-block: 4px;
+   }
+   & a ~ button {
+      width: fit-content;
+      color: var(--neutral-600);
+   }
+   & a ~ button:hover {
+      text-decoration: underline;
+   }
+   @container (width < 380px) {
+      & .card__separation  {
+         grid-template-areas: 
+            "image name"
+            "image price"
+            "ingredient ingredient"
+            "button button";
+      }
+   }
+}
+
 .card__separation {
    display: grid;
+   grid-template-columns: 112px 1fr;
+   grid-template-areas: 
+      "image name"
+      "image price"
+      "image ingredient"
+      "button button";
+   column-gap: 12px;
+   row-gap: 4px;
+   & img {
+      grid-area: image;
+      width: 112px;
+      height: 112px;
+      border-radius: 16px;
+   }
+   & h3 {
+      grid-area: name;
+   }      
+   & p:first-of-type {
+      grid-area: price;
+   }
+   & p:last-of-type {
+      grid-area: ingredient;
+      width: 100%;
+   }
+   & .quantity__buttons {
+      grid-area: button;
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      gap: 12px;
+   }
 }
 
 .spin {

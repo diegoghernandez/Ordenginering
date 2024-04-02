@@ -36,6 +36,9 @@ module.exports = {
 		'no-console': 'error',
 		'react/prop-types': 'off',
 		'quotes': ['error', 'single'],
-		'semi': ['error', 'never']
+		'semi': ['error', 'never'],
+		'@typescript-eslint/no-unused-vars': [
+			'error', { 'ignoreRestSiblings': true }
+		]
 	}
 }

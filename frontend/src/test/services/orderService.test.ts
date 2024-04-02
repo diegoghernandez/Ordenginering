@@ -18,7 +18,9 @@ describe('Order service tests', () => {
          pizzaList: [{
             id: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
             pizzaName: 'Pepperoni',
+            image: '/client/images/pizza/pepperoni.jpg',
             size: 'LARGE',
+            quantity: 2,
             ingredientNameDtoList: [{
                name: 'Pepperoni',
                quantity: Quantity.NORMAL
@@ -42,6 +44,8 @@ describe('Order service tests', () => {
          pizzaList: [{
             id: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
             pizzaName: 'Pepperoni',
+            quantity: 2,
+            image: '/client/images/pizza/pepperoni.jpg',
             size: 'LARGE',
             ingredientNameDtoList: [{
                name: 'Pepperoni',

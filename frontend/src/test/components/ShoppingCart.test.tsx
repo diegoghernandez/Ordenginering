@@ -1,8 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { ShoppingCart } from '../../components/ShoppingCart'
+import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
-import { Quantity } from '../../constants/quantity'
-import { ShoppingCart } from '../../components/ShoppingCart'
 
 describe('ShoppingCart component tests', () => {
    it('Should render correctly', () => {
@@ -16,8 +16,10 @@ describe('ShoppingCart component tests', () => {
       useShoppingCart.setState({
          pizza: [{
             id: '9398812b-8ba2-4a20-8613-339c13df14ca',
+            image: '/client/images/pizza/pepperoni.jpg',
             pizzaName: 'Pepperoni',
             size: Size.MEDIUM,
+            quantity: 2,
             ingredientNameDtoList: [{
                id: 1,
                name: 'Pepperoni',
@@ -28,10 +30,6 @@ describe('ShoppingCart component tests', () => {
       
       render(<ShoppingCart />)
 
-      expect(screen.getByText('1')).toBeDefined()
-      fireEvent.click(screen.getByRole('button'))
-      expect(screen.getByText('Pepperoni')).toBeDefined()
-      expect(screen.getByText('Size: MEDIUM')).toBeDefined()
-      expect(screen.getByText('Ingredients: Pepperoni')).toBeDefined()
+      expect(screen.getByText('2')).toBeDefined()
    })
 })

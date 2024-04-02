@@ -9,6 +9,7 @@ import { SelectQuantity } from '@/components/SelectQuantity'
 import { IngredientsContainer } from '@/components/Ingredients/IngredientsContainer'
 import Style from './CustomizePizzaForm.module.css'
 import type { IngredientRequest } from '@/types'
+import { getPizzaPrice } from '@/utils/getPizzaPrice'
 
 interface Props {
    ingredients: IngredientRequest[]
@@ -35,26 +36,7 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
    const addPizza = useShoppingCart((state) => state.addPizza)
 
    useEffect(() => {
-      const sizePrices = (size: Size) => {
-         switch (size) {
-            case Size.SMALL:
-               return 50
-            case Size.MEDIUM:
-               return 100
-            case Size.LARGE:
-               return 150
-         
-            default:
-               return 0
-         }
-      }
-
-      let newPrice = 0
-      newPrice += characteristics.ingredients * 20
-      newPrice += sizePrices(characteristics.size)      
-      newPrice = characteristics.quantity * newPrice
-
-      setPrice(newPrice)
+      setPrice(getPizzaPrice(characteristics.ingredients, characteristics.size, characteristics.quantity))
    }, [characteristics])
    
    const handleChange = (event: FormEvent<HTMLFormElement>) => {
@@ -99,6 +81,7 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
 
       const newPizza = {
          pizzaName: `Custom ${selectedPizza}`,
+         image: '',
          size: characteristics.size,
          ingredientNameDtoList: desireArticles.map((element) => ({ 
             name: element.querySelector('h3')?.innerHTML ?? '', 

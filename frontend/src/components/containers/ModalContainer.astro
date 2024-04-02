@@ -7,22 +7,24 @@
       </button>
       <slot name="description" />
    </nav>
-   <ul>
-      <slot />
-   </ul>
+   <slot />
 </dialog>
 
 <style>
    dialog {
       width: 100%;
-      max-width: 100vh;
+      max-width: 640px;
       min-height: 100vh;
       border: none;
       background-color: var(--neutral-100);
       & nav {
          display: flex;
-         gap: 16px;
+         width: 100%;
          justify-content: end;
+         gap: 16px;
+         position: sticky;
+         top: 0;
+         z-index: 99999;
       }
       & nav:has(p) {
          justify-content: start;
