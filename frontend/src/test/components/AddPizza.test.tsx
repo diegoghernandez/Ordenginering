@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { AddPizza } from "../../components/AddPizza"
+import { AddPizza } from "../../components/order/AddPizza"
 
 describe('AddPizza component tests ', () => { 
    it('Should render correctly', () => {

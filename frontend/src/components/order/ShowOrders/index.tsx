@@ -1,8 +1,8 @@
-import { SelectQuantity } from '@/components/SelectQuantity'
+import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import type { Pizza } from '@/types'
 import { useEffect, useState } from 'react'
-import { CardContainer } from '@/components/containers/CardContainer'
+import { CardContainer } from '@/components/common/CardContainer'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import Styles from './ShowOrders.module.css'
 

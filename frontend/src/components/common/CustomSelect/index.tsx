@@ -1,4 +1,4 @@
-import Style from "./customSelect.module.css";
+import Style from './customSelect.module.css'
 
 interface Props {
    values: string[],

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { ShoppingCart } from '../../components/ShoppingCart'
+import { ShoppingCart } from '../../components/order/ShoppingCart'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'

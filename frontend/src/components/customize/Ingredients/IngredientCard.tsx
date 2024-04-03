@@ -1,5 +1,5 @@
-import { Quantity } from '../../constants/quantity'
-import { CustomSelect } from '../CustomSelect'
+import { Quantity } from '@/constants/quantity'
+import { CustomSelect } from '@/components/common/CustomSelect'
 import Styles from './Ingredients.module.css'
 
 interface Props {

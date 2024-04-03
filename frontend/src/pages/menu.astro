@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets'
-import { AddPizza } from '@/components/AddPizza/index.tsx'
+import { AddPizza } from '@/components/order/AddPizza'
 import Layout from '@/layouts/Layout.astro'
 import PizzaList from '@/data/pizza.json'
 import { Quantity } from '@/constants/quantity';
 import { Size } from '@/constants/size';
-import { CardContainer } from '@/components/containers/CardContainer.tsx';
+import { CardContainer } from '@/components/common/CardContainer';
 import { getPizzaPrice } from '@/utils/getPizzaPrice';
 
 function getUrlImage(specificPath: string) {

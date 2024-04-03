@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { ShowOrder } from '../../components/ShowOrders'
+import { ShowOrder } from '../../components/order/ShowOrders'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'

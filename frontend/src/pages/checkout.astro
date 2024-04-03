@@ -1,5 +1,4 @@
 ---
-import { ShowOrder } from '@/components/ShowOrders'
 import Layout from '@/layouts/Layout.astro'
 
 type Inputs = {
@@ -22,7 +21,7 @@ const locationInputs: Inputs[] = [
 <Layout title='Checkout order'>
    <main>
       <h1>My order</h1>
-      <div>
+      <section>
          <h2>Delivery address</h2>
          <form>
             {locationInputs.map((element) => (
@@ -36,21 +35,28 @@ const locationInputs: Inputs[] = [
             ))}
             <button>Accept</button>
          </form>
-      </div>
-      <div>
-         <h2>Your order</h2>   
-         <ShowOrder client:idle />
-      </div>
+      </section>
       <dialog>
          <p>Order made correctly</p>
       </dialog>
    </main>
 </Layout>
 
+<style>
+   main {
+      display: flex;
+      flex-wrap: wrap;
+      & h1 {
+         display: block;
+         width: 100%;
+      }
+   }
+</style>
+
 <script>
    import type { Order } from '@/types'
    import { saveOrder } from '@/services/orderService'
-import type { Pizza } from '@/types'
+   import type { Pizza } from '@/types'
 
    const formulary = document.forms[0]
 
@@ -93,14 +99,3 @@ import type { Pizza } from '@/types'
       }
    })
 </script>
-
-<style>
-   main {
-      display: flex;
-      flex-wrap: wrap;
-      & h1 {
-         display: block;
-         width: 100%;
-      }
-   }
-</style>

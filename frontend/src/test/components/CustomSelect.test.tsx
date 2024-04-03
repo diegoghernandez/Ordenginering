@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event';
-import { CustomSelect } from '../../components/CustomSelect'
+import userEvent from '@testing-library/user-event'
+import { CustomSelect } from '../../components/common/CustomSelect'
 
 const values = ['First', 'Second', 'Third']
 

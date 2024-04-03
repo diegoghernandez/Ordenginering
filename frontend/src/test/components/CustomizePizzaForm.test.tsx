@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { CustomizePizzaForm } from '@/components/CustomizePizzaForm'
+import { CustomizePizzaForm } from '@/components/customize/CustomizePizzaForm'
 import userEvent from '@testing-library/user-event'
 import { getAllIngredients } from '@/services/ingredientsService'
 

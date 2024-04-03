@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { SelectQuantity } from '../../components/SelectQuantity'
+import { SelectQuantity } from '../../components/order/SelectQuantity'
 
 describe('SelectQuantity component tests', () => { 
    it('Should render correctly', () => {
