@@ -9,6 +9,8 @@
    --text-light-color: #7B6358;
    --outline: #855A45;
    --outline-light: #F3EBE6;
+
+   --shadow-input: #BA9484 0 0 0 4px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,5 +25,7 @@
       --text-light-color: #E3CCC1;
       --outline: #CA896A;
       --outline-light: #403D3C;
+
+      --shadow-input: #E79D7A 0 0 0 4px;
    }
 }

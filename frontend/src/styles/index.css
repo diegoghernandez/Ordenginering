@@ -47,24 +47,35 @@ body {
       line-height: 1.25rem;
    }
    & input, select {
+      appearance: none;
+      -webkit-appearance: none;
       font-weight: 300;
       border: none;
       border-radius: 8px;
       padding: 8px 12px;
       outline: 1px solid var(--outline);
       color: var(--text-color);
-      appearance: none;
-      -webkit-appearance: none;
+      background-color: var(--background);
+      transition: box-shadow 400ms ease-in-out;
    }
    & input::placeholder {
       color: var(--surface);
+   }
+   & input:hover,
+      select:hover {
+      box-shadow: var(--shadow-input);
+   }
+   & input:focus,
+      select:focus {
+      outline: 1px solid var(--background);
+      box-shadow: #0498EC 0 0 0 4px;
    }
 }
 
 .humbleicons {
    width: 24px;
    height: 24px;
-   color:  var(--text-color);
+   color: var(--text-color);
 }
 
 #no-display {
