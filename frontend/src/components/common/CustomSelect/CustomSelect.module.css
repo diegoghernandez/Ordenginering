@@ -1,0 +1,32 @@
+.custom__select {
+   & span {
+      top: 20px;
+      right: 0;
+      position: absolute;
+      display: block;
+      height: 70%;
+      width: 50px;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      pointer-events: none;
+      --size: 10px;
+      &::before,
+      &::after {
+         content: "";
+         position: absolute;
+         width: 0;
+         height: 0;
+         transform: translate(18px, 18px);
+      }
+   }
+   & select:not(:focus) + span::before {
+      border-left: var(--size) solid transparent;
+      border-right: var(--size) solid transparent;
+      border-bottom: var(--size) solid var(--neutral-600);
+   }
+   & select:focus + span::after {
+      border-left: var(--size) solid transparent;
+      border-right: var(--size) solid transparent;
+      border-top: var(--size) solid var(--neutral-600);
+   }
+}

@@ -47,3 +47,8 @@ export interface Order {
    floor: number | null;
    pizzaList: Pizza[];
 }
+
+export interface UserInputProps {
+   label: string;
+   description?: string;
+}

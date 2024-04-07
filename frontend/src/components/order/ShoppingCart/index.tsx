@@ -1,6 +1,6 @@
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { useEffect, useState } from 'react'
-import Styles from './shoppingCart.module.css'
+import Styles from './ShoppingCart.module.css'
 
 export function ShoppingCart() {
    const [isOpen, setIsOpen] = useState(false)

@@ -9,7 +9,7 @@
    font-size: 1rem;
    font-weight: 640;
    line-height: 1.5rem;
-   color: var(--neutral-000);
+   color: var(--neutral-900);
    background-color: var(--primary-500);
 }
 
@@ -25,6 +25,36 @@
    text-align: center;
    color: var(--neutral-000);
    background-color: var(--neutral-900);
+}
+
+.user__input {
+   display: flex;
+   flex-direction: column;
+   position: relative;
+   gap: 4px;
+   & label {
+      color: var(--neutral-900);
+      font-weight: 00;
+      line-height: 1.25rem;
+   }
+   & p {
+      color: var(--neutral-600);
+      font-weight: 300;
+      line-height: 1.25rem;
+   }
+   & input, select {
+      font-weight: 300;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      outline: 1px solid var(--neutral-600);
+      color: var(--neutral-800);
+      appearance: none;
+      -webkit-appearance: none;
+   }
+   & input::placeholder {
+      color: var(--neutral-500);
+   }
 }
 
 .humbleicons {
