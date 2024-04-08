@@ -37,7 +37,7 @@ const { title } = Astro.props
 	<body>
 		<nav>
 			<div class='menu--movil'>
-				<button aria-label='Open menu'>
+				<button class='interaction--buttons' aria-label='Open menu'>
 					<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>
 						<path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
 					</svg>
@@ -61,12 +61,12 @@ const { title } = Astro.props
 						<path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
 					</svg>
 				</a>
-				<ShoppingCart client:load transition:persist />
-				<ModalContainer>
-					<p slot='description'>Your order</p>
-					<ShowOrder client:idle />
-				</ModalContainer>
+				<ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
 			</div>
+			<ModalContainer>
+				<p slot='description'>Your order</p>
+				<ShowOrder client:idle />
+			</ModalContainer>
 		</nav>
 		<slot />
 		<!-- <footer>
@@ -99,12 +99,48 @@ const { title } = Astro.props
 			line-height: 3.875rem;
 			color: var(--primary-interaction);
 		}
+		& button, a {
+			transition: color 350ms;
+		}
+	}
+	.interaction--buttons {
+		height: 24px;
+		color: var(--text-color);
+		&:hover {
+			color: var(--primary-interaction);
+		}
+		&:focus-within {
+			outline: 1px solid var(--outline);
+			color: var(--primary-interaction);
+		}
 	}
 
 	.menu--movil {
 		& button {
-			background-color: transparent;
 			border: none;
+			height: 24px;
+			background-color: transparent;
+		}
+		& li {	
+			position: relative;
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 200ms cubic-bezier(.2,0,0,1);
+				background-color: var(--state-layer-color);
+			}
+			&:hover::before {
+				opacity: .08;
+			}
+			&:focus-within::before {
+				opacity: .12;
+			}
 		}
 		& a {
 			display: inline-flex;
@@ -114,6 +150,11 @@ const { title } = Astro.props
 			align-items: center;
 			color: var(--text-color);
 			border-bottom: 1px solid var(--divider);
+			outline: none;
+			&:hover,
+			&:focus {
+				color: var(--primary-interaction);
+			}
 		}
 	}
 	
@@ -125,10 +166,17 @@ const { title } = Astro.props
 		font-size: 1rem;
 		font-weight: 500;
 		color: var(--text-color);
-		& a, button {
+		& a {
 			display: flex;
 			justify-content: center;
 			gap: 4px;
+			&:hover,
+			&:focus {
+				color: var(--primary-interaction);
+			}
+			&:focus {
+				outline: 1px solid var(--outline);
+			}
 		}
 	}
 </style>
@@ -146,8 +194,8 @@ const { title } = Astro.props
 	}
 
 	const openCartButton = document.querySelector('.nav--interaction--buttons button')
-	const cartModal = document.querySelector('.nav--interaction--buttons dialog')
-	const closeCartButton = document.querySelector('.nav--interaction--buttons dialog button')
+	const cartModal = document.querySelector('.nav--interaction--buttons + dialog')
+	const closeCartButton = document.querySelector('.nav--interaction--buttons + dialog button')
 
 	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
 		openCartButton.addEventListener('click', () => cartModal.showModal())

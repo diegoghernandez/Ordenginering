@@ -29,6 +29,10 @@
       & nav:has(p) {
          justify-content: start;
       }
+      &::backdrop {
+         opacity: 0.1;
+         background-color: var(--state-layer-color);
+      }
    }
 
    dialog:has(p) {

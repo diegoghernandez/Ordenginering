@@ -5,30 +5,61 @@ body {
    background-color: var(--background);
 }
 
-.primary--button {
-   width: 100%;
-   height: 36px;
-   border: none;
-   border-radius: 8px;
-   font-size: 1rem;
-   font-weight: 640;
-   line-height: 1.5rem;
-   color: var(--background);
-   background-color: var(--primary-interaction);
-}
-
+.primary--button,
 .secondary--button {
    width: 100%;
    height: 36px;
    border: none;
-   padding-block: 4px;
    border-radius: 8px;
    font-size: 1rem;
    font-weight: 640;
-   line-height: 1.5rem;
-   text-align: center;
+   line-height: 1.5rem; 
    color: var(--background);
+   transition: box-shadow 300ms ease-in-out;
+   position: relative;
+   &:is(a) {
+      padding-block: 4px;
+      text-align: center;  
+   }
+   &:focus {
+      outline: none;
+   }
+   &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      border-radius: 8px;
+      transition: opacity 200ms cubic-bezier(.2,0,0,1);
+      background-color: #332E2B;
+   }
+   &:hover::before {
+      opacity: .08;
+   }
+   &:focus-within::before {
+      opacity: .12;
+   }
+}
+
+.primary--button {
+   background-color: var(--primary-interaction);
+   &:hover, 
+   &:focus,
+   &:has(button:focus-within) {
+      box-shadow: var(--shadow-primary-button);
+   }
+}
+
+.secondary--button {
    background-color: var(--secondary-interaction);
+   &:hover, 
+   &:focus,
+   &:has(button:focus-within) {
+      box-shadow: var(--shadow-secondary-button);
+   }
 }
 
 .user__input {
@@ -56,7 +87,8 @@ body {
       outline: 1px solid var(--outline);
       color: var(--text-color);
       background-color: var(--background);
-      transition: box-shadow 400ms ease-in-out;
+      transition: box-shadow 400ms ease-in-out, 
+         outline 400ms ease-in-out;
    }
    & input::placeholder {
       color: var(--surface);
@@ -75,7 +107,6 @@ body {
 .humbleicons {
    width: 24px;
    height: 24px;
-   color: var(--text-color);
 }
 
 #no-display {

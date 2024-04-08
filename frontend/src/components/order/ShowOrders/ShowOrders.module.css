@@ -9,9 +9,6 @@
       font-weight: 300;
       color: var(--primary-interaction);
    }
-   & a {
-      padding-block: 4px;
-   }
    & a ~ button {
       width: fit-content;
       color: var(--text-light-color);
@@ -45,6 +42,8 @@
       width: 112px;
       height: 112px;
       border-radius: 16px;
+      border: 1px solid var(--outline-light);
+		box-shadow: var(--surface-40) 0px 4px 10px -4px;
    }
    & h3 {
       grid-area: name;
