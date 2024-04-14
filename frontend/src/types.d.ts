@@ -53,6 +53,6 @@ export interface UserInputProps {
    label: string;
    description?: string;
    required?: boolean;
-   error?: boolean;
+   error?: string;
    disable?: boolean;
 }

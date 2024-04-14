@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import type { UserInputProps } from '@/types'
 
-interface Props extends UserInputProps {
+export interface InputProps extends UserInputProps {
    type?: string;
    placeholder: string;
 }
@@ -12,9 +12,9 @@ export function CustomInput({
    required = false,
    placeholder = 'example',
    description,
-   error = false,
+   error = '',
    disable = true
-}: Props) {
+}: InputProps) {
    const customInputId = useId()
    
    return (
@@ -30,6 +30,7 @@ export function CustomInput({
             aria-invalid={Boolean(error)}
             aria-describedby={customInputId + '-describe'}
          />
+         {error ? <p id={customInputId + '-describe'}>{error}</p> : null}
       </div>
    )
 }

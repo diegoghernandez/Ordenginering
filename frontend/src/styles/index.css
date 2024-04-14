@@ -85,9 +85,9 @@ body {
       color: var(--text-light-color);
       font-weight: 300;
       line-height: 1.25rem;
-      &:has(+ input[aria-invalid="true"]) {
-         color: red;
-      }
+   }
+   &:has(input[aria-invalid="true"]) input + p {
+      color: var(--error);
    }
    & input, select {
       appearance: none;
@@ -113,12 +113,11 @@ body {
          outline: 1px solid var(--background);
          box-shadow: #0498EC 0 0 0 4px;
       }
-      &:invalid,
-      &[aria-invalid="true"] {
-         outline: 1px solid red;
-         &:focus,
+      &:user-invalid:not(:focus),
+      &[aria-invalid="true"]:not(:focus) {
+         outline: 1px solid var(--error);
          &:hover {
-            box-shadow: red 0 0 0 4px;
+            box-shadow: var(--shadow-error);
          }
       }
       &:disabled{
@@ -129,6 +128,7 @@ body {
          }
       }
       &:-webkit-autofill:disabled {
+         -webkit-text-fill-color: var(--outline);
          -webkit-box-shadow: 0 0 0px 1000px var(--divider) inset;
       }
    }

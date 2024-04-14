@@ -9,10 +9,12 @@
    --text-light-color: #7B6358;
    --outline: #855A45;
    --outline-light: #F3EBE6;
+   --error: #a91313;
 
    --state-layer-color: #332E2B;
 
    --shadow-input: #BA9484 0 0 0 3px;
+   --shadow-error: #fb361f 0 0 0 3px;
    --shadow-primary-button: #FFBE83 0 0 0 3px;
    --shadow-secondary-button: #E19267 0 0 0 3px;
 }
@@ -29,10 +31,12 @@
       --text-light-color: #E3CCC1;
       --outline: #CA896A;
       --outline-light: #403D3C;
-
+      --error: #ff756d;
+      
       --state-layer-color: #9c6340;
-
+      
       --shadow-input: #E79D7A 0 0 0 3px;
+      --shadow-error: #d3605a 0 0 0 3px;
       --shadow-primary-button: #BF6531 0 0 0 3px;
       --shadow-secondary-button: #766A61 0 0 0 3px;
    }

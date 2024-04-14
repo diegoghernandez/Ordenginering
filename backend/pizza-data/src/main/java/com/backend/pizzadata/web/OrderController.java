@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin(origins = "http://localhost:4321")
 public class OrderController {
 
    private final OrderService orderService;
 
-   @Autowired
    public OrderController(OrderService orderService) {
       this.orderService = orderService;
    }

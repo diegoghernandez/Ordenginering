@@ -9,7 +9,7 @@ export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) 
    const handlePromise = (valueForPromise: Type) => {
       setIsLoading(true)
       setError({})
-
+      
       setTimeout(() => {
          servicePromise(valueForPromise)
             .then((result) => {

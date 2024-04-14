@@ -2,7 +2,7 @@ import { useId } from 'react'
 import type { UserInputProps } from '@/types'
 import Styles from './CustomSelect.module.css'
 
-interface Props extends UserInputProps {
+export interface SelectProps extends UserInputProps {
    values: string[];
    options: string[]
    defaultValue?: {
@@ -21,22 +21,22 @@ export function CustomSelect({
    },
    description,
    required = true,
-   error = false,
+   error = '',
    disable = false
-}: Props) {
-   const customLabelId = useId()
+}: SelectProps) {
+   const customSelectId = useId()
    return (
       <div className={`${Styles.custom__select} user__input`}>
-         <label htmlFor={customLabelId}>{label}</label>
-         {description ? <p id={customLabelId + '-describe'}>{description}</p> : null}
+         <label htmlFor={customSelectId}>{label}</label>
+         {description ? <p id={customSelectId + '-describe'}>{description}</p> : null}
          <select 
-            id={customLabelId} 
+            id={customSelectId} 
             name={label}
             autoComplete='on'
             required={required}
             disabled={disable}
             aria-invalid={Boolean(error)}
-            aria-describedby={customLabelId + '-describe'}
+            aria-describedby={customSelectId + '-describe'}
          >
             <option value={defaultValue.value}>{defaultValue.text}</option>
             {values?.map((value, index) => (
@@ -44,6 +44,7 @@ export function CustomSelect({
             ))}
          </select>
          <span></span>
+         {error ? <p id={customSelectId + '-describe'}>{error}</p> : null}
       </div>
    )
 }
