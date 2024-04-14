@@ -13,5 +13,7 @@ import java.util.Optional;
 @Repository
 public interface IngredientRepository extends ListCrudRepository<IngredientEntity, Integer> {
 
+   boolean existsByIngredientName(String name);
+
    Optional<IngredientEntity> findByIngredientName(String name);
 }

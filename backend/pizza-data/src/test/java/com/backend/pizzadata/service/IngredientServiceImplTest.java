@@ -40,7 +40,7 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
    void saveIngredient() throws NotAllowedException {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
-                      "No repeat",
+                      "Pepperoni",
                       IngredientType.VEGETABLE,
                       "/meat/peperoni",
                       "Author"
@@ -87,7 +87,7 @@ class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
 
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredientList(Collections.singletonList(new IngredientDto(
-                      "No repeat",
+                      "Pepperoni",
                       IngredientType.VEGETABLE,
                       "/meat/peperoni",
                       "Author"

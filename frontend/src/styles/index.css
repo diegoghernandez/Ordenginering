@@ -36,11 +36,16 @@ body {
       transition: opacity 200ms cubic-bezier(.2,0,0,1);
       background-color: #332E2B;
    }
-   &:hover::before {
+   &:hover:not(:disabled):before {
       opacity: .08;
    }
-   &:focus-within::before {
+   &:focus-within:not(:disabled)::before {
       opacity: .12;
+   }
+   &:disabled {
+      cursor: not-allowed;
+      color: var(--outline);
+      background-color: var(--divider);
    }
 }
 
@@ -49,7 +54,9 @@ body {
    &:hover, 
    &:focus,
    &:has(button:focus-within) {
-      box-shadow: var(--shadow-primary-button);
+      &:not(:disabled) {
+         box-shadow: var(--shadow-primary-button);
+      }
    }
 }
 
@@ -58,7 +65,9 @@ body {
    &:hover, 
    &:focus,
    &:has(button:focus-within) {
-      box-shadow: var(--shadow-secondary-button);
+      &:not(:disabled) {
+         box-shadow: var(--shadow-secondary-button);
+      }
    }
 }
 
@@ -76,10 +85,14 @@ body {
       color: var(--text-light-color);
       font-weight: 300;
       line-height: 1.25rem;
+      &:has(+ input[aria-invalid="true"]) {
+         color: red;
+      }
    }
    & input, select {
       appearance: none;
       -webkit-appearance: none;
+      all: unset;
       font-weight: 300;
       border: none;
       border-radius: 8px;
@@ -88,19 +101,36 @@ body {
       color: var(--text-color);
       background-color: var(--background);
       transition: box-shadow 400ms ease-in-out, 
-         outline 400ms ease-in-out;
-   }
-   & input::placeholder {
-      color: var(--surface);
-   }
-   & input:hover,
-      select:hover {
-      box-shadow: var(--shadow-input);
-   }
-   & input:focus,
-      select:focus {
-      outline: 1px solid var(--background);
-      box-shadow: #0498EC 0 0 0 4px;
+         outline 400ms ease-in-out,
+         background-color 400ms;
+      &::placeholder {
+         color: var(--surface);
+      }
+      &:hover:not(:disabled) {
+         box-shadow: var(--shadow-input);
+      }
+      &:focus:not(:disabled) {
+         outline: 1px solid var(--background);
+         box-shadow: #0498EC 0 0 0 4px;
+      }
+      &:invalid,
+      &[aria-invalid="true"] {
+         outline: 1px solid red;
+         &:focus,
+         &:hover {
+            box-shadow: red 0 0 0 4px;
+         }
+      }
+      &:disabled{
+         color: var(--outline);
+         background-color: var(--divider);
+         &::placeholder {
+            color: var(--outline);
+         }
+      }
+      &:-webkit-autofill:disabled {
+         -webkit-box-shadow: 0 0 0px 1000px var(--divider) inset;
+      }
    }
 }
 

@@ -94,6 +94,7 @@ public final class TestDataUtil {
                       .idOrder(UUID.fromString("7ff6dd1d-40c3-4e3b-be84-a6795afc15c6"))
                       .idCustomer(4234L)
                       .country("México")
+                      .state("State")
                       .city("City")
                       .street("Street")
                       .houseNumber(4324)
@@ -108,6 +109,7 @@ public final class TestDataUtil {
       return new OrderDto(
               2,
               "México",
+              "State",
               "City",
               "Street",
               42342,

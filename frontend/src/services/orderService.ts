@@ -13,8 +13,9 @@ export async function saveOrder(order: Order) {
       body: JSON.stringify(order)   
    })
    
-   if (response.ok) return response.status
+   if (response.ok) return await response.text()
    else {
-      throw new StatusError('Something bad happen')
+      const errorResponse = await response.json()
+      throw new StatusError(errorResponse.desc, response.status, errorResponse.fieldError)
    }
 }

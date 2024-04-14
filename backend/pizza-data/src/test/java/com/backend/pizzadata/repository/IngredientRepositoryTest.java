@@ -19,6 +19,18 @@ class IngredientRepositoryTest extends SetUpForTestWithContainers {
    private IngredientRepository ingredientRepository;
 
    @Test
+   @DisplayName("Should return a boolean depending of the response")
+   void existsByIngredientName() {
+      boolean ingredientFound = ingredientRepository.existsByIngredientName("Mozzarella");
+      boolean ingredientNotFound = ingredientRepository.existsByIngredientName("fsadfsa");
+
+      assertAll(
+              () -> assertTrue(ingredientFound),
+              () -> assertFalse(ingredientNotFound)
+      );
+   }
+
+   @Test
    @DisplayName("Should return one all orders with the a specific customer id using the database")
    void findByIngredientName() {
       Optional<IngredientEntity> ingredientEntity = ingredientRepository.findByIngredientName("Mozzarella");

@@ -17,7 +17,6 @@ public class IngredientServiceImpl implements IngredientService {
 
    private final IngredientRepository ingredientRepository;
 
-   @Autowired
    public IngredientServiceImpl(IngredientRepository ingredientRepository) {
       this.ingredientRepository = ingredientRepository;
    }
@@ -30,6 +29,9 @@ public class IngredientServiceImpl implements IngredientService {
    @Override
    public void saveIngredient(IngredientDto ingredientDto) throws NotAllowedException {
       var ingredientEntity = convertIngredientDtoToEntity(Collections.singletonList(ingredientDto)).getFirst();
+
+      if (ingredientRepository.existsByIngredientName(ingredientDto.ingredientName()))
+         throw new NotAllowedException("Repeat names are not allowed");
 
       ingredientRepository.save(ingredientEntity);
    }
@@ -45,7 +47,7 @@ public class IngredientServiceImpl implements IngredientService {
       var ingredientList = new ArrayList<IngredientEntity>();
 
       for(var ingredientDto : ingredientDtoList) {
-         if (ingredientDto.ingredientName().equals("No repeat"))
+         if (ingredientRepository.existsByIngredientName(ingredientDto.ingredientName()))
             throw new NotAllowedException("Repeat names are not allowed");
 
          ingredientList.add(

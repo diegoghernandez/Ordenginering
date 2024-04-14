@@ -3,7 +3,6 @@ import type { UserInputProps } from '@/types'
 
 interface Props extends UserInputProps {
    type?: string;
-   required?: boolean
    placeholder: string;
 }
 
@@ -12,7 +11,9 @@ export function CustomInput({
    type = 'text',
    required = false,
    placeholder = 'example',
-   description
+   description,
+   error = false,
+   disable = true
 }: Props) {
    const customInputId = useId()
    
@@ -25,6 +26,8 @@ export function CustomInput({
             type={type}
             required={required}
             placeholder={placeholder}
+            disabled={disable}
+            aria-invalid={Boolean(error)}
             aria-describedby={customInputId + '-describe'}
          />
       </div>

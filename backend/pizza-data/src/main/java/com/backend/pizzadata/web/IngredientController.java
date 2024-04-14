@@ -33,22 +33,14 @@ public class IngredientController {
    }
 
    @PostMapping(value = "/save/one", produces = {"application/json"})
-   public ResponseEntity<String> saveIngredient(@Valid @RequestBody IngredientDto ingredientDto) {
-      try {
-         ingredientService.saveIngredient(ingredientDto);
-         return new ResponseEntity<>("Ingredient save correctly", HttpStatus.OK);
-      } catch (NotAllowedException e) {
-         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-      }
+   public ResponseEntity<String> saveIngredient(@Valid @RequestBody IngredientDto ingredientDto) throws NotAllowedException {
+      ingredientService.saveIngredient(ingredientDto);
+      return new ResponseEntity<>("Ingredient save correctly", HttpStatus.OK);
    }
 
    @PostMapping(value = "/save/list", produces = {"application/json"})
-   public ResponseEntity<String> saveIngredientList(@Valid @RequestBody List<IngredientDto> ingredientDto) {
-      try {
-         ingredientService.saveIngredientList(ingredientDto);
-         return new ResponseEntity<>("All ingredients save correctly", HttpStatus.OK);
-      } catch (NotAllowedException e) {
-         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-      }
+   public ResponseEntity<String> saveIngredientList(@Valid @RequestBody List<IngredientDto> ingredientDto) throws NotAllowedException {
+      ingredientService.saveIngredientList(ingredientDto);
+      return new ResponseEntity<>("All ingredients save correctly", HttpStatus.OK);
    }
 }

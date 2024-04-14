@@ -50,6 +50,7 @@ class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
       var orderString = List.of(OrderEntity.builder()
               .idCustomer(2L)
               .country("México")
+              .state("State")
               .city("City")
               .street("Street")
               .houseNumber(42342)

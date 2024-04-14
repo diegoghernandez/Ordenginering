@@ -8,9 +8,14 @@ export const orderHandler = [
       const { idCustomer } = await request.json()
 
       if (String(idCustomer) === '234') {
-         return new HttpResponse(null, { status: 201 })
+         return new HttpResponse('Order save correctly', { status: 201 })
       }      
 
-      return new HttpResponse(null, { status: 400 })
+      return HttpResponse.json({
+         desc: 'Invalid Request Content',
+         fieldError: {
+            name: 'Name must not be blank'
+         }
+      }, { status: 400 })
    })
 ]

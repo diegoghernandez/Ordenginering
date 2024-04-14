@@ -40,6 +40,7 @@ export interface CustomerDto {
 export interface Order {
    idCustomer: number;
    country: string;
+   state: string;
    city: string;
    street: string;
    houseNumber: number;
@@ -51,4 +52,7 @@ export interface Order {
 export interface UserInputProps {
    label: string;
    description?: string;
+   required?: boolean;
+   error?: boolean;
+   disable?: boolean;
 }

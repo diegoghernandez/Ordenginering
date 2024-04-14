@@ -29,6 +29,9 @@ public class OrderEntity {
    private String country;
 
    @NotNull
+   private String state;
+
+   @NotNull
    private String city;
 
    @NotNull

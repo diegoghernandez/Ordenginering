@@ -73,7 +73,7 @@ class IngredientControllerTest {
                       .contentType(MediaType.APPLICATION_JSON)
                       .content(objectMapper.writeValueAsString(ingredientDto)))
               .andExpect(MockMvcResultMatchers.status().isBadRequest())
-              .andExpect(MockMvcResultMatchers.content().string("No repeat name"));
+              .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"No repeat name\",\"fieldError\":null}"));
    }
 
    @Test
@@ -124,7 +124,7 @@ class IngredientControllerTest {
                       .contentType(MediaType.APPLICATION_JSON)
                       .content(objectMapper.writeValueAsString(ingredientDtoList)))
               .andExpect(MockMvcResultMatchers.status().isBadRequest())
-              .andExpect(MockMvcResultMatchers.content().string("No repeat name"));
+              .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"No repeat name\",\"fieldError\":null}"));
    }
 
    @Test

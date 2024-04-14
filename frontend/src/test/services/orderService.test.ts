@@ -10,6 +10,7 @@ describe('Order service tests', () => {
       await expect(saveOrder({
          idCustomer: 4235,
          country: 'México',
+         state: 'State',
          city: 'cdmx',
          street: 'some',
          houseNumber: 3213,
@@ -29,13 +30,14 @@ describe('Order service tests', () => {
                quantity: Quantity.EXTRA
             }]
          }]
-      })).rejects.toThrow('Something bad happen')
+      })).rejects.toThrow('Invalid Request Content')
    })
 
    it('Should accept the send value', async () => {
       const responseValue = await saveOrder({
          idCustomer: 234,
          country: 'México',
+         state: 'State',
          city: 'cdmx',
          street: 'some',
          houseNumber: 3213,
@@ -57,6 +59,6 @@ describe('Order service tests', () => {
          }]
       })
 
-      expect(responseValue).toStrictEqual(201)
+      expect(responseValue).toStrictEqual('Order save correctly')
    })
 })

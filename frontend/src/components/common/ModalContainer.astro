@@ -41,6 +41,14 @@
 
    button {
       background-color: transparent;
-      border: none;
+		height: 24px;
+		color: var(--text-color);
+		&:hover {
+			color: var(--primary-interaction);
+		}
+		&:focus-within {
+         color: var(--primary-interaction);
+			outline: 1px solid var(--outline);
+		}
    }
 </style>

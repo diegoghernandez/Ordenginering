@@ -45,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
               .idOrder(idOrder)
               .idCustomer(order.idCustomer())
               .country(order.country())
+              .state(order.state())
               .city(order.city())
               .street(order.street())
               .houseNumber(order.houseNumber())
