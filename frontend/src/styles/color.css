@@ -10,6 +10,7 @@
    --outline: #855A45;
    --outline-light: #F3EBE6;
    --error: #a91313;
+   --error-light: #FEF6F6;
 
    --state-layer-color: #332E2B;
 
@@ -32,6 +33,7 @@
       --outline: #CA896A;
       --outline-light: #403D3C;
       --error: #ff756d;
+      --error-light: #320101;
       
       --state-layer-color: #9c6340;
       

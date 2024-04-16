@@ -1,12 +1,13 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { CustomSelect } from '@/components/common/CustomSelect'
-import StateCities from '@/data/state_cities.json'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
 import type { Order } from '@/types'
 import { returnValueFromInputsOrSelects } from '@/utils/returnValueFromInputsOrSelects'
 import { type FormEvent } from 'react'
+import { Callout } from '@/components/common/Callout'
+import StateCities from '@/data/state_cities.json'
 import './CheckoutForm.module.css'
 
 interface Props {
@@ -48,7 +49,7 @@ export function CheckoutForm({ countryList }: Props) {
 
    return (
       <form onSubmit={handleSubmit}>
-         <p>{response}</p>
+         {response ? <Callout type={JSON.stringify(error) !== '{}' ? 'error': 'success'} message={response} /> : null}
          <CustomSelect
             label='Country*'
             required={true}

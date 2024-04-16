@@ -9,14 +9,11 @@ export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) 
    const handlePromise = (valueForPromise: Type) => {
       setIsLoading(true)
       setError({})
+      setResponse('')
       
       setTimeout(() => {
          servicePromise(valueForPromise)
-            .then((result) => {
-               setIsLoading(false)
-               setResponse(result)
-               console.log('Yessssss');
-            })
+            .then((result) => setResponse(result))
             .catch((e) => {
                setIsLoading(false)
                if (e instanceof StatusError) {
