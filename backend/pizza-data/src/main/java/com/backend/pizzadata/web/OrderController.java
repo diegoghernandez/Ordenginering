@@ -1,6 +1,7 @@
 package com.backend.pizzadata.web;
 
 import com.backend.pizzadata.domain.service.OrderService;
+import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.web.dto.OrderDto;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class OrderController {
    }
 
    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> saveOrder(@Valid @RequestBody OrderDto orderDto) {
+   public ResponseEntity<String> saveOrder(@Valid @RequestBody OrderDto orderDto) throws NotAllowedException {
       orderService.saveOrder(orderDto);
 
       return new ResponseEntity<>("Order save correctly", HttpStatus.CREATED);

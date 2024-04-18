@@ -7,6 +7,7 @@ import com.backend.pizzadata.persistence.entity.PizzaEntity;
 import com.backend.pizzadata.persistence.entity.PizzaIngredients;
 import com.backend.pizzadata.persistence.repository.IngredientRepository;
 import com.backend.pizzadata.persistence.repository.OrderRepository;
+import com.backend.pizzadata.web.api.CustomerClient;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,13 @@ public class OrderServiceImpl implements OrderService {
 
    private final IngredientRepository ingredientRepository;
 
+   private final CustomerClient customerClient;
+
    @Autowired
-   public OrderServiceImpl(OrderRepository orderRepository, IngredientRepository ingredientRepository) {
+   public OrderServiceImpl(OrderRepository orderRepository, IngredientRepository ingredientRepository, CustomerClient customerClient) {
       this.orderRepository = orderRepository;
       this.ingredientRepository = ingredientRepository;
+      this.customerClient = customerClient;
    }
 
    @Override
@@ -37,9 +41,12 @@ public class OrderServiceImpl implements OrderService {
    }
 
    @Override
-   public void saveOrder(OrderDto order) {
+   public void saveOrder(OrderDto order) throws NotAllowedException {
       var idOrder = UUID.randomUUID();
       var pizzaEntityList = convertPizzaDtoToEntity(idOrder, order.pizzaList());
+
+      if (customerClient.customerExist(order.idCustomer()).status() != 200)
+         throw new NotAllowedException("Customer not found");
 
       var orderEntity = OrderEntity.builder()
               .idOrder(idOrder)

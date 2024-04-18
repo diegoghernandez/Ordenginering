@@ -4,6 +4,7 @@ import com.backend.pizzadata.containers.SetUpForServiceTestWithContainers;
 import com.backend.pizzadata.TestDataUtil;
 import com.backend.pizzadata.constants.Size;
 import com.backend.pizzadata.domain.service.OrderService;
+import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +41,7 @@ class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
 
    @Test
    @DisplayName("Should convert one orderDto to orderEntity, and send it to the repository")
-   void saveOrder() {
+   void saveOrder() throws NotAllowedException {
       assertEquals(0, orderService.getOrdersByAccount(2L, 0).get().getTotalElements());
       orderService.saveOrder(TestDataUtil.getOrderDto());
 

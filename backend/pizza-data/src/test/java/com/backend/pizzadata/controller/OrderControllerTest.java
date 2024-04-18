@@ -2,6 +2,7 @@ package com.backend.pizzadata.controller;
 
 import com.backend.pizzadata.TestDataUtil;
 import com.backend.pizzadata.domain.service.OrderService;
+import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.web.OrderController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,7 +64,7 @@ class OrderControllerTest {
 
    @Test
    @DisplayName("Should save one orderDto using the service")
-   void saveOrder() {
+   void saveOrder() throws NotAllowedException {
       var objectMapper = new ObjectMapper();
 
       Mockito.doNothing().when(orderService).saveOrder(Mockito.eq(TestDataUtil.getOrderDto()));
