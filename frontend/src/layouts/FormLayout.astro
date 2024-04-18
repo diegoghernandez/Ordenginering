@@ -1,0 +1,34 @@
+---
+import Layout from "./Layout.astro";
+
+const { title, h1Text } = Astro.props
+---
+
+<Layout title={title}>
+   <main>
+      <h1>{h1Text}</h1>
+      <slot />
+   </main>
+</Layout>
+
+<style>
+   main {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      width: 100%;
+      max-width: 80ch;
+      margin: 0 auto;
+      padding: 16px;
+      gap: 20px;
+      color: var(--text-color);
+      & h1 {
+         width: fit-content;
+         text-align: start;
+      }
+      & p {
+         width: fit-content;
+         font-weight: bold;
+      }
+   }
+</style>

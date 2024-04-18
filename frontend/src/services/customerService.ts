@@ -1,4 +1,5 @@
 import type { Customer, CustomerDto } from '@/types'
+import { StatusError } from '@/services/exceptions/StatusError'
 
 const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
 const PRIVATE_URL = import.meta.env.PRIVATE_URL ?? 'http://localhost'
@@ -24,5 +25,9 @@ export async function registerCustomer(customerDto: CustomerDto): Promise<string
       body: JSON.stringify(customerDto)
    })
 
-   return response.text()
+   if (response.ok) return response.text()
+   else {
+      const errorResponse = await response.json()
+      throw new StatusError(errorResponse.desc, response.status, errorResponse.fieldError)
+   }
 }

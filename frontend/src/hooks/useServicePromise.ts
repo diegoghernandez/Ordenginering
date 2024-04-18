@@ -4,20 +4,26 @@ import { useState } from 'react'
 export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) => Promise<string>) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [error, setError] = useState<{[key: string]: string}>({})
-   const [response, setResponse] = useState<string>('')
+   const [response, setResponse] = useState<{status: number, message: string} | null>(null)
 
    const handlePromise = (valueForPromise: Type) => {
       setIsLoading(true)
       setError({})
-      setResponse('')
+      setResponse(null)
       
       setTimeout(() => {
          servicePromise(valueForPromise)
-            .then((result) => setResponse(result))
+            .then((result) => setResponse({
+               status: 200,
+               message: result
+            }))
             .catch((e) => {
                setIsLoading(false)
                if (e instanceof StatusError) {
-                  setResponse(e.message)                  
+                  setResponse({
+                     status: e.status,
+                     message: e.message
+                  })  
                   setError(e.fieldError)
                }
                // eslint-disable-next-line no-console

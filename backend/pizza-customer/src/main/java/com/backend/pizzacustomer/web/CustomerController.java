@@ -5,18 +5,17 @@ import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
+@CrossOrigin(origins = "http://localhost:4321")
 public class CustomerController {
 
    private final CustomerService customerService;
 
-   @Autowired
    public CustomerController(CustomerService customerService) {
       this.customerService = customerService;
    }
@@ -24,7 +23,7 @@ public class CustomerController {
    @PostMapping(value = "/register", consumes = {"application/json"})
    public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
       if (!customerDto.password().equals(customerDto.matchingPassword())) {
-         return new ResponseEntity<>("Passwords don't match", HttpStatus.BAD_REQUEST);
+         throw new NotAllowedException("Passwords don't match");
       }
 
       customerService.saveCustomer(customerDto);

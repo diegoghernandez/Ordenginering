@@ -1,14 +1,11 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { CustomSelect } from '@/components/common/CustomSelect'
+import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
 import type { Order } from '@/types'
-import { returnValueFromInputsOrSelects } from '@/utils/returnValueFromInputsOrSelects'
-import { type FormEvent } from 'react'
-import { Callout } from '@/components/common/Callout'
 import StateCities from '@/data/state_cities.json'
-import './CheckoutForm.module.css'
 
 interface Props {
    countryList: { code: string, name: string }[]
@@ -21,35 +18,34 @@ export function CheckoutForm({ countryList }: Props) {
    const states = StateCities.filter(({countryId}) => countryId === 1).flatMap(({ name }) => name)
    const cities = StateCities.filter(({id}) => id === 3901).flatMap(({ cities }) => cities)
    
-   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-
-      if (event.currentTarget instanceof HTMLFormElement) {
-         const { elements } = event.currentTarget
-         const location = returnValueFromInputsOrSelects(elements)
-         
-         const order: Order = {
-            idCustomer: 4234,
-            country: location[0],
-            state: location[1],
-            city: location[2],
-            street: location[3],
-            houseNumber: Number(location[4]),
-            apartment: location[5] ? Number(location[5]) : null,
-            floor: location[6] ? Number(location[6]) : null,
-            pizzaList: pizzaList.map((pizza) => {
-               const { id, ...rest } = pizza
-               return rest
-            })
-         }
-         
-         handlePromise(order)
+   const handleData = (formValues: string[]) => {
+      const order: Order = {
+         idCustomer: 4234,
+         country: formValues[0],
+         state: formValues[1],
+         city: formValues[2],
+         street: formValues[3],
+         houseNumber: Number(formValues[4]),
+         apartment: formValues[5] ? Number(formValues[5]) : null,
+         floor: formValues[6] ? Number(formValues[6]) : null,
+         pizzaList: pizzaList.map((pizza) => {
+            const { id, ...rest } = pizza
+            return rest
+         })
       }
+      
+      handlePromise(order)
    }
 
    return (
-      <form onSubmit={handleSubmit}>
-         {response ? <Callout type={JSON.stringify(error) !== '{}' ? 'error': 'success'} message={response} /> : null}
+      <FormContainer
+         handleData={handleData}
+         response={response}
+         submitButton={{
+            label: 'Checkout',
+            isLoading: isLoading
+         }}
+      >
          <CustomSelect
             label='Country*'
             required={true}
@@ -100,11 +96,7 @@ export function CheckoutForm({ countryList }: Props) {
             error={error?.floor}
             disable={isLoading}
          />
-         <button 
-            className='primary--button'
-            disabled={isLoading}
-         >Checkout</button>
-      </form>
+      </FormContainer>
    )
 }
 

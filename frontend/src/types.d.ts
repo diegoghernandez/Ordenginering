@@ -34,7 +34,7 @@ export interface CustomerDto {
    email: string;
    password: string;
    matchingPassword: string;
-   birthDate: Date;
+   birthDate: string;
 }
 
 export interface Order {

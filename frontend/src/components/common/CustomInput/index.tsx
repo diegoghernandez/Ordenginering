@@ -3,14 +3,14 @@ import type { UserInputProps } from '@/types'
 
 export interface InputProps extends UserInputProps {
    type?: string;
-   placeholder: string;
+   placeholder?: string;
 }
 
 export function CustomInput({
    label,
    type = 'text',
    required = false,
-   placeholder = 'example',
+   placeholder = '',
    description,
    error = '',
    disable = true

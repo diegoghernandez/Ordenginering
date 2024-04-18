@@ -1,56 +1,11 @@
 ---
 import { CheckoutForm } from '@/components/order/CheckoutForm'
 import CountryList from '@/data/countries.json'
-import StateCitiesList from '@/data/countries_state.json'
-import StateCities from '@/data/state_cities.json'
-import Layout from '@/layouts/Layout.astro'
-
-type Inputs = {
-   name: string,
-   type: astroHTML.JSX.HTMLInputTypeAttribute,
-   required?: boolean
-}
-
-const locationInputs: Inputs[] = [
-   { name: 'Country', type: 'text' },
-   { name: 'City', type: 'text' },
-   { name: 'Street', type: 'text' },
-   { name: 'House number', type: 'number' },
-   { name: 'Aparment', type: 'number', required: false },
-   { name: 'Floor', type: 'number', required: false },
-]
+import FormLayout from '@/layouts/FormLayout.astro'
 ---
 
-<Layout title='Checkout order'>
-   <main>
-      <h1>Choose delivery address</h1>
-      <p>* Required field</p>
-      <CheckoutForm countryList={CountryList} client:load />
-      <a class='secondary--button' href='/client/menu'>Return to choose</a>
-      <dialog>
-         <p>Order made correctly</p>
-      </dialog>
-   </main>
-</Layout>
-
-<style>
-   main {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      width: 100%;
-      max-width: 80ch;
-      margin: 0 auto;
-      padding: 16px;
-      gap: 20px;
-      color: var(--text-color);
-      & h1 {
-         width: fit-content;
-         text-align: start;
-      }
-      & p {
-         width: fit-content;
-         font-weight: bold;
-      }
-   }
-</style>
+<FormLayout title='Checkout order' h1Text='Choose delivery address'>
+   <p>* Required field</p>
+   <CheckoutForm countryList={CountryList} client:load />
+   <a class='secondary--button' href='/client/menu'>Return to choose</a>
+</FormLayout>

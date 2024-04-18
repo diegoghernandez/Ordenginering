@@ -1,0 +1,11 @@
+---
+import { SignUpForm } from "@/components/registration/SignUpForm";
+import FormLayout from "@/layouts/FormLayout.astro";
+---
+<FormLayout
+   title='Sign Up'
+   h1Text='Create your account'
+>
+   <p>Have an account? <a>Log in now</a></p>
+   <SignUpForm client:load />
+</FormLayout>
