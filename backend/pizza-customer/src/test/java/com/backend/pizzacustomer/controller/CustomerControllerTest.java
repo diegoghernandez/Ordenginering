@@ -35,51 +35,6 @@ class CustomerControllerTest {
    private CustomerService customerService;
 
    @Test
-   @DisplayName("Should register a customer correctly")
-   void registerCustomer() {
-      var passwordErrorCustomer = new CustomerDto(
-              "Name",
-              "norepeat@name.com",
-              "1234",
-              "43252543",
-              LocalDate.of(2004, 2, 2)
-      );
-
-      var successCustomer = new CustomerDto(
-              "Name",
-              "norepeat@name.com",
-              "1234",
-              "1234",
-              LocalDate.of(2004, 2, 2)
-      );
-
-      var objectMapper = new ObjectMapper();
-      objectMapper.registerModule(new JavaTimeModule());
-      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(passwordErrorCustomer)))
-                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                      .andExpect(MockMvcResultMatchers.content().string("Passwords don't match")),
-
-              () -> Mockito.verify(customerService, Mockito.times(0))
-                      .saveCustomer(Mockito.eq(successCustomer)),
-
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(successCustomer)))
-                      .andExpect(MockMvcResultMatchers.status().isCreated())
-                      .andExpect(MockMvcResultMatchers.content().string("Account create successfully")),
-
-              () -> Mockito.verify(customerService, Mockito.times(1))
-                      .saveCustomer(Mockito.eq(successCustomer))
-
-      );
-   }
-
-   @Test
    @DisplayName("Should return one customer in json format with a specific id using the service or return a not found")
    void getCustomerById() {
       Mockito.when(customerService.getCustomerById(3213))

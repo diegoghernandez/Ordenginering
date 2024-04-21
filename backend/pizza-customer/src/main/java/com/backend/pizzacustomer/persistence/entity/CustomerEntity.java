@@ -1,6 +1,7 @@
 package com.backend.pizzacustomer.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -31,6 +32,9 @@ public class CustomerEntity {
 
     @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
+
+    @NotNull
+    private Boolean disable;
 
     @ToString.Exclude
     @Column(name = "creation_timestamp", columnDefinition = "DATETIME")

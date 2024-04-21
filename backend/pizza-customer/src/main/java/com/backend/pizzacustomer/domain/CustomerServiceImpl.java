@@ -7,6 +7,7 @@ import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,9 +21,12 @@ public class CustomerServiceImpl implements CustomerService {
 
    private final CustomerRepository customerRepository;
 
+   private final PasswordEncoder passwordEncoder;
+
    @Autowired
-   public CustomerServiceImpl(CustomerRepository customerRepository) {
+   public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
       this.customerRepository = customerRepository;
+      this.passwordEncoder = passwordEncoder;
    }
 
    @Override
@@ -34,8 +38,9 @@ public class CustomerServiceImpl implements CustomerService {
       var customer = CustomerEntity.builder()
               .customerName(customerDto.customerName())
               .email(customerDto.email())
-              .password(customerDto.password())
+              .password(passwordEncoder.encode(customerDto.password()))
               .birthDate(customerDto.birthDate())
+              .disable(false)
               .creationTimestamp(LocalDateTime.now())
               .build();
 

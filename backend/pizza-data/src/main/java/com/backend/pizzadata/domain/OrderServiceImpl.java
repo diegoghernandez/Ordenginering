@@ -28,7 +28,6 @@ public class OrderServiceImpl implements OrderService {
 
    private final CustomerClient customerClient;
 
-   @Autowired
    public OrderServiceImpl(OrderRepository orderRepository, IngredientRepository ingredientRepository, CustomerClient customerClient) {
       this.orderRepository = orderRepository;
       this.ingredientRepository = ingredientRepository;

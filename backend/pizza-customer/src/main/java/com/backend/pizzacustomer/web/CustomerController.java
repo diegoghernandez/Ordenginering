@@ -11,24 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
-@CrossOrigin(origins = "http://localhost:4321")
 public class CustomerController {
 
    private final CustomerService customerService;
 
    public CustomerController(CustomerService customerService) {
       this.customerService = customerService;
-   }
-
-   @PostMapping(value = "/register", consumes = {"application/json"})
-   public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
-      if (!customerDto.password().equals(customerDto.matchingPassword())) {
-         throw new NotAllowedException("Passwords don't match");
-      }
-
-      customerService.saveCustomer(customerDto);
-
-      return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
    }
 
    @GetMapping("/{id}")
