@@ -3,15 +3,15 @@ import { createJwt, verifyJwt } from '../domain/JwtService'
 
 const router = Router()
 
-router.post('/create/:email', (req, res) => {
+router.get('/create/:email', (req, res) => {
    const { email } = req.params
    createJwt(email)
       .then((token) => res.send(token))
       .catch(() => res.sendStatus(400))
 })
 
-router.get('/verify', (req, res) => {
-   const token = req.headers.authorization ?? ''
+router.get('/verify/:token', (req, res) => {
+   const { token } = req.params
 
    if (!token) {
       res.status(403).send('No token provided')

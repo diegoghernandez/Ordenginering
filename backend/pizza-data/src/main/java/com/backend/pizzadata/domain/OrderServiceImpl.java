@@ -10,9 +10,10 @@ import com.backend.pizzadata.persistence.repository.OrderRepository;
 import com.backend.pizzadata.web.api.CustomerClient;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.Cookie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,12 +41,15 @@ public class OrderServiceImpl implements OrderService {
    }
 
    @Override
-   public void saveOrder(OrderDto order) throws NotAllowedException {
+   public void saveOrder(OrderDto order, Cookie cookie) throws NotAllowedException {
       var idOrder = UUID.randomUUID();
-      var pizzaEntityList = convertPizzaDtoToEntity(idOrder, order.pizzaList());
 
-      if (customerClient.customerExist(order.idCustomer()).status() != 200)
-         throw new NotAllowedException("Customer not found");
+      if (customerClient.customerExist(
+              order.idCustomer(),
+              ResponseCookie.from(cookie.getName(), cookie.getValue()).build()
+      ).status() != 200) throw new NotAllowedException("Customer not found");
+
+      var pizzaEntityList = convertPizzaDtoToEntity(idOrder, order.pizzaList());
 
       var orderEntity = OrderEntity.builder()
               .idOrder(idOrder)

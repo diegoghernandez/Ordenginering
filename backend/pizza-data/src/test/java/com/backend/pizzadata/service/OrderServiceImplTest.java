@@ -7,6 +7,7 @@ import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
    @DisplayName("Should convert one orderDto to orderEntity, and send it to the repository")
    void saveOrder() throws NotAllowedException {
       assertEquals(0, orderService.getOrdersByAccount(2L, 0).get().getTotalElements());
-      orderService.saveOrder(TestDataUtil.getOrderDto());
+      orderService.saveOrder(TestDataUtil.getOrderDto(), new Cookie("ds", "fdsa"));
 
       var pageOrderSaved = orderService.getOrdersByAccount(2L, 0).get();
       var order = pageOrderSaved.get().toList().getFirst();

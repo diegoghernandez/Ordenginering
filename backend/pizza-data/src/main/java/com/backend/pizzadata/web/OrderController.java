@@ -3,9 +3,10 @@ package com.backend.pizzadata.web;
 import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
+import com.backend.pizzadata.utils.JwtCookie;
 import com.backend.pizzadata.web.dto.OrderDto;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,8 +34,16 @@ public class OrderController {
    }
 
    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> saveOrder(@Valid @RequestBody OrderDto orderDto) throws NotAllowedException {
-      orderService.saveOrder(orderDto);
+   public ResponseEntity<String> saveOrder(
+           @Valid @RequestBody OrderDto orderDto,
+           HttpServletRequest request
+   ) throws NotAllowedException {
+      var cookie = JwtCookie.getJwtCookie(request);
+
+      if (cookie.isEmpty()) return ResponseEntity.status(403).build();
+
+      System.out.println(cookie.get().getName());
+      orderService.saveOrder(orderDto, cookie.get());
 
       return new ResponseEntity<>("Order save correctly", HttpStatus.CREATED);
    }

@@ -1,8 +1,7 @@
-package com.backend.pizzacustomer.web.api;
+package com.backend.pizzadata.web.api;
 
-import com.backend.pizzacustomer.web.dto.JwtResponseDto;
+import com.backend.pizzadata.web.dto.JwtResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

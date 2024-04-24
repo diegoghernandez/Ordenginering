@@ -2,7 +2,9 @@ package com.backend.pizzadata.web.api;
 
 import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,5 +12,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface CustomerClient {
 
    @RequestMapping(method = RequestMethod.HEAD, value = "/{id}")
-   Response customerExist(@PathVariable Long id);
+   Response customerExist(@PathVariable Long id, @RequestHeader("Cookie") ResponseCookie cookie);
 }

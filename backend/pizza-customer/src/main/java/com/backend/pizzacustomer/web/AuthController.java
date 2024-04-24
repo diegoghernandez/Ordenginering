@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
 
    private final CustomerService customerService;
@@ -59,6 +59,7 @@ public class AuthController {
       var cookie = ResponseCookie.from("jwt", jwt)
               .httpOnly(true)
               .maxAge(TimeUnit.DAYS.toSeconds(15))
+              .path("/")
               /*.secure(true)
               .domain("")*/
               .build().toString();

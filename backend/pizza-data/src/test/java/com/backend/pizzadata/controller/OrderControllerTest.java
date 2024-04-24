@@ -4,10 +4,10 @@ import com.backend.pizzadata.TestDataUtil;
 import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.web.OrderController;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -67,7 +67,7 @@ class OrderControllerTest {
    void saveOrder() throws NotAllowedException {
       var objectMapper = new ObjectMapper();
 
-      Mockito.doNothing().when(orderService).saveOrder(Mockito.eq(TestDataUtil.getOrderDto()));
+      Mockito.doNothing().when(orderService).saveOrder(Mockito.eq(TestDataUtil.getOrderDto()), new Cookie("d", "d"));
 
       assertAll(
               () -> mockMvc.perform(MockMvcRequestBuilders.post("/order/save")
@@ -77,7 +77,7 @@ class OrderControllerTest {
                       .andExpect(MockMvcResultMatchers.content().string("Order save correctly")),
 
               () -> Mockito.verify(orderService, Mockito.times(1))
-                      .saveOrder(Mockito.eq(TestDataUtil.getOrderDto()))
+                      .saveOrder(Mockito.eq(TestDataUtil.getOrderDto()), new Cookie("d", "d"))
 
       );
    }
