@@ -1,13 +1,16 @@
 import express from 'express'
-import jwtController from './web/JwtController'
+import { JwtServiceImpl } from './domain/JwtServiceImpl.js'
+import { createJwtRouter } from './web/routes/JwtRoutes.js'
 
 const app = express()
 app.use(express.json())
 
-const PORT = 3000
+app.use('/jwt', createJwtRouter(new JwtServiceImpl()))
+
+export { app }
+
+const PORT = 3001
 
 app.listen(PORT, () => {
    console.log(`Server running on port ${PORT}`)
 })
-
-app.use('/jwt', jwtController)
