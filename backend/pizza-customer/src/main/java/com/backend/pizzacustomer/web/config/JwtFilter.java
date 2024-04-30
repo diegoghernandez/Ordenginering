@@ -32,7 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
            FilterChain filterChain
    ) throws ServletException, IOException {
       var token = Optional.ofNullable(WebUtils.getCookie(request, "jwt"));
-      System.out.println(request.getCookies().length);
 
       if (token.isEmpty()) {
          filterChain.doFilter(request, response);

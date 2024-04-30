@@ -1,15 +1,18 @@
 package com.backend.pizzacustomer.service;
 
 import com.backend.pizzacustomer.TestDataUtil;
-import com.backend.pizzacustomer.containers.SetUpForServiceTestWithContainers;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
+import com.backend.pizzacustomer.setup.testcontainer.SetUpForServiceTestWithContainers;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -20,6 +23,9 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
 
    @Autowired
    private CustomerService customerService;
+
+   @MockBean
+   private PasswordEncoder passwordEncoder;
 
    private final static long ID__TO__REJECT = 34L;
    private final static long ID__TO__ACCEPT = 4234L;
@@ -45,6 +51,9 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
                       LocalDate.of(2010, 1, 26)
               )));
 
+      Mockito.when(passwordEncoder.encode("1234"))
+                      .thenReturn("$2y$10$8yQrh6XtSu05.XciORCBOuML7nQcatxmKDle3yUzG1.ciJbACHFgi");
+
       customerService.saveCustomer(new CustomerDto(
               "Name",
               "original@name.com",
@@ -59,8 +68,9 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
               .idCustomer(1L)
               .customerName("Name")
               .email("original@name.com")
-              .password("1234")
+              .password("$2y$10$8yQrh6XtSu05.XciORCBOuML7nQcatxmKDle3yUzG1.ciJbACHFgi")
               .birthDate(LocalDate.of(1998, 1, 26))
+              .disable(false)
               .build().toString();
 
       assertAll(

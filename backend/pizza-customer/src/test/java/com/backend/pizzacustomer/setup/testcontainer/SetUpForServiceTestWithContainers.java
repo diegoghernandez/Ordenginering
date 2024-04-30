@@ -1,4 +1,4 @@
-package com.backend.pizzacustomer.containers;
+package com.backend.pizzacustomer.setup.testcontainer;
 
 import org.springframework.context.annotation.ComponentScan;
 

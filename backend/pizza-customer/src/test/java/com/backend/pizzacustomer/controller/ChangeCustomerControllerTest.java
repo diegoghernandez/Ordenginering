@@ -1,33 +1,54 @@
 package com.backend.pizzacustomer.controller;
 
 import com.backend.pizzacustomer.TestDataUtil;
+import com.backend.pizzacustomer.client.mock.JwtClientMock;
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.ChangeCustomerController;
+import com.backend.pizzacustomer.web.config.JwtFilter;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.AbstractMap;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@WebMvcTest(ChangeCustomerController.class)
-class ChangeCustomerControllerTest {
+@SpringBootTest
+@ActiveProfiles("test")
+class ChangeCustomerControllerTest extends SetUpForJwtClient {
+
+   private MockMvc mockMvc;
 
    @Autowired
-   private MockMvc mockMvc;
+   private ChangeCustomerController changeCustomerController;
 
    @MockBean
    private CustomerService customerService;
+
+   @Autowired
+   private JwtFilter jwtFilter;
+
+   @BeforeEach
+   public void setUp() {
+      this.mockMvc = MockMvcBuilders.standaloneSetup(changeCustomerController)
+              .addFilter(jwtFilter)
+              .build();
+   }
 
    @Test
    @DisplayName("Should save a new name")

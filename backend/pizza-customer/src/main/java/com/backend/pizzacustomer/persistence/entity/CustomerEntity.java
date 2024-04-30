@@ -1,5 +1,7 @@
 package com.backend.pizzacustomer.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -30,13 +32,15 @@ public class CustomerEntity {
     @Column(length = 60, nullable = false)
     private String password;
 
-    @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name = "birth_date", nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
 
     @NotNull
     private Boolean disable;
 
     @ToString.Exclude
+    @JsonIgnore
     @Column(name = "creation_timestamp", columnDefinition = "DATETIME")
     private LocalDateTime creationTimestamp;
 }

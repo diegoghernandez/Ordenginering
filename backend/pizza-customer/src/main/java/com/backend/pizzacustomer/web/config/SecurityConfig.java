@@ -12,12 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-
-import java.util.Collections;
-import java.util.List;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
@@ -53,7 +48,7 @@ public class SecurityConfig {
 
    @Bean
    public PasswordEncoder bCryptPasswordEncoder() {
-      return new BCryptPasswordEncoder();
+      return new BCryptPasswordEncoder(10);
    }
 
    @Bean

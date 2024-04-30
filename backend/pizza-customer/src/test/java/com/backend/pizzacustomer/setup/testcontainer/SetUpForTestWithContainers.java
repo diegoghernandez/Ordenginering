@@ -1,4 +1,4 @@
-package com.backend.pizzacustomer.containers;
+package com.backend.pizzacustomer.setup.testcontainer;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.testcontainers.containers.MySQLContainer;

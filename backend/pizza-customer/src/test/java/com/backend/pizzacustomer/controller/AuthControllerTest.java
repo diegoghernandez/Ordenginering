@@ -1,34 +1,59 @@
 package com.backend.pizzacustomer.controller;
 
+import com.backend.pizzacustomer.advice.PizzaCustomerExceptionHandler;
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.AuthController;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@WebMvcTest(AuthController.class)
-class AuthControllerTest {
+@SpringBootTest
+@ActiveProfiles("test")
+class AuthControllerTest extends SetUpForJwtClient {
+
+   private MockMvc mockMvc;
 
    @Autowired
-   private MockMvc mockMvc;
+   private AuthController authController;
 
    @MockBean
    private CustomerService customerService;
+
+   @MockBean
+   private AuthenticationManager authenticationManager;
+
+   @Autowired
+   private PizzaCustomerExceptionHandler exceptionHandler;
+
+   @BeforeEach
+   public void setUp() {
+      this.mockMvc = MockMvcBuilders.standaloneSetup(authController)
+              .setControllerAdvice(exceptionHandler)
+              .build();
+   }
 
    @Test
    @DisplayName("Should register a customer correctly")
@@ -54,7 +79,7 @@ class AuthControllerTest {
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                               .contentType(MediaType.APPLICATION_JSON)
                               .content(objectMapper.writeValueAsString(passwordErrorCustomer)))
                       .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -63,7 +88,7 @@ class AuthControllerTest {
               () -> Mockito.verify(customerService, Mockito.times(0))
                       .saveCustomer(Mockito.eq(successCustomer)),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/register")
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                               .contentType(MediaType.APPLICATION_JSON)
                               .content(objectMapper.writeValueAsString(successCustomer)))
                       .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -71,6 +96,30 @@ class AuthControllerTest {
 
               () -> Mockito.verify(customerService, Mockito.times(1))
                       .saveCustomer(Mockito.eq(successCustomer))
+
+      );
+   }
+
+   @Test
+   @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+   void loginCustomer() {
+      var loginDto = new LoginDto("random@names.com","1234");
+
+      Mockito.when(authenticationManager.authenticate(
+              new UsernamePasswordAuthenticationToken("random@names.com","1234")
+      )).thenReturn(null);
+
+      var objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+      assertAll(
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
+                              .contentType(MediaType.APPLICATION_JSON)
+                              .content(objectMapper.writeValueAsString(loginDto)))
+                      .andExpect(MockMvcResultMatchers.status().isOk())
+                      .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.SET_COOKIE))
+
 
       );
    }

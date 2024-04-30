@@ -1,6 +1,6 @@
 package com.backend.pizzacustomer.repository;
 
-import com.backend.pizzacustomer.containers.SetUpForTestWithContainers;
+import com.backend.pizzacustomer.setup.testcontainer.SetUpForTestWithContainers;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

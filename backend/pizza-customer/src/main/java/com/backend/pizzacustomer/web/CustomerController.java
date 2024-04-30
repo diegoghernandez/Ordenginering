@@ -19,7 +19,7 @@ public class CustomerController {
       this.customerService = customerService;
    }
 
-   @GetMapping("/{id}")
+   @GetMapping(value = "/{id}", produces = {"application/json;charset=UTF-8"})
    public ResponseEntity<CustomerEntity> getCustomerById(@PathVariable long id) {
       return customerService.getCustomerById(id)
               .map((customer) -> new ResponseEntity<>(customer, HttpStatus.OK))

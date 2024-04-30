@@ -35,6 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
       else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
          throw new NotAllowedException("No older enough");
 
+      System.out.println(passwordEncoder.encode(customerDto.password()));
       var customer = CustomerEntity.builder()
               .customerName(customerDto.customerName())
               .email(customerDto.email())
