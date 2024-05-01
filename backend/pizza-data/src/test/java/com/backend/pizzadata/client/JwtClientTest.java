@@ -1,8 +1,8 @@
-package com.backend.pizzacustomer.client;
+package com.backend.pizzadata.client;
 
-import com.backend.pizzacustomer.setup.SetUpForJwtClient;
-import com.backend.pizzacustomer.web.api.JwtClient;
-import com.backend.pizzacustomer.web.dto.JwtResponseDto;
+import com.backend.pizzadata.setup.client.SetUpForJwtClient;
+import com.backend.pizzadata.web.api.JwtClient;
+import com.backend.pizzadata.web.dto.JwtResponseDto;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,27 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class JwtClientTest extends SetUpForJwtClient {
+class JwtClientTest extends SetUpForJwtClient {
 
    @Autowired
    private JwtClient jwtClient;
-
-   @Test
-   @DisplayName("Should return a token if is valid or return a bad request if not")
-   void createJwt() {
-      var exception = assertThrows(FeignException.class, () -> jwtClient.createJWT("incorrectFormat.com"));
-      var arrayMessage = exception.getMessage().split(":");
-      var formatMessage = arrayMessage[arrayMessage.length - 1]
-              .replaceFirst(" ", "").replaceAll("[^a-zA-Z0-9 ]","");
-
-      assertAll(
-              () -> assertEquals(jwtClient.createJWT("random@example.com"), "token"),
-              () -> assertEquals("Email not valid", formatMessage)
-      );
-   }
 
    @Test
    @DisplayName("Should validate a token if is valid return a JwtResponseDto, otherwise return an unauthorized")
@@ -51,4 +38,5 @@ public class JwtClientTest extends SetUpForJwtClient {
               () -> assertEquals("401 Unauthorized", formatMessage)
       );
    }
+
 }

@@ -2,16 +2,18 @@ package com.backend.pizzadata.service;
 
 import com.backend.pizzadata.TestDataUtil;
 import com.backend.pizzadata.constants.IngredientType;
-import com.backend.pizzadata.containers.SetUpForServiceTestWithContainers;
+import com.backend.pizzadata.setup.containers.SetUpForServiceWithContainers;
 import com.backend.pizzadata.domain.service.IngredientService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.repository.IngredientRepository;
+import com.backend.pizzadata.web.api.CustomerClient;
 import com.backend.pizzadata.web.dto.IngredientDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,13 +22,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class IngredientServiceImplTest extends SetUpForServiceTestWithContainers {
+class IngredientServiceImplTest extends SetUpForServiceWithContainers {
 
    @Autowired
    private IngredientService ingredientService;
 
    @Autowired
    private IngredientRepository ingredientRepository;
+
+   @MockBean
+   private CustomerClient customerClient;
 
    @Test
    @DisplayName("Should return all ingredients available using the repository")

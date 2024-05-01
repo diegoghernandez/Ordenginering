@@ -1,6 +1,7 @@
 package com.backend.pizzadata.persistence.entity;
 
 import com.backend.pizzadata.constants.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -43,10 +44,11 @@ public class PizzaEntity {
     private Integer quantity;
 
     @ToString.Exclude
+    @JsonIgnore
     @Column(name = "pizza_timestamp", columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime pizzaTimestamp;
 
-    @OneToMany(mappedBy = "pizzaEntity")
+    @OneToMany(mappedBy = "pizzaEntity", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<PizzaIngredients> pizzaIngredients;
 

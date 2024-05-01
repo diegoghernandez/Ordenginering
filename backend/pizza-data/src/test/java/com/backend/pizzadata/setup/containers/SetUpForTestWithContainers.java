@@ -1,6 +1,9 @@
-package com.backend.pizzadata.containers;
+package com.backend.pizzadata.setup.containers;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 

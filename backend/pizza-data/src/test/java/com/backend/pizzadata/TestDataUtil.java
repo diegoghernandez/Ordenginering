@@ -10,6 +10,7 @@ import com.backend.pizzadata.persistence.entity.PizzaIngredients;
 import com.backend.pizzadata.web.dto.IngredientNameDto;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
+import jakarta.servlet.http.Cookie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -135,5 +136,9 @@ public final class TestDataUtil {
                       )
               )
       );
+   }
+
+   public static Cookie getCookie() {
+      return new Cookie("jwt", "token");
    }
 }

@@ -11,7 +11,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
 @EnableFeignClients
-@EnableConfigurationProperties
 public abstract class SetUpForJwtClient {
 
    static WireMockServer mockService = new WireMockServer(3000);

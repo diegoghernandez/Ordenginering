@@ -1,6 +1,6 @@
 package com.backend.pizzadata.repository;
 
-import com.backend.pizzadata.containers.SetUpForTestWithContainers;
+import com.backend.pizzadata.setup.containers.SetUpForTestWithContainers;
 import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.repository.IngredientRepository;
 import org.junit.jupiter.api.DisplayName;

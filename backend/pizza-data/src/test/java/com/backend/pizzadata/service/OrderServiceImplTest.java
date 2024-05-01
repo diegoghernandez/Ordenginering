@@ -1,17 +1,23 @@
 package com.backend.pizzadata.service;
 
-import com.backend.pizzadata.containers.SetUpForServiceTestWithContainers;
 import com.backend.pizzadata.TestDataUtil;
 import com.backend.pizzadata.constants.Size;
 import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
-import jakarta.servlet.http.Cookie;
+import com.backend.pizzadata.setup.containers.SetUpForServiceWithContainers;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,13 +28,21 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
-
-   private final OrderService orderService;
+@EnableFeignClients
+@ImportAutoConfiguration(FeignAutoConfiguration.class)
+class OrderServiceImplTest extends SetUpForServiceWithContainers {
 
    @Autowired
-   public OrderServiceImplTest(OrderService orderService) {
-      this.orderService = orderService;
+   private OrderService orderService;
+
+   static WireMockServer mockService = new WireMockServer(8765);
+
+   @BeforeAll
+   public static void setupMockCustomerResponse() {
+      mockService.start();
+
+      mockService.stubFor(WireMock.head(WireMock.urlPathMatching("/customer/exist/2"))
+              .willReturn(WireMock.status(200)));
    }
 
    @Test
@@ -44,7 +58,7 @@ class OrderServiceImplTest extends SetUpForServiceTestWithContainers {
    @DisplayName("Should convert one orderDto to orderEntity, and send it to the repository")
    void saveOrder() throws NotAllowedException {
       assertEquals(0, orderService.getOrdersByAccount(2L, 0).get().getTotalElements());
-      orderService.saveOrder(TestDataUtil.getOrderDto(), new Cookie("ds", "fdsa"));
+      orderService.saveOrder(TestDataUtil.getOrderDto(), TestDataUtil.getCookie());
 
       var pageOrderSaved = orderService.getOrdersByAccount(2L, 0).get();
       var order = pageOrderSaved.get().toList().getFirst();

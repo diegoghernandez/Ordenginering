@@ -2,7 +2,6 @@ package com.backend.pizzacustomer.controller;
 
 import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.advice.PizzaCustomerExceptionHandler;
-import com.backend.pizzacustomer.client.mock.JwtClientMock;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.CustomerController;
@@ -10,7 +9,6 @@ import com.backend.pizzacustomer.web.config.JwtFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

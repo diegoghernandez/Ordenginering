@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "customer", url = "http://localhost:8765/customer")
+@FeignClient(name = "pizza-customer", url = "http://localhost:8765/customer")
 public interface CustomerClient {
 
-   @RequestMapping(method = RequestMethod.HEAD, value = "/{id}")
+   @RequestMapping(method = RequestMethod.HEAD, value = "/exist/{id}")
    Response customerExist(@PathVariable Long id, @RequestHeader("Cookie") ResponseCookie cookie);
 }

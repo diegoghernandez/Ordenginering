@@ -1,5 +1,6 @@
 package com.backend.pizzadata.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -48,6 +49,7 @@ public class OrderEntity {
    private Integer total;
 
    @ToString.Exclude
+   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
    @Column(name = "order_timestamp", columnDefinition = "DATETIME", nullable = false)
    private LocalDateTime orderTimestamp;
 

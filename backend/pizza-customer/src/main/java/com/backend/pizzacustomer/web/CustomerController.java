@@ -26,7 +26,7 @@ public class CustomerController {
               .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
    }
 
-   @RequestMapping(value = "/exist/{id}", method = RequestMethod.HEAD)
+   @RequestMapping(method = RequestMethod.HEAD, value = "/exist/{id}")
    public ResponseEntity<Void> existCustomerById(@PathVariable long id) {
       return customerService.getCustomerById(id)
               .map((customer) -> new ResponseEntity<Void>(HttpStatus.OK))

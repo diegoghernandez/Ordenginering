@@ -42,7 +42,6 @@ public class OrderController {
 
       if (cookie.isEmpty()) return ResponseEntity.status(403).build();
 
-      System.out.println(cookie.get().getName());
       orderService.saveOrder(orderDto, cookie.get());
 
       return new ResponseEntity<>("Order save correctly", HttpStatus.CREATED);

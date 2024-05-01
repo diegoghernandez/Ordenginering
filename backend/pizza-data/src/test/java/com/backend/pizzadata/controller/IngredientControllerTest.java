@@ -1,33 +1,50 @@
 package com.backend.pizzadata.controller;
 
 import com.backend.pizzadata.TestDataUtil;
+import com.backend.pizzadata.advice.PizzaDataExceptionHandler;
 import com.backend.pizzadata.constants.IngredientType;
 import com.backend.pizzadata.domain.service.IngredientService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.web.IngredientController;
+import com.backend.pizzadata.web.config.JwtFilter;
 import com.backend.pizzadata.web.dto.IngredientDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
-@WebMvcTest(IngredientController.class)
+@SpringBootTest
+@ActiveProfiles("test")
 class IngredientControllerTest {
 
-   @Autowired
    private MockMvc mockMvc;
+
+   @Autowired
+   private IngredientController ingredientController;
 
    @MockBean
    private IngredientService ingredientService;
+
+   @BeforeEach
+   public void setUp() {
+      this.mockMvc = MockMvcBuilders.standaloneSetup(ingredientController)
+              .setControllerAdvice(new PizzaDataExceptionHandler())
+              .build();
+   }
+
 
    @Test
    @DisplayName("Should return a not found status instead of all ingredients")
