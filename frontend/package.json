@@ -15,15 +15,15 @@
     "cy:ci-cd": "cypress run --headed --no-runner-ui"
   },
   "dependencies": {
-    "@astrojs/check": "0.5.9",
+    "@astrojs/check": "0.5.10",
     "@astrojs/node": "8.2.5",
-    "@astrojs/react": "3.1.0",
-    "@types/react": "18.2.67",
-    "@types/react-dom": "18.2.22",
-    "astro": "4.5.8",
+    "@astrojs/react": "3.3.2",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "astro": "4.7.1",
     "humbleicons": "1.10.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "zustand": "4.5.2"
   },
   "devDependencies": {
@@ -38,8 +38,8 @@
     "eslint-plugin-cypress": "2.15.1",
     "eslint-plugin-react": "7.34.1",
     "happy-dom": "13.7.0",
-    "msw": "2.2.9",
-    "typescript": "5.4.3",
-    "vitest": "1.4.0"
+    "msw": "2.2.14",
+    "typescript": "5.4.5",
+    "vitest": "1.6.0"
   }
 }
