@@ -1,8 +1,9 @@
-import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { JwtServiceImpl } from '../domain/JwtServiceImpl.js'
+import { describe, it } from 'vitest'
+import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl.js'
+import { JwtService } from '../service/JwtService.js'
 
-const jwtService = new JwtServiceImpl()
+const jwtService = new JwtService(new CustomerRoleRepositoryImpl())
 
 describe('Jwt Service tests', () => {
    describe('create JWT', () => {
@@ -10,11 +11,15 @@ describe('Jwt Service tests', () => {
          assert.equal(typeof jwtService.createJwt, 'function')
       })
 
+      it('Should throw an error if the customer role is not found', async () => {
+         await assert.rejects(jwtService.createJwt(43245), { message: 'Customer not found' })
+      })
+
       it('Should create a jwt token with an email and return it', async () => {
-         const token = await jwtService.createJwt('email@example.com')
+         const token = await jwtService.createJwt(1)
 
          assert.equal(typeof token, 'string')
-         assert.equal(token.length, 190)
+         assert.equal(token.length > 1, true)
       })
    })
 
@@ -24,16 +29,14 @@ describe('Jwt Service tests', () => {
       })
 
       it('Should throw an error if is not a valid token', async () => {
-         assert.rejects(jwtService.verifyJwt('invalid')).catch((e) =>
-            assert.strictEqual(e, 'Invalid Compact JWS')
-         )
+         await assert.rejects(jwtService.verifyJwt('invalid'), { message: 'Invalid Compact JWS' })
       })
 
       it('Should return a value when verify the jwt created for createJwt function', async () => {
-         const value = await jwtService.verifyJwt(await jwtService.createJwt('email@example.com'))
+         const value = await jwtService.verifyJwt(await jwtService.createJwt(1))
 
          assert.equal(value.payload.iss, 'pizza-jwt')
-         assert.equal(value.payload.sub, 'email@example.com')
+         assert.equal(value.protectedHeader.id, 1)
          assert.equal(value.protectedHeader.role, 'USER')
       })
    })

@@ -1,34 +1,35 @@
 import { Request, Response } from 'express'
 import { z } from 'zod'
-import { JwtService } from '../../domain/service/JwtService.js'
+import { JwtService } from '../../service/JwtService.js'
+import { CustomerRoleRepository } from '../../../types.js'
 
 export class JwtController {
    readonly jwtService: JwtService
 
-   constructor(jwtService: JwtService) {
-      this.jwtService = jwtService
+   constructor(customerRoleRepository: CustomerRoleRepository) {
+      this.jwtService = new JwtService(customerRoleRepository)
    }
 
-   createJwt = async (req: Request, res: Response): Promise<void> => {
-      const emailParser = z.string().email()
-      const email = emailParser.safeParse(req.params.email)
+   createJwt = async (req: Request, res: Response) => {
+      const idParser = z.number().positive()
+      const customerId = idParser.safeParse(Number(req.params.customerId))
 
-      if (!email.success) {
-         res.status(400).send('Email not valid')
+      if (!customerId.success) {
+         res.status(400).send('Invalid id')
          return
       }
 
-      this.jwtService.createJwt(email.data)
+      this.jwtService.createJwt(customerId.data)
          .then((token) => res.send(token))
          .catch(() => res.sendStatus(400))
    }
 
-   verifyJwt = async (req: Request, res: Response): Promise<void> => {
+   verifyJwt = async (req: Request, res: Response) => {
       const { token } = req.params
 
       this.jwtService.verifyJwt(token)
          .then((result) => res.status(200).json({
-            subject: result.payload.sub,
+            id: result.protectedHeader.id,
             role: result.protectedHeader.role
          }))
          .catch(() => res.sendStatus(401))

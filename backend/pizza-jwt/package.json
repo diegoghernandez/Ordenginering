@@ -8,7 +8,8 @@
     "tsc": "tsc",
     "start": "node build/index.js",
     "dev": "tsx watch src/index.ts",
-    "test": "node --watch --import tsx --test src/test/*.test.ts"
+    "lint": "eslint src --ext ts --report-unused-disable-directives",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,15 +17,19 @@
   "devDependencies": {
     "@types/express": "4.17.21",
     "@types/supertest": "6.0.2",
+    "eslint-plugin-react": "7.34.1",
     "supertest": "7.0.0",
+    "testcontainers": "10.9.0",
     "ts-standard": "12.0.2",
-    "tsx": "4.7.3",
-    "typescript": "5.4.5"
+    "tsx": "4.8.2",
+    "typescript": "5.4.5",
+    "vitest": "1.6.0"
   },
   "dependencies": {
     "express": "4.19.2",
     "jose": "5.2.4",
-    "zod": "3.23.4"
+    "mysql2": "3.9.7",
+    "zod": "3.23.5"
   },
   "eslintConfig": {
     "root": false,
@@ -43,7 +48,8 @@
       "@typescript-eslint/no-extraneous-class": "off",
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-misused-promises": "off",
-      "@typescript-eslint/restrict-template-expressions": "off"
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/explicit-function-return-type": "off"
     }
   }
 }
