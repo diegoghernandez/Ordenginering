@@ -1,0 +1,32 @@
+name: Test frontend workflow
+
+on:
+   push:
+      paths: [backend/pizza-jwt/**, .github/workflows/pizza_jwt_workflow.yaml, '!**.md', '!**.MD']
+      branches:
+         - main 
+
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
+
+jobs:
+   test:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: backend/pizza-jwt
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: backend/pizza-jwt
+            fetch-depth: 0
+         - uses: actions/setup-node@v4
+           with:
+            node-version: 20
+            cache: 'pnpm'
+            cache-dependency-path: backend/pizza-jwt/pnpm-lock.yaml
+         - name: Install dependencies
+           run: pnpm ci
+         - name: Test project
+           run: pnpm run test

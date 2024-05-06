@@ -1,15 +1,12 @@
 package com.backend.pizzacustomer.controller;
 
 import com.backend.pizzacustomer.TestDataUtil;
-import com.backend.pizzacustomer.client.mock.JwtClientMock;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.ChangeCustomerController;
 import com.backend.pizzacustomer.web.config.JwtFilter;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
