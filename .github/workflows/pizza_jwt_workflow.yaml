@@ -1,4 +1,4 @@
-name: Test frontend workflow
+name: Test pizza-jwt workflow
 
 on:
    push:
@@ -21,6 +21,9 @@ jobs:
            with:
             sparse-checkout: backend/pizza-jwt
             fetch-depth: 0
+         - uses: pnpm/action-setup@v3
+           with:
+            version: 9
          - uses: actions/setup-node@v4
            with:
             node-version: 20
