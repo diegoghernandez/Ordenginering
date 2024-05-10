@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { getAllIngredients } from '@/services/ingredientsService'
 import ingredientList from '@/mocks/fixtures/ingredients.json'
 

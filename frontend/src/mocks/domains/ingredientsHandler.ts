@@ -1,5 +1,5 @@
 import { HttpResponse, http } from 'msw'
-import ingredientList from '@/mocks/fixtures/ingredients.json'
+import ingredientList from '@/mocks/fixtures/ingredients.json' assert { type: 'json' }
 
 const API = 'http://localhost/data/ingredient'
 

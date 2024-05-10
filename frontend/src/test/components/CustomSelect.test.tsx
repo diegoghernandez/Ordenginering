@@ -1,10 +1,13 @@
-import { render, screen } from '@testing-library/react'
+import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CustomSelect } from '../../components/common/CustomSelect'
 
 const values = ['First', 'Second', 'Third']
 
-describe('CustomSelect component tests', () => { 
+describe('CustomSelect component tests', () => {
+   afterEach(() => cleanup())
+
    it('Should render correctly', () => {
       render(<CustomSelect 
          label='Test'
@@ -51,7 +54,6 @@ describe('CustomSelect component tests', () => {
       expect(selectComponent).toBeDefined()
       expect(selectComponent).toHaveValue('td')
       
-      screen.debug(screen.getByRole('combobox'))
       await user.selectOptions(selectComponent, 'Third')
       
       expect(selectComponent).not.toHaveValue('First')

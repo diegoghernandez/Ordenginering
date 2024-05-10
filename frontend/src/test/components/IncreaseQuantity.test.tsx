@@ -1,7 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { SelectQuantity } from '../../components/order/SelectQuantity'
 
-describe('SelectQuantity component tests', () => { 
+describe('SelectQuantity component tests', () => {
+   afterEach(() => cleanup())
+
    it('Should render correctly', () => {
       render(<SelectQuantity />)
 

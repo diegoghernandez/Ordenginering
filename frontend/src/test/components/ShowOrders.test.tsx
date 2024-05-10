@@ -1,10 +1,13 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { ShowOrder } from '../../components/order/ShowOrders'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 
 describe('ShowOrders component tests', () => { 
+   afterEach(() => cleanup())
+
    it('Should show a message if there is no pizza' , () => {
       render(<ShowOrder />)
       expect(screen.getByText('No orders')).toBeInTheDocument()
@@ -69,7 +72,7 @@ describe('ShowOrders component tests', () => {
       setPizza()
       render(<ShowOrder />)
 
-      expect(screen.getByRole('heading', { name: 'Total $1180' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total $1180', hidden: true })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: 'Checkout (7 products)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(2)
       

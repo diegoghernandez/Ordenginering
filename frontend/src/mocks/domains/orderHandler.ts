@@ -5,9 +5,9 @@ const API = 'http://localhost/data/order'
 
 export const orderHandler = [
    http.post<PathParams<never>, Order>(`${API}/save`, async ({ request }) => {
-      const { idCustomer } = await request.json()
+      const { country } = await request.json()
 
-      if (String(idCustomer) === '234') {
+      if (country === 'MEX') {
          return new HttpResponse('Order save correctly', { status: 201 })
       }      
 

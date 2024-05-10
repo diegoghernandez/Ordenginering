@@ -1,10 +1,13 @@
-import { render, screen } from '@testing-library/react'
+import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
 import { ShoppingCart } from '../../components/order/ShoppingCart'
 import { Quantity } from '../../constants/quantity'
 import { Size } from '../../constants/size'
 import { useShoppingCart } from '../../hooks/useShoppingCart'
 
 describe('ShoppingCart component tests', () => {
+   afterEach(() => cleanup())
+
    it('Should render correctly', () => {
       render(<ShoppingCart />)
    

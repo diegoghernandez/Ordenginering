@@ -1,4 +1,5 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 if (typeof global === 'object') {   
    const { server } = await import('@/mocks/server')

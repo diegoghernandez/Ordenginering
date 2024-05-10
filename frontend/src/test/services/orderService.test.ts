@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { Quantity } from '@/constants/quantity'
 import { saveOrder } from '@/services/orderService'
 
@@ -9,7 +10,7 @@ describe('Order service tests', () => {
    it('Should reject the send value', async () => {
       await expect(saveOrder({
          idCustomer: 4235,
-         country: 'México',
+         country: 'No Mexico',
          state: 'State',
          city: 'cdmx',
          street: 'some',
@@ -36,7 +37,7 @@ describe('Order service tests', () => {
    it('Should accept the send value', async () => {
       const responseValue = await saveOrder({
          idCustomer: 234,
-         country: 'México',
+         country: 'MEX',
          state: 'State',
          city: 'cdmx',
          street: 'some',

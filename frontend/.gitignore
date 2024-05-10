@@ -23,3 +23,7 @@ pnpm-debug.log*
 cypress/screenshots
 
 .env
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

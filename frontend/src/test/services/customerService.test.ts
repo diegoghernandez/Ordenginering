@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { getCustomerData, registerCustomer } from '../../services/customerService'
 
 describe('Customer service tests', () => {
@@ -28,7 +29,7 @@ describe('Customer service tests', () => {
             email: 'email@email.com',
             password: '1234',
             matchingPassword: '252523',
-            birthDate: new Date(2002, 2, 12)
+            birthDate: '2002-2-12'
          })
 
          // eslint-disable-next-line quotes
@@ -41,7 +42,7 @@ describe('Customer service tests', () => {
             email: 'email@email.com',
             password: '1234',
             matchingPassword: '1234',
-            birthDate: new Date(2002, 2, 12)
+            birthDate: '2002-2-12'
          })
 
          expect(content).toStrictEqual('Account create successfully')
