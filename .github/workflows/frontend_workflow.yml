@@ -34,7 +34,7 @@ jobs:
          - name: Test project
            run: pnpm run test
    
-   e2e-cypress:
+   e2e-playwright:
       runs-on: ubuntu-22.04
       defaults:
          run:
@@ -54,8 +54,8 @@ jobs:
             cache-dependency-path: frontend/pnpm-lock.yaml
          - name: Install dependencies
            run: pnpm install --frozen-lockfile
-#    - name: Install Playwright Browsers
-#      run: pnpm exec playwright install --with-deps
+         - name: Install Playwright Browsers
+           run: pnpm exec playwright install --with-deps
          #- name: create env file
          #  run: |
          #   touch .env
@@ -72,7 +72,7 @@ jobs:
              retention-days: 30
 
    build__and__deploy:
-      needs: [test, e2e-cypress]
+      needs: [test, e2e-playwright]
       runs-on: ubuntu-22.04
       defaults:
          run:
