@@ -2,6 +2,10 @@
 import { CheckoutForm } from '@/components/order/CheckoutForm'
 import CountryList from '@/data/countries.json'
 import FormLayout from '@/layouts/FormLayout.astro'
+
+export const prerender = false
+
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 ---
 
 <FormLayout title='Checkout order' h1Text='Choose delivery address'>

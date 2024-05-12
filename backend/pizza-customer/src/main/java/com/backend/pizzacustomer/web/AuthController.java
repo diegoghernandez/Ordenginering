@@ -51,7 +51,9 @@ public class AuthController {
       authenticationManager.authenticate(new
               UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
 
-      String jwt = jwtClient.createJWT(loginDto.email());
+      var customer =customerService.getCustomerByEmail(loginDto.email());
+
+      String jwt = jwtClient.createJWT(customer.get().getIdCustomer());
 
       var cookie = ResponseCookie.from("jwt", jwt)
               .httpOnly(true)

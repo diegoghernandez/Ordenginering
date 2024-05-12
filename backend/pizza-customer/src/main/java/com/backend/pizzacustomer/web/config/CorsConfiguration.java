@@ -18,6 +18,7 @@ public class CorsConfiguration {
       corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4321"));
       corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
       corsConfiguration.setAllowedHeaders(List.of("*"));
+      corsConfiguration.setAllowCredentials(true);
 
       var source = new UrlBasedCorsConfigurationSource();
       source.registerCorsConfiguration("/**", corsConfiguration);

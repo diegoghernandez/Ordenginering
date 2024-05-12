@@ -1,9 +1,7 @@
 ---
-import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
-import { CustomizePizzaForm } from '@/components/customize/CustomizePizzaForm'
-import Layout from '@/layouts/Layout.astro'
 import pizzaList from '@/data/pizza.json'
-import { getAllIngredients } from '@/services/ingredientsService'
+import Layout from '@/layouts/Layout.astro'
+import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 
 
 export const getStaticPaths = (() => {
@@ -18,13 +16,13 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { pizza } = Astro.params as Params
 
 const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
-const ingredients = await getAllIngredients()
+//const ingredients = await getAllIngredients()
 ---
 
 <Layout title={`Customize your ${pizza.replace('-', ' ')} pizza`}>
 	<main>
 		<h1>Customize your {getDefaultName(pizza)} pizza</h1>
-		<CustomizePizzaForm ingredients={ingredients} selectedPizza={pizza.replace('-', ' ')} client:load >
+		<!-- <CustomizePizzaForm ingredients={ingredients} selectedPizza={pizza.replace('-', ' ')} client:load >
 			<img 
 				class='pizza-custom' 
 				src={`/client/images/pizza/${pizza}.jpg`}
@@ -34,7 +32,7 @@ const ingredients = await getAllIngredients()
 				decoding='sync'
 				transition:name={`image-${pizza.replace('-', ' ')}`}
 			/>
-		</CustomizePizzaForm>
+		</CustomizePizzaForm> -->
 	</main>
 </Layout>
 

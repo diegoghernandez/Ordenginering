@@ -1,12 +1,14 @@
-import { test, expect } from '@/test/e2e/utils/fixture'
 import { orderHandler } from '@/mocks/domains/orderHandler'
+import { expect, test } from '@/test/e2e/utils/fixture'
 import { addPizzaInMenu } from '@/test/e2e/utils/menuUtils'
 import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { checkIfShoppingCartIsEmpty } from '@/test/e2e/utils/shoppingCartUtils'
 
 test.describe('Checkout page tests', () => {
-   test('Should render the checkout page correctly', async ({ page }) => {
+   test('Should render the checkout page correctly after login and get the cookie', async ({ page, context }) => {
+      await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
       await page.goto('http://localhost:4321/client/checkout')
+
       await expect(page).toHaveTitle('Checkout order')
 
       await findNavbarElements(page)
@@ -24,12 +26,12 @@ test.describe('Checkout page tests', () => {
       await expect(page.getByRole('link', { name: 'Return to choose' })).toBeVisible()
    })
 
-   test('Should show an alert with an error', async ({ page, worker }) => {
+   test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an error', 
+   async ({ page, context, worker }) => {
+      await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
       await page.goto('http://localhost:4321/client/menu')
 
       await checkIfShoppingCartIsEmpty(page)
-
-      await page.waitForTimeout(800)
 
       await addPizzaInMenu(page, 3)
       await addPizzaInMenu(page, 2)
@@ -50,18 +52,18 @@ test.describe('Checkout page tests', () => {
       await page.getByLabel('Floor').fill('32')
 
       await worker.use(...orderHandler)
-
+      
       await page.getByRole('button', { name: 'Checkout' }).click()
       await expect(page.getByRole('alert').getByText('Warning')).toBeVisible()
       await expect(page.getByRole('alert').getByText('Invalid request content')).toBeVisible()
    })
 
-   test('Should save four orders in the menu page, and make the order correctly', async ({ page, worker }) => {
+   test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an successful message', 
+   async ({ page, context, worker }) => {
+      await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
       await page.goto('http://localhost:4321/client/menu')
 
       await checkIfShoppingCartIsEmpty(page)
-
-      await page.waitForTimeout(800)
 
       await addPizzaInMenu(page, 3)
       await addPizzaInMenu(page, 2)
@@ -82,7 +84,7 @@ test.describe('Checkout page tests', () => {
       await page.getByLabel('Floor').fill('32')
 
       await worker.use(...orderHandler)
-
+      
       await page.getByRole('button', { name: 'Checkout' }).click()
       await expect(page.getByRole('alert').getByText('Success')).toBeVisible()
       await expect(page.getByRole('alert').getByText('Order save correctly')).toBeVisible()

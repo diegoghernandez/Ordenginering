@@ -14,6 +14,8 @@ public interface CustomerService {
 
    Optional<CustomerEntity> getCustomerById(long id);
 
+   Optional<CustomerEntity> getCustomerByEmail(String email);
+
    Map.Entry<Integer, String> changeName(String newName, NecessaryValuesForChangeDto forChangeDto);
 
    Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto);

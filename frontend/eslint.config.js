@@ -1,15 +1,14 @@
-import eslintPluginAstro from 'eslint-plugin-astro';
+import eslintPluginAstro from 'eslint-plugin-astro'
 import eslintReact from 'eslint-plugin-react'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 
-/** @type { import("eslint").Linter.FlatConfig[] } */
+/** @type { import('eslint').Linter.FlatConfig[] } */
 export default [
 	...eslintPluginAstro.configs.recommended,
 {
-	files: ["src/**/*.ts"],
+	files: ['src/**/*.{ts,tsx,astro}'],
 	ignores: ['dist/'],
-	settings: {},
 	languageOptions: {
 		parser: tsParser,
 		parserOptions: {
@@ -29,7 +28,7 @@ export default [
 		'react/react-in-jsx-scope': 'off',
 		'no-console': 'error',
 		'react/prop-types': 'off',
-		'quotes': ['error', 'single'],
+		'quotes': ['error', 'single', { 'avoidEscape': true }],
 		'semi': ['error', 'never'],
 		'@typescript-eslint/triple-slash-reference': 'off',
 		'@typescript-eslint/no-floating-promises': 'error',

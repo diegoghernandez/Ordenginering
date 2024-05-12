@@ -54,6 +54,11 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    @Override
+   public Optional<CustomerEntity> getCustomerByEmail(String email) {
+      return customerRepository.findByEmail(email);
+   }
+
+   @Override
    public Map.Entry<Integer, String> changeName(String newName, NecessaryValuesForChangeDto forChangeDto) {
       var result = validateNecessaryValues(forChangeDto, "Change name correctly");
 

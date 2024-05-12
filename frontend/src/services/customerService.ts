@@ -1,4 +1,4 @@
-import type { Customer, CustomerDto } from '@/types'
+import type { Customer, CustomerDto, CustomerLogIn } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
 
 const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
@@ -10,10 +10,24 @@ export async function getCustomerData(id: number): Promise<Customer> {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
-      },
+      }
    })
 
    return response.json()
+}
+
+export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
+   const response = await fetch(`${API(PUBLIC_URL)}/auth/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(customerLogIn)
+   })
+   
+   if (response.ok) return ''
+   else throw new StatusError('Invalid credentials', response.status)
 }
 
 export async function registerCustomer(customerDto: CustomerDto): Promise<string> {

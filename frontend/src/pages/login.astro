@@ -1,0 +1,18 @@
+---
+import { LogInForm } from '@/components/security/LogInForm'
+import FormLayout from '@/layouts/FormLayout.astro'
+---
+
+<FormLayout title='Login' h1Text='Log in to your account'>
+   <p>
+      Don't have an account? 
+      <a href='/client/signup'>Sign Up</a>
+   </p>
+   <LogInForm client:load />
+</FormLayout>
+
+<style>
+   a {
+      color: #016BF8;
+   }
+</style>

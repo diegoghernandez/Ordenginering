@@ -20,8 +20,6 @@ test.describe('Menu page e2e tests', () => {
    test('Should save a pizza to the shopping cart', async ({ page }) => {
       await checkIfShoppingCartIsEmpty(page)
 
-      await page.waitForTimeout(600)
-
       await addPizzaInMenu(page, 0)
 
       const pizzaList: Pizza[] = [{

@@ -25,13 +25,13 @@ public class JwtClientTest extends SetUpForJwtClient {
    @Test
    @DisplayName("Should return a token if is valid or return a bad request if not")
    void createJwt() {
-      var exception = assertThrows(FeignException.class, () -> jwtClient.createJWT("incorrectFormat.com"));
+      var exception = assertThrows(FeignException.class, () -> jwtClient.createJWT(95679));
       var arrayMessage = exception.getMessage().split(":");
       var formatMessage = arrayMessage[arrayMessage.length - 1]
               .replaceFirst(" ", "").replaceAll("[^a-zA-Z0-9 ]","");
 
       assertAll(
-              () -> assertEquals(jwtClient.createJWT("random@example.com"), "token"),
+              () -> assertEquals(jwtClient.createJWT(4234), "token"),
               () -> assertEquals("Email not valid", formatMessage)
       );
    }

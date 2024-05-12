@@ -17,5 +17,5 @@ export async function getAllIngredients(): Promise<Array<IngredientRequest>> {
       return await response.json()
    }
 
-   throw new StatusError('Ingredients not found')
+   throw new StatusError('Ingredients not found', 404)
 }   

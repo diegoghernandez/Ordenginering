@@ -108,7 +108,7 @@ export function CustomizePizzaForm({ ingredients, selectedPizza, children }: Pro
                <h2>Quantity</h2>
                <SelectQuantity setValue={setCharacteristics} />
                <h2>Size</h2>
-               <CustomSelect values={Object.values(Size).map((value) => value)} />
+               {/* <CustomSelect values={Object.values(Size).map((value) => value)} /> */}
             </div>
          </div>
          <IngredientsContainer ingredients={ingredients} preSelectedIngredients={getIngredientsFromSelectedPizza()?.ingredients} />

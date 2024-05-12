@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCustomerData, registerCustomer } from '../../services/customerService'
+import { getCustomerData, logIn, registerCustomer } from '../../services/customerService'
 
 describe('Customer service tests', () => {
    describe('getCustomerData tests', () => {
@@ -17,6 +17,28 @@ describe('Customer service tests', () => {
          })
       })
    }),
+
+   describe('registerCustomer tests', () => {
+      it('Should be a function', () => {
+         expect(typeof logIn).toBe('function')
+      })
+
+      it('Should throw a error with the following message', async () => {
+         await expect(logIn({
+            email: 'email@email.com',
+            password: 'wrong',
+         })).rejects.toThrow('Invalid credentials')
+      })
+
+      it('Should return a good message', async () => {
+         const response = await logIn({
+            email: 'email@email.com',
+            password: '1234',
+         })
+
+         expect(response).toBe('')
+      })
+   })
 
    describe('registerCustomer tests', () => {
       it('Should be a function', () => {

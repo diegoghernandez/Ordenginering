@@ -23,6 +23,11 @@ export interface IngredientRequest {
    urlImage: string;
 }
 
+export interface CustomerLogIn {
+   email: string;
+   password: string;
+}
+
 export interface Customer {
    customerName: string;
    email: string;

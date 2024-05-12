@@ -10,8 +10,8 @@ import java.util.Optional;
 @FeignClient(name = "pizza-jwt", url = "http://localhost:3000/jwt")
 public interface JwtClient {
 
-   @GetMapping("/create/{email}")
-   String createJWT(@PathVariable String email);
+   @GetMapping("/create/{customerId}")
+   String createJWT(@PathVariable long customerId);
 
    @GetMapping(value = "/verify/{token}")
    Optional<JwtResponseDto> validJwt(@PathVariable String token);

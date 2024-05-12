@@ -21,7 +21,7 @@ export class JwtController {
 
       this.jwtService.createJwt(customerId.data)
          .then((token) => res.send(token))
-         .catch(() => res.sendStatus(400))
+         .catch(() => res.sendStatus(404))
    }
 
    verifyJwt = async (req: Request, res: Response) => {

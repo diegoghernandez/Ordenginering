@@ -38,7 +38,7 @@ export function IngredientCard({ isType, ingredient, isUsed } : Props) {
          />
          <label htmlFor={ingredient.name} className='container'>Add</label>
          <h4>Quantity</h4>
-         <CustomSelect values={Object.values(Quantity).map((value) => value)} selectedValue={0} />
+         {/* <CustomSelect values={Object.values(Quantity).map((value) => value)} /> */}
       </article>
    )
 }

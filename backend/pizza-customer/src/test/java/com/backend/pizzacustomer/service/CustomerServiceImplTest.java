@@ -90,6 +90,15 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
    }
 
    @Test
+   @DisplayName("Should return one customer with the specific email using the repository")
+   void getCustomerByEmail() {
+      assertAll(
+              () -> assertTrue(customerService.getCustomerByEmail("wrong@names.com").isEmpty()),
+              () -> assertEquals(TestDataUtil.getCustomer().toString(), customerService.getCustomerByEmail("random@names.com").get().toString())
+      );
+   }
+
+   @Test
    @DisplayName("Should change the name of a customer using the repository with the specific id")
    void changeName() {
       var wrongIdMap = customerService.changeName("Wrong", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));

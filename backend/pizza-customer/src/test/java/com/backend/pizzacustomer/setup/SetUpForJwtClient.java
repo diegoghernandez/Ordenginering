@@ -25,13 +25,13 @@ public abstract class SetUpForJwtClient {
    public static void setupMockJWtResponse() {
       mockService.start();
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/random.*"))
+      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/4234"))
               .willReturn(WireMock.aResponse()
                       .withStatus(200)
                       .withBody("token")
                       .withHeader("Content-Type", MediaType.TEXT_HTML_VALUE)));
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/incorrectFormat.*"))
+      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/95679"))
               .willReturn(WireMock.aResponse()
                       .withStatus(400)
                       .withBody("Email not valid")

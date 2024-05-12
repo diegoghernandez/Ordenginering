@@ -17,7 +17,7 @@ describe('CustomSelect component tests', () => {
       const selectComponent = screen.getByRole('combobox')
 
       expect(selectComponent).toBeDefined()
-      expect(selectComponent).toHaveValue('--Please choose an option--')
+      expect(selectComponent).toHaveValue('')
       expect(screen.getAllByRole('option')).toHaveLength(4)
    })
 

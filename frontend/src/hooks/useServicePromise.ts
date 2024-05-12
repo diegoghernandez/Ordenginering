@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) => Promise<string>) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
-   const [error, setError] = useState<{[key: string]: string}>({})
+   const [error, setError] = useState<{[key: string]: string}| undefined>({})
    const [response, setResponse] = useState<{status: number, message: string} | null>(null)
 
    const handlePromise = (valueForPromise: Type) => {
@@ -12,7 +12,7 @@ export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) 
       setResponse(null)
       
       setTimeout(() => {
-         servicePromise(valueForPromise)
+         servicePromise(valueForPromise)  
             .then((result) => setResponse({
                status: 200,
                message: result
@@ -24,7 +24,7 @@ export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) 
                      status: e.status,
                      message: e.message
                   })  
-                  setError(e.fieldError)
+                  setError(e?.fieldError)
                }
                // eslint-disable-next-line no-console
                console.error(e)

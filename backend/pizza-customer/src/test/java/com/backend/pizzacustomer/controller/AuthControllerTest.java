@@ -1,5 +1,6 @@
 package com.backend.pizzacustomer.controller;
 
+import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.advice.PizzaCustomerExceptionHandler;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.setup.SetUpForJwtClient;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -108,6 +110,9 @@ class AuthControllerTest extends SetUpForJwtClient {
       Mockito.when(authenticationManager.authenticate(
               new UsernamePasswordAuthenticationToken("random@names.com","1234")
       )).thenReturn(null);
+
+      Mockito.when(customerService.getCustomerByEmail("random@names.com"))
+              .thenReturn(Optional.of(TestDataUtil.getCustomer()));
 
       var objectMapper = new ObjectMapper();
       objectMapper.registerModule(new JavaTimeModule());
