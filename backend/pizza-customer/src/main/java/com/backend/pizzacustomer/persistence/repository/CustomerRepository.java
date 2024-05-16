@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
@@ -19,8 +20,8 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity, Long>
 
    @Modifying
    @Transactional
-   @Query("UPDATE CustomerEntity AS cust SET cust.customerName = :name WHERE cust.idCustomer = :id")
-   void changeName(@Param("name") String newName, long id);
+   @Query("UPDATE CustomerEntity AS cust SET cust.customerName = :name, cust.birthDate = :birthDate WHERE cust.idCustomer = :id")
+   void changeProfile(@Param("name") String newName, @Param("birthDate") LocalDate birthDate, long id);
 
    @Modifying
    @Transactional

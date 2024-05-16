@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCustomerData, logIn, registerCustomer } from '../../services/customerService'
+import { getCustomerData, logIn, registerCustomer } from '@/services/customerService'
 
 describe('Customer service tests', () => {
    describe('getCustomerData tests', () => {
@@ -7,8 +7,12 @@ describe('Customer service tests', () => {
          expect(typeof getCustomerData).toBe('function')
       })
 
+      it('Should throw a error with the following message', async () => {
+         await expect(getCustomerData(42352, undefined)).rejects.toThrow('Customer not found')
+      })
+
       it('Should return the right values', async () => {
-         const content = await getCustomerData(32)
+         const content = await getCustomerData(32, undefined)
 
          expect(content).toStrictEqual({
             customerName: 'Customer',
@@ -36,7 +40,7 @@ describe('Customer service tests', () => {
             password: '1234',
          })
 
-         expect(response).toBe('')
+         expect(response).toBe('4')
       })
    })
 
@@ -54,7 +58,6 @@ describe('Customer service tests', () => {
             birthDate: '2002-2-12'
          })
 
-         // eslint-disable-next-line quotes
          expect(content).toStrictEqual("Passwords don't match")
       })
 

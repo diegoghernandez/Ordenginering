@@ -6,7 +6,10 @@ import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.ChangeCustomerController;
 import com.backend.pizzacustomer.web.config.JwtFilter;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +24,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.AbstractMap;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -48,22 +53,26 @@ class ChangeCustomerControllerTest extends SetUpForJwtClient {
    }
 
    @Test
-   @DisplayName("Should save a new name")
-   void changeName() {
-      Mockito.when(customerService.changeName("name", TestDataUtil.getDtoToUpdateMethods()))
-              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change name successfully"));
+   @DisplayName("Should update the name and/or birthdate")
+   void changeProfile() {
+      var valuesForChangeProfile = new ValuesForChangeProfile("name", LocalDate.of(1990, Month.AUGUST, 2), TestDataUtil.getDtoToUpdateMethods());
+
+      Mockito.when(customerService.changeProfile(valuesForChangeProfile))
+              .thenReturn(new AbstractMap.SimpleEntry<>(200, "Change profile successfully"));
 
       var objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.patch("/change/name/name")
+              () -> mockMvc.perform(MockMvcRequestBuilders.patch("/change/profile")
                               .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(TestDataUtil.getDtoToUpdateMethods())))
+                              .content(objectMapper.writeValueAsString(valuesForChangeProfile)))
                       .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("Change name successfully")),
+                      .andExpect(MockMvcResultMatchers.content().string("Change profile successfully")),
 
               () -> Mockito.verify(customerService, Mockito.times(1))
-                      .changeName(Mockito.eq("name"), Mockito.isA(NecessaryValuesForChangeDto.class))
+                      .changeProfile(Mockito.eq(valuesForChangeProfile))
       );
    }
 

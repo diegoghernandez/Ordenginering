@@ -44,10 +44,6 @@ public class OrderServiceImpl implements OrderService {
    public void saveOrder(OrderDto order, Cookie cookie) throws NotAllowedException {
       var idOrder = UUID.randomUUID();
 
-      System.out.println(customerClient.customerExist(
-              order.idCustomer(),
-              ResponseCookie.from(cookie.getName(), cookie.getValue()).build()
-      ));
       if (customerClient.customerExist(
               order.idCustomer(),
               ResponseCookie.from(cookie.getName(), cookie.getValue()).build()

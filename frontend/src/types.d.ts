@@ -31,7 +31,12 @@ export interface CustomerLogIn {
 export interface Customer {
    customerName: string;
    email: string;
-   birthDate: Date;
+   birthDate: string;
+}
+
+export interface ValuesForChangeDto {
+   id: string,
+   password: string
 }
 
 export interface CustomerDto {

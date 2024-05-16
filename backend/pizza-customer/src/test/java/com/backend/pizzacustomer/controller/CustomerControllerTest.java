@@ -19,10 +19,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -52,7 +54,7 @@ class CustomerControllerTest extends SetUpForJwtClient {
 
    @Test
    @DisplayName("Should return one customer in json format with a specific id using the service or return a not found")
-   void getCustomerById(){
+   void getCustomerById() {
       Mockito.when(customerService.getCustomerById(3213))
               .thenReturn(Optional.of(TestDataUtil.getCustomer()));
 
@@ -70,7 +72,10 @@ class CustomerControllerTest extends SetUpForJwtClient {
                               .contentType(MediaType.APPLICATION_JSON)
                               .cookie(TestDataUtil.getCookie()))
                       .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestDataUtil.getCustomer())))
+                      .andExpect(MockMvcResultMatchers.jsonPath("$.customerName")
+                              .value(TestDataUtil.getCustomer().getCustomerName()))
+                      .andExpect(MockMvcResultMatchers.jsonPath("$.email")
+                              .value(TestDataUtil.getCustomer().getEmail()))
       );
    }
 

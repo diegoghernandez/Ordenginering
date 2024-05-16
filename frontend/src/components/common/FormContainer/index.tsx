@@ -22,9 +22,7 @@ export function FormContainer({
    submitButton
 }: Props) {
 
-   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      
+   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {      
       if (event.currentTarget instanceof HTMLFormElement) {
          const { elements } = event.currentTarget
          const formValues: string[] = []

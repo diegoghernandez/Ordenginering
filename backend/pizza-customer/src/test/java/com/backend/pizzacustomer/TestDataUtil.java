@@ -16,7 +16,7 @@ public final class TestDataUtil {
               .idCustomer(4234L)
               .customerName("Customer")
               .email("random@names.com")
-              .password("1234")
+              .password("$2a$10$o6QzQ8VdbidolUzjL3kdbeXRPjK6StNVbytz.cJ1jc3nlnsRlw93O")
               .birthDate(LocalDate.of(2003, 10, 9))
               .disable(false)
               .creationTimestamp(LocalDateTime.of(2132, 7, 3, 23, 2, 23))

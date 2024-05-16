@@ -18,6 +18,8 @@ export function LogInForm() {
 
    useEffect(() => {
       if (response?.status === 200) {
+         localStorage.setItem('id', response.message)
+         
          if(history.length <= 2) globalThis.location.pathname = '/client'
          else history.back()
       }

@@ -1,19 +1,25 @@
 import type { Customer, CustomerDto, CustomerLogIn } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
+import type { AstroCookies } from 'astro'
 
-const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost'
-const PRIVATE_URL = import.meta.env.PRIVATE_URL ?? 'http://localhost'
+const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
+const PRIVATE_URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:8765'
 const API = (url: string)  => url +  '/customer'
 
-export async function getCustomerData(id: number): Promise<Customer> {
+export async function getCustomerData(id: number, cookie: AstroCookies | undefined): Promise<Customer> {
+   const jwtCookie = `jwt=${cookie?.get('jwt')?.value ?? ''}; Path=/;`
+   
    const response = await fetch(`${API(PRIVATE_URL)}/${id}`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
          'Content-Type': 'application/json',
+         'Cookie': jwtCookie
       }
    })
-
-   return response.json()
+   
+   if (response.ok) return response.json()
+   else throw new StatusError('Customer not found', response.status)
 }
 
 export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
@@ -26,7 +32,7 @@ export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
       body: JSON.stringify(customerLogIn)
    })
    
-   if (response.ok) return ''
+   if (response.ok) return response.text()
    else throw new StatusError('Invalid credentials', response.status)
 }
 

@@ -3,29 +3,27 @@ package com.backend.pizzacustomer.service;
 import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
-import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import com.backend.pizzacustomer.setup.testcontainer.SetUpForServiceTestWithContainers;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
+import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@ImportAutoConfiguration(BCryptPasswordEncoder.class)
 class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
 
    @Autowired
    private CustomerService customerService;
-
-   @MockBean
-   private PasswordEncoder passwordEncoder;
 
    private final static long ID__TO__REJECT = 34L;
    private final static long ID__TO__ACCEPT = 4234L;
@@ -51,9 +49,6 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
                       LocalDate.of(2010, 1, 26)
               )));
 
-      Mockito.when(passwordEncoder.encode("1234"))
-                      .thenReturn("$2y$10$8yQrh6XtSu05.XciORCBOuML7nQcatxmKDle3yUzG1.ciJbACHFgi");
-
       customerService.saveCustomer(new CustomerDto(
               "Name",
               "original@name.com",
@@ -62,21 +57,16 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
               LocalDate.of(1998, 1, 26)
       ));
 
-      var customerSaved = customerService.getCustomerById(1).get().toString();
-
-      var customerExpected = CustomerEntity.builder()
-              .idCustomer(1L)
-              .customerName("Name")
-              .email("original@name.com")
-              .password("$2y$10$8yQrh6XtSu05.XciORCBOuML7nQcatxmKDle3yUzG1.ciJbACHFgi")
-              .birthDate(LocalDate.of(1998, 1, 26))
-              .disable(false)
-              .build().toString();
+      var customerSaved = customerService.getCustomerById(1).get();
 
       assertAll(
               () -> assertEquals(exceptionEmail.getMessage(), "Email already used"),
               () -> assertEquals(exceptionAge.getMessage(), "No older enough"),
-              () -> assertEquals(customerExpected, customerSaved)
+              () -> assertEquals(1L, customerSaved.getIdCustomer()),
+              () -> assertEquals("Name", customerSaved.getCustomerName()),
+              () -> assertEquals("original@name.com", customerSaved.getEmail()),
+              () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
+              () -> assertEquals(false, customerSaved.getDisable())
       );
    }
 
@@ -99,21 +89,28 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
    }
 
    @Test
-   @DisplayName("Should change the name of a customer using the repository with the specific id")
-   void changeName() {
-      var wrongIdMap = customerService.changeName("Wrong", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));
-      var wrongPasswordMap = customerService.changeName("Wrong", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__ACCEPT));
-      var goodMap = customerService.changeName("Good", TestDataUtil.getGoodNecessaryDtoForChangeMethods());
+   @DisplayName("Should change the name and/or birthDate of a customer using the repository with the specific id")
+   void changeProfile() {
+      var wrongIdMap = customerService.changeProfile(
+              new ValuesForChangeProfile(
+                      "Wrong",
+                      LocalDate.of(1990, Month.AUGUST, 2),
+                      TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT)
+              ));
+
+      var goodMap = customerService.changeProfile(
+              new ValuesForChangeProfile(
+                      "Good",
+                      LocalDate.of(1990, Month.AUGUST, 2),
+                      TestDataUtil.getGoodNecessaryDtoForChangeMethods()
+              ));
 
       assertAll(
               () -> assertEquals(404, wrongIdMap.getKey()),
               () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
 
-              () -> assertEquals(400, wrongPasswordMap.getKey()),
-              () -> assertEquals("Incorrect password", wrongPasswordMap.getValue()),
-
-              () -> assertEquals(200, goodMap.getKey()),
-              () -> assertEquals("Change name correctly", goodMap.getValue())
+              () -> assertEquals("Change profile correctly", goodMap.getValue()),
+              () -> assertEquals(200, goodMap.getKey())
       );
    }
 

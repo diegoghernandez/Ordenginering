@@ -1,18 +1,28 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import { EmailForm } from '@/components/customer/EmailForm'
+import { PasswordForm } from '@/components/customer/PasswordForm'
+import { ProfileForm } from '@/components/customer/ProfileForm'
+import FormLayout from '@/layouts/FormLayout.astro'
 import { getCustomerData } from '@/services/customerService'
+import type { Customer } from '@/types'
 
 export const prerender = false
 
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+
 const { id } = Astro.params
 
-const customer = await getCustomerData(Number(id))
+let customer: Customer
+try {
+   customer = await getCustomerData(Number(id), Astro.cookies)
+} catch (error) {   
+   console.error(error);
+   return Astro.redirect('/client/404')
+}
 ---
 
-<Layout title='Checkout order'>
-   <h1>{customer.customerName}</h1>
-   <p>{customer.email}</p>
-   <p>{new Intl.DateTimeFormat('en-US', { dateStyle: "long" })
-      .format(new Date(customer.birthDate))}
-   </p>
-</Layout>
+<FormLayout title='Customer page'>
+   <ProfileForm client:load name={customer.customerName} birthDate={customer.birthDate} />
+   <PasswordForm client:load />
+   <EmailForm client:load email={customer.email} />
+</FormLayout>

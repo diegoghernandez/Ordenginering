@@ -2,6 +2,7 @@ package com.backend.pizzacustomer.web;
 
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,11 @@ public class ChangeCustomerController {
       this.customerService = customerService;
    }
 
-   @PatchMapping(value = "/name/{name}", consumes = {"application/json"})
-   public ResponseEntity<String> changeName(
-           @NotBlank @PathVariable String name,
-           @Valid @RequestBody NecessaryValuesForChangeDto forChangeDto
+   @PatchMapping(value = "/profile", consumes = {"application/json"})
+   public ResponseEntity<String> changeProfile(
+           @Valid @RequestBody ValuesForChangeProfile forChangeProfile
    ) {
-      var result = customerService.changeName(name, forChangeDto);
+      var result = customerService.changeProfile(forChangeProfile);
 
       return new ResponseEntity<>(result.getValue(), HttpStatus.valueOf(result.getKey()));
    }

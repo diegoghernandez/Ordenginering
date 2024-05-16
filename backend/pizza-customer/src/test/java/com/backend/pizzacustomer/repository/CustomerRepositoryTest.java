@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -40,13 +43,16 @@ class CustomerRepositoryTest extends SetUpForTestWithContainers {
    }
 
    @Test
-   @DisplayName("Should update the name of a specific account with its id in the database")
-   void changeName() {
-      customerRepository.changeName("New name", 31);
+   @DisplayName("Should update the name and/or birthDate of a specific account with its id in the database")
+   void changeProfile() {
+      customerRepository.changeProfile("New name", LocalDate.of(1990, Month.AUGUST, 2), 31L);
 
-      var customerChange = customerRepository.findById(31L).get();
+      var customerChangeNew = customerRepository.findById(31L).get();
 
-      assertNotEquals("Customer", customerChange.getCustomerName());
+      assertAll(
+              () -> assertNotEquals("Customer", customerChangeNew.getCustomerName()),
+              () -> assertNotEquals(LocalDate.of(2003, Month.OCTOBER, 9), customerChangeNew.getBirthDate())
+      );
    }
 
    @Test

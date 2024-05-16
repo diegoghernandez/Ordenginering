@@ -6,6 +6,7 @@ import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.NecessaryValuesForChangeDto;
+import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,6 @@ public class CustomerServiceImpl implements CustomerService {
       else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
          throw new NotAllowedException("No older enough");
 
-      System.out.println(passwordEncoder.encode(customerDto.password()));
       var customer = CustomerEntity.builder()
               .customerName(customerDto.customerName())
               .email(customerDto.email())
@@ -59,19 +59,27 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    @Override
-   public Map.Entry<Integer, String> changeName(String newName, NecessaryValuesForChangeDto forChangeDto) {
-      var result = validateNecessaryValues(forChangeDto, "Change name correctly");
+   public Map.Entry<Integer, String> changeProfile(ValuesForChangeProfile valuesForChangeProfile) {
+      if (!customerRepository.existsById(valuesForChangeProfile.valuesForChangeDto().id()))
+         return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
-      if (result.getKey().equals(200)) customerRepository.changeName(newName, forChangeDto.id());
+      customerRepository.changeProfile(
+              valuesForChangeProfile.name(),
+              valuesForChangeProfile.birthDate(),
+              valuesForChangeProfile.valuesForChangeDto().id()
+      );
 
-      return result;
+      return new AbstractMap.SimpleEntry<>(200, "Change profile correctly");
    }
 
    @Override
    public Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto){
       var result = validateNecessaryValues(forChangeDto, "Change password correctly");
 
-      if (result.getKey().equals(200)) customerRepository.changePassword(newPassword, forChangeDto.id());
+      if (result.getKey().equals(200)) customerRepository.changePassword(
+              passwordEncoder.encode(newPassword),
+              forChangeDto.id()
+      );
 
       return result;
    }
@@ -89,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
       if (!customerRepository.existsById(valuesForChangeDto.id())) return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
       var customerEntity = customerRepository.findById(valuesForChangeDto.id()).get();
-      if (!valuesForChangeDto.password().equals(customerEntity.getPassword())) {
+      if (!passwordEncoder.matches(valuesForChangeDto.password(), customerEntity.getPassword())) {
          return new AbstractMap.SimpleEntry<>(400, "Incorrect password");
       }
 

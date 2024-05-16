@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -47,7 +48,7 @@ public class AuthController {
    }
 
    @PostMapping(value = "/login", consumes = {"application/json"})
-   public ResponseEntity<Void> login(@RequestBody @Valid LoginDto loginDto) {
+   public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
       authenticationManager.authenticate(new
               UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
 
@@ -63,6 +64,8 @@ public class AuthController {
               .domain("")*/
               .build().toString();
 
-      return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie).build();
+      var header = new HttpHeaders();
+      header.set(HttpHeaders.SET_COOKIE, cookie);
+      return new ResponseEntity<>(customer.get().getIdCustomer(), header, HttpStatus.OK);
    }
 }

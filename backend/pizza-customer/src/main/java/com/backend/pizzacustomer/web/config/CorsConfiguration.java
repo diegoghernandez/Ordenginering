@@ -16,7 +16,7 @@ public class CorsConfiguration {
       var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
 
       corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4321"));
-      corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+      corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH"));
       corsConfiguration.setAllowedHeaders(List.of("*"));
       corsConfiguration.setAllowCredentials(true);
 

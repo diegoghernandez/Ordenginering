@@ -2,15 +2,17 @@ import { useId } from 'react'
 import type { UserInputProps } from '@/types'
 
 export interface InputProps extends UserInputProps {
-   type?: string;
-   placeholder?: string;
+   defaultValue?: string
+   placeholder?: string
+   type?: string
 }
 
 export function CustomInput({
    label,
+   placeholder = '',
+   defaultValue = '',
    type = 'text',
    required = false,
-   placeholder = '',
    description,
    error = '',
    disable = true
@@ -25,6 +27,7 @@ export function CustomInput({
             id={customInputId} 
             type={type}
             required={required}
+            defaultValue={defaultValue}
             placeholder={placeholder}
             disabled={disable}
             aria-invalid={Boolean(error)}

@@ -68,7 +68,8 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm run preview',
-    url: 'http://localhost:4321/client'
+    command: 'pnpm run dev',
+    url: 'http://localhost:4321/client',
+    reuseExistingServer: true
   },
 })

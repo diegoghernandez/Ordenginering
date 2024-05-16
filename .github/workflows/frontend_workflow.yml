@@ -59,7 +59,10 @@ jobs:
          - name: Build application
            run: pnpm run build
          - name: Initialize e2e tests
-           run: pnpm run e2e:ci
+           run: |
+            pnpm run preview
+            pnpm run e2e-express
+            pnpm run e2e:ci
          - uses: actions/upload-artifact@v4
            if: always()
            with:

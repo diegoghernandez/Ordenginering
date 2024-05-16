@@ -6,10 +6,22 @@ const { title, h1Text } = Astro.props
 
 <Layout title={title}>
    <main>
-      <h1>{h1Text}</h1>
+      {h1Text ? <h1>{h1Text}</h1> : null}
       <slot />
    </main>
 </Layout>
+
+<script>
+   const forms = document.querySelectorAll('form')
+
+   for (const formElement of forms) {
+      if (formElement instanceof HTMLFormElement) {
+         formElement.addEventListener('submit', (event) => {
+            event.preventDefault()
+         })
+      }
+   }
+</script>
 
 <style>
    main {

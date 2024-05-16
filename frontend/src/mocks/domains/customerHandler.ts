@@ -1,7 +1,7 @@
 import { http, HttpResponse, type PathParams } from 'msw'
 import type { CustomerDto, CustomerLogIn } from '@/types'
 
-const API = 'http://localhost/customer'
+const API = 'http://localhost:8765/customer'
 
 export const customerHandler = [
    http.get(`${API}/:id`, ({ params }) => {
@@ -13,13 +13,15 @@ export const customerHandler = [
             'birthDate': '2002-06-12'
          })
       }
+
+      return new HttpResponse(null, { status: 404 })
    }),
 
    http.post<PathParams<never>, CustomerLogIn>(`${API}/auth/login`, async ({ request }) => {
       const newCustomer = await request.json()
 
       if (newCustomer.password === '1234') {
-         return new HttpResponse(null, {
+         return new HttpResponse('4', {
             status: 200,
             headers: {
                'set-cookie': 'jwt=token; Domain=localhost; Path=/;',
@@ -37,7 +39,6 @@ export const customerHandler = [
          return HttpResponse.text('Account create successfully')
       }
 
-      // eslint-disable-next-line quotes
       return HttpResponse.text("Passwords don't match")
    })
 ]
