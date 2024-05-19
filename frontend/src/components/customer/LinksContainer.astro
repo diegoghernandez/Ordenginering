@@ -1,0 +1,35 @@
+---
+import type { ProfileLinks } from '@/types'
+
+
+interface Props{
+   links: ProfileLinks[]
+}
+
+const { links } = Astro.props
+---
+
+<div>
+   {links.map((link) => (
+      <a class={link?.active ? 'active' : ''} href={link.url}>{link.name}</a>
+   ))}
+</div>
+
+<style>
+   div {
+      display: flex;
+      gap: 10px;
+      margin: 0 auto;
+
+      & a {
+         color: var(--text-color);
+      }
+      
+      & .active {
+         border-radius: 4px;
+         padding-inline: 8px;
+         background-color: var(--outline-light);
+         color: var(--text-light-color);
+      }
+   }
+</style>

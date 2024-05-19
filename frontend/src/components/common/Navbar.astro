@@ -1,0 +1,153 @@
+---
+import { ShoppingCart } from '../order/ShoppingCart'
+import { ShowOrder } from '../order/ShowOrders'
+import ModalContainer from './ModalContainer.astro'
+
+const pages = [
+	{ name: 'Home', link: '/'},
+	{ name: 'Menu', link: '/menu'},
+	{ name: 'Customize', link: '/customize/empty'}
+]
+---
+
+<nav>
+   <div class='menu--movil'>
+      <button class='interaction--buttons' aria-label='Open menu'>
+         <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>
+            <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
+         </svg>
+      </button>
+      <ModalContainer>
+         <ul>
+            {pages.map((page) => (
+               <li>
+                  <a href={`/client${page.link}`} data-astro-prefetch>
+                     {page.name}
+                  </a>
+               </li>
+            ))}
+         </ul>
+      </ModalContainer>
+   </div>
+   <div class='nav--interaction--buttons'>
+      <a href='/client/customer/'>
+         Account
+         <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
+            <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
+         </svg>
+      </a>
+      <ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
+   </div>
+   <ModalContainer>
+      <p slot='description'>Your order</p>
+      <ShowOrder client:idle />
+   </ModalContainer>
+</nav>
+
+<script>
+	const anchor = document.querySelectorAll('a')[3]
+	if (anchor instanceof HTMLAnchorElement) {
+		anchor.pathname += localStorage.getItem('id') ?? '0'
+	}
+
+	const openMovilMenuButton = document.querySelector('.menu--movil button')
+	const movilMenuModal = document.querySelector('.menu--movil dialog')
+	const closeMovilMenuButton = document.querySelector('.menu--movil dialog button')
+
+	if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
+		openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
+	}
+	if (closeMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
+		closeMovilMenuButton.addEventListener('click', () => movilMenuModal.close())
+	}
+
+	const openCartButton = document.querySelector('.nav--interaction--buttons button')
+	const cartModal = document.querySelector('.nav--interaction--buttons + dialog')
+	const closeCartButton = document.querySelector('.nav--interaction--buttons + dialog button')
+
+	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
+		openCartButton.addEventListener('click', () => cartModal.showModal())
+	}
+	if (closeCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
+		closeCartButton.addEventListener('click', () => cartModal.close())
+	}
+</script>
+
+<style>
+   .menu--movil {
+      & button {
+         border: none;
+         height: 24px;
+         background-color: transparent;
+      }
+      & li {	
+         position: relative;
+         &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms cubic-bezier(.2,0,0,1);
+            background-color: var(--state-layer-color);
+         }
+         &:hover::before {
+            opacity: .08;
+         }
+         &:focus-within::before {
+            opacity: .12;
+         }
+      }
+      & a {
+         display: inline-flex;
+         height: 64px;
+         width: 100%;
+         padding: 24px;
+         align-items: center;
+         color: var(--text-color);
+         border-bottom: 1px solid var(--divider);
+         outline: none;
+         &:hover,
+         &:focus {
+            color: var(--primary-interaction);
+         }
+      }
+   }
+
+   .interaction--buttons {
+      height: 24px;
+      color: var(--text-color);
+      &:hover {
+         color: var(--primary-interaction);
+      }
+      &:focus-within {
+         color: var(--primary-interaction);
+         outline: 1px solid var(--outline);
+      }
+   }
+
+   .nav--interaction--buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		font-size: 1rem;
+		font-weight: 500;
+		color: var(--text-color);
+		& a {
+			display: flex;
+			justify-content: center;
+			gap: 4px;
+			&:hover,
+			&:focus {
+				color: var(--primary-interaction);
+			}
+			&:focus {
+				outline: 1px solid var(--outline);
+			}
+		}
+	}
+</style>

@@ -1,8 +1,9 @@
 ---
 import { CardContainer } from '@/components/common/CardContainer'
+import LinksContainer from '@/components/customer/LinksContainer.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getOrdersByAccount } from '@/services/server/orderApi'
-import type { PageOrder } from '@/types'
+import type { PageOrder, ProfileLinks } from '@/types'
 
 export const prerender = false
 
@@ -18,10 +19,21 @@ try {
    console.error(error);
    return Astro.redirect('/client/404')
 }
+
+const profileLinks: ProfileLinks[] = [{
+   url: '/client/customer/' + slug.split('/')[0],
+   name: 'Profile'
+}, {
+   url: `/client/customer/${slug}`,
+   name: 'Orders',
+   active: true
+}]
+
 ---
 
 <Layout title='Customer orders'>
    <main>
+      <LinksContainer links={profileLinks} />
       {orders.content.map((order) => (
          <CardContainer styleClass='card--order'>
             <>

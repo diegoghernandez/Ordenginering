@@ -2,9 +2,10 @@
 import { EmailForm } from '@/components/customer/EmailForm'
 import { PasswordForm } from '@/components/customer/PasswordForm'
 import { ProfileForm } from '@/components/customer/ProfileForm'
+import LinksContainer from '@/components/customer/LinksContainer.astro'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getCustomerData } from '@/services/customerService'
-import type { Customer } from '@/types'
+import type { Customer, ProfileLinks } from '@/types'
 
 export const prerender = false
 
@@ -19,9 +20,20 @@ try {
    console.error(error);
    return Astro.redirect('/client/404')
 }
+
+const profileLinks: ProfileLinks[] = [{
+   url: '/client/customer/' + id,
+   name: 'Profile',
+   active: true
+}, {
+   url: `/client/customer/${id}/orders`,
+   name: 'Orders'
+}]
+
 ---
 
 <FormLayout title='Customer page'>
+   <LinksContainer links={profileLinks} />
    <ProfileForm client:load name={customer.customerName} birthDate={customer.birthDate} />
    <PasswordForm client:load />
    <EmailForm client:load email={customer.email} />

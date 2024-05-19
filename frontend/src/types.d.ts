@@ -95,3 +95,9 @@ export interface UserInputProps {
    error?: string;
    disable?: boolean;
 }
+
+export interface ProfileLinks {
+   url: string,
+   name: string,
+   active?: boolean
+}

@@ -11,6 +11,11 @@ test.describe('Customer orders page tests', () => {
    test('Should render correctly', async ({ page }) => {
       await findNavbarElements(page)
 
+      await expect(page.getByRole('link', { name: 'Profile' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Profile' })).not.toHaveClass('active')
+      await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
+
       await expect(page.getByRole('article')).toHaveCount(3);
 
       (await page.getByRole('article').all()).forEach(async (element) => {
