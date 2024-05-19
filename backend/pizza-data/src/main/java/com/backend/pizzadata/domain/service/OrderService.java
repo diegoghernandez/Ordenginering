@@ -7,10 +7,13 @@ import jakarta.servlet.http.Cookie;
 import org.springframework.data.domain.Page;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface OrderService {
 
-   Optional<Page<OrderEntity>> getOrdersByAccount(long id, int page);
+   Optional<OrderEntity> getOrderById(UUID orderId);
+
+   Optional<Page<OrderEntity>> getOrdersByCustomerId(long id, int page);
 
    void saveOrder(OrderDto order, Cookie cookie) throws NotAllowedException;
 

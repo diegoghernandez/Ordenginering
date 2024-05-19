@@ -1,6 +1,7 @@
 package com.backend.pizzadata.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,9 +21,11 @@ public class OrderEntity {
 
    @Id
    @Column(name = "id_order")
+   @JsonIgnore
    @ToString.Exclude
    private UUID idOrder;
 
+   @JsonIgnore
    @Column(name = "id_customer", nullable = false)
    private Long idCustomer;
 

@@ -23,10 +23,12 @@ public class PizzaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_pizza")
+    @JsonIgnore
     @ToString.Exclude
     private UUID idPizza;
 
     @Column(name = "id_order", nullable = false)
+    @JsonIgnore
     @ToString.Exclude
     private UUID idOrder;
 

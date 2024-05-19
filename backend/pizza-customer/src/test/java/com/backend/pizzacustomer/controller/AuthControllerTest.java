@@ -124,6 +124,7 @@ class AuthControllerTest extends SetUpForJwtClient {
                               .content(objectMapper.writeValueAsString(loginDto)))
                       .andExpect(MockMvcResultMatchers.status().isOk())
                       .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.SET_COOKIE))
+                      .andExpect(MockMvcResultMatchers.content().string("4234"))
 
 
       );

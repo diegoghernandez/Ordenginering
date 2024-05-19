@@ -17,14 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -46,9 +45,14 @@ class CustomerControllerTest extends SetUpForJwtClient {
 
    @BeforeEach
    public void setUp() {
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
       this.mockMvc = MockMvcBuilders.standaloneSetup(customerController)
               .setControllerAdvice(new PizzaCustomerExceptionHandler())
               .addFilter(jwtFilter)
+              .setMessageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
               .build();
    }
 
@@ -62,6 +66,12 @@ class CustomerControllerTest extends SetUpForJwtClient {
       objectMapper.registerModule(new JavaTimeModule());
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
+      var customerDomain = new CustomerController.CustomerDomain(
+              TestDataUtil.getCustomer().getCustomerName(),
+              TestDataUtil.getCustomer().getEmail(),
+              TestDataUtil.getCustomer().getBirthDate()
+      );
+
       assertAll(
               () -> mockMvc.perform(MockMvcRequestBuilders.get("/54345216")
                               .contentType(MediaType.APPLICATION_JSON)
@@ -72,10 +82,7 @@ class CustomerControllerTest extends SetUpForJwtClient {
                               .contentType(MediaType.APPLICATION_JSON)
                               .cookie(TestDataUtil.getCookie()))
                       .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.jsonPath("$.customerName")
-                              .value(TestDataUtil.getCustomer().getCustomerName()))
-                      .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                              .value(TestDataUtil.getCustomer().getEmail()))
+                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(customerDomain)))
       );
    }
 

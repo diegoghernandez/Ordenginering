@@ -36,7 +36,12 @@ public class OrderServiceImpl implements OrderService {
    }
 
    @Override
-   public Optional<Page<OrderEntity>> getOrdersByAccount(long id, int page) {
+   public Optional<OrderEntity> getOrderById(UUID orderId) {
+      return orderRepository.findById(orderId);
+   }
+
+   @Override
+   public Optional<Page<OrderEntity>> getOrdersByCustomerId(long id, int page) {
       return orderRepository.findByIdCustomer(id,  PageRequest.of(page, 5));
    }
 

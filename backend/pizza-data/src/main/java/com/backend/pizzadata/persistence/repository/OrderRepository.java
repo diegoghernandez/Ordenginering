@@ -1,6 +1,7 @@
 package com.backend.pizzadata.persistence.repository;
 
 import com.backend.pizzadata.persistence.entity.OrderEntity;
+import com.backend.pizzadata.web.domain.OrderDomain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -15,5 +16,4 @@ import java.util.UUID;
 public interface OrderRepository extends PagingAndSortingRepository<OrderEntity, UUID>, CrudRepository<OrderEntity, UUID> {
 
    Optional<Page<OrderEntity>> findByIdCustomer(@Param("id") long idCustomer, Pageable pageable);
-
 }
