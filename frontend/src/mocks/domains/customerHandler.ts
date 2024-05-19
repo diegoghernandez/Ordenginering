@@ -1,5 +1,6 @@
 import { http, HttpResponse, type PathParams } from 'msw'
 import type { CustomerDto, CustomerLogIn } from '@/types'
+import { getJSON } from '@/utils/getJSON'
 
 const API = 'http://localhost:8765/customer'
 
@@ -7,11 +8,7 @@ export const customerHandler = [
    http.get(`${API}/:id`, ({ params }) => {
       const { id } = params
       if (id === '32') {
-         return HttpResponse.json({
-            'customerName': 'Customer',
-            'email': 'random@random.com',
-            'birthDate': '2002-06-12'
-         })
+         return HttpResponse.json(getJSON('../mocks/fixtures/customer.json'))
       }
 
       return new HttpResponse(null, { status: 404 })

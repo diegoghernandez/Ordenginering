@@ -1,0 +1,87 @@
+---
+import { CardContainer } from '@/components/common/CardContainer'
+import Layout from '@/layouts/Layout.astro'
+import { getOrdersByAccount } from '@/services/server/orderApi'
+import type { PageOrder } from '@/types'
+
+export const prerender = false
+
+const { slug } = Astro.params
+
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+if(!slug?.match('[0-9]+\/orders')) return Astro.redirect('/404')
+
+let orders: PageOrder
+try {
+   orders = await getOrdersByAccount(Number(slug.split('/')[0]), Astro.cookies)   
+} catch (error) {   
+   console.error(error);
+   return Astro.redirect('/client/404')
+}
+---
+
+<Layout title='Customer orders'>
+   <main>
+      {orders.content.map((order) => (
+         <CardContainer styleClass='card--order'>
+            <>
+               <div>
+                  <p>{new Intl.DateTimeFormat('en', { dateStyle: "medium" })
+                        .format(new Date(order.orderTimestamp))}</p>
+                  <p>{order.totalProducts} products</p>
+               </div>
+               <div>
+                  <p>Total</p>
+                  <p>${order.total}</p>
+               </div>
+               <a aria-label={`Order ${order.orderId}`} href={'/client/order/' + order.orderId}></a>
+            </>
+         </CardContainer>
+      ))}
+   </main>
+</Layout>
+
+<style is:global>
+   .card--order {
+      width: 100%;
+      max-width: 75ch;
+      position: relative;
+   }
+</style>
+
+<style>
+   main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+   }
+
+   a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+   }
+
+   div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      pointer-events: none;
+
+      &:first-of-type {
+         margin-bottom: 12px;
+      }
+
+      & p:first-of-type {
+         color: var(--text-color);
+      }
+      & p:last-of-type {
+         color: var(--primary-interaction);
+      }
+   }
+</style>

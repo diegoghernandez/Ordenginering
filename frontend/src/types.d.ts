@@ -1,5 +1,23 @@
 import type { Quantity } from '@/constants/quantity'
 
+interface Page {
+   pageable: {
+      pageNumber: number;
+      pageSize:   number;
+      offset:     number;
+      paged:      boolean;
+      unpaged:    boolean;
+   },
+   totalPages:       number;
+   totalElements:    number;
+   last:             boolean;
+   first:            boolean;
+   size:             number;
+   number:           number;
+   numberOfElements: number;
+   empty:            boolean;
+}
+
 export interface Pizza {
    id?:         `${string}-${string}-${string}-${string}-${string}`;
    pizzaName:        string;
@@ -47,6 +65,13 @@ export interface CustomerDto {
    birthDate: string;
 }
 
+export interface OrderDomain {
+   orderId: string,
+   orderTimestamp: string,
+   totalProducts: number
+   total: number
+}
+
 export interface Order {
    idCustomer: number;
    country: string;
@@ -57,6 +82,10 @@ export interface Order {
    apartment: number | null;
    floor: number | null;
    pizzaList: Pizza[];
+}
+
+export interface PageOrder extends Page {
+   content: OrderDomain[]
 }
 
 export interface UserInputProps {

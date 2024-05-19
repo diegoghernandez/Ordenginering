@@ -3,7 +3,7 @@ import Styles from './CardContainer.module.css'
 
 interface Props {
    children: ReactElement,
-   styleClass: string
+   styleClass?: string
 }
 
 export function CardContainer({ children, styleClass }: Props) {
