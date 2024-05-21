@@ -1,4 +1,4 @@
-import { getJSON } from '@/utils/getJSON'
+import { getJSON } from '@/utils/getJSON.mjs'
 import { HttpResponse, http } from 'msw'
 
 const ingredientList = getJSON('../mocks/fixtures/ingredients.json')

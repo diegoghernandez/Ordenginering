@@ -1,6 +1,6 @@
 import { HttpResponse, http, type PathParams } from 'msw'
 import type { Order } from '@/types'
-import { getJSON } from '@/utils/getJSON'
+import { getJSON } from '@/utils/getJSON.mjs'
 
 const API = 'http://localhost:4436/data/order'
 

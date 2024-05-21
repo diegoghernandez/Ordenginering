@@ -1,6 +1,6 @@
 import { http, HttpResponse, type PathParams } from 'msw'
 import type { CustomerDto, CustomerLogIn } from '@/types'
-import { getJSON } from '@/utils/getJSON'
+import { getJSON } from '@/utils/getJSON.mjs'
 
 const API = 'http://localhost:8765/customer'
 
