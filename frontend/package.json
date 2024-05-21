@@ -10,7 +10,7 @@
     "astro": "astro",
     "lint": "eslint src/",
     "test": "vitest",
-    "e2e-express": "tsx watch src/mocks/expressServer.ts",
+    "e2e-express": "node src/mocks/expressServer.js",
     "e2e:dev": "playwright test --ui",
     "e2e:ci": "playwright test"
   },

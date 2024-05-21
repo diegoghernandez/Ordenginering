@@ -1,4 +1,4 @@
-import { getJSON } from '../utils/getJSON'
+import { getJSON } from '../utils/getJSON.mjs'
 import express from 'express'
 
 const customerApp = express()
