@@ -1,5 +1,5 @@
 import { getOrdersByAccount } from '@/services/server/orderApi'
-import { getJSON } from '@/utils/getJSON'
+import { getJSON } from '@/utils/getJSON.mjs'
 import { describe, expect, it } from 'vitest'
 
 describe('getCustomerData tests', () => {
