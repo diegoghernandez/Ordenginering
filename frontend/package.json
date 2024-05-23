@@ -17,15 +17,15 @@
   "dependencies": {
     "@astrojs/check": "0.7.0",
     "@astrojs/node": "8.2.5",
-    "@astrojs/react": "3.3.4",
-    "astro": "4.8.5",
+    "@astrojs/react": "3.4.0",
+    "astro": "4.9.1",
     "humbleicons": "1.10.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "zustand": "4.5.2"
   },
   "devDependencies": {
-    "@playwright/test": "1.44.0",
+    "@playwright/test": "1.44.1",
     "@testing-library/jest-dom": "6.4.5",
     "@testing-library/react": "15.0.7",
     "@testing-library/user-event": "14.5.2",
@@ -34,8 +34,8 @@
     "@types/node": "20.12.12",
     "@types/react": "18.3.2",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "7.9.0",
-    "@typescript-eslint/parser": "7.9.0",
+    "@typescript-eslint/eslint-plugin": "7.10.0",
+    "@typescript-eslint/parser": "7.10.0",
     "eslint": "8.57.0",
     "eslint-plugin-astro": "1.2.0",
     "eslint-plugin-react": "7.34.1",
@@ -47,7 +47,7 @@
     "stylelint": "16.5.0",
     "stylelint-config-recommended": "14.0.0",
     "stylelint-config-standard": "36.0.0",
-    "tsx": "4.10.3",
+    "tsx": "4.11.0",
     "typescript": "5.4.5",
     "vitest": "1.6.0"
   }
