@@ -12,7 +12,7 @@ describe('PizzaData component tests', () => {
       render(<PizzaData />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
-      expect(screen.getByText('Total: $90')).toBeInTheDocument()
+      expect(screen.getByText('Total: $140')).toBeInTheDocument()
       expect(screen.getByText('Pepperoni')).toBeInTheDocument()
       expect(screen.getByText('X2')).toBeInTheDocument()
       expect(screen.getByLabelText('Size')).toBeInTheDocument()
@@ -30,7 +30,7 @@ describe('PizzaData component tests', () => {
       render(<PizzaData />)
       const user = userEvent.setup()
 
-      expect(screen.getByText('Total: $90')).toBeInTheDocument()
+      expect(screen.getByText('Total: $140')).toBeInTheDocument()
       
       await user.selectOptions(screen.getByLabelText('Size'), 'Large')
       

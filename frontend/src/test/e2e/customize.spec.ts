@@ -13,13 +13,13 @@ test.describe('Customize page e2e tests', () => {
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 
       await expect(pizzaDataArticle.getByRole('heading')).toBeVisible()
-      await expect(pizzaDataArticle.getByText('Total: $50')).toBeVisible()
+      await expect(pizzaDataArticle.getByText('Total: $100')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Size')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Size')).toHaveValue('MEDIUM')
       await expect(pizzaDataArticle.getByText('Quantity')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeDisabled()
-      await expect(pizzaDataArticle.getByText('1')).toBeVisible()
+      await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Increase quantity')).toBeVisible();
 
       ['All', 'Vegetables', 'Meat', 'Cheese', 'Sauces'].forEach(async (type) =>
@@ -45,13 +45,13 @@ test.describe('Customize page e2e tests', () => {
    test('Should change the total value, the quantity and the desire ingredients when you interact with the page', async ({ page }) => {
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 
-      await expect(page.getByText('Total: $50')).toBeVisible()
-      await expect(pizzaDataArticle.getByText('1')).toBeVisible()
+      await expect(page.getByText('Total: $100')).toBeVisible()
+      await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(35)
       
       await pizzaDataArticle.getByLabel('Increase quantity').click()
-      await expect(pizzaDataArticle.getByText('2')).toBeVisible()
-      await expect(page.getByText('Total: $100')).toBeVisible()
+      await expect(pizzaDataArticle.getByText('2', { exact: true })).toBeVisible()
+      await expect(page.getByText('Total: $200')).toBeVisible()
       
       await page.getByLabel('Size').selectOption('LARGE')
       await expect(page.getByText('Total: $300')).toBeVisible()

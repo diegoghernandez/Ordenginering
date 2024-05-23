@@ -15,7 +15,7 @@ type Characteristics = {
 export function PizzaData() {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const [characteristics, setCharacteristics] = useState<Characteristics>({
-      size: Size.SMALL,
+      size: Size.MEDIUM,
       quantity: 1
    })   
 
