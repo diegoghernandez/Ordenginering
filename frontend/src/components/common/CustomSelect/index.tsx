@@ -28,7 +28,7 @@ export function CustomSelect({
 }: SelectProps) {
    const customSelectId = useId()
    return (
-      <div className={`${Styles.custom__select} user__input`}>
+      <div className={`${Styles['custom-select']} user-input`}>
          <label htmlFor={customSelectId}>{label}</label>
          {description ? <p id={customSelectId + '-describe'}>{description}</p> : null}
          <select

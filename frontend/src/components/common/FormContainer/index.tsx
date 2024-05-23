@@ -45,7 +45,7 @@ export function FormContainer({
          {response?.message ? <Callout type={response?.status !== 200 ? 'error' : 'success'} message={response?.message} /> : null}
          {children}
          <button
-            className='primary--button'
+            className='primary-button'
             disabled={submitButton.isLoading}
          >{submitButton.label}</button>
       </form>

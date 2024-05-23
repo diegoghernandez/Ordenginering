@@ -20,7 +20,7 @@ export function CustomInput({
    const customInputId = useId()
    
    return (
-      <div className='user__input'>
+      <div className='user-input'>
          <label htmlFor={customInputId}>{label}</label>
          {description ? <p id={customInputId + '-describe'}>{description}</p> : null}
          <input 

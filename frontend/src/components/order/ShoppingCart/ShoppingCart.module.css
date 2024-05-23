@@ -1,6 +1,7 @@
 button {
    position: relative;
-   & .quantity__identifier {
+
+   & .quantity-identifier {
       position: absolute;
       top: -8px;
       right: -12px;

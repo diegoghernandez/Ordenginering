@@ -16,19 +16,19 @@ export function ShowOrder() {
    useEffect(() => setPizza(pizzaList), [pizzaList])
    
    return (
-      <section className={Styles.order__styles}>
+      <section className={Styles['order-styles']}>
          <h2>Total <strong>${pizzaList.map((pizza) => 
             getPizzaPrice(pizza.ingredientNameDtoList.length, pizza.size, pizza.quantity))
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
-         <a className='primary--button' href='/client/checkout'>
+         <a className='primary-button' href='/client/checkout'>
             Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
          </a>
          <button onClick={removeAllPizza}>Remove all items</button>
          {pizza ? 
             pizza.length !== 0 ? 
                pizza?.map((pizzaInOrder) => (
-                  <CardContainer key={pizzaInOrder.id} styleClass={String(Styles.card__separation)}>
+                  <CardContainer key={pizzaInOrder.id} styleClass={String(Styles['card-separation'])}>
                      <>
                         <img 
                            src={pizzaInOrder.image} 
@@ -41,7 +41,7 @@ export function ShowOrder() {
                         <h3>{pizzaInOrder.pizzaName}</h3>
                         <p>${getPizzaPrice(pizzaInOrder.ingredientNameDtoList.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
                         <p>{pizzaInOrder.ingredientNameDtoList?.map((ingredient) => ingredient.name).join(', ')}</p>
-                        <div className={Styles.quantity__buttons}>
+                        <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 
                               valueToShow={pizzaInOrder.quantity}
                               increase={{
@@ -58,7 +58,7 @@ export function ShowOrder() {
                                  }
                               }}
                            />
-                           <button className='secondary--button' type='button' onClick={() => removePizza(pizzaInOrder.id ?? '')}>Delete</button>
+                           <button className='secondary-button' type='button' onClick={() => removePizza(pizzaInOrder.id ?? '')}>Delete</button>
                         </div>
                      </>
                   </CardContainer>

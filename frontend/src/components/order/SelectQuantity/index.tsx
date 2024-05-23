@@ -22,7 +22,7 @@ export function SelectQuantity({
    decrease
 }: Props) {
    return (
-      <div className={`primary--button ${Styles.select__quantity}`}>
+      <div className={`primary-button ${Styles['select-quantity']}`}>
          <button aria-label={decrease.label} type='button' onClick={decrease.fun} disabled={valueToShow === minValue}>
             {valueToShow >= 2 ? '-' : 
             <svg className={`${Styles.humbleicons} humbleicons hi-trash`} xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">

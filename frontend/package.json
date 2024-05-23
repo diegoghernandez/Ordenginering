@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint src/ && stylelint **/*.css",
+    "lint": "eslint src/ && stylelint src/**/*.css",
     "test": "vitest",
     "e2e-express": "node src/mocks/expressServer.js",
     "e2e:dev": "playwright test --ui",
@@ -46,7 +46,7 @@
     "playwright-msw": "3.0.1",
     "stylelint": "16.5.0",
     "stylelint-config-recommended": "14.0.0",
-    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard": "36.0.0",
     "tsx": "4.10.3",
     "typescript": "5.4.5",
     "vitest": "1.6.0"

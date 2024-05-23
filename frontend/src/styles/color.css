@@ -1,5 +1,5 @@
 :root {
-   --background: #FFFFFF;
+   --background: #FFF;
    --divider: #EDE5E0;
    --surface: #332E2B;
    --surface-40: #332E2B40;
@@ -11,9 +11,7 @@
    --outline-light: #F3EBE6;
    --error: #a91313;
    --error-light: #FEF6F6;
-
    --state-layer-color: #332E2B;
-
    --shadow-input: #BA9484 0 0 0 3px;
    --shadow-error: #fb361f 0 0 0 3px;
    --shadow-primary-button: #FFBE83 0 0 0 3px;
@@ -34,9 +32,7 @@
       --outline-light: #403D3C;
       --error: #ff756d;
       --error-light: #320101;
-      
       --state-layer-color: #9c6340;
-      
       --shadow-input: #E79D7A 0 0 0 3px;
       --shadow-error: #d3605a 0 0 0 3px;
       --shadow-primary-button: #BF6531 0 0 0 3px;

@@ -15,7 +15,7 @@ export function AddPizza({ pizza }: Props) {
    }
 
    return (
-      <button className='primary--button' onClick={handleClick} >
+      <button className='primary-button' onClick={handleClick} >
          Agregar
       </button>
    )

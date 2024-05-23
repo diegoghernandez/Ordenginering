@@ -19,7 +19,7 @@ function getUrlImage(specificPath: string) {
 		<h1>Menu</h1>
 		<div>
 			{PizzaList.map((pizza, index) => (
-				<CardContainer styleClass='card--separation'>
+				<CardContainer styleClass='card-separation'>
 					<>
 						<figure>
 							<div>
@@ -36,7 +36,7 @@ function getUrlImage(specificPath: string) {
 						</figure>
 						<div class='pizza-information'>
 							<h3>{pizza.name}</h3>
-							<p class='information--important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
+							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
 							<p>{pizza.ingredients.join(', ')}</p>
 						</div>
 						<div class='buttons-column'>
@@ -48,7 +48,7 @@ function getUrlImage(specificPath: string) {
 								ingredientNameDtoList: pizza.ingredients.map(
 									(ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
 							}} />
-							<a class='secondary--button' href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
+							<a class='secondary-button' href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 						</div>
 					</>
 				</CardContainer>
@@ -58,7 +58,7 @@ function getUrlImage(specificPath: string) {
 </Layout>
 
 <style is:global>
-	.card--separation {
+	.card-separation {
 		display: flex;
 		max-width: 340px;
 		flex-direction: column;
@@ -98,7 +98,7 @@ function getUrlImage(specificPath: string) {
 		grid-template-columns: auto auto;
 		justify-content: space-between;
 		row-gap: 4px;
-		& .information--important {
+		& .information-important {
 			font-size: 1.25rem;
 			font-weight: bold;
 		}

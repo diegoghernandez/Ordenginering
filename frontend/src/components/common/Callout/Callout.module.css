@@ -2,16 +2,20 @@
    position: relative;
    width: 100%;
    border-radius: 8px;
+
    &:has(p:first-of-type[class='error']) {
       outline: 1px solid var(--error);
    }
+
    &:has(p:first-of-type[class='success']) {
       outline: 1px solid green;
    }
+
    & svg {
       width: 16px;
       height: 16px;
    }
+
    & p:first-of-type {
       display: flex;
       justify-content: start;
@@ -21,15 +25,18 @@
       padding-inline: 12px;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
+
       &[class='error'] {
          color: var(--error-light);
          background-color: var(--error);
       }
+
       &[class='success'] {
          color: var(--error-light);
          background-color: green;
       }
    }
+   
    & p:last-of-type {
       padding-block: 4px;
       padding-inline: 12px;

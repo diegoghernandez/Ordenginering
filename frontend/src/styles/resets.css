@@ -1,3 +1,5 @@
+/* stylelint-disable property-no-vendor-prefix */
+
 *,
 *::before,
 *::after {
@@ -58,7 +60,7 @@ a {
 
 a:not([class]) {
    text-decoration-skip-ink: auto;
-   color: currentColor;
+   color: currentcolor;
 }
 
 img,

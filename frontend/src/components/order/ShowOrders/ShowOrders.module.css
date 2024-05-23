@@ -1,23 +1,27 @@
-.order__styles {
+.order-styles {
    display: flex;
    flex-direction: column;
    padding: 16px;
    gap: 12px;
    container-type: inline-size;
+
    & h2 {
       font-size: 2rem;
       font-weight: 300;
       color: var(--primary-interaction);
    }
+
    & a ~ button {
       width: fit-content;
       color: var(--text-light-color);
    }
+
    & a ~ button:hover {
       text-decoration: underline;
    }
+
    @container (width < 380px) {
-      & .card__separation  {
+      & .card-separation  {
          grid-template-areas: 
             "image name"
             "image price"
@@ -27,7 +31,7 @@
    }
 }
 
-.card__separation {
+.card-separation {
    display: grid;
    grid-template-columns: 112px 1fr;
    grid-template-areas: 
@@ -35,27 +39,31 @@
       "image price"
       "image ingredient"
       "button button";
-   column-gap: 12px;
-   row-gap: 4px;
+   gap: 4px 12px;
+
    & img {
       grid-area: image;
       width: 112px;
       height: 112px;
       border-radius: 16px;
       border: 1px solid var(--outline-light);
-		box-shadow: var(--surface-40) 0px 4px 10px -4px;
+		box-shadow: var(--surface-40) 0 4px 10px -4px;
    }
+
    & h3 {
       grid-area: name;
-   }      
+   }
+
    & p:first-of-type {
       grid-area: price;
    }
+
    & p:last-of-type {
       grid-area: ingredient;
       width: 100%;
    }
-   & .quantity__buttons {
+
+   & .quantity-buttons {
       grid-area: button;
       display: flex;
       justify-content: center;

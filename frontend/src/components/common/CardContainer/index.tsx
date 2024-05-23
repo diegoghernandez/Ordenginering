@@ -8,7 +8,7 @@ interface Props {
 
 export function CardContainer({ children, styleClass }: Props) {
    return (
-      <article className={`${Styles.card__container} ${styleClass}`}>
+      <article className={`${Styles['card-container']} ${styleClass}`}>
          {children}
       </article>
    )
