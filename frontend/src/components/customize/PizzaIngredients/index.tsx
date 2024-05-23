@@ -1,13 +1,17 @@
 import { CardContainer } from '@/components/common/CardContainer'
-import ingredientList from '@/mocks/fixtures/ingredients.json'
-import Styles from './PizzaIngredients.module.css'
-import { useState } from 'react'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import ingredientList from '@/mocks/fixtures/ingredients.json'
+import { useState } from 'react'
+import Styles from './PizzaIngredients.module.css'
 
 const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLES', 'MEAT', 'CHEESE', 'SAUCES'])
 
-export function PizzaIngredients() {
+interface Props {
+   prebuildIngredients: string[]
+}
+
+export function PizzaIngredients({ prebuildIngredients }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
@@ -46,7 +50,10 @@ export function PizzaIngredients() {
                   <h3>{ingredient.ingredientName}</h3>
                   <p>Quantity</p>
                   <SelectQuantity 
-                     valueToShow={ingredients.filter((element) => element?.name === ingredient.ingredientName )[0]?.quantity ?? 0}
+                     valueToShow={ingredients.length === 0 ? 
+                        prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
+                        : ingredients.filter((element) => element?.name === ingredient.ingredientName )[0]?.quantity ?? 0
+                     }
                      minValue={0}
                      maxValue={2}
                      increase={{

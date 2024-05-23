@@ -2,8 +2,8 @@ import { test, expect } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from './utils/navbarUtils'
 
 test.describe('Customize page e2e tests', () => {
-   test.beforeEach(async ({ page }) => await page.goto('/client/customize/empty'))
    test('Should render correctly', async ({ page }) => {
+      await page.goto('/client/customize/empty')
       await expect(page).toHaveTitle('Customize your empty pizza')
 
       await findNavbarElements(page)
@@ -42,7 +42,36 @@ test.describe('Customize page e2e tests', () => {
       }
    })
 
+   test('Should render correctly if you choose click in the personalize link in the prebuild pizza in the menu page', async ({ page }) => {
+      await page.goto('/client/menu')
+
+      await page.getByRole('article').filter({ hasText: 'Supreme' }).getByRole('link').click()
+
+      await expect(page).toHaveTitle('Customize your supreme pizza')
+      await expect(page.getByRole('img', { name: 'Supreme pizza' })).toBeVisible()
+
+      await expect(page.getByText('Total: $220')).toBeVisible()
+      await expect(page.getByText('Pepperoni X1')).toBeVisible()
+      await expect(page.getByText('Tomato sauce X1')).toBeVisible()
+      await expect(page.getByText('Bell Peppers X1')).toBeVisible()
+      await expect(page.getByText('Onions X1')).toBeVisible()
+      await expect(page.getByText('Black Olives X1')).toBeVisible()
+      await expect(page.getByText('Mozzarella X1')).toBeVisible()
+
+      const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
+      await expect(pizzaDataArticle.getByLabel('Size')).toHaveValue('MEDIUM')
+      await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
+
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Pepperoni' }) }).getByText('1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Tomato sauce' }) }).getByText('1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Bell Peppers' }) }).getByText('1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Onions' }) }).getByText('1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Black Olives' }) }).getByText('1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByText('1')).toBeVisible()
+   })
+
    test('Should change the total value, the quantity and the desire ingredients when you interact with the page', async ({ page }) => {
+      await page.goto('/client/customize/empty')
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 
       await expect(page.getByText('Total: $100')).toBeVisible()

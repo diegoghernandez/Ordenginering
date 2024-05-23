@@ -19,6 +19,9 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { pizza } = Astro.params as Params
 
 const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
+const getIngredients = pizzaList
+	.filter(({ name }) => pizza === name.toLocaleLowerCase().replace(' ', '-'))
+	.flatMap(({ ingredients }) => ingredients)
 //const ingredients = await getAllIngredients()
 ---
 
@@ -38,8 +41,8 @@ const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.sli
 				/>
 			</div>
 		</figure>
-		<PizzaData client:load />
-		<PizzaIngredients client:idle />
+		<PizzaData client:load prebuildIngredients={getIngredients} />
+		<PizzaIngredients client:idle prebuildIngredients={getIngredients} />
 	</main>
 </Layout>
 

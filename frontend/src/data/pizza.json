@@ -53,7 +53,7 @@
          "url": "supreme",
          "author": "Foto de Drake Whitney en Unsplash"
       },
-      "ingredients": ["Pepperoni", "Sausage", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
+      "ingredients": ["Pepperoni", "Tomato sauce", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
    },
    {
       "name": "Mushroom",
@@ -75,7 +75,7 @@
       "name": "Pesto Chicken",
       "image": {
          "url": "pesto-chicken",
-         "author": "generada por DALL·E 3"
+         "author": ""
       },
       "ingredients": ["Pesto Sauce", "Grilled Chicken", "Sun-Dried Tomatoes", "Mozzarella", "Parmesan"]
    },
@@ -83,7 +83,7 @@
       "name": "Buffalo Chicken",
       "image": {
          "url": "buffalo-chicken",
-         "author": "generada por DALL·E 3"
+         "author": ""
       },
       "ingredients": ["Buffalo Sauce", "Grilled Chicken", "Red Onions", "Mozzarella", "Blue Cheese"]
    },
@@ -91,7 +91,7 @@
       "name": "Greek",
       "image": {
          "url": "greek",
-         "author": "generada por DALL·E 3"
+         "author": ""
       },
       "ingredients": ["Spinach", "Feta", "Olives", "Tomatoes", "Red Onions", "Mozzarella"]
    },
@@ -99,7 +99,7 @@
       "name": "Mixed Mushrooms",
       "image": {
          "url": "mixed-mushrooms",
-         "author": "generada por DALL·E 3"
+         "author": ""
       },
       "ingredients": ["Mixed Mushrooms", "Fontina", "Mozzarella"]
    }
