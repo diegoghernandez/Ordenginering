@@ -31,12 +31,9 @@ export function PizzaData() {
             </div>
             <CustomSelect
                label='Size'
-               values={['MEDIUM', 'LARGE']}
-               options={['Medium', 'Large']}
-               defaultValue={{
-                  text: 'Small',
-                  value: 'SMALL'
-               }}
+               values={['SMALL', 'MEDIUM', 'LARGE']}
+               options={['Small', 'Medium', 'Large']}
+               selectedOption='MEDIUM'
                onChange={(value: string) => setCharacteristics((prev) => ({
                   ...prev,
                   size: Size[value as Size]

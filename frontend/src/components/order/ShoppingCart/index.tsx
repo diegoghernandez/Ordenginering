@@ -12,17 +12,15 @@ export function ShoppingCart({ extraClass }: Props) {
    const addPizza = useShoppingCart((state) => state.addPizza)
    
    useEffect(() => {
-      if (pizzaList.length === 0) {
-         const getLocalStorage = localStorage.getItem('allPizza') ?? ''
-         if (getLocalStorage) {
-            const pizza = JSON.parse(getLocalStorage)
-   
-            for (const pizzaElement of pizza) {
-               addPizza(pizzaElement)
-            }
+      const getLocalStorage = localStorage.getItem('allPizza') ?? ''
+      if (getLocalStorage) {
+         const pizza = JSON.parse(getLocalStorage)
+
+         for (const pizzaElement of pizza) {
+            addPizza(pizzaElement)
          }
       }
-   }, [])
+   }, [addPizza])
    
    return (
       <button className={extraClass} aria-label='Shopping cart' onClick={() => setIsOpen(!isOpen)}>
@@ -30,7 +28,7 @@ export function ShoppingCart({ extraClass }: Props) {
             <circle xmlns='http://www.w3.org/2000/svg' cx='7.5' cy='18.5' r='1.5' fill='currentColor'/><circle xmlns='http://www.w3.org/2000/svg' cx='16.5' cy='18.5' r='1.5' fill='currentColor'/><path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M3 5h2l.6 3m0 0L7 15h10l2-7H5.6z'/>
          </svg>
          <span className={Styles['quantity-identifier']}>
-            {pizzaList?.map((pizza) => pizza.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0)}
+            {pizzaList?.map((pizza) => pizza.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0) ?? 0}
          </span>
       </button>
    )

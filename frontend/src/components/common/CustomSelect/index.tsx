@@ -3,11 +3,12 @@ import type { UserInputProps } from '@/types'
 import Styles from './CustomSelect.module.css'
 
 export interface SelectProps extends UserInputProps {
-   values: string[];
+   values: string[]
    options: string[]
+   selectedOption?: string
    defaultValue?: {
-      value: string;
-      text: string;
+      value: string
+      text: string
    }
    onChange?: (value: string) => void
 }
@@ -15,11 +16,9 @@ export interface SelectProps extends UserInputProps {
 export function CustomSelect({ 
    label, 
    values, 
-   options, 
-   defaultValue = {
-      value: '',
-      text: '--Please choose an option--'
-   },
+   options,
+   selectedOption,
+   defaultValue,
    description,
    required = true,
    error = '',
@@ -34,6 +33,7 @@ export function CustomSelect({
          <select
             id={customSelectId} 
             name={label}
+            defaultValue={selectedOption}
             autoComplete='on'
             required={required}
             disabled={disable}
@@ -41,7 +41,7 @@ export function CustomSelect({
             aria-invalid={Boolean(error)}
             aria-describedby={customSelectId + '-describe'}
          >
-            <option value={defaultValue.value}>{defaultValue.text}</option>
+            {defaultValue ? <option value={defaultValue.value}>{defaultValue.text}</option> : null}
             {values?.map((value, index) => (
                <option key={value} value={value}>{options[index]}</option>
             ))}

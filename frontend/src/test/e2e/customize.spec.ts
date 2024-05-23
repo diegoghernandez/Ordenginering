@@ -15,7 +15,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(pizzaDataArticle.getByRole('heading')).toBeVisible()
       await expect(pizzaDataArticle.getByText('Total: $50')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Size')).toBeVisible()
-      await expect(pizzaDataArticle.getByLabel('Size')).toHaveValue('SMALL')
+      await expect(pizzaDataArticle.getByLabel('Size')).toHaveValue('MEDIUM')
       await expect(pizzaDataArticle.getByText('Quantity')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeDisabled()

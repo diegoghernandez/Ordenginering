@@ -17,8 +17,9 @@ describe('CustomSelect component tests', () => {
       const selectComponent = screen.getByRole('combobox')
 
       expect(selectComponent).toBeDefined()
-      expect(selectComponent).toHaveValue('')
-      expect(screen.getAllByRole('option')).toHaveLength(4)
+      expect(selectComponent).toHaveValue('First')
+      expect(selectComponent).toHaveDisplayValue(['First'])
+      expect(screen.getAllByRole('option')).toHaveLength(3)
    })
 
    it('Should render correctly when the select default value is different', () => {
@@ -35,6 +36,7 @@ describe('CustomSelect component tests', () => {
 
       expect(selectComponent).toBeDefined()
       expect(selectComponent).toHaveValue('td')
+      expect(selectComponent).toHaveDisplayValue(['testDefault'])
    })
 
    it('Should choose an option', async () => {

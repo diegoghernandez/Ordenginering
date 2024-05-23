@@ -51,6 +51,10 @@ export function CheckoutForm({ countryList }: Props) {
             required={true}
             values={countryList.map(({ code }) => code)}
             options={countryList.map(({ name }) => name)}
+            defaultValue={{
+               value: '',
+               text: '--Please choose an option--'
+            }}
             disable={isLoading}
          />
          <CustomSelect
@@ -58,6 +62,10 @@ export function CheckoutForm({ countryList }: Props) {
             required={true}
             values={states}
             options={states}
+            defaultValue={{
+               value: '',
+               text: '--Please choose an option--'
+            }}
             disable={isLoading}
          />
          <CustomSelect
@@ -65,6 +73,10 @@ export function CheckoutForm({ countryList }: Props) {
             required={true}
             values={cities}
             options={cities}
+            defaultValue={{
+               value: '',
+               text: '--Please choose an option--'
+            }}
             disable={isLoading}
          />
          <CustomInput 
