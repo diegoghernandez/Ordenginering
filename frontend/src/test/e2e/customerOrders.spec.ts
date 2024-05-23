@@ -16,14 +16,15 @@ test.describe('Customer orders page tests', () => {
       await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
 
-      await expect(page.getByRole('article')).toHaveCount(3);
+      await expect(page.getByRole('article')).toHaveCount(3)
 
-      (await page.getByRole('article').all()).forEach(async (element) => {
+      for (const element of await page.getByRole('article').all()) {
+         await element.screenshot()
          await expect(element.getByText('Jun 26, 2024')).toBeVisible()
          await expect(element.getByText('19 products')).toBeVisible()
          await expect(element.getByText('Total')).toBeVisible()
          await expect(element.getByText('$3534534')).toBeVisible()
          await expect(element.getByRole('link')).toBeVisible()
-      })
+      }
    })
 })
