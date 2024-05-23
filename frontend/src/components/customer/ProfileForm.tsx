@@ -2,7 +2,7 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeProfile, type ChangeProfileValues } from '@/services/changeCustomerService'
-import { CustomInput } from '../common/CustomInput'
+import { CustomInput } from '@/components/common/CustomInput'
 
 interface Props {
    name: string,

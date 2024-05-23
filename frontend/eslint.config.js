@@ -1,5 +1,6 @@
 import eslintPluginAstro from 'eslint-plugin-astro'
 import eslintReact from 'eslint-plugin-react'
+import eslintHooks from 'eslint-plugin-react-hooks'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 
@@ -7,7 +8,7 @@ import tsParser from '@typescript-eslint/parser'
 export default [
 	...eslintPluginAstro.configs.recommended,
 {
-	files: ['src/**/*.{ts,tsx,astro}'],
+	files: ['src/**/*.{ts,tsx}'],
 	ignores: ['dist/'],
 	languageOptions: {
 		parser: tsParser,
@@ -20,9 +21,11 @@ export default [
 	plugins: {
 		'@typescript-eslint': tsPlugin,
 		tsPlugin,
-		react: eslintReact
+		react: eslintReact,
+		'react-hooks': eslintHooks
 	},
 	rules: {
+		...eslintHooks.configs.recommended.rules,
 		...tsPlugin.configs['eslint-recommended'].rules,
       ...tsPlugin.configs['recommended'].rules,
 		'react/react-in-jsx-scope': 'off',

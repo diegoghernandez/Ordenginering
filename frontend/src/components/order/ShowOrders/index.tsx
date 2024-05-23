@@ -10,6 +10,7 @@ export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
    const pizzaList = useShoppingCart((state) => state.pizza)
    const removePizza = useShoppingCart((state) => state.removePizza)
+   const updatePizzaQuantity  = useShoppingCart((state) => state.updatePizzaQuantity)
    const removeAllPizza = useShoppingCart((state) => state.removeAllPizza)
 
    useEffect(() => setPizza(pizzaList), [pizzaList])
@@ -41,7 +42,22 @@ export function ShowOrder() {
                         <p>${getPizzaPrice(pizzaInOrder.ingredientNameDtoList.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
                         <p>{pizzaInOrder.ingredientNameDtoList?.map((ingredient) => ingredient.name).join(', ')}</p>
                         <div className={Styles.quantity__buttons}>
-                           <SelectQuantity defaultValue={pizzaInOrder.quantity} pizzaId={pizzaInOrder.id} />
+                           <SelectQuantity 
+                              valueToShow={pizzaInOrder.quantity}
+                              increase={{
+                                 label: 'Add pizza',
+                                 fun: () => updatePizzaQuantity(pizzaInOrder.id ?? '', 'add')
+                              }}
+                              decrease={{
+                                 label: 'Subtract pizza',
+                                 fun: () => {
+                                    updatePizzaQuantity(pizzaInOrder.id ?? '', 'subs')
+                                    if (pizzaInOrder.quantity - 1 === 0) {
+                                       removePizza(pizzaInOrder.id ?? '')
+                                    }
+                                 }
+                              }}
+                           />
                            <button className='secondary--button' type='button' onClick={() => removePizza(pizzaInOrder.id ?? '')}>Delete</button>
                         </div>
                      </>

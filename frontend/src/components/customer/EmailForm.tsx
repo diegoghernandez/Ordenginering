@@ -1,6 +1,6 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { FormContainer } from '@/components/common/FormContainer'
-import { CustomInput } from '../common/CustomInput'
+import { CustomInput } from '@/components/common/CustomInput'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeEmail, type ChangeEmailValues } from '@/services/changeCustomerService'
 

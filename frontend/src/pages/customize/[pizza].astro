@@ -1,6 +1,9 @@
 ---
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
+import { Image } from 'astro:assets'
+import { PizzaData } from '@/components/customize/PizzaData'
+import { PizzaIngredients } from '@/components/customize/PizzaIngredients'
 import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 
 
@@ -21,34 +24,40 @@ const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.sli
 
 <Layout title={`Customize your ${pizza.replace('-', ' ')} pizza`}>
 	<main>
-		<h1>Customize your {getDefaultName(pizza)} pizza</h1>
-		<!-- <CustomizePizzaForm ingredients={ingredients} selectedPizza={pizza.replace('-', ' ')} client:load >
-			<img 
-				class='pizza-custom' 
-				src={`/client/images/pizza/${pizza}.jpg`}
-				alt={`${getDefaultName(pizza)} pizza`}
-				width='320'
-				height='260'
-				decoding='sync'
-				transition:name={`image-${pizza.replace('-', ' ')}`}
-			/>
-		</CustomizePizzaForm> -->
+		<figure>
+			<div>
+				<Image 
+					class='pizza-custom' 
+					src={`/client/images/pizza/${pizza}.jpg`}
+					alt={`${getDefaultName(pizza)} pizza`}
+					width='320'
+					height='260'
+					decoding='sync'
+					loading='eager'
+					transition:name={`image-${pizza.replace('-', ' ')}`}
+				/>
+			</div>
+		</figure>
+		<PizzaData client:load />
+		<PizzaIngredients client:idle />
 	</main>
 </Layout>
-
 
 <style>
 	main {
 		display: flex;
 		flex-direction: column;
-		width: 100%;
-		min-height: 90svh;
-		padding: 12px 16px;
-		gap: 12px;
-		background-color: white;
-		& h1 {
-			width: 100%;
-			text-align: center;
+		gap: 16px;
+		padding: 16px;
+
+		& figure > div {
+			height: 224px;
+			border-radius: 16px;
+			overflow: hidden;
+			& img {
+				width: 100%;
+				height: 100%;
+			}
 		}
 	}
 </style>

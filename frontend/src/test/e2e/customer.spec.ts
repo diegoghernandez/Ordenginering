@@ -21,20 +21,20 @@ test.describe('Customer page e2e tests', () => {
       await expect(page.getByRole('link', { name: 'Orders' })).not.toHaveClass('active')
 
       await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible()
-      const profileArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })
+      const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })
       await expect(profileArticle.getByLabel('Name')).toBeVisible()
       await expect(profileArticle.getByLabel('Birth Date')).toBeVisible()
       await expect(profileArticle.getByRole('button', { name: 'Save Changes' })).toBeVisible()
       
       await expect(page.getByRole('heading', { name: 'Password' })).toBeVisible()
-      const passwordArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Password' }) })
+      const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Password' }) })
       await expect(passwordArticle.getByLabel('Current password')).toBeVisible()
       await expect(passwordArticle.getByLabel('New password')).toBeVisible()
       await expect(passwordArticle.getByLabel('Repeat password')).toBeVisible()
       await expect(passwordArticle.getByRole('button', { name: 'Save Password' })).toBeVisible()
 
       await expect(page.getByRole('heading', { name: 'Email Address' })).toBeVisible()
-      const emailArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Email Address' }) })
+      const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Email Address' }) })
       await expect(emailArticle.getByLabel('Current Email Address')).toBeVisible()
       await expect(emailArticle.getByLabel('Current Email Address')).toBeDisabled()
       await expect(emailArticle.getByLabel('Current Password')).toBeVisible()

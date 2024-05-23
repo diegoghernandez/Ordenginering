@@ -1,0 +1,32 @@
+.description-ingredients {
+   display: flex;
+   flex-wrap: wrap;
+
+   & p {
+      width: fit-content;
+
+      & span {
+         position: relative;
+         top: -6px;
+         right: 4px;
+         font-size: 0.75rem;
+         color: var(--primary-interaction);
+      }
+   }
+}
+
+.customize-description {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+
+   &> p {
+      color: var(--text-color);
+      font-weight: 500;
+      line-height: 1.25rem;
+   }
+
+   &> p:first-of-type {
+      font-weight: 700;
+   }
+}

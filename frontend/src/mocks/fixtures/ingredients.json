@@ -1,214 +1,247 @@
 [
    {
       "idIngredient": 1,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Pineapple",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/pineapple",
+      "urlImage": "vegetables/pineapple",
       "authorImage": "Foto de Phoenix Han en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 2,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Tomato",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/tomato",
+      "urlImage": "vegetables/tomato",
       "authorImage": "Foto de Deniz Altindas en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 3,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Basil",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/basil",
+      "urlImage": "vegetables/basil",
       "authorImage": "Foto de Yakov Leonov en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 4,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Bell Peppers",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/bell-peppers",
+      "urlImage": "vegetables/bell-peppers",
       "authorImage": "Foto de Mire Carlo en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 5,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Onions",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/onions",
+      "urlImage": "vegetables/onions",
       "authorImage": "Foto de Obed Hernández en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 6,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Mushrooms",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/mushrooms",
+      "urlImage": "vegetables/mushrooms",
       "authorImage": "Foto de Waldemar en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 7,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Olives",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/olives",
+      "urlImage": "vegetables/olives",
       "authorImage": "Foto de Furkan Dokuzlar en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 8,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Red Onions",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/red-onions",
+      "urlImage": "vegetables/red-onions",
       "authorImage": "Foto de Richard R en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 9,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Black Olives",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/black-olives",
+      "urlImage": "vegetables/black-olives",
       "authorImage": "Foto de Furkan Dokuzlar en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 10,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Garlic",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/garlic",
+      "urlImage": "vegetables/garlic",
       "authorImage": "Foto de Matthew Pilachowski en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 11,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Oregano",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/oregano",
+      "urlImage": "vegetables/oregano",
       "authorImage": "Foto de Charles C. Collingwood en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 12,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Sun-Dried Tomatoes",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/sun-dried-tomatoes",
+      "urlImage": "vegetables/sun-dried-tomatoes",
       "authorImage": "Foto de engin akyurt en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 13,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Spinach",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/spinach",
+      "urlImage": "vegetables/spinach",
       "authorImage": "Foto de Soo Ann Woon en Unsplash"
-   }, {
+   },
+   {
       "idIngredient": 14,
+      "ingredientType": "VEGETABLES",
       "ingredientName": "Mixed Mushrooms",
-      "ingredientType": "VEGETABLE",
-      "urlImage": "/vegetables/mixed-mushrooms",
-      "authorImage": "Foto de Andrew RidIngredientley en Unsplash"
-   },{
+      "urlImage": "vegetables/mixed-mushrooms",
+      "authorImage": "Foto de Andrew Ridley en Unsplash"
+   },
+   {
       "idIngredient": 15,
-      "ingredientName": "Grilled Chicken", 
       "ingredientType": "MEAT",
-      "urlImage": "/meat/grilled-chicken",
+      "ingredientName": "Grilled Chicken",
+      "urlImage": "meat/grilled-chicken",
       "authorImage": "Foto de Daniel Hooper 🌊 en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 16,
+      "ingredientType": "MEAT",
       "ingredientName": "Ham",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/ham",
+      "urlImage": "meat/ham",
       "authorImage": "Foto de Karo Kujanpaa en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 17,
+      "ingredientType": "MEAT",
       "ingredientName": "Pepperoni",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/peperoni",
+      "urlImage": "meat/peperoni",
       "authorImage": "Foto de Payam Tahery en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 18,
+      "ingredientType": "MEAT",
       "ingredientName": "Turkey",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/turkey",
+      "urlImage": "meat/turkey",
       "authorImage": "Foto de Claudio Schwarz en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 19,
+      "ingredientType": "MEAT",
       "ingredientName": "Tuna",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/tuna",
+      "urlImage": "meat/tuna",
       "authorImage": "Foto de Artiom Vallat en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 20,
+      "ingredientType": "MEAT",
       "ingredientName": "Bacon",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/bacon",
+      "urlImage": "meat/bacon",
       "authorImage": "Foto de Wright Brand Bacon en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 21,
+      "ingredientType": "MEAT",
       "ingredientName": "Chorizo",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/chorizo",
+      "urlImage": "meat/chorizo",
       "authorImage": "Foto de Wesual Click en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 22,
+      "ingredientType": "MEAT",
       "ingredientName": "Shrimp",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/shrimp",
+      "urlImage": "meat/shrimp",
       "authorImage": "Foto de Daniel Klein en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 23,
+      "ingredientType": "MEAT",
       "ingredientName": "Calamar",
-      "ingredientType": "MEAT",
-      "urlImage": "/meat/calamar",
+      "urlImage": "meat/calamar",
       "authorImage": "Foto de Alex Knight en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 24,
-      "ingredientName": "Mussels",
       "ingredientType": "MEAT",
-      "urlImage": "/meat/mussels",
+      "ingredientName": "Mussels",
+      "urlImage": "meat/mussels",
       "authorImage": "Foto de Nick Karvounis en Unsplash"
-   },{
+   },
+   {
       "idIngredient": 25,
+      "ingredientType": "CHEESE",
       "ingredientName": "Mozzarella",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/mozzarella",
+      "urlImage": "cheese/mozzarella",
       "authorImage": "Image by Racool_studio on Freepik"
-   }, { 
+   },
+   {
       "idIngredient": 26,
+      "ingredientType": "CHEESE",
       "ingredientName": "Cheddar",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/cheddar",
+      "urlImage": "cheese/cheddar",
       "authorImage": "Foto de Önder Örtel en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 27,
+      "ingredientType": "CHEESE",
       "ingredientName": "Parmesan",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/parmesan",
+      "urlImage": "cheese/parmesan",
       "authorImage": "Foto de Samuele Pieretti en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 28,
+      "ingredientType": "CHEESE",
       "ingredientName": "Gouda",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/gouda",
+      "urlImage": "cheese/gouda",
       "authorImage": "Image By Sketchepedia on Freepik"
-   }, { 
+   },
+   {
       "idIngredient": 29,
+      "ingredientType": "CHEESE",
       "ingredientName": "Feta",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/feta",
+      "urlImage": "cheese/feta",
       "authorImage": "Image By Vectonauta on Freepik"
-   }, { 
+   },
+   {
       "idIngredient": 30,
+      "ingredientType": "CHEESE",
       "ingredientName": "Blue Cheese",
-      "ingredientType": "CHEESE",
-      "urlImage": "/cheese/blue-cheese",
+      "urlImage": "cheese/blue-cheese",
       "authorImage": "Foto de Towfiqu barbhuiya en Unsplash"
-   }, { 
+   },
+   {
       "idIngredient": 31,
-      "ingredientName": "Fontina",
       "ingredientType": "CHEESE",
-      "urlImage": "/cheese/fontina",
+      "ingredientName": "Fontina",
+      "urlImage": "cheese/fontina",
       "authorImage": "Image by Racool_studio on Freepik"
    },
    {
       "idIngredient": 32,
-      "ingredientName": "BBQ sauce", 
-      "ingredientType": "SAUCE",
-      "urlImage": "/sauces/bbq",
+      "ingredientType": "SAUCES",
+      "ingredientName": "BBQ sauce",
+      "urlImage": "sauces/bbq",
       "authorImage": "Image by KamranAydinov on Freepik"
-   },{ 
+   },
+   {
       "idIngredient": 33,
-      "ingredientName": "Pesto sauce", 
-      "ingredientType": "SAUCE",
-      "urlImage": "/sauces/pesto",
+      "ingredientType": "SAUCES",
+      "ingredientName": "Pesto sauce",
+      "urlImage": "sauces/pesto",
       "authorImage": "Foto de Artur Rutkowski en Unsplash"
-   },{ 
+   },
+   {
       "idIngredient": 34,
-      "ingredientName": "Buffalo sauce", 
-      "ingredientType": "SAUCE",
-      "urlImage": "/sauces/buffalo",
+      "ingredientType": "SAUCES",
+      "ingredientName": "Buffalo sauce",
+      "urlImage": "sauces/buffalo",
       "authorImage": "Image by jcomp on Freepik"
-   },{ 
+   },
+   {
       "idIngredient": 35,
+      "ingredientType": "SAUCES",
       "ingredientName": "Tomato sauce",
-      "ingredientType": "SAUCE",
-      "urlImage": "/sauces/tomato",
+      "urlImage": "sauces/tomato",
       "authorImage": "Foto de D. L. Samuels en Unsplash"
    }
 ]

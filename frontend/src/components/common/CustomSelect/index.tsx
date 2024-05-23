@@ -8,7 +8,8 @@ export interface SelectProps extends UserInputProps {
    defaultValue?: {
       value: string;
       text: string;
-   };
+   }
+   onChange?: (value: string) => void
 }
 
 export function CustomSelect({ 
@@ -22,19 +23,21 @@ export function CustomSelect({
    description,
    required = true,
    error = '',
-   disable = false
+   disable = false,
+   onChange
 }: SelectProps) {
    const customSelectId = useId()
    return (
       <div className={`${Styles.custom__select} user__input`}>
          <label htmlFor={customSelectId}>{label}</label>
          {description ? <p id={customSelectId + '-describe'}>{description}</p> : null}
-         <select 
+         <select
             id={customSelectId} 
             name={label}
             autoComplete='on'
             required={required}
             disabled={disable}
+            onChange={(element) => onChange?.(element.target.value)}
             aria-invalid={Boolean(error)}
             aria-describedby={customSelectId + '-describe'}
          >
