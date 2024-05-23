@@ -4,11 +4,12 @@ import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import ingredientList from '@/mocks/fixtures/ingredients.json'
 import { useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
+import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 
 const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLES', 'MEAT', 'CHEESE', 'SAUCES'])
 
 interface Props {
-   prebuildIngredients: string[]
+   prebuildIngredients?: string[]
 }
 
 export function PizzaIngredients({ prebuildIngredients }: Props) {
@@ -52,7 +53,7 @@ export function PizzaIngredients({ prebuildIngredients }: Props) {
                   <SelectQuantity 
                      valueToShow={ingredients.length === 0 ? 
                         prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
-                        : ingredients.filter((element) => element?.name === ingredient.ingredientName )[0]?.quantity ?? 0
+                        : ingredients.filter((element) => compareStringsOfNames(element?.name, ingredient.ingredientName))[0]?.quantity ?? 0
                      }
                      minValue={0}
                      maxValue={2}

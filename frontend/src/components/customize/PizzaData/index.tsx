@@ -13,7 +13,7 @@ type Characteristics = {
 }
 
 interface Props {
-   prebuildIngredients: string[]
+   prebuildIngredients?: string[]
 }
 
 export function PizzaData({ prebuildIngredients = [] }: Props) {   

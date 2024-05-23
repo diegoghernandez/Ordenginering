@@ -25,6 +25,20 @@ describe('PizzaData component tests', () => {
       expect(screen.getByLabelText('Increase quantity')).toBeInTheDocument()
    })
 
+   it('Should render correctly with the desire ingredients', () => {
+      useDesireIngredients.setState({ ingredients: [] })
+      render(<PizzaData prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
+
+      expect(screen.getByText('Total: $180')).toBeInTheDocument()
+      expect(screen.getByText('BBQ Sauce')).toBeInTheDocument()
+      expect(screen.getByText('Grilled Chicken')).toBeInTheDocument()
+      expect(screen.getByText('Red Onions')).toBeInTheDocument()
+      expect(screen.getByText('Mozzarella')).toBeInTheDocument()
+      expect(screen.getAllByText('X1')).length(4)
+      expect(screen.getByLabelText('Size')).toHaveValue('MEDIUM')
+      expect(screen.getByText('1')).toBeInTheDocument()
+   })
+
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
       render(<PizzaData />)

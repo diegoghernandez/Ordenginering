@@ -1,10 +1,11 @@
 ---
-import pizzaList from '@/data/pizza.json'
-import Layout from '@/layouts/Layout.astro'
 import { Image } from 'astro:assets'
+import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
+import Layout from '@/layouts/Layout.astro'
 import { PizzaData } from '@/components/customize/PizzaData'
 import { PizzaIngredients } from '@/components/customize/PizzaIngredients'
-import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
+import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
+import pizzaList from '@/data/pizza.json'
 
 
 export const getStaticPaths = (() => {
@@ -20,7 +21,7 @@ const { pizza } = Astro.params as Params
 
 const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
 const getIngredients = pizzaList
-	.filter(({ name }) => pizza === name.toLocaleLowerCase().replace(' ', '-'))
+	.filter(({ name }) => compareStringsOfNames(pizza, name))
 	.flatMap(({ ingredients }) => ingredients)
 //const ingredients = await getAllIngredients()
 ---
