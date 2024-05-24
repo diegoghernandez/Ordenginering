@@ -9,6 +9,9 @@ test.describe('Customize page e2e tests', () => {
       await findNavbarElements(page)
 
       await expect(page.getByRole('img', { name: 'Empty pizza' })).toBeVisible()
+      await expect(page.getByRole('figure')
+         .filter({ has: page.getByRole('img', { name: 'Empty pizza' }) })
+         .getByLabel('Show author image')).toBeVisible()
 
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 
@@ -33,6 +36,7 @@ test.describe('Customize page e2e tests', () => {
       for (const element of await ingredientsCards.all()) {
          await element.screenshot()
          await expect(element.getByRole('figure')).toBeVisible()
+         await expect(element.getByLabel('Show author image')).toBeVisible()
          await expect(element.getByRole('heading')).toBeVisible()
          await expect(element.getByText('Quantity')).toBeVisible()
          await expect(element.getByLabel('Decrease quantity')).toBeVisible()

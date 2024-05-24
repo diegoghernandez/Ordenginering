@@ -7,6 +7,7 @@ import { Quantity } from '@/constants/quantity';
 import { Size } from '@/constants/size';
 import { CardContainer } from '@/components/common/CardContainer';
 import { getPizzaPrice } from '@/utils/getPizzaPrice';
+import { ImgContainer } from '@/components/common/ImgContainer';
 
 function getUrlImage(specificPath: string) {
 	return `/client/images/pizza/${specificPath}.jpg`
@@ -21,19 +22,16 @@ function getUrlImage(specificPath: string) {
 			{PizzaList.map((pizza, index) => (
 				<CardContainer styleClass='card-separation'>
 					<>
-						<figure>
-							<div>
-								<Image 
-									src={getUrlImage(pizza.image.url)}
-									alt={`${pizza.name} pizza`}
-									width='280'
-									height='220'
-									loading={index < 8 ? 'eager' : 'lazy'}
-									transition:name={`image-${pizza.name.replace(' ', '-').toLowerCase()}`}
-								/>
-							</div>
-							<figcaption>{pizza.image.author}</figcaption>
-						</figure>
+						<ImgContainer styleClass='pizza-container' figcaptionText={pizza.image.author}>
+							<Image 
+								src={getUrlImage(pizza.image.url)}
+								alt={`${pizza.name} pizza`}
+								width='280'
+								height='220'
+								loading={index < 8 ? 'eager' : 'lazy'}
+								transition:name={`image-${pizza.name.replace(' ', '-').toLowerCase()}`}
+							/>
+						</ImgContainer>
 						<div class='pizza-information'>
 							<h3>{pizza.name}</h3>
 							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
@@ -50,7 +48,7 @@ function getUrlImage(specificPath: string) {
 							}} />
 							<a class='secondary-button' href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 						</div>
-					</>
+					</I>
 				</CardContainer>
 			))}
 		</div>
@@ -63,6 +61,17 @@ function getUrlImage(specificPath: string) {
 		max-width: 340px;
 		flex-direction: column;
 		gap: 12px;
+	}
+
+	.pizza-container {
+		height: 140px;
+		border-radius: 16px;
+		overflow: hidden;
+		& img {
+			position: absolute;
+			height: fit-content;
+			top: -36px;
+		}
 	}
 </style>
 
@@ -78,18 +87,6 @@ function getUrlImage(specificPath: string) {
 			margin-inline: auto;
 			place-content: center;
 			grid-template-columns: repeat(auto-fill, minmax(288px, auto));
-		}
-	}
-	
-	figure > div {
-		height: 140px;
-		margin-bottom: 8px;
-		overflow: hidden;
-		border-radius: 16px;
-		border: 1px solid var(--outline-light);
-		box-shadow: var(--surface-40) 0px 4px 10px -4px;
-		& img {
-			width: 100%;
 		}
 	}
 

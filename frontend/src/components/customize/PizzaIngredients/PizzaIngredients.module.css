@@ -24,48 +24,14 @@
       "figure button";
    gap: 4px 12px;
 
-   & figure {
-      grid-area: figure;
-      width: 124px;
-      height: 112px;
-      position: relative;
-      
-      & img {
-         height: 100%;
-         border-radius: 16px;
-      }
-
-      & figcaption {
-         position: absolute;
-         bottom: 0;
-         left: 0;
-         pointer-events: none;
-         width: 100%;
-         height: 100%;
-         transition: background-color 400ms ease-in-out,
-            color 600ms ease-in;
-
-         & p {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            pointer-events: fill;
-            color: transparent;
-
-            &:hover {
-               color: currentcolor;
-            }
-         }
-
-         &:has(p:hover) {
-            background-color: #1C0C0280;
-         }
-
-      }
-   }
-
    & h3 {
       grid-area: name;
       margin: auto 0;
    }
+}
+
+.ingredients-image {
+   grid-area: figure;
+   width: 124px;
+   height: 112px;
 }

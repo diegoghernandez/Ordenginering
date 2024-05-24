@@ -15,6 +15,17 @@ test.describe('Menu page e2e tests', () => {
       
       await expect(page.getByRole('heading', { name: 'Menu' })).toBeVisible()
       await expect(page.getByRole('article')).toHaveCount(13)
+      for (const element of await page.getByRole('article').all()) {
+         await element.screenshot()
+         await expect(element.getByRole('figure')).toBeVisible()
+         await expect(element.getByLabel('Show author image')).toBeVisible()
+         await expect(element.getByRole('heading')).toBeVisible()
+         await expect(element.getByText('$')).toBeVisible()
+         await expect(element.getByText(', ')).toBeVisible()
+         await expect(element.getByRole('button')).toBeVisible()
+         await expect(element.getByRole('link')).toBeVisible()
+
+      }
    })
 
    test('Should save a pizza to the shopping cart', async ({ page }) => {

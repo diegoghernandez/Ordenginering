@@ -5,6 +5,7 @@ import ingredientList from '@/mocks/fixtures/ingredients.json'
 import { useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
+import { ImgContainer } from '@/components/common/ImgContainer'
 
 const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLES', 'MEAT', 'CHEESE', 'SAUCES'])
 
@@ -35,7 +36,7 @@ export function PizzaIngredients({ prebuildIngredients }: Props) {
          .map((ingredient) => (
             <CardContainer key={ingredient.idIngredient} styleClass={Styles['ingredients-card']}>
                <>
-                  <figure>
+                  <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
                      <img 
                         src={`/client/images/${ingredient.urlImage}.jpg`}
                         alt={ingredient.ingredientName}
@@ -43,11 +44,8 @@ export function PizzaIngredients({ prebuildIngredients }: Props) {
                         height='80'
                         loading='lazy'
                         decoding='async'
-                        />
-                     <figcaption>
-                        <p>{ingredient.authorImage}</p>
-                     </figcaption>
-                  </figure>
+                     />
+                  </ImgContainer>
                   <h3>{ingredient.ingredientName}</h3>
                   <p>Quantity</p>
                   <SelectQuantity 
