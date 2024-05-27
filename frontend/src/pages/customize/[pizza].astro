@@ -10,10 +10,8 @@ import pizzaList from '@/data/pizza.json'
 
 
 export const getStaticPaths = (() => {
-	return [
-		{ params: { pizza: 'empty' }},
-		...pizzaList.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
-	]
+	return pizzaList.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
+		.concat({ params: { pizza: 'empty' }})
 }) satisfies GetStaticPaths
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>

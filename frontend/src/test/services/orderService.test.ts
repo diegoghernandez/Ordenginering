@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest'
-import { Quantity } from '@/constants/quantity'
 import { saveOrder } from '@/services/orderService'
+import { describe, expect, it } from 'vitest'
 
 describe('Order service tests', () => { 
    it('Should be a function', () => {
@@ -25,10 +24,10 @@ describe('Order service tests', () => {
             quantity: 2,
             ingredientNameDtoList: [{
                name: 'Pepperoni',
-               quantity: Quantity.NORMAL
+               quantity: 1
             }, {
                name: 'Mozzarella',
-               quantity: Quantity.EXTRA
+               quantity: 2
             }]
          }]
       })).rejects.toThrow('Invalid Request Content')
@@ -52,10 +51,10 @@ describe('Order service tests', () => {
             size: 'LARGE',
             ingredientNameDtoList: [{
                name: 'Pepperoni',
-               quantity: Quantity.NORMAL
+               quantity: 1
             }, {
                name: 'Mozzarella',
-               quantity: Quantity.EXTRA
+               quantity: 2
             }]
          }]
       })

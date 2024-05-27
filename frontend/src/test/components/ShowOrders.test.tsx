@@ -1,9 +1,8 @@
-import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { ShowOrder } from '../../components/order/ShowOrders'
-import { Quantity } from '../../constants/quantity'
-import { Size } from '../../constants/size'
-import { useShoppingCart } from '../../hooks/useShoppingCart'
+import { afterEach, describe, expect, it } from 'vitest'
+import { ShowOrder } from '@/components/order/ShowOrders'
+import { Size } from '@/constants/size'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
 
 describe('ShowOrders component tests', () => { 
    afterEach(() => cleanup())
@@ -95,11 +94,11 @@ const setPizza = () => {
          ingredientNameDtoList: [{
             id: 1,
             name: 'Pepperoni',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }, {
             id: 2,
             name: 'Mozzarella',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }]
       }, {
          id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
@@ -110,19 +109,19 @@ const setPizza = () => {
          ingredientNameDtoList: [{
             id: 5,
             name: 'BBQ Sauce',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }, {
             id: 7,
             name: 'Grilled Chicken',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }, {
             id: 8,
             name: 'Red Onions',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }, {
             id: 9,
             name: 'Mozzarella',
-            quantity: Quantity.NORMAL
+            quantity: 1
          }]
       }]
    })

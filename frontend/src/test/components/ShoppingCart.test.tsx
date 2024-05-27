@@ -1,9 +1,8 @@
-import { describe, it, expect, afterEach } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
-import { ShoppingCart } from '../../components/order/ShoppingCart'
-import { Quantity } from '../../constants/quantity'
-import { Size } from '../../constants/size'
-import { useShoppingCart } from '../../hooks/useShoppingCart'
+import { afterEach, describe, expect, it } from 'vitest'
+import { ShoppingCart } from '@/components/order/ShoppingCart'
+import { Size } from '@/constants/size'
+import { useShoppingCart } from '@/hooks/useShoppingCart'
 
 describe('ShoppingCart component tests', () => {
    afterEach(() => cleanup())
@@ -26,7 +25,7 @@ describe('ShoppingCart component tests', () => {
             ingredientNameDtoList: [{
                id: 1,
                name: 'Pepperoni',
-               quantity: Quantity.EXTRA
+               quantity: 2
             }]
          }]
       })
