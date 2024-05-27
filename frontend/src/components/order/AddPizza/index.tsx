@@ -1,5 +1,6 @@
 import type { Pizza } from '@/types'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { PRIMARY__BUTTON } from '@/constants/styles'
 
 interface Props {
    pizza?: Pizza
@@ -15,7 +16,7 @@ export function AddPizza({ pizza }: Props) {
    }
 
    return (
-      <button className='primary-button' onClick={handleClick} >
+      <button className={PRIMARY__BUTTON} onClick={handleClick} >
          Agregar
       </button>
    )

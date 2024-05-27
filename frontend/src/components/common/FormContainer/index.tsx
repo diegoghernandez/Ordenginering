@@ -1,6 +1,7 @@
 import type { FormEvent, ReactElement } from 'react'
-import { Callout } from '../Callout'
+import { Callout } from '@/components/common/Callout'
 import './FormContainer.module.css'
+import { PRIMARY__BUTTON } from '@/constants/styles'
 
 interface Props {
    handleData: (formValues: string[]) => void;
@@ -45,7 +46,7 @@ export function FormContainer({
          {response?.message ? <Callout type={response?.status !== 200 ? 'error' : 'success'} message={response?.message} /> : null}
          {children}
          <button
-            className='primary-button'
+            className={PRIMARY__BUTTON}
             disabled={submitButton.isLoading}
          >{submitButton.label}</button>
       </form>

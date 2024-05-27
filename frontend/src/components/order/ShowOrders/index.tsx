@@ -1,9 +1,10 @@
+import { CardContainer } from '@/components/common/CardContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
+import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import type { Pizza } from '@/types'
-import { useEffect, useState } from 'react'
-import { CardContainer } from '@/components/common/CardContainer'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 
 export function ShowOrder() {
@@ -21,7 +22,7 @@ export function ShowOrder() {
             getPizzaPrice(pizza.ingredientNameDtoList.length, pizza.size, pizza.quantity))
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
-         <a className='primary-button' href='/client/checkout'>
+         <a className={PRIMARY__BUTTON} href='/client/checkout'>
             Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
          </a>
          <button onClick={removeAllPizza}>Remove all items</button>
@@ -58,7 +59,11 @@ export function ShowOrder() {
                                  }
                               }}
                            />
-                           <button className='secondary-button' type='button' onClick={() => removePizza(pizzaInOrder.id ?? '')}>Delete</button>
+                           <button 
+                              className={SECONDARY__BUTTON} 
+                              type='button' 
+                              onClick={() => removePizza(pizzaInOrder.id ?? '')}
+                           >Delete</button>
                         </div>
                      </>
                   </CardContainer>

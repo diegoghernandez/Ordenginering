@@ -3,6 +3,7 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { AddPizza } from '@/components/order/AddPizza'
 import { Size } from '@/constants/size'
+import { SECONDARY__BUTTON } from '@/constants/styles'
 import PizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
@@ -45,7 +46,7 @@ function getUrlImage(specificPath: string) {
 								ingredientNameDtoList: pizza.ingredients.map(
 									(ingredient) => ({ name: ingredient, quantity: 1 }))
 							}} />
-							<a class='secondary-button' href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
+							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 						</div>
 					</I>
 				</CardContainer>
