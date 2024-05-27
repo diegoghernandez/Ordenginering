@@ -1,13 +1,12 @@
 ---
-import { Image } from 'astro:assets'
+import { CardContainer } from '@/components/common/CardContainer'
+import { ImgContainer } from '@/components/common/ImgContainer'
 import { AddPizza } from '@/components/order/AddPizza'
-import Layout from '@/layouts/Layout.astro'
+import { Size } from '@/constants/size'
 import PizzaList from '@/data/pizza.json'
-import { Quantity } from '@/constants/quantity';
-import { Size } from '@/constants/size';
-import { CardContainer } from '@/components/common/CardContainer';
-import { getPizzaPrice } from '@/utils/getPizzaPrice';
-import { ImgContainer } from '@/components/common/ImgContainer';
+import Layout from '@/layouts/Layout.astro'
+import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import { Image } from 'astro:assets'
 
 function getUrlImage(specificPath: string) {
 	return `/client/images/pizza/${specificPath}.jpg`
@@ -44,7 +43,7 @@ function getUrlImage(specificPath: string) {
 								size: Size.MEDIUM,
 								quantity: 1,
 								ingredientNameDtoList: pizza.ingredients.map(
-									(ingredient) => ({ name: ingredient, quantity: Quantity.NORMAL }))
+									(ingredient) => ({ name: ingredient, quantity: 1 }))
 							}} />
 							<a class='secondary-button' href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 						</div>

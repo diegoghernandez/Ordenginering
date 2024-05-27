@@ -4,7 +4,7 @@ import type { Pizza } from '@/types'
 interface CartState {
    pizza: Pizza[];
    addPizza: (pizza: Pizza) => void;
-   updatePizzaQuantity: (id: string, operation: 'subs' | 'add') => Pizza[];
+   updatePizzaQuantity: (id: string, operation: 'subs' | 'add', desireQuantity?: number) => Pizza[];
    removePizza: (id: string) => void;
    removeAllPizza: () => void;
 }
@@ -23,7 +23,7 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
          
          if (state.pizza.some((pizzaState) => checkIfObjectAreEqual(pizzaState, pizza))) {
             const { id } = state.pizza.filter((pizzaState) => checkIfObjectAreEqual(pizzaState, pizza))[0]
-            pizzaList.push(...get().updatePizzaQuantity(id ?? '', 'add'))
+            pizzaList.push(...get().updatePizzaQuantity(id ?? '', 'add', pizza.quantity))
          } else {
             pizzaList.push({id: crypto.randomUUID(), ...pizza})
             pizzaList.push(...state.pizza)
@@ -32,12 +32,13 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
          return { pizza: pizzaList }
       })
    },
-   updatePizzaQuantity: (id, operation) => {
+   updatePizzaQuantity: (id, operation, desireQuantity = 1) => {
       set((state) => {
          const pizza = [...state.pizza.map((pizza) => {
             if (pizza.id === id) {
                const { quantity, ...rest } = pizza
-               const currentQuantity = operation === 'subs' ? quantity - 1 : quantity + 1
+               const currentQuantity = operation === 'subs' ? 
+                  quantity - desireQuantity : quantity + desireQuantity
                
                return { quantity: currentQuantity, ...rest }
             } else return pizza

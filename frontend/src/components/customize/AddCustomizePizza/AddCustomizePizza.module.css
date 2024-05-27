@@ -1,0 +1,40 @@
+.information-dialog[open] {
+   width: 100vh;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: none;
+   margin: 0 auto;
+   background-color: transparent;
+
+   &::backdrop {
+      opacity: 0.1;
+      background-color: var(--state-layer-color);
+   }
+}
+
+.information-card {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   max-width: 360px;
+   background-color: var(--background);
+
+   & > div {
+      display: flex;
+      flex-wrap: wrap;
+   
+      & p {
+         width: fit-content;
+   
+         & span {
+            position: relative;
+            top: -6px;
+            right: 4px;
+            font-size: 0.75rem;
+            color: var(--primary-interaction);
+         }
+      }
+   }
+}

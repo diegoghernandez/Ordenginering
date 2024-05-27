@@ -1,9 +1,8 @@
-import { test, expect } from '@/test/e2e/utils/fixture'
+import { expect, test } from '@/test/e2e/utils/fixture'
+import { addPizzaInMenu } from '@/test/e2e/utils/menuUtils'
 import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { checkIfPizzaWasAddToShoppingCart, checkIfShoppingCartIsEmpty } from '@/test/e2e/utils/shoppingCartUtils'
 import type { Pizza } from '@/types'
-import { Quantity } from '@/constants/quantity'
-import { addPizzaInMenu } from '@/test/e2e/utils/menuUtils'
 
 test.describe('Menu page e2e tests', () => {
    test.beforeEach(async ({ page }) => await page.goto('/client/menu'))
@@ -40,10 +39,10 @@ test.describe('Menu page e2e tests', () => {
          quantity: 1,
          ingredientNameDtoList: [{
                name: 'Pepperoni',
-               quantity: Quantity.NORMAL
+               quantity: 1
             },{
                name: 'Mozzarella',
-               quantity: Quantity.NORMAL
+               quantity: 1
          }]
       }]
 

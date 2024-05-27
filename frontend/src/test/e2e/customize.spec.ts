@@ -1,4 +1,4 @@
-import { test, expect } from '@/test/e2e/utils/fixture'
+import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from './utils/navbarUtils'
 
 test.describe('Customize page e2e tests', () => {
@@ -23,7 +23,8 @@ test.describe('Customize page e2e tests', () => {
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel('Decrease quantity')).toBeDisabled()
       await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
-      await expect(pizzaDataArticle.getByLabel('Increase quantity')).toBeVisible();
+      await expect(pizzaDataArticle.getByLabel('Increase quantity')).toBeVisible()
+      await expect(pizzaDataArticle.getByRole('button', { name: 'Add order' })).toBeVisible();
 
       ['All', 'Vegetables', 'Meat', 'Cheese', 'Sauces'].forEach(async (type) =>
          await expect(page.getByRole('button', { name: type })).toBeVisible()
@@ -151,5 +152,39 @@ test.describe('Customize page e2e tests', () => {
       await pizzaDataArticle.getByLabel('Decrease quantity').click()
       await expect(pizzaDataArticle.locator('div').filter({ hasText: '+' }).getByText('1')).toBeVisible()
       await expect(page.getByText('Total: $310', { exact: true })).toBeVisible()
+   })
+
+   test('Should interact with the ingredients and save the order correctly', async ({ page }) => {
+      await page.goto('/client/customize/empty')
+      
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) }).getByLabel('Increase quantity').click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel('Increase quantity').click()
+      await page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByLabel('Increase quantity').click()
+      
+      await expect(page.getByText('Total: $280')).toBeVisible()
+      await expect(page.getByText('Grilled Chicken X1')).toBeVisible()
+      await expect(page.getByText('Mozzarella X1')).toBeVisible()
+      await expect(page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByText('2', { exact: true })).toBeVisible()
+      
+      await expect(page.getByRole('button', { name: 'Add order' })).not.toBeDisabled()
+      await page.getByRole('button', { name: 'Add order' }).click()
+      
+      await expect(page.getByText('Added to shopping cart correctly')).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Keep ordering' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Checkout' })).toBeVisible()
+
+      await page.getByRole('link', { name: 'Keep ordering' }).click()
+      await expect(page).toHaveTitle('Menu page')
+
+      await page.getByLabel('Shopping cart').click()
+
+      await expect(page.getByText('Total $280')).toBeVisible()
+      await expect(page.getByText('Checkout (2 products)')).toBeVisible()
+      await expect(page.getByText('No orders')).not.toBeVisible()
+      await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
+      await expect(page.getByRole('article').getByText('Custom empty')).toBeVisible()
+      await expect(page.getByRole('article').getByText('$280')).toBeVisible()
+      await expect(page.getByRole('article').getByText('Grilled Chicken, Mozzarella')).toBeVisible()
+      await expect(page.getByRole('article').getByText('2', { exact: true })).toBeVisible()
    })
 })

@@ -2,7 +2,7 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import ingredientList from '@/mocks/fixtures/ingredients.json'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { ImgContainer } from '@/components/common/ImgContainer'
@@ -13,11 +13,17 @@ interface Props {
    prebuildIngredients?: string[]
 }
 
-export function PizzaIngredients({ prebuildIngredients }: Props) {
+export function PizzaIngredients({ prebuildIngredients = [] }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
    const [desiredType, setDesiredType] = useState(ingredientTypeList[0])
+
+   useEffect(() => {
+      for (const prebuildIngredient of prebuildIngredients) {
+         addIngredient(prebuildIngredient)
+      }
+   }, [prebuildIngredients, addIngredient])
 
    return (
       <>

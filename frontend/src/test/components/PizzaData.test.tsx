@@ -1,6 +1,6 @@
 import { PizzaData } from '@/components/customize/PizzaData'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it } from 'vitest'
 
@@ -9,7 +9,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly', () => {
       setIngredients()
-      render(<PizzaData />)
+      render(<PizzaData pizzaName='Pizza' image='image' />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -23,11 +23,12 @@ describe('PizzaData component tests', () => {
       expect(screen.getByLabelText('Decrease quantity')).toBeDisabled()
       expect(screen.getByText('1')).toBeInTheDocument()
       expect(screen.getByLabelText('Increase quantity')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Add order' })).toBeInTheDocument()
    })
 
    it('Should render correctly with the desire ingredients', () => {
       useDesireIngredients.setState({ ingredients: [] })
-      render(<PizzaData prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
+      render(<PizzaData pizzaName='Pizza' image='image' prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
 
       expect(screen.getByText('Total: $180')).toBeInTheDocument()
       expect(screen.getByText('BBQ Sauce')).toBeInTheDocument()
@@ -41,7 +42,7 @@ describe('PizzaData component tests', () => {
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
-      render(<PizzaData />)
+      render(<PizzaData pizzaName='Pizza' image='image'/>)
       const user = userEvent.setup()
 
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -61,6 +62,21 @@ describe('PizzaData component tests', () => {
       
       expect(screen.getByText('2')).toBeInTheDocument()
       expect(screen.getByText('Total: $280')).toBeInTheDocument()
+   })
+
+   it('Should render correctly the added message', async () => {
+      setIngredients()
+      render(<PizzaData pizzaName='Pizza' image='image'/>)
+
+      fireEvent.click(screen.getByRole('button', { name: 'Add order' }))
+
+      expect(screen.getByRole('button', { name: 'Add order' })).toBeDisabled()
+
+      await waitFor(() => {
+         expect(screen.getByRole('heading', { name: 'Added to shopping cart correctly' })).toBeInTheDocument()
+         expect(screen.getByRole('link', { name: 'Keep ordering' })).toBeInTheDocument()
+         expect(screen.getByRole('link', { name: 'Checkout' })).toBeInTheDocument()
+      })
    })
 })
 

@@ -46,7 +46,12 @@ const getAuhor = pizza !== 'empty' ?
 					transition:name={`image-${pizza.replace('-', ' ')}`}
 				/>
 		</ImgContainer>
-		<PizzaData client:load prebuildIngredients={getIngredients} />
+		<PizzaData 
+			client:load 
+			pizzaName={pizza}
+			image={`/client/images/pizza/${pizza}.jpg`}
+			prebuildIngredients={getIngredients} 
+		/>
 		<PizzaIngredients client:idle prebuildIngredients={getIngredients} />
 	</main>
 </Layout>

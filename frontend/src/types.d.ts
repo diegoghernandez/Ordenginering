@@ -1,5 +1,3 @@
-import type { Quantity } from '@/constants/quantity'
-
 interface Page {
    pageable: {
       pageNumber: number;
@@ -30,7 +28,7 @@ export interface Pizza {
 export interface Ingredient {
    id?: number;
    name: string;
-   quantity: Quantity;
+   quantity: number;
 }
 
 export interface IngredientRequest {

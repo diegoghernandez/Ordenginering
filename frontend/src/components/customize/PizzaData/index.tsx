@@ -2,34 +2,29 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { CustomSelect } from '@/components/common/CustomSelect'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { Size } from '@/constants/size'
-import { getPizzaPrice } from '@/utils/getPizzaPrice'
-import { useEffect, useState } from 'react'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import { useState } from 'react'
+import { AddCustomizePizza } from '../AddCustomizePizza'
 import Styles from './PizzaData.module.css'
 
-type Characteristics = {
+export type Characteristics = {
    size: Size
    quantity: number
 }
 
 interface Props {
    prebuildIngredients?: string[]
+   pizzaName: string
+   image: string
 }
 
-export function PizzaData({ prebuildIngredients = [] }: Props) {   
+export function PizzaData({ prebuildIngredients = [], pizzaName, image }: Props) {   
    const ingredients = useDesireIngredients((state) => state.ingredients)
-   const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const [characteristics, setCharacteristics] = useState<Characteristics>({
       size: Size.MEDIUM,
       quantity: 1
    })
-   
-
-   useEffect(() => {
-      for (const prebuildIngredient of prebuildIngredients) {
-         addIngredient(prebuildIngredient)
-      }
-   }, [prebuildIngredients, addIngredient])
 
    return (
       <CardContainer styleClass={Styles['customize-description']}>
@@ -81,7 +76,12 @@ export function PizzaData({ prebuildIngredients = [] }: Props) {
                   }))
                }}
             />
-
+            <AddCustomizePizza
+               pizzaName={'Custom ' + pizzaName.replace('-', ' ')}
+               image={image}
+               characteristics={characteristics} 
+               ingredients={ingredients}
+            />
          </>
       </CardContainer>
    )

@@ -1,12 +1,9 @@
+import type { Ingredient } from '@/types'
 import { create } from 'zustand'
 
-type IngredientsState = {
-   name: string,
-   quantity: number
-}
 
 interface IngredientCart {
-   ingredients: IngredientsState[],
+   ingredients: Ingredient[],
    addIngredient: (ingredient: string) => void
    removeIngredient: (ingredient: string) => void
 }

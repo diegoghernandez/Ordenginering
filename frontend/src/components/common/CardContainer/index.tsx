@@ -6,7 +6,7 @@ interface Props {
    styleClass?: string
 }
 
-export function CardContainer({ children, styleClass }: Props) {
+export function CardContainer({ children, styleClass = '' }: Props) {
    return (
       <article className={`${Styles['card-container']} ${styleClass}`}>
          {children}
