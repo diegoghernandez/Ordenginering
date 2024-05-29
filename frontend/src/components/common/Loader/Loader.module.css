@@ -1,0 +1,69 @@
+.loader-pizza {
+   display: grid;
+   width: 128px;
+   height: 128px;
+   border-radius: 100%;
+   outline: 8px solid #864B14;
+   overflow: hidden;
+   position: relative;
+
+   --size: calc(128px / 3);
+   --height: 68px;
+
+   & div  {
+      position: absolute;
+      width: calc(360px / 6);
+      height: var(--height);
+      border-color: brown;
+      border-left: var(--size) solid transparent;
+      border-right: var(--size) solid transparent;
+      border-bottom: var(--height) solid #FFDB59;
+      animation: 1.25s disapear infinite;
+
+      &:first-of-type {
+         top: 0;
+         left: 24px;
+         transform: rotate(180deg);
+      }
+      
+      &:nth-of-type(2) {
+         top: -2px;
+         right: -22px;
+         transform: rotate(360deg);
+         animation-delay: 200ms;
+      }
+
+      &:nth-of-type(3) {
+         bottom: 16px;
+         right: -28px;
+         transform: rotate(56deg);
+         animation-delay: 400ms;
+      }
+
+      &:nth-of-type(4) {
+         bottom: 0;
+         right: 24px;
+         animation-delay: 600ms;
+      }
+
+      &:nth-of-type(5) {
+         bottom: 0;
+         left: -20px;
+         transform: rotate(180deg);
+         animation-delay: 800ms;
+      }
+      
+      &:nth-of-type(6) {
+         top: 12px;
+         left: -28px;
+         transform: rotate(236deg);
+         animation-delay: 1s;
+      }
+   }
+}
+
+@keyframes disapear {
+   0% {
+      opacity: 0;
+   }
+}

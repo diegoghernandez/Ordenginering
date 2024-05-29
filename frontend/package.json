@@ -10,7 +10,7 @@
     "astro": "astro",
     "lint": "eslint src/ && stylelint src/**/*.css",
     "test": "vitest",
-    "e2e-express": "node src/mocks/expressServer.js",
+    "e2e-express": "node --watch src/mocks/expressServer.js",
     "e2e:dev": "playwright test --ui",
     "e2e:ci": "playwright test"
   },
@@ -32,7 +32,7 @@
     "@types/eslint": "8.56.10",
     "@types/express": "4.17.21",
     "@types/node": "20.12.12",
-    "@types/react": "18.3.2",
+    "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.10.0",
     "@typescript-eslint/parser": "7.10.0",
@@ -41,13 +41,12 @@
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.2",
     "express": "4.19.2",
-    "happy-dom": "14.11.0",
+    "happy-dom": "14.11.1",
     "msw": "2.3.0",
     "playwright-msw": "3.0.1",
-    "stylelint": "16.5.0",
+    "stylelint": "16.6.0",
     "stylelint-config-recommended": "14.0.0",
     "stylelint-config-standard": "36.0.0",
-    "tsx": "4.11.0",
     "typescript": "5.4.5",
     "vitest": "1.6.0"
   }

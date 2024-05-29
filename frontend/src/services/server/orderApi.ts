@@ -1,14 +1,13 @@
-import type { AstroCookies } from 'astro'
-import { StatusError } from '../exceptions/StatusError'
 import type { PageOrder } from '@/types'
+import { StatusError } from '../exceptions/StatusError'
 
 const URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:4436'
 const API = URL +  '/data/order'
 
-export async function getOrdersByAccount(id: number, cookie: AstroCookies | undefined): Promise<PageOrder> {
-   const jwtCookie = `jwt=${cookie?.get('jwt')?.value ?? ''}; Path=/;`
+export async function getOrdersByAccount(id: number, cookie: string | undefined, page: number): Promise<PageOrder> {
+   const jwtCookie = `jwt=${cookie ?? ''}; Path=/;`
    
-   const response = await fetch(`${API}/customer/${id}?page=0`, {
+   const response = await fetch(`${API}/customer/${id}?page=${page}`, {
       method: 'GET',
       credentials: 'include',
       headers: {

@@ -21,11 +21,9 @@ public class OrderEntity {
 
    @Id
    @Column(name = "id_order")
-   @JsonIgnore
    @ToString.Exclude
    private UUID idOrder;
 
-   @JsonIgnore
    @Column(name = "id_customer", nullable = false)
    private Long idCustomer;
 
@@ -52,7 +50,6 @@ public class OrderEntity {
    private Integer total;
 
    @ToString.Exclude
-   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
    @Column(name = "order_timestamp", columnDefinition = "DATETIME", nullable = false)
    private LocalDateTime orderTimestamp;
 

@@ -63,27 +63,26 @@ export interface CustomerDto {
    birthDate: string;
 }
 
-export interface OrderDomain {
-   orderId: string,
-   orderTimestamp: string,
-   totalProducts: number
+export interface OrderRequest {
+   idCustomer: number
+   country: string
+   state: string
+   city: string
+   street: string
+   houseNumber: number
+   apartment: number | null
+   floor: number | null
+   pizzaList: Pizza[]
+}
+
+export interface Order extends OrderRequest{
+   orderId: string
+   orderTimestamp: string
    total: number
 }
 
-export interface Order {
-   idCustomer: number;
-   country: string;
-   state: string;
-   city: string;
-   street: string;
-   houseNumber: number;
-   apartment: number | null;
-   floor: number | null;
-   pizzaList: Pizza[];
-}
-
 export interface PageOrder extends Page {
-   content: OrderDomain[]
+   content: Order[]
 }
 
 export interface UserInputProps {

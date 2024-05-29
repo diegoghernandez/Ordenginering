@@ -1,0 +1,18 @@
+.spin-loader {
+   width: 100%;
+   height: 100%;
+   border-radius: 100%;
+   border: 4px solid var(--error);
+   border-right-color: var(--error-light);
+   animation: 1.6s linear infinite spin;
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+
+   100% {
+      transform: rotate(360deg);
+   }
+}

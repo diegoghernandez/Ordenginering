@@ -39,11 +39,18 @@ public class OrderController {
 
       if (orderPage.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-      var mappedOrder = orderPage.map((order) -> new OrderDomain(
-              order.getIdOrder(),
-              order.getOrderTimestamp(),
-              order.getPizzaList().size(),
-              order.getTotal()
+      var mappedOrder = orderPage.map((orderEntity) -> new OrderDomain(
+              orderEntity.getIdOrder(),
+              orderEntity.getCountry(),
+              orderEntity.getState(),
+              orderEntity.getCity(),
+              orderEntity.getStreet(),
+              orderEntity.getHouseNumber(),
+              orderEntity.getApartment(),
+              orderEntity.getFloor(),
+              orderEntity.getTotal(),
+              orderEntity.getOrderTimestamp(),
+              orderEntity.getPizzaList()
       ));
 
       return new ResponseEntity<>(mappedOrder, HttpStatus.OK);

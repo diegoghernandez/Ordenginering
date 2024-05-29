@@ -2,19 +2,100 @@
    "content": [
       {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c21",
-         "orderTimestamp": "2024-06-26T21:02:13.374219",
-         "totalProducts": 19,
-         "total": 3534534
+         "country": "MEX",
+         "state": "Bamyan",
+         "city": "Ashkāsham",
+         "street": "Tlalpan",
+         "houseNumber": 226,
+         "apartment": null,
+         "floor": null,
+         "total": 940,
+         "orderTimestamp": "2024-04-16 13:55:09",
+         "pizzaList": [{
+            "pizzaName": "Pepperoni",
+            "price": 140,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Hawaiana",
+            "price": 160,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Margherita",
+            "price": 640,
+            "size": "MEDIUM",
+            "quantity": 4,
+            "pizzaIngredients": []
+         }]
       }, {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c22",
-         "orderTimestamp": "2024-06-26T21:02:13.374219",
-         "totalProducts": 19,
-         "total": 3534534
+         "country": "MEX",
+         "state": "Bamyan",
+         "city": "Ashkāsham",
+         "street": "Tlalpan",
+         "houseNumber": 226,
+         "apartment": null,
+         "floor": null,
+         "total": 940,
+         "orderTimestamp": "2024-04-16 13:55:09",
+         "pizzaList": [{
+            "pizzaName": "Pepperoni",
+            "price": 140,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Hawaiana",
+            "price": 160,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Margherita",
+            "price": 640,
+            "size": "MEDIUM",
+            "quantity": 4,
+            "pizzaIngredients": []
+         }]
       }, {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c23",
-         "orderTimestamp": "2024-06-26T21:02:13.374219",
-         "totalProducts": 19,
-         "total": 3534534
+         "country": "MEX",
+         "state": "Bamyan",
+         "city": "Ashkāsham",
+         "street": "Tlalpan",
+         "houseNumber": 226,
+         "apartment": null,
+         "floor": null,
+         "total": 940,
+         "orderTimestamp": "2024-04-16 13:55:09",
+         "pizzaList": [{
+            "pizzaName": "Pepperoni",
+            "price": 140,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Hawaiana",
+            "price": 160,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": []
+         },
+         {
+            "pizzaName": "Margherita",
+            "price": 640,
+            "size": "MEDIUM",
+            "quantity": 4,
+            "pizzaIngredients": []
+         }]
       }
    ],
    "pageable": {

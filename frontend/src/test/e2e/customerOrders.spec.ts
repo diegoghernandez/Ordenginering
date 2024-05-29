@@ -15,15 +15,25 @@ test.describe('Customer orders page tests', () => {
       await expect(page.getByRole('link', { name: 'Profile' })).not.toHaveClass('active')
       await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
-
       await expect(page.getByRole('article')).toHaveCount(3)
+      
+      await expect(page.getByRole('alert')).toBeVisible()
+      
+      await expect(page.getByRole('article')).toHaveCount(6)
+      await expect(page.getByRole('alert')).not.toBeVisible()
+      
+      await page.mouse.wheel(0, 300)
+      
+      await expect(page.getByRole('alert')).toBeVisible()
+      await expect(page.getByRole('article')).toHaveCount(9)
+      await expect(page.getByRole('alert')).not.toBeVisible()
 
       for (const element of await page.getByRole('article').all()) {
          await element.screenshot()
-         await expect(element.getByText('Jun 26, 2024')).toBeVisible()
-         await expect(element.getByText('19 products')).toBeVisible()
+         await expect(element.getByText('Apr 16, 2024')).toBeVisible()
+         await expect(element.getByText('3 products')).toBeVisible()
          await expect(element.getByText('Total')).toBeVisible()
-         await expect(element.getByText('$3534534')).toBeVisible()
+         await expect(element.getByText('$940')).toBeVisible()
          await expect(element.getByRole('link')).toBeVisible()
       }
    })

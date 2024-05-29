@@ -114,9 +114,16 @@ class OrderControllerTest extends SetUpForJwtClient {
 
       var orderDomain = TestDataUtil.getOrderList().map((order) -> new OrderDomain(
               order.getIdOrder(),
+              order.getCountry(),
+              order.getState(),
+              order.getCity(),
+              order.getStreet(),
+              order.getHouseNumber(),
+              null,
+              null,
+              order.getTotal(),
               order.getOrderTimestamp(),
-              order.getPizzaList().size(),
-              order.getTotal()
+              order.getPizzaList()
       ));
 
       assertAll(
