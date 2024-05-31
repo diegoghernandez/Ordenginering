@@ -7,6 +7,7 @@ import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useState } from 'react'
 import { AddCustomizePizza } from '../AddCustomizePizza'
 import Styles from './PizzaData.module.css'
+import type { Pizza } from '@/types'
 
 export type Characteristics = {
    size: Size
@@ -14,12 +15,11 @@ export type Characteristics = {
 }
 
 interface Props {
+   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImage'>
    prebuildIngredients?: string[]
-   pizzaName: string
-   image: string
 }
 
-export function PizzaData({ prebuildIngredients = [], pizzaName, image }: Props) {   
+export function PizzaData({ pizza, prebuildIngredients = [] }: Props) {   
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const [characteristics, setCharacteristics] = useState<Characteristics>({
       size: Size.MEDIUM,
@@ -77,8 +77,10 @@ export function PizzaData({ prebuildIngredients = [], pizzaName, image }: Props)
                }}
             />
             <AddCustomizePizza
-               pizzaName={'Custom ' + pizzaName.replace('-', ' ')}
-               image={image}
+               pizza={{
+                  pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),
+                  pizzaImage: pizza.pizzaImage
+               }}
                characteristics={characteristics} 
                ingredients={ingredients}
             />

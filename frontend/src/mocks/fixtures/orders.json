@@ -15,7 +15,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
             "pizzaImage": {
-               "url": "pepperoni"
+               "url": "pepperoni",
+               "author": "Author"
             },
             "price": 140,
             "size": "MEDIUM",
@@ -32,7 +33,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
             "pizzaImage": {
-               "url": "hawaiana"
+               "url": "hawaiana",
+               "author": "Author"
             },
             "price": 160,
             "size": "MEDIUM",
@@ -52,7 +54,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
             "pizzaImage": {
-               "url": "margherita"
+               "url": "margherita",
+               "author": "Author"
             },
             "price": 640,
             "size": "MEDIUM",
@@ -71,7 +74,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c14",
             "pizzaName": "Pepperoni",
             "pizzaImage": {
-               "url": "pepperoni"
+               "url": "pepperoni",
+               "author": "Author"
             },
             "price": 140,
             "size": "MEDIUM",
@@ -88,7 +92,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c15",
             "pizzaName": "Hawaiana",
             "pizzaImage": {
-               "url": "hawaiana"
+               "url": "hawaiana",
+               "author": "Author"
             },
             "price": 160,
             "size": "MEDIUM",
@@ -108,7 +113,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c16",
             "pizzaName": "Margherita",
             "pizzaImage": {
-               "url": "margherita"
+               "url": "margherita",
+               "author": "Author"
             },
             "price": 640,
             "size": "MEDIUM",
@@ -139,7 +145,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
             "pizzaImage": {
-               "url": "pepperoni"
+               "url": "pepperoni",
+               "author": "Author"
             },
             "price": 140,
             "size": "MEDIUM",
@@ -156,7 +163,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
             "pizzaImage": {
-               "url": "hawaiana"
+               "url": "hawaiana",
+               "author": "Author"
             },
             "price": 160,
             "size": "MEDIUM",
@@ -176,7 +184,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
             "pizzaImage": {
-               "url": "margherita"
+               "url": "margherita",
+               "author": "Author"
             },
             "price": 640,
             "size": "MEDIUM",
@@ -207,7 +216,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
             "pizzaImage": {
-               "url": "pepperoni"
+               "url": "pepperoni",
+               "author": "Author"
             },
             "price": 140,
             "size": "MEDIUM",
@@ -224,7 +234,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
             "pizzaImage": {
-               "url": "hawaiana"
+               "url": "hawaiana",
+               "author": "Author"
             },
             "price": 160,
             "size": "MEDIUM",
@@ -244,7 +255,8 @@
             "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
             "pizzaImage": {
-               "url": "margherita"
+               "url": "margherita",
+               "author": "Author"
             },
             "price": 640,
             "size": "MEDIUM",

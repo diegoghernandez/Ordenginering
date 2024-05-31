@@ -4,7 +4,7 @@ import { ImgContainer } from '@/components/common/ImgContainer'
 import { AddPizza } from '@/components/order/AddPizza'
 import { Size } from '@/constants/size'
 import { SECONDARY__BUTTON } from '@/constants/styles'
-import PizzaList from '@/data/pizza.json'
+import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
@@ -19,7 +19,7 @@ function getUrlImage(specificPath: string) {
 	<main>
 		<h1>Menu</h1>
 		<div>
-			{PizzaList.map((pizza, index) => (
+			{pizzaList.map((pizza, index) => (
 				<CardContainer styleClass='card-separation'>
 					<>
 						<ImgContainer styleClass='pizza-container' figcaptionText={pizza.image.author}>
@@ -41,7 +41,8 @@ function getUrlImage(specificPath: string) {
 							<AddPizza client:idle pizza={{
 								pizzaName: pizza.name,
 								pizzaImage: {
-									url: getUrlImage(pizza.image.url)
+									url: getUrlImage(pizza.image.url),
+									author: pizza.image.author
 								},
 								size: Size.MEDIUM,
 								quantity: 1,

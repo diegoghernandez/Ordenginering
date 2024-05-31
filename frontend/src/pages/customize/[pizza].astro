@@ -46,8 +46,13 @@ const getAuhor = pizza !== 'empty' ?
 		</ImgContainer>
 		<PizzaData 
 			client:load 
-			pizzaName={pizza}
-			image={`/client/images/pizza/${pizza}.jpg`}
+			pizza={{
+				pizzaName: pizza,
+				pizzaImage: {
+					url: `/client/images/pizza/${pizza}.jpg`,
+					author: getAuhor
+				}
+			}}
 			prebuildIngredients={getIngredients} 
 		/>
 		<PizzaIngredients client:idle prebuildIngredients={getIngredients} />

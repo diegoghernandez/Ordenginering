@@ -25,8 +25,17 @@
          grid-template-areas: 
             "image name"
             "image price"
+            "image size"
             "ingredient ingredient"
             "button button";
+
+         & h3 {
+            align-self: flex-end;
+         }
+         
+         & > p:nth-of-type(1) {
+            align-self: center;
+         }
       }
    }
 }
@@ -37,11 +46,12 @@
    grid-template-areas: 
       "image name"
       "image price"
+      "image size"
       "image ingredient"
       "button button";
    gap: 4px 12px;
 
-   & img {
+   & figure {
       grid-area: image;
       width: 112px;
       height: 112px;
@@ -52,13 +62,18 @@
 
    & h3 {
       grid-area: name;
+      height: fit-content;
    }
 
-   & p:first-of-type {
+   & > p:nth-of-type(1) {
       grid-area: price;
    }
 
-   & p:last-of-type {
+   & > p:nth-of-type(2) {
+      grid-area: size;
+   }
+
+   & > p:nth-of-type(3) {
       grid-area: ingredient;
       width: 100%;
    }

@@ -20,7 +20,8 @@ export interface Pizza {
    id?:         `${string}-${string}-${string}-${string}-${string}`
    pizzaName:        string
    pizzaImage: {
-      url: string
+      url: string,
+      author: string
    }
    size:        Size
    quantity: number

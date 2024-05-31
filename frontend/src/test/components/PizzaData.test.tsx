@@ -9,7 +9,13 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly', () => {
       setIngredients()
-      render(<PizzaData pizzaName='Pizza' image='image' />)
+      render(<PizzaData pizza={{
+         pizzaName: 'Pizza',
+         pizzaImage: {
+            url: 'url',
+            author: 'author'
+         }
+      }} />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -28,7 +34,13 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly with the desire ingredients', () => {
       useDesireIngredients.setState({ ingredients: [] })
-      render(<PizzaData pizzaName='Pizza' image='image' prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
+      render(<PizzaData pizza={{
+         pizzaName: 'Pizza',
+         pizzaImage: {
+            url: 'url',
+            author: 'author'
+         }
+      }} prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
 
       expect(screen.getByText('Total: $180')).toBeInTheDocument()
       expect(screen.getByText('BBQ Sauce')).toBeInTheDocument()
@@ -42,7 +54,13 @@ describe('PizzaData component tests', () => {
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
-      render(<PizzaData pizzaName='Pizza' image='image'/>)
+      render(<PizzaData pizza={{
+         pizzaName: 'Pizza',
+         pizzaImage: {
+            url: 'url',
+            author: 'author'
+         }
+      }}/>)
       const user = userEvent.setup()
 
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -66,7 +84,13 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly the added message', async () => {
       setIngredients()
-      render(<PizzaData pizzaName='Pizza' image='image'/>)
+      render(<PizzaData pizza={{
+         pizzaName: 'Pizza',
+         pizzaImage: {
+            url: 'url',
+            author: 'author'
+         }
+      }}/>)
 
       fireEvent.click(screen.getByRole('button', { name: 'Add order' }))
 
@@ -76,7 +100,7 @@ describe('PizzaData component tests', () => {
          expect(screen.getByRole('heading', { name: 'Added to shopping cart correctly' })).toBeInTheDocument()
          expect(screen.getByRole('link', { name: 'Keep ordering' })).toBeInTheDocument()
          expect(screen.getByRole('link', { name: 'Checkout' })).toBeInTheDocument()
-      })
+      }, { timeout: 1000 })
    })
 })
 

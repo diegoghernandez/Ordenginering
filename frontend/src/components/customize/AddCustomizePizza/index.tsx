@@ -1,19 +1,18 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
-import type { Ingredient } from '@/types'
+import type { Ingredient, Pizza } from '@/types'
 import { useRef, useState } from 'react'
 import type { Characteristics } from '../PizzaData'
 import Styles from './AddCustomizePizza.module.css'
 
 interface Props {
-   pizzaName: string
-   image: string
+   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImage'>
    characteristics: Characteristics,
    ingredients: Ingredient[]
 }
 
-export function AddCustomizePizza({ pizzaName, image, characteristics, ingredients }: Props) {
+export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props) {
    const addPizza = useShoppingCart((state) => state.addPizza)
    const [isLoading, setIsLoading] = useState(false)
    const dialogRef = useRef<HTMLDialogElement>(null)
@@ -30,10 +29,8 @@ export function AddCustomizePizza({ pizzaName, image, characteristics, ingredien
       setTimeout(() => {
          showModal()
          addPizza({
-            pizzaName,
-            pizzaImage: {
-               url: image
-            },
+            pizzaName: pizza.pizzaName,
+            pizzaImage: pizza.pizzaImage,
             size: characteristics.size,
             quantity: characteristics.quantity,
             pizzaIngredients: ingredients.map((element) => ({ name: element.name, quantity: element.quantity }))

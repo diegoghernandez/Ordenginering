@@ -14,7 +14,7 @@ interface Props {
 export function OrderModal({ funToSaveDialog, order }: Props) {
    return (
       <ModalContainer ref={funToSaveDialog} position='right' description='Your order'>
-         <div className={Styles['order-container']}>
+         <section className={Styles['order-container']}>
             <CardContainer styleClass={Styles['order-description-container']}>
                <>
                   <p>Date: <time dateTime={order.orderTimestamp}>
@@ -35,18 +35,18 @@ export function OrderModal({ funToSaveDialog, order }: Props) {
             {order.pizzaList.map((pizza) => (
                <CardContainer key={pizza.id} styleClass={Styles['order-pizza-container']}>
                   <>
-                     <ImgContainer>
+                     <ImgContainer figcaptionText={pizza.pizzaImage.author}>
                         <img src={`/client/images/pizza/${pizza.pizzaImage.url}.jpg`} alt={pizza.pizzaName + ' pizza'} />
                      </ImgContainer>
                      <h2>{pizza.pizzaName}</h2>
                      <p>${getPizzaPrice(pizza.pizzaIngredients.length, Size[pizza.size as Size], pizza.quantity)}</p>
-                     <p>{String(pizza.size).at(0) + String(pizza.size).substring(1).toLocaleLowerCase()}</p>
+                     <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>
                      <p>{pizza.pizzaIngredients.map(({ name }) => name).join(', ')}</p>
                      <p>X{pizza.quantity}</p>
                   </>
                </CardContainer>
             ))}
-         </div>
+         </section>
       </ModalContainer>
    )
 }

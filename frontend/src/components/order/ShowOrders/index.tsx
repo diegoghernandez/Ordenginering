@@ -6,6 +6,7 @@ import type { Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
+import { ImgContainer } from '@/components/common/ImgContainer'
 
 export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
@@ -31,16 +32,19 @@ export function ShowOrder() {
                pizza?.map((pizzaInOrder) => (
                   <CardContainer key={pizzaInOrder.id} styleClass={String(Styles['card-separation'])}>
                      <>
-                        <img 
-                           src={pizzaInOrder.pizzaImage.url} 
-                           alt={`${pizzaInOrder.pizzaName} pizza`} 
-                           loading='lazy' 
-                           decoding='async'
-                           width='112'
-                           height='112'
-                        />
+                        <ImgContainer figcaptionText={pizzaInOrder.pizzaImage.author}>
+                           <img 
+                              src={pizzaInOrder.pizzaImage.url} 
+                              alt={`${pizzaInOrder.pizzaName} pizza`} 
+                              loading='lazy' 
+                              decoding='async'
+                              width='112'
+                              height='112'
+                           />
+                        </ImgContainer>
                         <h3>{pizzaInOrder.pizzaName}</h3>
                         <p>${getPizzaPrice(pizzaInOrder.pizzaIngredients.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
+                        <p>{pizzaInOrder.size.at(0) + pizzaInOrder.size.substring(1).toLocaleLowerCase()}</p>
                         <p>{pizzaInOrder.pizzaIngredients?.map((ingredient) => ingredient.name).join(', ')}</p>
                         <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 

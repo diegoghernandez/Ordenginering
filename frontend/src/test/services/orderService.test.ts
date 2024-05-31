@@ -38,7 +38,8 @@ describe('Order service tests', () => {
                id: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
                pizzaName: 'Pepperoni',
                pizzaImage: {
-                  url: '/client/images/pizza/pepperoni.jpg'
+                  url: '/client/images/pizza/pepperoni.jpg',
+                  author: 'Author'
                },
                size: 'LARGE',
                quantity: 2,
@@ -68,7 +69,8 @@ describe('Order service tests', () => {
                pizzaName: 'Pepperoni',
                quantity: 2,
                pizzaImage: {
-                  url: '/client/images/pizza/pepperoni.jpg'
+                  url: '/client/images/pizza/pepperoni.jpg',
+                  author: 'Author'
                },
                size: 'LARGE',
                pizzaIngredients: [{
