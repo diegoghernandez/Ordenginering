@@ -4,6 +4,40 @@
    min-height: 100vh;
    border: none;
    background-color: var(--background);
+   transition: opacity .5s;
+   
+   &:not([open]) {
+      opacity: 0;
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+      &.left {
+         animation: slide-out-left var(--animation-properties);
+      
+         &[open] {
+            animation: slide-in-left var(--animation-properties);
+         }
+      }
+   }
+
+   &.right {
+      margin-left: auto;
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+      &.right {
+         animation: slide-out-right var(--animation-properties);
+
+         &[open] {
+            animation: slide-in-right var(--animation-properties);
+         }
+      }
+   }   
+
+   &::backdrop {
+      opacity: 0.1;
+      background-color: var(--state-layer-color);
+   }
 
    & nav {
       display: flex;
@@ -34,13 +68,29 @@
       justify-content: start;
       margin-left: auto;
    }
+}
 
-   &::backdrop {
-      opacity: 0.1;
-      background-color: var(--state-layer-color);
+@keyframes slide-in-left {
+   0% {
+      transform: translateX(-100%);
    }
 }
 
-.right {
-   margin-left: auto;
+@keyframes slide-out-left {
+   to {
+      transform: translateX(-100%);
+   }
+}
+
+
+@keyframes slide-in-right {
+   0% {
+      transform: translateX(100%);
+   }
+}
+
+@keyframes slide-out-right {
+   to {
+      transform: translateX(100%);
+   }
 }

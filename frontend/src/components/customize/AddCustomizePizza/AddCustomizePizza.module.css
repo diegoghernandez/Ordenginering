@@ -1,16 +1,24 @@
-.information-dialog[open] {
+.information-dialog {
    width: 100vh;
    height: 100%;
-   display: flex;
    justify-content: center;
    align-items: center;
    border: none;
    margin: 0 auto;
    background-color: transparent;
+   animation: fade-in var(--animation-properties);
 
    &::backdrop {
       opacity: 0.1;
       background-color: var(--state-layer-color);
+   }
+
+   &[open] {
+      display: flex;
+   }
+   
+   &:not([open]) {
+      opacity: 0;
    }
 }
 
@@ -36,5 +44,11 @@
             color: var(--primary-interaction);
          }
       }
+   }
+}
+
+@keyframes fade-in {
+   0% {
+      transform: scale(0.3%);
    }
 }

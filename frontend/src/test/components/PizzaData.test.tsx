@@ -100,7 +100,7 @@ describe('PizzaData component tests', () => {
          expect(screen.getByRole('heading', { name: 'Added to shopping cart correctly' })).toBeInTheDocument()
          expect(screen.getByRole('link', { name: 'Keep ordering' })).toBeInTheDocument()
          expect(screen.getByRole('link', { name: 'Checkout' })).toBeInTheDocument()
-      }, { timeout: 1000 })
+      }, { timeout: 2000 })
    })
 })
 
