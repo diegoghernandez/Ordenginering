@@ -2,99 +2,263 @@
    "content": [
       {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c21",
-         "country": "MEX",
+         "country": "México",
          "state": "Bamyan",
          "city": "Ashkāsham",
-         "street": "Tlalpan",
-         "houseNumber": 226,
+         "street": "Street",
+         "houseNumber": 111,
          "apartment": null,
          "floor": null,
          "total": 940,
-         "orderTimestamp": "2024-04-16 13:55:09",
+         "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
+            "pizzaImage": {
+               "url": "pepperoni"
+            },
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Pepperoni",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
+            "pizzaImage": {
+               "url": "hawaiana"
+            },
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Ham",
+               "quantity": 1
+            }, {
+               "name": "Pineapple",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
+            "pizzaImage": {
+               "url": "margherita"
+            },
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Tomato",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }, {
+               "name": "Basil",
+               "quantity": 1
+            }]
+         }, {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c14",
+            "pizzaName": "Pepperoni",
+            "pizzaImage": {
+               "url": "pepperoni"
+            },
+            "price": 140,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": [{
+               "name": "Pepperoni",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
+         },
+         {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c15",
+            "pizzaName": "Hawaiana",
+            "pizzaImage": {
+               "url": "hawaiana"
+            },
+            "price": 160,
+            "size": "MEDIUM",
+            "quantity": 1,
+            "pizzaIngredients": [{
+               "name": "Ham",
+               "quantity": 1
+            }, {
+               "name": "Pineapple",               
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
+         },
+         {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c16",
+            "pizzaName": "Margherita",
+            "pizzaImage": {
+               "url": "margherita"
+            },
+            "price": 640,
+            "size": "MEDIUM",
+            "quantity": 4,
+            "pizzaIngredients": [{
+               "name": "Tomato",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }, {
+               "name": "Basil",
+               "quantity": 1
+            }]
          }]
       }, {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c22",
-         "country": "MEX",
+         "country": "México",
          "state": "Bamyan",
          "city": "Ashkāsham",
-         "street": "Tlalpan",
-         "houseNumber": 226,
+         "street": "Street",
+         "houseNumber": 111,
          "apartment": null,
          "floor": null,
          "total": 940,
-         "orderTimestamp": "2024-04-16 13:55:09",
+         "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
+            "pizzaImage": {
+               "url": "pepperoni"
+            },
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Pepperoni",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
+            "pizzaImage": {
+               "url": "hawaiana"
+            },
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Ham",
+               "quantity": 1
+            }, {
+               "name": "Pineapple",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
+            "pizzaImage": {
+               "url": "margherita"
+            },
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Tomato",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }, {
+               "name": "Basil",
+               "quantity": 1
+            }]
          }]
       }, {
          "orderId": "864460a4-cfd8-4495-93ba-8d8492143c23",
-         "country": "MEX",
+         "country": "México",
          "state": "Bamyan",
          "city": "Ashkāsham",
-         "street": "Tlalpan",
-         "houseNumber": 226,
+         "street": "Street",
+         "houseNumber": 111,
          "apartment": null,
          "floor": null,
          "total": 940,
-         "orderTimestamp": "2024-04-16 13:55:09",
+         "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
+            "pizzaImage": {
+               "url": "pepperoni"
+            },
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Pepperoni",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
+            "pizzaImage": {
+               "url": "hawaiana"
+            },
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Ham",
+               "quantity": 1
+            }, {
+               "name": "Pineapple",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }]
          },
          {
+            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
+            "pizzaImage": {
+               "url": "margherita"
+            },
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
-            "pizzaIngredients": []
+            "pizzaIngredients": [{
+               "name": "Tomato",
+               "quantity": 1
+            }, {
+               "name": "Mozzarella",
+               "quantity": 1
+            }, {
+               "name": "Basil",
+               "quantity": 1
+            }]
          }]
       }
    ],

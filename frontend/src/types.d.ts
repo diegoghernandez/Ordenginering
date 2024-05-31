@@ -17,12 +17,14 @@ interface Page {
 }
 
 export interface Pizza {
-   id?:         `${string}-${string}-${string}-${string}-${string}`;
-   pizzaName:        string;
-   image: string;
-   size:        Size;
-   quantity: number;
-   ingredientNameDtoList: Ingredient[];
+   id?:         `${string}-${string}-${string}-${string}-${string}`
+   pizzaName:        string
+   pizzaImage: {
+      url: string
+   }
+   size:        Size
+   quantity: number
+   pizzaIngredients: Ingredient[]
 }
 
 export interface Ingredient {

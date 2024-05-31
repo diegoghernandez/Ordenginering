@@ -38,7 +38,7 @@ const profileLinks: ProfileLinks[] = [{
          client:load
          id={Number(slug.split('/')[0])}
          initialData={{
-            page: [{ number: 0, content: orders.content}],
+            content: [orders.content],
             pageNumber: orders.pageable.pageNumber,
             last: orders.last
          }}

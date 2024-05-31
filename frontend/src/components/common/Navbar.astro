@@ -1,13 +1,14 @@
 ---
-import { ShoppingCart } from '../order/ShoppingCart'
-import { ShowOrder } from '../order/ShowOrders'
-import ModalContainer from './ModalContainer.astro'
+import { ShoppingCart } from '@/components/order/ShoppingCart'
+import { ShowOrder } from '@/components/order/ShowOrders'
+import { ModalContainer } from '@/components/common/ModalContainer'
 
 const pages = [
 	{ name: 'Home', link: '/'},
 	{ name: 'Menu', link: '/menu'},
 	{ name: 'Customize', link: '/customize/empty'}
 ]
+
 ---
 
 <nav>
@@ -17,7 +18,7 @@ const pages = [
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
          </svg>
       </button>
-      <ModalContainer>
+      <ModalContainer client:load position='left'>
          <ul>
             {pages.map((page) => (
                <li>
@@ -38,8 +39,7 @@ const pages = [
       </a>
       <ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
    </div>
-   <ModalContainer>
-      <p slot='description'>Your order</p>
+   <ModalContainer client:load description='Your order' position='right'>
       <ShowOrder client:idle />
    </ModalContainer>
 </nav>
@@ -52,24 +52,16 @@ const pages = [
 
 	const openMovilMenuButton = document.querySelector('.menu--movil button')
 	const movilMenuModal = document.querySelector('.menu--movil dialog')
-	const closeMovilMenuButton = document.querySelector('.menu--movil dialog button')
 
 	if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
 		openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
 	}
-	if (closeMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
-		closeMovilMenuButton.addEventListener('click', () => movilMenuModal.close())
-	}
 
 	const openCartButton = document.querySelector('.nav--interaction--buttons button')
-	const cartModal = document.querySelector('.nav--interaction--buttons + dialog')
-	const closeCartButton = document.querySelector('.nav--interaction--buttons + dialog button')
+	const cartModal = document.querySelectorAll('dialog')[1]
 
 	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
 		openCartButton.addEventListener('click', () => cartModal.showModal())
-	}
-	if (closeCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
-		closeCartButton.addEventListener('click', () => cartModal.close())
 	}
 </script>
 

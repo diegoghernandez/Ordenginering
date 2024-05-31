@@ -40,10 +40,12 @@ function getUrlImage(specificPath: string) {
 						<div class='buttons-column'>
 							<AddPizza client:idle pizza={{
 								pizzaName: pizza.name,
-								image: getUrlImage(pizza.image.url),
+								pizzaImage: {
+									url: getUrlImage(pizza.image.url)
+								},
 								size: Size.MEDIUM,
 								quantity: 1,
-								ingredientNameDtoList: pizza.ingredients.map(
+								pizzaIngredients: pizza.ingredients.map(
 									(ingredient) => ({ name: ingredient, quantity: 1 }))
 							}} />
 							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>

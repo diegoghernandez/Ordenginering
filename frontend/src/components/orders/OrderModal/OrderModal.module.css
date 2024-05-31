@@ -1,0 +1,48 @@
+.order-container {
+   display: flex;
+   flex-direction: column;
+   padding: 16px;
+   gap: 16px;
+}
+
+.order-description-container {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+
+   & p > * {
+      color: var(--primary-interaction);
+   }
+}
+
+.order-pizza-container {
+   display: grid;
+   grid-template-columns: 112px 1fr;
+   grid-template-areas: 
+      "image name"
+      "image price"
+      "image size"
+      "image ingredient";
+   gap: 4px 12px;
+   position: relative;
+
+   & figure {
+      grid-area: image;
+      width: 112px;
+      height: 112px;
+      border-radius: 16px;
+      border: 1px solid var(--outline-light);
+		box-shadow: var(--surface-40) 0 4px 10px -4px;
+   }
+
+   & h3 {
+      grid-area: name;
+   }
+
+   & p:last-of-type {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      color: var(--primary-interaction);
+   }
+}

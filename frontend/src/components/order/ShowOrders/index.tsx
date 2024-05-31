@@ -19,7 +19,7 @@ export function ShowOrder() {
    return (
       <section className={Styles['order-styles']}>
          <h2>Total <strong>${pizzaList.map((pizza) => 
-            getPizzaPrice(pizza.ingredientNameDtoList.length, pizza.size, pizza.quantity))
+            getPizzaPrice(pizza.pizzaIngredients?.length, pizza.size, pizza.quantity))
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
          <a className={PRIMARY__BUTTON} href='/client/checkout'>
@@ -32,7 +32,7 @@ export function ShowOrder() {
                   <CardContainer key={pizzaInOrder.id} styleClass={String(Styles['card-separation'])}>
                      <>
                         <img 
-                           src={pizzaInOrder.image} 
+                           src={pizzaInOrder.pizzaImage.url} 
                            alt={`${pizzaInOrder.pizzaName} pizza`} 
                            loading='lazy' 
                            decoding='async'
@@ -40,8 +40,8 @@ export function ShowOrder() {
                            height='112'
                         />
                         <h3>{pizzaInOrder.pizzaName}</h3>
-                        <p>${getPizzaPrice(pizzaInOrder.ingredientNameDtoList.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
-                        <p>{pizzaInOrder.ingredientNameDtoList?.map((ingredient) => ingredient.name).join(', ')}</p>
+                        <p>${getPizzaPrice(pizzaInOrder.pizzaIngredients.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
+                        <p>{pizzaInOrder.pizzaIngredients?.map((ingredient) => ingredient.name).join(', ')}</p>
                         <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 
                               valueToShow={pizzaInOrder.quantity}

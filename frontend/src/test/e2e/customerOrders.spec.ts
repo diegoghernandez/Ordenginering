@@ -15,9 +15,6 @@ test.describe('Customer orders page tests', () => {
       await expect(page.getByRole('link', { name: 'Profile' })).not.toHaveClass('active')
       await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
-      await expect(page.getByRole('article')).toHaveCount(3)
-      
-      await expect(page.getByRole('alert')).toBeVisible()
       
       await expect(page.getByRole('article')).toHaveCount(6)
       await expect(page.getByRole('alert')).not.toBeVisible()
@@ -31,10 +28,26 @@ test.describe('Customer orders page tests', () => {
       for (const element of await page.getByRole('article').all()) {
          await element.screenshot()
          await expect(element.getByText('Apr 16, 2024')).toBeVisible()
-         await expect(element.getByText('3 products')).toBeVisible()
+         await expect(element.getByText(/[3,6] products/)).toBeVisible()
          await expect(element.getByText('Total')).toBeVisible()
          await expect(element.getByText('$940')).toBeVisible()
-         await expect(element.getByRole('link')).toBeVisible()
+         await expect(element.getByRole('button')).toBeVisible()
+         await expect(element.getByRole('dialog')).toBeHidden()
       }
+   })
+
+   test('Should show correctly one order when you click in one of the cards', async ({ page }) => {
+      await page.getByRole('article').nth(3).click()
+
+      const dialogElement = page.getByRole('dialog')
+      await expect(dialogElement.getByText('Your order')).toBeVisible()
+      await expect(dialogElement.getByText('Date: 4/16/24, 1:55:09 PM')).toBeVisible()
+      await expect(dialogElement.getByText('Products: 6')).toBeVisible()
+      await expect(dialogElement.getByText('Total: $940')).toBeVisible()
+      await expect(dialogElement.getByText('Country: México')).toBeVisible()
+      await expect(dialogElement.getByText('State: Bamyan')).toBeVisible()
+      await expect(dialogElement.getByText('City: Ashkāsham')).toBeVisible()
+      await expect(dialogElement.getByText('Street: Street')).toBeVisible()
+      await expect(dialogElement.getByText('House number: 111')).toBeVisible()
    })
 })

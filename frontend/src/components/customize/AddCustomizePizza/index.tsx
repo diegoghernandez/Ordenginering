@@ -31,10 +31,12 @@ export function AddCustomizePizza({ pizzaName, image, characteristics, ingredien
          showModal()
          addPizza({
             pizzaName,
-            image,
+            pizzaImage: {
+               url: image
+            },
             size: characteristics.size,
             quantity: characteristics.quantity,
-            ingredientNameDtoList: ingredients.map((element) => ({ name: element.name, quantity: element.quantity }))
+            pizzaIngredients: ingredients.map((element) => ({ name: element.name, quantity: element.quantity }))
          })
       }, 1000)
    }

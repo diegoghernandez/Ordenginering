@@ -1,25 +1,25 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { CustomSelect } from '@/components/common/CustomSelect'
 import { FormContainer } from '@/components/common/FormContainer'
+import StateCities from '@/data/state_cities.json'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
-import type { Order } from '@/types'
-import StateCities from '@/data/state_cities.json'
+import type { OrderRequest } from '@/types'
 
 interface Props {
    countryList: { code: string, name: string }[]
 }
 
 export function CheckoutForm({ countryList }: Props) {
-   const { isLoading, error, response, handlePromise } = useServicePromise<Order>(saveOrder)
+   const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
 
    const states = StateCities.filter(({countryId}) => countryId === 1).flatMap(({ name }) => name)
    const cities = StateCities.filter(({id}) => id === 3901).flatMap(({ cities }) => cities)
    
    const handleData = (formValues: string[]) => {
-      const order: Order = {
+      const order: OrderRequest = {
          idCustomer: 4234,
          country: formValues[0],
          state: formValues[1],

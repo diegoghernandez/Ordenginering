@@ -1,0 +1,46 @@
+.dialog-container {
+   width: 100%;
+   max-width: 640px;
+   min-height: 100vh;
+   border: none;
+   background-color: var(--background);
+
+   & nav {
+      display: flex;
+      width: 100%;
+      justify-content: end;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 99999;
+
+      & button {
+         background-color: transparent;
+         height: 24px;
+         color: var(--text-color);
+      
+         &:hover {
+            color: var(--primary-interaction);
+         }
+      
+         &:focus-within {
+            color: var(--primary-interaction);
+            outline: 1px solid var(--outline);
+         }
+      }
+   }
+
+   & nav:has(p) {
+      justify-content: start;
+      margin-left: auto;
+   }
+
+   &::backdrop {
+      opacity: 0.1;
+      background-color: var(--state-layer-color);
+   }
+}
+
+.right {
+   margin-left: auto;
+}

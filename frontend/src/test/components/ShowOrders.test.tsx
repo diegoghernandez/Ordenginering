@@ -88,10 +88,12 @@ const setPizza = () => {
       pizza: [{
          id: '9398812b-8ba2-4a20-8613-339c13df14ca',
          pizzaName: 'Pepperoni',
-         image: '/client/images/pizza/pepperoni.jpg',
+         pizzaImage: {
+            url: '/client/images/pizza/pepperoni.jpg'
+         },
          size: Size.MEDIUM,
          quantity: 2,
-         ingredientNameDtoList: [{
+         pizzaIngredients: [{
             id: 1,
             name: 'Pepperoni',
             quantity: 1
@@ -103,10 +105,12 @@ const setPizza = () => {
       }, {
          id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
          pizzaName: 'BBQ Chicken',
-         image: '/client/images/pizza/pepperoni.jpg',
+         pizzaImage: {
+            url: '/client/images/pizza/pepperoni.jpg'
+         },
          size: Size.MEDIUM,
          quantity: 5,
-         ingredientNameDtoList: [{
+         pizzaIngredients: [{
             id: 5,
             name: 'BBQ Sauce',
             quantity: 1
