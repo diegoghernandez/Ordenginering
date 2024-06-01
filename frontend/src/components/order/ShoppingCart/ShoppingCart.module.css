@@ -1,5 +1,18 @@
-button {
+.cart-button {
    position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 4px;
+
+   &:hover,
+   &:focus {
+      color: var(--primary-interaction);
+   }
+
+   &:focus {
+      outline: 1px solid var(--outline);
+   }
 
    & .quantity-identifier {
       position: absolute;
