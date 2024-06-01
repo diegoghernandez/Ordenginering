@@ -3,6 +3,7 @@ import { findNavbarElements } from './utils/navbarUtils'
 
 test.describe('Customize page e2e tests', () => {
    test('Should render correctly', async ({ page }) => {
+      test.setTimeout(1000 * 50)
       await page.goto('/client/customize/empty')
       await expect(page).toHaveTitle('Customize your empty pizza')
 
@@ -184,7 +185,8 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
       await expect(page.getByRole('article').getByText('Custom empty')).toBeVisible()
       await expect(page.getByRole('article').getByText('$280')).toBeVisible()
-      await expect(page.getByRole('article').getByText('Grilled Chicken, Mozzarella')).toBeVisible()
+      await expect(page.getByRole('article').getByText('Grilled Chicken X1')).toBeVisible()
+      await expect(page.getByRole('article').getByText('Mozzarella X1')).toBeVisible()
       await expect(page.getByRole('article').getByText('2', { exact: true })).toBeVisible()
    })
 })

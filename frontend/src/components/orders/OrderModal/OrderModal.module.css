@@ -71,7 +71,7 @@
       grid-area: size;
    }
 
-   & > p:nth-of-type(3) {
+   & > div:last-of-type {
       grid-area: ingredient;
    }
 

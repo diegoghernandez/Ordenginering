@@ -5,6 +5,7 @@ import { Size } from '@/constants/size'
 import type { Order } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import Styles from './OrderModal.module.css'
+import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 
 interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void,
@@ -41,7 +42,7 @@ export function OrderModal({ funToSaveDialog, order }: Props) {
                      <h2>{pizza.pizzaName}</h2>
                      <p>${getPizzaPrice(pizza.pizzaIngredients.length, Size[pizza.size as Size], pizza.quantity)}</p>
                      <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>
-                     <p>{pizza.pizzaIngredients.map(({ name }) => name).join(', ')}</p>
+                     <IngredientsContainer ingredients={pizza.pizzaIngredients} />
                      <p>X{pizza.quantity}</p>
                   </>
                </CardContainer>

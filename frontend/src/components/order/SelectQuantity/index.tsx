@@ -21,7 +21,7 @@ export function SelectQuantity({
    maxValue,
    increase,
    decrease
-}: Props) {
+}: Props) {   
    return (
       <div className={`${PRIMARY__BUTTON} ${Styles['select-quantity']}`}>
          <button aria-label={decrease.label} type='button' onClick={decrease.fun} disabled={valueToShow === minValue}>

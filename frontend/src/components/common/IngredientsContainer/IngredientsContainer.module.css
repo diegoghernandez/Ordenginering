@@ -1,0 +1,16 @@
+.ingredients-container {
+   display: flex;
+   flex-wrap: wrap;
+
+   & p {
+      width: fit-content;
+
+      & span {
+         position: relative;
+         top: -6px;
+         right: 4px;
+         font-size: 0.75rem;
+         color: var(--primary-interaction);
+      }
+   }
+}

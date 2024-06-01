@@ -49,5 +49,15 @@ test.describe('Customer orders page tests', () => {
       await expect(dialogElement.getByText('City: Ashkāsham')).toBeVisible()
       await expect(dialogElement.getByText('Street: Street')).toBeVisible()
       await expect(dialogElement.getByText('House number: 111')).toBeVisible()
+
+      await expect(page.getByRole('dialog').getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(6)
+
+      for (const element of await page.getByRole('dialog').getByRole('article').filter({ has: page.getByRole('figure') }).all()) {
+         await expect(element.getByRole('heading')).toBeVisible()
+         await expect(element.getByText(/\$[140,160,640]/)).toBeVisible();
+         (await element.getByText(/[a-zA-Z]+ X1/).all()).forEach((element) => expect(element).toBeVisible())
+         await expect(element.getByText('Medium')).toBeVisible()
+         await expect(element.getByText(/\SX[1,4]/)).toBeVisible()
+      }
    })
 })

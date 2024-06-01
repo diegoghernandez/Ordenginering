@@ -7,6 +7,7 @@ import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 import { ImgContainer } from '@/components/common/ImgContainer'
+import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 
 export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
@@ -45,7 +46,7 @@ export function ShowOrder() {
                         <h3>{pizzaInOrder.pizzaName}</h3>
                         <p>${getPizzaPrice(pizzaInOrder.pizzaIngredients.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
                         <p>{pizzaInOrder.size.at(0) + pizzaInOrder.size.substring(1).toLocaleLowerCase()}</p>
-                        <p>{pizzaInOrder.pizzaIngredients?.map((ingredient) => ingredient.name).join(', ')}</p>
+                        <IngredientsContainer ingredients={pizzaInOrder.pizzaIngredients} />
                         <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 
                               valueToShow={pizzaInOrder.quantity}
