@@ -1,7 +1,7 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
-import { ModalContainer } from '@/components/common/ModalContainer'
+import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import type { Order } from '@/types'
 import Styles from './OrderModal.module.css'
 
@@ -12,7 +12,7 @@ interface Props {
 
 export function OrderModal({ funToSaveDialog, order }: Props) {
    return (
-      <ModalContainer ref={funToSaveDialog} position='right' description='Your order'>
+      <LargeModalContainer ref={funToSaveDialog} position='right' description='Your order'>
          <section className={Styles['order-container']}>
             <CardContainer styleClass={Styles['order-description-container']}>
                <>
@@ -46,6 +46,6 @@ export function OrderModal({ funToSaveDialog, order }: Props) {
                </CardContainer>
             ))}
          </section>
-      </ModalContainer>
+      </LargeModalContainer>
    )
 }

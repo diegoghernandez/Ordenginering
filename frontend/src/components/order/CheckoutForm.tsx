@@ -6,6 +6,9 @@ import { useServicePromise } from '@/hooks/useServicePromise'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
 import type { OrderRequest } from '@/types'
+import { SmallModalContainer } from '../common/SmallModalContainer'
+import { PRIMARY__BUTTON } from '@/constants/styles'
+import { useRef } from 'react'
 
 interface Props {
    countryList: { code: string, name: string }[]
@@ -14,6 +17,7 @@ interface Props {
 export function CheckoutForm({ countryList }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
+   const dialogRef = useRef<HTMLDialogElement>(null)
 
    const states = StateCities.filter(({countryId}) => countryId === 1).flatMap(({ name }) => name)
    const cities = StateCities.filter(({id}) => id === 3901).flatMap(({ cities }) => cities)
@@ -35,17 +39,27 @@ export function CheckoutForm({ countryList }: Props) {
       }
       
       handlePromise(order)
+   }   
+
+   if (response?.status === 200 && dialogRef.current instanceof HTMLDialogElement) {
+      dialogRef.current.showModal()
    }
 
    return (
       <FormContainer
          handleData={handleData}
-         response={response}
+         response={response?.status !== 200 ? response : null}
          submitButton={{
             label: 'Checkout',
             isLoading: isLoading
          }}
       >
+         <SmallModalContainer ref={dialogRef}>
+            <>
+               <h2>{response?.message}</h2>
+               <a href='/client/menu' className={PRIMARY__BUTTON}>Accept</a>
+            </>
+         </SmallModalContainer>
          <CustomSelect
             label='Country*'
             required={true}

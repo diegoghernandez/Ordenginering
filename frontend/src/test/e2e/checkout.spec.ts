@@ -86,7 +86,7 @@ test.describe('Checkout page tests', () => {
       await worker.use(...orderHandler)
       
       await page.getByRole('button', { name: 'Checkout' }).click()
-      await expect(page.getByRole('alert').getByText('Success')).toBeVisible()
-      await expect(page.getByRole('alert').getByText('Order save correctly')).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Order save correctly' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Accept' })).toBeVisible()
    })
 })

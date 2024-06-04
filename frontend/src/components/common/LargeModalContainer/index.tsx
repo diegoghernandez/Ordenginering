@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef, type ReactElement } from 'react'
-import Styles from './ModalContainer.module.css'
+import Styles from './LargeModalContainer.module.css'
 
 interface Props {
    description?: string
@@ -7,7 +7,7 @@ interface Props {
    position: 'left' | 'right'
 }
 
-export const ModalContainer = forwardRef<{ showModal: () => void }, Props>(function ModalContainer({ description, children, position }, ref) {
+export const LargeModalContainer = forwardRef<{ showModal: () => void }, Props>(function LargeModalContainer({ description, children, position }, ref) {
    const dialogRef = useRef<HTMLDialogElement>(null)
 
    const closeModal = () => {

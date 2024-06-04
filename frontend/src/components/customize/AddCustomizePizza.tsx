@@ -1,10 +1,9 @@
-import { CardContainer } from '@/components/common/CardContainer'
+import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import type { Ingredient, Pizza } from '@/types'
 import { useRef, useState } from 'react'
-import type { Characteristics } from '../PizzaData'
-import Styles from './AddCustomizePizza.module.css'
+import type { Characteristics } from './PizzaData'
 
 interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageUrl' | 'pizzaImageAuthor'>
@@ -48,15 +47,13 @@ export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props
          >
             Add order
          </button>
-         <dialog ref={dialogRef} className={Styles['information-dialog']}>
-            <CardContainer styleClass={Styles['information-card']}>
-               <>
-                  <h2>Added to shopping cart correctly</h2>
-                  <a className={PRIMARY__BUTTON} href='/client/menu'>Keep ordering</a>
-                  <a className={SECONDARY__BUTTON} href='/client/checkout'>Checkout</a>
-               </>
-            </CardContainer>
-         </dialog>
+         <SmallModalContainer ref={dialogRef}>
+            <>
+               <h2>Added to shopping cart correctly</h2>
+               <a className={PRIMARY__BUTTON} href='/client/menu'>Keep ordering</a>
+               <a className={SECONDARY__BUTTON} href='/client/checkout'>Checkout</a>
+            </>
+         </SmallModalContainer>
       </>
    )
 }

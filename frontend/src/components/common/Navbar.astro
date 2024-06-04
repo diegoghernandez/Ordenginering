@@ -1,7 +1,7 @@
 ---
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
-import { ModalContainer } from '@/components/common/ModalContainer'
+import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 
 const pages = [
 	{ name: 'Home', link: '/'},
@@ -18,7 +18,7 @@ const pages = [
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
          </svg>
       </button>
-      <ModalContainer client:load position='left'>
+      <LargeModalContainer client:load position='left'>
          <ul>
             {pages.map((page) => (
                <li>
@@ -28,7 +28,7 @@ const pages = [
                </li>
             ))}
          </ul>
-      </ModalContainer>
+      </LargeModalContainer>
    </div>
    <div class='nav--interaction--buttons'>
       <a href='/client/customer/'>
@@ -39,9 +39,9 @@ const pages = [
       </a>
       <ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
    </div>
-   <ModalContainer client:load description='Your order' position='right'>
+   <LargeModalContainer client:load description='Your order' position='right'>
       <ShowOrder client:idle />
-   </ModalContainer>
+   </LargeModalContainer>
 </nav>
 
 <script>

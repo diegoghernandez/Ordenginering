@@ -1,11 +1,11 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { DetectEndOfScroll } from '@/components/common/DetectEndOfScroll'
 import { Spin } from '@/components/common/Spin'
+import { OrderModal } from '@/components/pastOrders/OrderModal'
 import { StatusError } from '@/services/exceptions/StatusError'
 import { getOrdersByAccount } from '@/services/orderService'
 import type { Order } from '@/types'
 import { Fragment, useRef, useState } from 'react'
-import { OrderModal } from '../OrderModal'
 import Styles from './ShowPastOrders.module.css'
 
 type Data =  { 
