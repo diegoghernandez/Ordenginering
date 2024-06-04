@@ -1,7 +1,5 @@
 package com.backend.pizzadata.web.domain;
 
-import com.backend.pizzadata.persistence.entity.PizzaEntity;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -17,5 +15,5 @@ public record OrderDomain(
         Integer floor,
         int total,
         LocalDateTime orderTimestamp,
-        List<PizzaEntity> pizzaList
+        List<PizzaDomain> pizzaList
 ){}

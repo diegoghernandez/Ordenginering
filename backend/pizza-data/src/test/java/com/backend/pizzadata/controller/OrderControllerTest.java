@@ -7,7 +7,9 @@ import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.setup.client.SetUpForJwtClient;
 import com.backend.pizzadata.web.OrderController;
 import com.backend.pizzadata.web.config.JwtFilter;
+import com.backend.pizzadata.web.domain.IngredientDomain;
 import com.backend.pizzadata.web.domain.OrderDomain;
+import com.backend.pizzadata.web.domain.PizzaDomain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -124,6 +126,20 @@ class OrderControllerTest extends SetUpForJwtClient {
               order.getTotal(),
               order.getOrderTimestamp(),
               order.getPizzaList()
+                      .stream().map((pizzaEntity) -> new PizzaDomain(
+                              pizzaEntity.getIdPizza(),
+                              pizzaEntity.getPizzaName(),
+                              pizzaEntity.getPizzaImageUrl(),
+                              pizzaEntity.getPizzaImageAuthor(),
+                              pizzaEntity.getPrice(),
+                              pizzaEntity.getSize(),
+                              pizzaEntity.getQuantity(),
+                              pizzaEntity.getPizzaIngredients()
+                                      .stream().map((pizzaIngredients) -> new IngredientDomain(
+                                              pizzaIngredients.getIngredientEntity().getIngredientName(),
+                                              pizzaIngredients.getIngredientQuantity()
+                                      )).toList()
+                      )).toList()
       ));
 
       assertAll(

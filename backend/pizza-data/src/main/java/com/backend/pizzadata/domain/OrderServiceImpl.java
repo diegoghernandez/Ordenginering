@@ -17,7 +17,10 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
    @Override
    public Optional<Page<OrderEntity>> getOrdersByCustomerId(long id, int page) {
-      return orderRepository.findByIdCustomer(id,  PageRequest.of(page, 5));
+      return orderRepository.findByIdCustomerOrderByOrderTimestampDesc(id,  PageRequest.of(page, 10));
    }
 
    @Override
@@ -78,7 +81,8 @@ public class OrderServiceImpl implements OrderService {
       var pizzaEntityList = new ArrayList<PizzaEntity>();
 
       for (var pizzaDto : pizzaDtoList) {
-         int price = pizzaDto.ingredientNameDtoList().size() * 20;
+         var idPizza = UUID.randomUUID();
+         int price = pizzaDto.pizzaIngredients().size() * 20;
 
          price += switch (pizzaDto.size()) {
             case LARGE -> 150;
@@ -88,14 +92,14 @@ public class OrderServiceImpl implements OrderService {
 
          price *= pizzaDto.quantity();
 
-         var pizzaIngredients = pizzaDto.ingredientNameDtoList().stream().map((ingredientNameDto) -> {
+         var pizzaIngredients = pizzaDto.pizzaIngredients().stream().map((ingredientNameDto) -> {
             try {
-               System.out.println(ingredientNameDto.name());
                var ingredient = ingredientRepository.findByIngredientName(ingredientNameDto.name())
                        .orElseThrow(() -> new NotAllowedException("Ingredient doesn't exist"));
                return PizzaIngredients.builder()
-                       .ingredientEntity(ingredient)
-                       .ingredienQuantity(ingredientNameDto.quantity())
+                       .idIngredient(ingredient.getIdIngredient())
+                       .idPizza(idPizza)
+                       .ingredientQuantity(ingredientNameDto.quantity())
                        .build();
             } catch (NotAllowedException e) {
                throw new RuntimeException(e);
@@ -103,13 +107,16 @@ public class OrderServiceImpl implements OrderService {
          }).collect(Collectors.toSet());
 
          pizzaEntityList.add(PizzaEntity.builder()
+                         .idPizza(idPizza)
                          .idOrder(idOrder)
                          .pizzaName(pizzaDto.pizzaName())
+                         .pizzaImageUrl(pizzaDto.pizzaImageUrl())
+                         .pizzaImageAuthor(pizzaDto.pizzaImageAuthor())
                          .size(pizzaDto.size())
                          .quantity(pizzaDto.quantity())
-                         .pizzaIngredients(pizzaIngredients)
                          .price(price)
                          .pizzaTimestamp(LocalDateTime.now())
+                         .pizzaIngredients(pizzaIngredients)
                  .build()
          );
       }

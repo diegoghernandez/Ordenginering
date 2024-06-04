@@ -16,18 +16,6 @@ interface Page {
    empty:            boolean;
 }
 
-export interface Pizza {
-   id?:         `${string}-${string}-${string}-${string}-${string}`
-   pizzaName:        string
-   pizzaImage: {
-      url: string,
-      author: string
-   }
-   size:        Size
-   quantity: number
-   pizzaIngredients: Ingredient[]
-}
-
 export interface Ingredient {
    id?: number;
    name: string;
@@ -64,6 +52,17 @@ export interface CustomerDto {
    password: string;
    matchingPassword: string;
    birthDate: string;
+}
+
+export interface Pizza {
+   idPizza?:         `${string}-${string}-${string}-${string}-${string}`
+   pizzaName:        string
+   pizzaImageUrl: string,
+   pizzaImageAuthor: string
+   price?: number
+   size:        Size
+   quantity: number
+   pizzaIngredients: Ingredient[]
 }
 
 export interface OrderRequest {

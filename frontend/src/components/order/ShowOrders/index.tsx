@@ -31,11 +31,11 @@ export function ShowOrder() {
          {pizza ? 
             pizza.length !== 0 ? 
                pizza?.map((pizzaInOrder) => (
-                  <CardContainer key={pizzaInOrder.id} styleClass={String(Styles['card-separation'])}>
+                  <CardContainer key={pizzaInOrder.idPizza} styleClass={String(Styles['card-separation'])}>
                      <>
-                        <ImgContainer figcaptionText={pizzaInOrder.pizzaImage.author}>
+                        <ImgContainer figcaptionText={pizzaInOrder.pizzaImageAuthor}>
                            <img 
-                              src={pizzaInOrder.pizzaImage.url} 
+                              src={pizzaInOrder.pizzaImageUrl} 
                               alt={`${pizzaInOrder.pizzaName} pizza`} 
                               loading='lazy' 
                               decoding='async'
@@ -52,14 +52,14 @@ export function ShowOrder() {
                               valueToShow={pizzaInOrder.quantity}
                               increase={{
                                  label: 'Add pizza',
-                                 fun: () => updatePizzaQuantity(pizzaInOrder.id ?? '', 'add')
+                                 fun: () => updatePizzaQuantity(pizzaInOrder.idPizza ?? '', 'add')
                               }}
                               decrease={{
                                  label: 'Subtract pizza',
                                  fun: () => {
-                                    updatePizzaQuantity(pizzaInOrder.id ?? '', 'subs')
+                                    updatePizzaQuantity(pizzaInOrder.idPizza ?? '', 'subs')
                                     if (pizzaInOrder.quantity - 1 === 0) {
-                                       removePizza(pizzaInOrder.id ?? '')
+                                       removePizza(pizzaInOrder.idPizza ?? '')
                                     }
                                  }
                               }}
@@ -67,7 +67,7 @@ export function ShowOrder() {
                            <button 
                               className={SECONDARY__BUTTON} 
                               type='button' 
-                              onClick={() => removePizza(pizzaInOrder.id ?? '')}
+                              onClick={() => removePizza(pizzaInOrder.idPizza ?? '')}
                            >Delete</button>
                         </div>
                      </>

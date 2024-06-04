@@ -6,6 +6,7 @@ import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
+import com.backend.pizzadata.persistence.entity.PizzaIngredients;
 import com.backend.pizzadata.setup.containers.SetUpForServiceWithContainers;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -18,10 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,13 +58,16 @@ class OrderServiceImplTest extends SetUpForServiceWithContainers {
    @Test
    @DisplayName("Should return all orders with the a specific customer id using the repository")
    void getOrdersByCustomerId() {
-      var listOrder = orderService.getOrdersByCustomerId(4234L, 0).get();
-      var listEmpty = orderService.getOrdersByCustomerId(86579L, 0).get();
+      var orderList = orderService.getOrdersByCustomerId(4234L, 0).get();
+      var emptyList = orderService.getOrdersByCustomerId(86579L, 0).get();
+
+      var pizzaList = orderList.stream().flatMap((orderEntity) -> orderEntity.getPizzaList().stream()).toList();
 
       assertAll(
-              () -> assertThat(TestDataUtil.getOrderList().stream().map(OrderEntity::toString).toList())
-                      .hasSameElementsAs(listOrder.stream().map(OrderEntity::toString).toList()),
-              () -> assertTrue(listEmpty.isEmpty())
+              () -> assertEquals(TestDataUtil.getOrderList().toString(), orderList.toString()),
+              () -> assertEquals(TestDataUtil.getPizzaList().toString(), pizzaList.toString()),
+              () -> assertEquals(5, pizzaList.stream().flatMap((pizzaEntity -> pizzaEntity.getPizzaIngredients().stream())).toList().size()),
+              () -> assertTrue(emptyList.isEmpty())
       );
    }
 
@@ -92,15 +93,21 @@ class OrderServiceImplTest extends SetUpForServiceWithContainers {
       var pizzaString = List.of(
               PizzaEntity.builder()
                       .pizzaName("Pepperoni")
+                      .pizzaImageUrl("url")
+                      .pizzaImageAuthor("author")
                       .price(140)
                       .size(Size.MEDIUM)
                       .quantity(1)
+                      .pizzaIngredients(Set.of(PizzaIngredients.builder().idIngredient(1).build()))
                       .build(),
               PizzaEntity.builder()
                       .pizzaName("Hawaiana")
+                      .pizzaImageUrl("url")
+                      .pizzaImageAuthor("author")
                       .price(320)
                       .size(Size.MEDIUM)
                       .quantity(2)
+                      .pizzaIngredients(Set.of(PizzaIngredients.builder().idIngredient(2).build()))
                       .build()
       ).toString();
 

@@ -1,7 +1,8 @@
 package com.backend.pizzadata.persistence.entity;
 
-import com.backend.pizzadata.constants.Quantity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.util.UUID;
@@ -21,15 +22,22 @@ public class PizzaIngredients {
    @ToString.Exclude
    private UUID idPizzaIngredients;
 
-   @ManyToOne
-   @JoinColumn(name = "id_pizza")
+   @Column(name = "id_pizza", nullable = false)
+   private UUID idPizza;
+
+   @Column(name = "id_ingredient", nullable = false)
+   private Integer idIngredient;
+
+   @Min(1)
+   @Max(2)
+   @Column(name = "ingredient_quantity", nullable = false)
+   private Integer ingredientQuantity;
+
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "id_pizza", referencedColumnName = "id_pizza", insertable = false, updatable = false)
    private PizzaEntity pizzaEntity;
 
    @ManyToOne
-   @JoinColumn(name = "id_ingredient")
+   @JoinColumn(name = "id_ingredient", referencedColumnName = "id_ingredient", insertable = false, updatable = false)
    private IngredientEntity ingredientEntity;
-
-   @Enumerated(EnumType.STRING)
-   @Column(name = "ingredient_quantity", nullable = false)
-   private Quantity ingredienQuantity;
 }

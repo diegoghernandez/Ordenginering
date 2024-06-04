@@ -7,7 +7,7 @@ import type { Characteristics } from '../PizzaData'
 import Styles from './AddCustomizePizza.module.css'
 
 interface Props {
-   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImage'>
+   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageUrl' | 'pizzaImageAuthor'>
    characteristics: Characteristics,
    ingredients: Ingredient[]
 }
@@ -30,7 +30,8 @@ export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props
          showModal()
          addPizza({
             pizzaName: pizza.pizzaName,
-            pizzaImage: pizza.pizzaImage,
+            pizzaImageUrl: pizza.pizzaImageUrl,
+            pizzaImageAuthor: pizza.pizzaImageAuthor,
             size: characteristics.size,
             quantity: characteristics.quantity,
             pizzaIngredients: ingredients.map((element) => ({ name: element.name, quantity: element.quantity }))

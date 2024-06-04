@@ -1,11 +1,9 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
-import { ModalContainer } from '@/components/common/ModalContainer'
-import { Size } from '@/constants/size'
-import type { Order } from '@/types'
-import { getPizzaPrice } from '@/utils/getPizzaPrice'
-import Styles from './OrderModal.module.css'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
+import { ModalContainer } from '@/components/common/ModalContainer'
+import type { Order } from '@/types'
+import Styles from './OrderModal.module.css'
 
 interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void,
@@ -34,14 +32,14 @@ export function OrderModal({ funToSaveDialog, order }: Props) {
                </>
             </CardContainer>
             {order.pizzaList.map((pizza) => (
-               <CardContainer key={pizza.id} styleClass={Styles['order-pizza-container']}>
+               <CardContainer key={pizza.idPizza} styleClass={Styles['order-pizza-container']}>
                   <>
-                     <ImgContainer figcaptionText={pizza.pizzaImage.author}>
-                        <img src={`/client/images/pizza/${pizza.pizzaImage.url}.jpg`} alt={pizza.pizzaName + ' pizza'} />
+                     <ImgContainer figcaptionText={pizza.pizzaImageAuthor}>
+                        <img src={`/client/images/pizza/${pizza.pizzaImageUrl}.jpg`} alt={pizza.pizzaName + ' pizza'} />
                      </ImgContainer>
                      <h2>{pizza.pizzaName}</h2>
-                     <p>${getPizzaPrice(pizza.pizzaIngredients.length, Size[pizza.size as Size], pizza.quantity)}</p>
                      <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>
+                     <p>${pizza.price}</p>
                      <IngredientsContainer ingredients={pizza.pizzaIngredients} />
                      <p>X{pizza.quantity}</p>
                   </>

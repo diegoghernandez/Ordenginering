@@ -11,10 +11,8 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImage: {
-            url: 'url',
-            author: 'author'
-         }
+         pizzaImageUrl: 'url',
+         pizzaImageAuthor: 'author'
       }} />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
@@ -36,10 +34,8 @@ describe('PizzaData component tests', () => {
       useDesireIngredients.setState({ ingredients: [] })
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImage: {
-            url: 'url',
-            author: 'author'
-         }
+         pizzaImageUrl: 'url',
+         pizzaImageAuthor: 'author'
       }} prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
 
       expect(screen.getByText('Total: $180')).toBeInTheDocument()
@@ -56,10 +52,8 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImage: {
-            url: 'url',
-            author: 'author'
-         }
+         pizzaImageUrl: 'url',
+         pizzaImageAuthor: 'author'
       }}/>)
       const user = userEvent.setup()
 
@@ -86,10 +80,8 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImage: {
-            url: 'url',
-            author: 'author'
-         }
+         pizzaImageUrl: 'url',
+         pizzaImageAuthor: 'author'
       }}/>)
 
       fireEvent.click(screen.getByRole('button', { name: 'Add order' }))

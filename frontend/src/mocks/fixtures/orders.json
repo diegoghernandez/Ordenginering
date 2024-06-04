@@ -12,12 +12,10 @@
          "total": 940,
          "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
-            "pizzaImage": {
-               "url": "pepperoni",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "pepperoni",
+            "pizzaImageAuthor": "Author",
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
@@ -30,12 +28,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
-            "pizzaImage": {
-               "url": "hawaiana",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "hawaiana",
+            "pizzaImageAuthor": "Author",
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
@@ -51,12 +47,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
-            "pizzaImage": {
-               "url": "margherita",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "margherita",
+            "pizzaImageAuthor": "Author",
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
@@ -71,12 +65,10 @@
                "quantity": 1
             }]
          }, {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c14",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c14",
             "pizzaName": "Pepperoni",
-            "pizzaImage": {
-               "url": "pepperoni",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "pepperoni",
+            "pizzaImageAuthor": "Author",
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
@@ -89,12 +81,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c15",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c15",
             "pizzaName": "Hawaiana",
-            "pizzaImage": {
-               "url": "hawaiana",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "hawaiana",
+            "pizzaImageAuthor": "Author",
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
@@ -110,12 +100,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c16",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c16",
             "pizzaName": "Margherita",
-            "pizzaImage": {
-               "url": "margherita",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "margherita",
+            "pizzaImageAuthor": "Author",
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
@@ -142,12 +130,10 @@
          "total": 940,
          "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
-            "pizzaImage": {
-               "url": "pepperoni",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "pepperoni",
+            "pizzaImageAuthor": "Author",
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
@@ -160,12 +146,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
-            "pizzaImage": {
-               "url": "hawaiana",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "hawaiana",
+            "pizzaImageAuthor": "Author",
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
@@ -181,12 +165,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
-            "pizzaImage": {
-               "url": "margherita",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "margherita",
+            "pizzaImageAuthor": "Author",
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,
@@ -213,12 +195,10 @@
          "total": 940,
          "orderTimestamp": "2024-04-16T13:55:09",
          "pizzaList": [{
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c11",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c11",
             "pizzaName": "Pepperoni",
-            "pizzaImage": {
-               "url": "pepperoni",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "pepperoni",
+            "pizzaImageAuthor": "Author",
             "price": 140,
             "size": "MEDIUM",
             "quantity": 1,
@@ -231,12 +211,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c12",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c12",
             "pizzaName": "Hawaiana",
-            "pizzaImage": {
-               "url": "hawaiana",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "hawaiana",
+            "pizzaImageAuthor": "Author",
             "price": 160,
             "size": "MEDIUM",
             "quantity": 1,
@@ -252,12 +230,10 @@
             }]
          },
          {
-            "id": "864460a4-cfd8-4495-93ba-8d8492143c13",
+            "idPizza": "864460a4-cfd8-4495-93ba-8d8492143c13",
             "pizzaName": "Margherita",
-            "pizzaImage": {
-               "url": "margherita",
-               "author": "Author"
-            },
+            "pizzaImageUlr": "margherita",
+            "pizzaImageAuthor": "Author",
             "price": 640,
             "size": "MEDIUM",
             "quantity": 4,

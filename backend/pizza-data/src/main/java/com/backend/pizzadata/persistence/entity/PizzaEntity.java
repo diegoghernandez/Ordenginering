@@ -1,8 +1,6 @@
 package com.backend.pizzadata.persistence.entity;
 
 import com.backend.pizzadata.constants.Size;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,19 +19,22 @@ import java.util.UUID;
 public class PizzaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_pizza")
-    @JsonIgnore
     @ToString.Exclude
     private UUID idPizza;
 
     @Column(name = "id_order", nullable = false)
-    @JsonIgnore
     @ToString.Exclude
     private UUID idOrder;
 
     @Column(name = "pizza_name", length = 50, nullable = false)
     private String pizzaName;
+
+    @Column(name = "pizza_image_url", nullable = false)
+    private String pizzaImageUrl;
+
+    @Column(name = "pizza_image_author", nullable = false)
+    private String pizzaImageAuthor;
 
     @NotNull
     private Integer price;
@@ -46,17 +47,15 @@ public class PizzaEntity {
     private Integer quantity;
 
     @ToString.Exclude
-    @JsonIgnore
     @Column(name = "pizza_timestamp", columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime pizzaTimestamp;
 
-    @OneToMany(mappedBy = "pizzaEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pizzaEntity", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<PizzaIngredients> pizzaIngredients;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_order", referencedColumnName = "id_order", insertable = false, updatable = false)
     @ToString.Exclude
-    @JsonIgnore
     private OrderEntity order;
 }

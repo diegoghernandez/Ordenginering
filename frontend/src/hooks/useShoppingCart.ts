@@ -4,8 +4,8 @@ import type { Pizza } from '@/types'
 interface CartState {
    pizza: Pizza[];
    addPizza: (pizza: Pizza) => void;
-   updatePizzaQuantity: (id: string, operation: 'subs' | 'add', desireQuantity?: number) => Pizza[];
-   removePizza: (id: string) => void;
+   updatePizzaQuantity: (idPizza: string, operation: 'subs' | 'add', desireQuantity?: number) => Pizza[];
+   removePizza: (idPizza: string) => void;
    removeAllPizza: () => void;
 }
 
@@ -14,7 +14,7 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
    addPizza: (pizza) => {
       set((state) => {
          const checkIfObjectAreEqual = (pizzaState: Pizza, selectedPizza: Pizza) => {
-            const { id, quantity: quantityState, ...restState } = pizzaState
+            const { idPizza, quantity: quantityState, ...restState } = pizzaState
             const { quantity: quantityPizza, ...restPizza } = selectedPizza
             return JSON.stringify(restState) === JSON.stringify(restPizza) 
          }
@@ -22,20 +22,20 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
          const pizzaList: Pizza[] = []
          
          if (state.pizza.some((pizzaState) => checkIfObjectAreEqual(pizzaState, pizza))) {
-            const { id } = state.pizza.filter((pizzaState) => checkIfObjectAreEqual(pizzaState, pizza))[0]
-            pizzaList.push(...get().updatePizzaQuantity(id ?? '', 'add', pizza.quantity))
+            const { idPizza } = state.pizza.filter((pizzaState) => checkIfObjectAreEqual(pizzaState, pizza))[0]
+            pizzaList.push(...get().updatePizzaQuantity(idPizza ?? '', 'add', pizza.quantity))
          } else {
-            pizzaList.push({id: crypto.randomUUID(), ...pizza})
+            pizzaList.push({idPizza: crypto.randomUUID(), ...pizza})
             pizzaList.push(...state.pizza)
             localStorage.setItem('allPizza', JSON.stringify(pizzaList))
          }
          return { pizza: pizzaList }
       })
    },
-   updatePizzaQuantity: (id, operation, desireQuantity = 1) => {
+   updatePizzaQuantity: (idPizza, operation, desireQuantity = 1) => {
       set((state) => {
          const pizza = [...state.pizza.map((pizza) => {
-            if (pizza.id === id) {
+            if (pizza.idPizza === idPizza) {
                const { quantity, ...rest } = pizza
                const currentQuantity = operation === 'subs' ? 
                   quantity - desireQuantity : quantity + desireQuantity
@@ -51,7 +51,7 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
    },
    removePizza: (desireId) => {
       set((state) => {
-         const pizzaList = [...state.pizza.filter(({ id }) => id !== desireId)]
+         const pizzaList = [...state.pizza.filter(({ idPizza }) => idPizza !== desireId)]
          localStorage.setItem('allPizza', JSON.stringify(pizzaList))
          return { pizza: pizzaList }
       })

@@ -64,27 +64,31 @@ public final class TestDataUtil {
                  .idPizza(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
                  .idOrder(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
                  .pizzaName("Custom something 1")
+                 .pizzaImageUrl("url")
+                 .pizzaImageAuthor("author")
                  .price(534)
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .pizzaIngredients(Set.of(
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(0)).ingredienQuantity(Quantity.NORMAL).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredienQuantity(Quantity.NORMAL).build()
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(0)).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredientQuantity(1).build()
                  )).build(),
 
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
                  .idOrder(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
                  .pizzaName("Custom something 2")
+                 .pizzaImageUrl("url")
+                 .pizzaImageAuthor("author")
                  .price(534)
                  .quantity(2)
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .pizzaIngredients(Set.of(
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredienQuantity(Quantity.NORMAL).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(2)).ingredienQuantity(Quantity.NORMAL).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(3)).ingredienQuantity(Quantity.NORMAL).build()
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(2)).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(3)).ingredientQuantity(1).build()
                  )).build()
       );
    }
@@ -119,19 +123,25 @@ public final class TestDataUtil {
               List.of(
                       new PizzaDto(
                               "Pepperoni",
+                              "url",
+                              "author",
                               Size.MEDIUM,
                               1,
-                              List.of(new IngredientNameDto("Pepperoni", Quantity.NORMAL),
-                                      new IngredientNameDto("Mozzarella" ,Quantity.NORMAL)
+                              List.of(
+                                    new IngredientNameDto("Pepperoni", 1),
+                                    new IngredientNameDto("Mozzarella",1)
                               )
                       ),
                       new PizzaDto(
                               "Hawaiana",
+                              "url",
+                              "author",
                               Size.MEDIUM,
                               2,
-                              List.of(new IngredientNameDto("Mozzarella", Quantity.NORMAL),
-                                     new IngredientNameDto( "Pineapple", Quantity.NORMAL),
-                                     new IngredientNameDto( "Ham", Quantity.NORMAL)
+                              List.of(
+                                     new IngredientNameDto("Mozzarella", 1),
+                                     new IngredientNameDto( "Pineapple", 1),
+                                     new IngredientNameDto( "Ham", 1)
                               )
                       )
               )

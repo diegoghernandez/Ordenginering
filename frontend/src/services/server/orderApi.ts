@@ -1,5 +1,5 @@
 import type { PageOrder } from '@/types'
-import { StatusError } from '../exceptions/StatusError'
+import { StatusError } from '@/services/exceptions/StatusError'
 
 const URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:4436'
 const API = URL +  '/data/order'

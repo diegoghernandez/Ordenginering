@@ -4,7 +4,9 @@ import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.utils.JwtCookie;
+import com.backend.pizzadata.web.domain.IngredientDomain;
 import com.backend.pizzadata.web.domain.OrderDomain;
+import com.backend.pizzadata.web.domain.PizzaDomain;
 import com.backend.pizzadata.web.dto.OrderDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -50,7 +52,21 @@ public class OrderController {
               orderEntity.getFloor(),
               orderEntity.getTotal(),
               orderEntity.getOrderTimestamp(),
-              orderEntity.getPizzaList()
+              orderEntity.getPizzaList().stream()
+                      .map((pizzaEntity) -> new PizzaDomain(
+                              pizzaEntity.getIdPizza(),
+                              pizzaEntity.getPizzaName(),
+                              pizzaEntity.getPizzaImageUrl(),
+                              pizzaEntity.getPizzaImageAuthor(),
+                              pizzaEntity.getPrice(),
+                              pizzaEntity.getSize(),
+                              pizzaEntity.getQuantity(),
+                              pizzaEntity.getPizzaIngredients()
+                                      .stream().map((pizzaIngredients) -> new IngredientDomain(
+                                              pizzaIngredients.getIngredientEntity().getIngredientName(),
+                                              pizzaIngredients.getIngredientQuantity()
+                                      )).toList()
+                      )).toList()
       ));
 
       return new ResponseEntity<>(mappedOrder, HttpStatus.OK);

@@ -35,12 +35,10 @@ describe('Order service tests', () => {
             floor: null,
             apartment: null,
             pizzaList: [{
-               id: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
+               idPizza: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
                pizzaName: 'Pepperoni',
-               pizzaImage: {
-                  url: '/client/images/pizza/pepperoni.jpg',
-                  author: 'Author'
-               },
+               pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+               pizzaImageAuthor: 'Author',
                size: 'LARGE',
                quantity: 2,
                pizzaIngredients: [{
@@ -65,13 +63,11 @@ describe('Order service tests', () => {
             floor: null,
             apartment: null,
             pizzaList: [{
-               id: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
+               idPizza: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
                pizzaName: 'Pepperoni',
                quantity: 2,
-               pizzaImage: {
-                  url: '/client/images/pizza/pepperoni.jpg',
-                  author: 'Author'
-               },
+               pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+               pizzaImageAuthor: 'Author',
                size: 'LARGE',
                pizzaIngredients: [{
                   name: 'Pepperoni',

@@ -86,12 +86,10 @@ describe('ShowOrders component tests', () => {
 const setPizza = () => {
    useShoppingCart.setState({
       pizza: [{
-         id: '9398812b-8ba2-4a20-8613-339c13df14ca',
+         idPizza: '9398812b-8ba2-4a20-8613-339c13df14ca',
          pizzaName: 'Pepperoni',
-         pizzaImage: {
-            url: '/client/images/pizza/pepperoni.jpg',
-            author: 'Author'
-         },
+         pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+         pizzaImageAuthor: 'Author',
          size: Size.MEDIUM,
          quantity: 2,
          pizzaIngredients: [{
@@ -104,12 +102,10 @@ const setPizza = () => {
             quantity: 1
          }]
       }, {
-         id: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
+         idPizza: 'dbac95de-1552-4320-826a-2ba6c08c81ae',
          pizzaName: 'BBQ Chicken',
-         pizzaImage: {
-            url: '/client/images/pizza/pepperoni.jpg',
-            author: 'Author'
-         },
+         pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+         pizzaImageAuthor: 'Author',
          size: Size.MEDIUM,
          quantity: 5,
          pizzaIngredients: [{

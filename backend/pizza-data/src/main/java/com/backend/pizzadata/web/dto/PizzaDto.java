@@ -11,7 +11,9 @@ import java.util.List;
 
 public record PizzaDto(
         @NotBlank String pizzaName,
+        @NotBlank String pizzaImageUrl,
+        @NotBlank String pizzaImageAuthor,
         @NotNull Size size,
         @Min(1) @NotNull int quantity,
-        @NotEmpty List<@Valid  IngredientNameDto> ingredientNameDtoList
+        @NotEmpty List<@Valid  IngredientNameDto> pizzaIngredients
 ) {}

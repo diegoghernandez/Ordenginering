@@ -1,12 +1,12 @@
 ---
-import { Image } from 'astro:assets'
-import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
-import Layout from '@/layouts/Layout.astro'
+import { ImgContainer } from '@/components/common/ImgContainer'
 import { PizzaData } from '@/components/customize/PizzaData'
 import { PizzaIngredients } from '@/components/customize/PizzaIngredients'
-import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
-import { ImgContainer } from '@/components/common/ImgContainer'
 import pizzaList from '@/data/pizza.json'
+import Layout from '@/layouts/Layout.astro'
+import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
+import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
+import { Image } from 'astro:assets'
 
 
 export const getStaticPaths = (() => {
@@ -48,10 +48,8 @@ const getAuhor = pizza !== 'empty' ?
 			client:load 
 			pizza={{
 				pizzaName: pizza,
-				pizzaImage: {
-					url: `/client/images/pizza/${pizza}.jpg`,
-					author: getAuhor
-				}
+				pizzaImageUrl: `/client/images/pizza/${pizza}.jpg`,
+				pizzaImageAuthor: getAuhor
 			}}
 			prebuildIngredients={getIngredients} 
 		/>

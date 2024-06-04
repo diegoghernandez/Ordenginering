@@ -20,6 +20,7 @@ export async function getOrdersByAccount(id: number, page: number): Promise<Page
 export async function saveOrder(order: OrderRequest) {   
    const response = await fetch(`${API}/save`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
          'Content-Type': 'application/json',
       },

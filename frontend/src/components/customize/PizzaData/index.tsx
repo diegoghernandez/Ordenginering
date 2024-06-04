@@ -16,7 +16,7 @@ export type Characteristics = {
 }
 
 interface Props {
-   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImage'>
+   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageUrl' | 'pizzaImageAuthor'>
    prebuildIngredients?: string[]
 }
 
@@ -76,7 +76,8 @@ export function PizzaData({ pizza, prebuildIngredients = [] }: Props) {
             <AddCustomizePizza
                pizza={{
                   pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),
-                  pizzaImage: pizza.pizzaImage
+                  pizzaImageUrl: pizza.pizzaImageUrl,
+                  pizzaImageAuthor: pizza.pizzaImageAuthor,
                }}
                characteristics={characteristics} 
                ingredients={ingredients}

@@ -40,10 +40,8 @@ function getUrlImage(specificPath: string) {
 						<div class='buttons-column'>
 							<AddPizza client:idle pizza={{
 								pizzaName: pizza.name,
-								pizzaImage: {
-									url: getUrlImage(pizza.image.url),
-									author: pizza.image.author
-								},
+								pizzaImageUrl: getUrlImage(pizza.image.url),
+								pizzaImageAuthor: pizza.image.author,
 								size: Size.MEDIUM,
 								quantity: 1,
 								pizzaIngredients: pizza.ingredients.map(

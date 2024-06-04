@@ -20,7 +20,7 @@ export function CheckoutForm({ countryList }: Props) {
    
    const handleData = (formValues: string[]) => {
       const order: OrderRequest = {
-         idCustomer: 4234,
+         idCustomer: Number(localStorage.getItem('id')) ?? '0',
          country: formValues[0],
          state: formValues[1],
          city: formValues[2],
@@ -29,7 +29,7 @@ export function CheckoutForm({ countryList }: Props) {
          apartment: formValues[5] ? Number(formValues[5]) : null,
          floor: formValues[6] ? Number(formValues[6]) : null,
          pizzaList: pizzaList.map((pizza) => {
-            const { id, ...rest } = pizza
+            const { idPizza, ...rest } = pizza
             return rest
          })
       }
@@ -111,105 +111,3 @@ export function CheckoutForm({ countryList }: Props) {
       </FormContainer>
    )
 }
-
-
-
-
-/* const inputsSelects: {
-   id: `${string}-${string}-${string}-${string}-${string}`;
-   type: 'input' | 'select';
-   parameters: SelectProps | InputProps;
-}[] = [{
-   id: crypto.randomUUID(),
-   type: 'select',
-   parameters: {
-      label: 'Country*',
-      required: true,
-      values: countryList.map(({ code }) => code),
-      options: countryList.map(({ name }) => name)
-   }       
-}, {
-   id: crypto.randomUUID(),
-   type: 'select',
-   parameters: {
-      label: 'State*',
-      required: true,
-      values: states,
-      options: states
-   }
-}, {
-   id: crypto.randomUUID(),
-   type: 'select',
-   parameters: {
-      label: 'City*',
-      required: true,
-      values: cities,
-      options: cities
-   }
-}, {
-   id: crypto.randomUUID(),
-   type: 'input',
-   parameters: {
-      label: 'Street*',
-      required: true,
-      placeholder: 'Alameda',
-      error: 'street'
-   }
-}, {
-   id: crypto.randomUUID(),
-   type: 'input',
-   parameters: {
-      label: 'House number*',
-      type: 'number',
-      required: true,
-      placeholder: '23532',
-      error: 'houseNumber'
-   }
-}, {
-   id: crypto.randomUUID(),
-   type: 'input',
-   parameters: {
-      label: 'Apartment',
-      type: 'number',
-      required: false,
-      placeholder: '432',
-      error: 'apartment'
-   }
-}, {
-   id: crypto.randomUUID(),
-   type: 'input',
-   parameters: {
-      label: 'Floor',
-      type: 'number',
-      required: false,
-      placeholder: '12',
-      error: 'floor'
-   }
-}]
- */
-
-/* {inputsSelects.map(({ id, type, parameters }) => {
-   const specificError = error?.[parameters.error ?? '']
-   return type === 'select' ?
-      <CustomSelect
-         key={id}
-         label={parameters.label}
-         values={(parameters as SelectProps).values}
-         options={(parameters as SelectProps).options}
-         defaultValue={(parameters as SelectProps).defaultValue}
-         description={(parameters.error) ? parameters.error : parameters.description}
-         required={parameters.required}
-         error={parameters.error}
-         disable={isLoading}
-      /> :
-      <CustomInput 
-         key={id}
-         label={parameters.label}
-         type={(parameters as InputProps).type}
-         required={parameters.required}
-         placeholder={(parameters as InputProps).placeholder}
-         description={(specificError) ? specificError : parameters.description}
-         error={specificError}
-         disable={isLoading}
-      />
-})} */

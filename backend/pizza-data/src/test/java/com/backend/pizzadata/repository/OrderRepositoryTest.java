@@ -24,7 +24,7 @@ class OrderRepositoryTest extends SetUpForTestWithContainers {
    @Test
    @DisplayName("Should return one all orders with the a specific customer id using the database")
    void findByIdCustomer() {
-      var orderEntityPage = orderRepository.findByIdCustomer(4234L, Pageable.ofSize(5)).get();
+      var orderEntityPage = orderRepository.findByIdCustomerOrderByOrderTimestampDesc(4234L, Pageable.ofSize(5)).get();
 
       var order = orderEntityPage.get().toList().getFirst();
 

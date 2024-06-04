@@ -12,12 +12,12 @@ const { slug } = Astro.params
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 if(!slug?.match('[0-9]+\/orders')) return Astro.redirect('/404')
 
-let orders: PageOrder
+let orders: PageOrder | null
 try {
    orders = await getOrdersByAccount(Number(slug.split('/')[0]), Astro.cookies.get('jwt')?.value, 0)
 } catch (error) {   
    console.error(error);
-   return Astro.redirect('/client/404')
+   orders = null
 }
 
 const profileLinks: ProfileLinks[] = [{
@@ -34,15 +34,18 @@ const profileLinks: ProfileLinks[] = [{
 <Layout title='Customer orders'>
    <main>
       <LinksContainer links={profileLinks} />
-      <ShowPastOrders
-         client:load
-         id={Number(slug.split('/')[0])}
-         initialData={{
-            content: [orders.content],
-            pageNumber: orders.pageable.pageNumber,
-            last: orders.last
-         }}
-      />
+      {orders !== null ?
+         <ShowPastOrders
+            client:load
+            id={Number(slug.split('/')[0])}
+            initialData={{
+               content: [orders?.content],
+               pageNumber: orders?.pageable.pageNumber,
+               last: orders?.last
+            }}
+         /> :
+         <h1>No orders</h1>
+      }
    </main>
 </Layout>
 
