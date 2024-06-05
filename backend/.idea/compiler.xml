@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="pizza-order" />
         <module name="pizza-customer" />
         <module name="pizza-security" />
-        <module name="pizza-data" />
         <module name="pizza-ingredient" />
       </profile>
     </annotationProcessing>
@@ -23,9 +23,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="pizza-config-server" options="-parameters" />
       <module name="pizza-customer" options="-parameters" />
-      <module name="pizza-data" options="-parameters" />
       <module name="pizza-gateway" options="-parameters" />
       <module name="pizza-ingredient" options="-parameters" />
+      <module name="pizza-order" options="-parameters" />
       <module name="pizza-register-service" options="-parameters" />
       <module name="pizza-security" options="-parameters" />
     </option>

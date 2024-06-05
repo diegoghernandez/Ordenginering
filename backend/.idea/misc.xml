@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/pizza-security/pom.xml" />
         <option value="$PROJECT_DIR$/pizza-ingredients/pom.xml" />
         <option value="$PROJECT_DIR$/pizza-ingredient/pom.xml" />
+        <option value="$PROJECT_DIR$/pizza-order/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
