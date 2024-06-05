@@ -1,4 +1,4 @@
-package com.backend.pizzadata.constants;
+package com.backend.pizzaingredient.constants;
 
 public enum IngredientType {
    VEGETABLE,

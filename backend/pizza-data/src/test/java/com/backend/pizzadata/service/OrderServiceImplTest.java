@@ -8,52 +8,35 @@ import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
 import com.backend.pizzadata.persistence.entity.PizzaIngredients;
 import com.backend.pizzadata.setup.containers.SetUpForServiceWithContainers;
+import com.backend.pizzadata.web.dto.IngredientNameDto;
+import com.backend.pizzadata.web.dto.OrderDto;
+import com.backend.pizzadata.web.dto.PizzaDto;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
+import org.springframework.http.MediaType;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @EnableFeignClients
-@ImportAutoConfiguration(FeignAutoConfiguration.class)
+@ImportAutoConfiguration({ FeignAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class })
 class OrderServiceImplTest extends SetUpForServiceWithContainers {
 
    @Autowired
    private OrderService orderService;
-
-   static WireMockServer mockService = new WireMockServer(8765);
-
-   @BeforeAll
-   public static void setupMockCustomerResponse() {
-      mockService.start();
-
-      mockService.stubFor(WireMock.head(WireMock.urlPathMatching("/customer/exist/2"))
-              .willReturn(WireMock.status(200)));
-   }
-
-   @Test
-   @DisplayName("Should return the desire order with its specific id using the repository")
-   void getOrderById() {
-      var orderId = orderService.getOrdersByCustomerId(4234L, 0).get().getContent().getFirst().getIdOrder();
-      var order = orderService.getOrderById(orderId).get();
-      var emptyOrder = orderService.getOrderById(UUID.fromString("abdd83f3-61ea-4428-991d-f80b5479736e"));
-
-      assertAll(
-              () -> assertEquals(TestDataUtil.getOrderList().getContent().getFirst().toString(), order.toString()),
-              () -> assertTrue(emptyOrder.isEmpty())
-      );
-   }
 
    @Test
    @DisplayName("Should return all orders with the a specific customer id using the repository")
@@ -74,11 +57,49 @@ class OrderServiceImplTest extends SetUpForServiceWithContainers {
    @Test
    @DisplayName("Should convert one orderDto to orderEntity, and send it to the repository")
    void saveOrder() throws NotAllowedException {
+      var customerMockService = new WireMockServer(8765);
+      var ingredientMockService = new WireMockServer(2222);
+      customerMockService.start();
+      ingredientMockService.start();
+
+      customerMockService.stubFor(WireMock.head(WireMock.urlPathMatching("/customer/exist/2"))
+              .willReturn(WireMock.status(200)));
+
+      ingredientMockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Pepperoni"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("1").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+
+      ingredientMockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Mozzarella"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("2").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+
+      ingredientMockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Pineapple"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("3").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+
+      ingredientMockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Ham"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("4").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+
       assertEquals(0, orderService.getOrdersByCustomerId(2L, 0).get().getTotalElements());
+
+      var customerException = assertThrows(NotAllowedException.class, () -> orderService.saveOrder(
+              new OrderDto(54235L, null, null, null, null, 32, null, null, null),
+              TestDataUtil.getCookie())
+      );
+
+      var ingredientException = assertThrows(NotAllowedException.class, () -> orderService.saveOrder(
+              new OrderDto(2L, null, null, null, null, 32, null, null, List.of(
+                      new PizzaDto(null, null, null, Size.MEDIUM, 32, List.of(
+                              new IngredientNameDto("Error", 1)
+                      ))
+              )),
+              TestDataUtil.getCookie())
+      );
+
       orderService.saveOrder(TestDataUtil.getOrderDto(), TestDataUtil.getCookie());
 
       var pageOrderSaved = orderService.getOrdersByCustomerId(2L, 0).get();
       var order = pageOrderSaved.get().toList().getFirst();
+
+      customerMockService.stop();
+      ingredientMockService.stop();
 
       var orderString = List.of(OrderEntity.builder()
               .idCustomer(2L)
@@ -112,6 +133,8 @@ class OrderServiceImplTest extends SetUpForServiceWithContainers {
       ).toString();
 
       assertAll(
+              () -> assertEquals(customerException.getMessage(), "Customer not found"),
+              () -> assertEquals(ingredientException.getMessage(), "Ingredient doesn't exist"),
               () -> assertEquals(1, pageOrderSaved.getTotalElements()),
               () -> assertEquals(orderString, Collections.singletonList(order).toString()),
               () -> assertEquals(pizzaString, order.getPizzaList().toString()),

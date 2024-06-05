@@ -5,11 +5,12 @@ import com.backend.pizzadata.exceptions.NotAllowedException;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
 import com.backend.pizzadata.persistence.entity.PizzaIngredients;
-import com.backend.pizzadata.persistence.repository.IngredientRepository;
 import com.backend.pizzadata.persistence.repository.OrderRepository;
 import com.backend.pizzadata.web.api.CustomerClient;
+import com.backend.pizzadata.web.api.IngredientClient;
 import com.backend.pizzadata.web.dto.OrderDto;
 import com.backend.pizzadata.web.dto.PizzaDto;
+import feign.FeignException;
 import jakarta.servlet.http.Cookie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,30 +18,21 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
    private final OrderRepository orderRepository;
 
-   private final IngredientRepository ingredientRepository;
-
    private final CustomerClient customerClient;
 
-   public OrderServiceImpl(OrderRepository orderRepository, IngredientRepository ingredientRepository, CustomerClient customerClient) {
-      this.orderRepository = orderRepository;
-      this.ingredientRepository = ingredientRepository;
-      this.customerClient = customerClient;
-   }
+   private final IngredientClient ingredientClient;
 
-   @Override
-   public Optional<OrderEntity> getOrderById(UUID orderId) {
-      return orderRepository.findById(orderId);
+   public OrderServiceImpl(OrderRepository orderRepository, CustomerClient customerClient, IngredientClient ingredientClient) {
+      this.orderRepository = orderRepository;
+      this.customerClient = customerClient;
+      this.ingredientClient = ingredientClient;
    }
 
    @Override
@@ -77,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
       orderRepository.save(orderEntity);
    }
 
-   private List<PizzaEntity> convertPizzaDtoToEntity(UUID idOrder, List<PizzaDto> pizzaDtoList) {
+   private List<PizzaEntity> convertPizzaDtoToEntity(UUID idOrder, List<PizzaDto> pizzaDtoList) throws NotAllowedException {
       var pizzaEntityList = new ArrayList<PizzaEntity>();
 
       for (var pizzaDto : pizzaDtoList) {
@@ -92,19 +84,20 @@ public class OrderServiceImpl implements OrderService {
 
          price *= pizzaDto.quantity();
 
-         var pizzaIngredients = pizzaDto.pizzaIngredients().stream().map((ingredientNameDto) -> {
-            try {
-               var ingredient = ingredientRepository.findByIngredientName(ingredientNameDto.name())
-                       .orElseThrow(() -> new NotAllowedException("Ingredient doesn't exist"));
-               return PizzaIngredients.builder()
-                       .idIngredient(ingredient.getIdIngredient())
+         var pizzaIngredients = new HashSet<PizzaIngredients>();
+         try {
+            for(var ingredientNameDto : pizzaDto.pizzaIngredients()) {
+               var idIngredient = ingredientClient.getIdByIngredientName(ingredientNameDto.name());
+               pizzaIngredients.add(PizzaIngredients.builder()
+                       .idIngredient(idIngredient)
                        .idPizza(idPizza)
                        .ingredientQuantity(ingredientNameDto.quantity())
-                       .build();
-            } catch (NotAllowedException e) {
-               throw new RuntimeException(e);
+                       .build());
             }
-         }).collect(Collectors.toSet());
+         } catch (FeignException e) {
+            System.out.println(e.getMessage());
+            throw new NotAllowedException("Ingredient doesn't exist");
+         }
 
          pizzaEntityList.add(PizzaEntity.builder()
                          .idPizza(idPizza)
@@ -114,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
                          .pizzaImageAuthor(pizzaDto.pizzaImageAuthor())
                          .size(pizzaDto.size())
                          .quantity(pizzaDto.quantity())
-                         .price(price)
+                            .price(price)
                          .pizzaTimestamp(LocalDateTime.now())
                          .pizzaIngredients(pizzaIngredients)
                  .build()

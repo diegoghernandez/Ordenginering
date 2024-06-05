@@ -10,6 +10,7 @@
         <module name="pizza-customer" />
         <module name="pizza-security" />
         <module name="pizza-data" />
+        <module name="pizza-ingredient" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
       <module name="pizza-customer" options="-parameters" />
       <module name="pizza-data" options="-parameters" />
       <module name="pizza-gateway" options="-parameters" />
+      <module name="pizza-ingredient" options="-parameters" />
       <module name="pizza-register-service" options="-parameters" />
       <module name="pizza-security" options="-parameters" />
     </option>

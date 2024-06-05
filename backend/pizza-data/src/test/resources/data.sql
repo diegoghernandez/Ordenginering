@@ -1,9 +1,3 @@
-INSERT INTO `ingredient` (ingredient_name, ingredient_type, author_image, url_image) VALUES
-('Pepperoni', 'MEAT', 'Author', '/meat/peperoni/'),
-('Mozzarella', 'CHEESE', 'Author', '/cheese/mozzarella'),
-('Pineapple', 'VEGETABLE', 'Author', '/vegetables/pineapple'),
-('Ham', 'MEAT', 'Author', '/meat/ham');
-
 INSERT INTO `customer_order` (id_order, id_customer, country, state, city, street, house_number, apartment, floor, total, order_timestamp) VALUES
 (UUID(), 4234, 'México', 'State', 'City', 'Street', 4324, null, null, 98723, '2024-3-09 20:10:12'),
 (UUID(), 31, 'México', 'State', 'City', 'street', 4324, null, null, 98723, '2024-3-09 20:10:12');

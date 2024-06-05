@@ -1,6 +1,6 @@
-package com.backend.pizzadata.web.dto;
+package com.backend.pizzaingredient.web.dto;
 
-import com.backend.pizzadata.constants.IngredientType;
+import com.backend.pizzaingredient.constants.IngredientType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,4 +9,5 @@ public record IngredientDto(
         @NotNull IngredientType ingredientType,
         @NotBlank String urlImage,
         @NotBlank String authorImage
-) {}
+) {
+}

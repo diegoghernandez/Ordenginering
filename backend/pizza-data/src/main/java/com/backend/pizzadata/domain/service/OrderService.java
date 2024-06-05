@@ -11,8 +11,6 @@ import java.util.UUID;
 
 public interface OrderService {
 
-   Optional<OrderEntity> getOrderById(UUID orderId);
-
    Optional<Page<OrderEntity>> getOrdersByCustomerId(long id, int page);
 
    void saveOrder(OrderDto order, Cookie cookie) throws NotAllowedException;

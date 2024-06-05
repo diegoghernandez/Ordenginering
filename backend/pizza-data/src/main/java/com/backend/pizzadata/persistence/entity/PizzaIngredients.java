@@ -36,8 +36,4 @@ public class PizzaIngredients {
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "id_pizza", referencedColumnName = "id_pizza", insertable = false, updatable = false)
    private PizzaEntity pizzaEntity;
-
-   @ManyToOne
-   @JoinColumn(name = "id_ingredient", referencedColumnName = "id_ingredient", insertable = false, updatable = false)
-   private IngredientEntity ingredientEntity;
 }

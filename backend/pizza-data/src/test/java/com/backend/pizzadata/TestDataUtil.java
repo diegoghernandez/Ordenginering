@@ -1,9 +1,6 @@
 package com.backend.pizzadata;
 
-import com.backend.pizzadata.constants.IngredientType;
-import com.backend.pizzadata.constants.Quantity;
 import com.backend.pizzadata.constants.Size;
-import com.backend.pizzadata.persistence.entity.IngredientEntity;
 import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.persistence.entity.PizzaEntity;
 import com.backend.pizzadata.persistence.entity.PizzaIngredients;
@@ -16,47 +13,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public final class TestDataUtil {
 
    private TestDataUtil() {}
-
-   public static List<IngredientEntity> getIngredientList() {
-      return List.of(
-              IngredientEntity.builder()
-                      .idIngredient(1)
-                      .ingredientName("Pepperoni")
-                      .ingredientType(IngredientType.MEAT)
-                      .authorImage("Author")
-                      .urlImage("/meat/peperoni/")
-                      .build(),
-
-              IngredientEntity.builder()
-                      .idIngredient(2)
-                      .ingredientName("Mozzarella")
-                      .ingredientType(IngredientType.CHEESE)
-                      .authorImage("Author")
-                      .urlImage("/cheese/mozzarella")
-                      .build(),
-
-              IngredientEntity.builder()
-                      .idIngredient(3)
-                      .ingredientName("Pineapple")
-                      .ingredientType(IngredientType.VEGETABLE)
-                      .authorImage("Author")
-                      .urlImage("/vegetables/pineapple")
-                      .build(),
-
-              IngredientEntity.builder()
-                      .idIngredient(4)
-                      .ingredientName("Ham")
-                      .ingredientType(IngredientType.MEAT)
-                      .authorImage("Author")
-                      .urlImage("/meat/ham")
-                      .build()
-      );
-   }
 
    public static List<PizzaEntity> getPizzaList() {
       return List.of(
@@ -71,8 +34,8 @@ public final class TestDataUtil {
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .pizzaIngredients(Set.of(
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(0)).ingredientQuantity(1).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredientQuantity(1).build()
+                         PizzaIngredients.builder().idIngredient(1).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().idIngredient(2).ingredientQuantity(1).build()
                  )).build(),
 
          PizzaEntity.builder()
@@ -86,9 +49,9 @@ public final class TestDataUtil {
                  .size(Size.LARGE)
                  .pizzaTimestamp(LocalDateTime.of(2024, 3, 9, 20, 10, 12))
                  .pizzaIngredients(Set.of(
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(1)).ingredientQuantity(1).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(2)).ingredientQuantity(1).build(),
-                         PizzaIngredients.builder().ingredientEntity(getIngredientList().get(3)).ingredientQuantity(1).build()
+                         PizzaIngredients.builder().idIngredient(1).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().idIngredient(2).ingredientQuantity(1).build(),
+                         PizzaIngredients.builder().idIngredient(3).ingredientQuantity(1).build()
                  )).build()
       );
    }

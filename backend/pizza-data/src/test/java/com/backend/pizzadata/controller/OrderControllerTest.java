@@ -13,6 +13,8 @@ import com.backend.pizzadata.web.domain.PizzaDomain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,43 +69,18 @@ class OrderControllerTest extends SetUpForJwtClient {
    }
 
    @Test
-   @DisplayName("Should return the desire order in json format with its specific id using the service or return a not found")
-   void getOrdersById() {
-      var orderEntity = TestDataUtil.getOrderList().getContent().getFirst();
-
-      Mockito.when(orderService.getOrderById(UUID.fromString("a9efb332-be7e-4498-9f52-80dcb781c1ef")))
-              .thenReturn(Optional.empty());
-
-      Mockito.when(orderService.getOrderById(UUID.fromString("abdd83f3-61ea-4428-991d-f80b5479736e")))
-              .thenReturn(Optional.of(orderEntity));
-
-      var objectMapper = new ObjectMapper();
-      objectMapper.registerModule(new JavaTimeModule());
-      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/a9efb332-be7e-4498-9f52-80dcb781c1ef")
-                              .cookie(TestDataUtil.getCookie())
-                              .contentType(MediaType.APPLICATION_JSON))
-                      .andExpect(MockMvcResultMatchers.status().isNotFound()),
-
-              () -> Mockito.verify(orderService, Mockito.times(1))
-                      .getOrderById(UUID.fromString("a9efb332-be7e-4498-9f52-80dcb781c1ef")),
-
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/abdd83f3-61ea-4428-991d-f80b5479736e")
-                              .cookie(TestDataUtil.getCookie())
-                              .contentType(MediaType.APPLICATION_JSON))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(orderEntity))),
-
-              () -> Mockito.verify(orderService, Mockito.times(1))
-                      .getOrderById(UUID.fromString("abdd83f3-61ea-4428-991d-f80b5479736e"))
-      );
-   }
-
-   @Test
-   @DisplayName("Should return all orders in json format with a specific customer id using the service or return a not found")
+   @DisplayName("Should return one page with order domains in json format with a specific customer id using the service or return a not found")
    void getOrdersByAccount() {
+      var mockService = new WireMockServer(2222);
+      mockService.start();
+
+      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/1"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("Pepperoni").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/2"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("Mozzarella").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/3"))
+              .willReturn(WireMock.aResponse().withStatus(200).withBody("Pineapple").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+
       Mockito.when(orderService.getOrdersByCustomerId(6456546L, 0))
               .thenReturn(Optional.of(new PageImpl<>(List.of())));
 
@@ -113,6 +90,8 @@ class OrderControllerTest extends SetUpForJwtClient {
       var objectMapper = new ObjectMapper();
       objectMapper.registerModule(new JavaTimeModule());
       objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+      var ingredientList = List.of("Pepperoni", "Mozzarella", "Pineapple");
 
       var orderDomain = TestDataUtil.getOrderList().map((order) -> new OrderDomain(
               order.getIdOrder(),
@@ -136,7 +115,7 @@ class OrderControllerTest extends SetUpForJwtClient {
                               pizzaEntity.getQuantity(),
                               pizzaEntity.getPizzaIngredients()
                                       .stream().map((pizzaIngredients) -> new IngredientDomain(
-                                              pizzaIngredients.getIngredientEntity().getIngredientName(),
+                                              ingredientList.get(pizzaIngredients.getIdIngredient() - 1),
                                               pizzaIngredients.getIngredientQuantity()
                                       )).toList()
                       )).toList()
@@ -163,6 +142,8 @@ class OrderControllerTest extends SetUpForJwtClient {
                       .getOrdersByCustomerId(4234L, 0)
 
       );
+
+      mockService.stop();
    }
 
    @Test

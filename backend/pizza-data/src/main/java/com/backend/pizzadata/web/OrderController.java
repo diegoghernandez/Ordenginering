@@ -2,8 +2,8 @@ package com.backend.pizzadata.web;
 
 import com.backend.pizzadata.domain.service.OrderService;
 import com.backend.pizzadata.exceptions.NotAllowedException;
-import com.backend.pizzadata.persistence.entity.OrderEntity;
 import com.backend.pizzadata.utils.JwtCookie;
+import com.backend.pizzadata.web.api.IngredientClient;
 import com.backend.pizzadata.web.domain.IngredientDomain;
 import com.backend.pizzadata.web.domain.OrderDomain;
 import com.backend.pizzadata.web.domain.PizzaDomain;
@@ -16,23 +16,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 
    private final OrderService orderService;
 
-   public OrderController(OrderService orderService) {
-      this.orderService = orderService;
-   }
+   private final IngredientClient ingredientClient;
 
-   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<OrderEntity> getOrdersById(@PathVariable UUID id) {
-      return orderService.getOrderById(id)
-              .map((order) -> new ResponseEntity<>(order, HttpStatus.OK))
-              .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+   public OrderController(OrderService orderService, IngredientClient ingredientClient) {
+      this.orderService = orderService;
+      this.ingredientClient = ingredientClient;
    }
 
    @GetMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,7 +57,7 @@ public class OrderController {
                               pizzaEntity.getQuantity(),
                               pizzaEntity.getPizzaIngredients()
                                       .stream().map((pizzaIngredients) -> new IngredientDomain(
-                                              pizzaIngredients.getIngredientEntity().getIngredientName(),
+                                              ingredientClient.getIngredientNameById(pizzaIngredients.getIdIngredient()),
                                               pizzaIngredients.getIngredientQuantity()
                                       )).toList()
                       )).toList()
