@@ -50,15 +50,13 @@ describe('Customer service tests', () => {
       })
 
       it('Should return a bad message', async () => {
-         const content = await registerCustomer({
+         await expect(registerCustomer({
             customerName: 'Juan',
-            email: 'email@email.com',
+            email: 'repeat@email.com',
             password: '1234',
-            matchingPassword: '252523',
+            matchingPassword: '1234',
             birthDate: '2002-2-12'
-         })
-
-         expect(content).toStrictEqual("Passwords don't match")
+         })).rejects.toThrow('Email is already used')
       })
 
       it('Should return a good message', async () => {
