@@ -101,4 +101,6 @@ jobs:
             username: diegoj4v
             password: ${{ secrets.DOCKERHUB_TOKEN }}
          - name: Push image to docker hub
-           run: docker push diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
+           run: |
+            docker tag $(git rev-parse --short ${{ github.sha }}) diegoj4v/pizza-client:latest
+            docker push diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
