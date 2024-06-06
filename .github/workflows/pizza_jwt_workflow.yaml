@@ -45,21 +45,6 @@ jobs:
            with:
             sparse-checkout: backend/pizza-jwt
             fetch-depth: 0
-         - uses: pnpm/action-setup@v3
-           with:
-            version: 9
-         - uses: actions/setup-node@v4
-           with:
-            node-version: 20
-            cache: 'pnpm'
-            cache-dependency-path: backend/pizza-jwt/pnpm-lock.yaml
-         - name: Install dependencies
-           run: pnpm install --frozen-lockfile
-         - name: Build application
-           run: pnpm run tsc           
-           env: 
-            PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
-            PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
          - name: Build image
            run: docker build -t diegoj4v/pizza-jwt .
          - name: Login to Docker Hub
@@ -69,5 +54,5 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
          - name: Push image to docker hub
            run: | 
-            docker tag $(git rev-parse --short ${{ github.sha }}) diegoj4v/pizza-jwt:latest
+            docker tag diegoj4v/pizza-jwt diegoj4v/pizza-jwt:$(git rev-parse --short ${{ github.sha }})
             docker push diegoj4v/pizza-jwt:$(git rev-parse --short ${{ github.sha }})
