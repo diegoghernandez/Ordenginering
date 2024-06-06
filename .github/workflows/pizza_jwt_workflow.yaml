@@ -1,4 +1,4 @@
-name: Test pizza-jwt workflow
+name: Test and publish frontend image
 
 on:
    push:
@@ -56,7 +56,7 @@ jobs:
          - name: Install dependencies
            run: pnpm install --frozen-lockfile
          - name: Build application
-           run: pnpm run build           
+           run: pnpm run tsc           
            env: 
             PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
             PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
