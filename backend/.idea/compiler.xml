@@ -17,6 +17,7 @@
       <module name="pizza-config-server" target="21" />
       <module name="pizza-gateway" target="21" />
       <module name="pizza-register-service" target="21" />
+      <module name="pizza-utils" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,6 +29,7 @@
       <module name="pizza-order" options="-parameters" />
       <module name="pizza-register-service" options="-parameters" />
       <module name="pizza-security" options="-parameters" />
+      <module name="pizza-utils" options="" />
     </option>
   </component>
 </project>

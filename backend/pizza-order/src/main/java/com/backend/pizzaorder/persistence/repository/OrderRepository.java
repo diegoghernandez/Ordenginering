@@ -1,6 +1,6 @@
-package com.backend.pizzaorder.persistence.repository;
+package com.backend.pizzaingredient.persistence.repository;
 
-import com.backend.pizzaorder.persistence.entity.OrderEntity;
+import com.backend.pizzaingredient.persistence.entity.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
