@@ -14,7 +14,7 @@ export function ShowOrder() {
    const pizzaList = useShoppingCart((state) => state.pizza)
    const removePizza = useShoppingCart((state) => state.removePizza)
    const updatePizzaQuantity  = useShoppingCart((state) => state.updatePizzaQuantity)
-   const removeAllPizza = useShoppingCart((state) => state.removeAllPizza)
+   const clearCart = useShoppingCart((state) => state.clearCart)
 
    useEffect(() => setPizza(pizzaList), [pizzaList])
    
@@ -27,7 +27,7 @@ export function ShowOrder() {
          <a className={PRIMARY__BUTTON} href='/client/checkout'>
             Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
          </a>
-         <button onClick={removeAllPizza}>Remove all items</button>
+         <button onClick={clearCart}>Remove all items</button>
          {pizza ? 
             pizza.length !== 0 ? 
                pizza?.map((pizzaInOrder) => (

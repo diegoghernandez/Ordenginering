@@ -1,14 +1,14 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { CustomSelect } from '@/components/common/CustomSelect'
 import { FormContainer } from '@/components/common/FormContainer'
+import { PRIMARY__BUTTON } from '@/constants/styles'
 import StateCities from '@/data/state_cities.json'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
 import type { OrderRequest } from '@/types'
+import { useEffect, useRef } from 'react'
 import { SmallModalContainer } from '../common/SmallModalContainer'
-import { PRIMARY__BUTTON } from '@/constants/styles'
-import { useRef } from 'react'
 
 interface Props {
    countryList: { code: string, name: string }[]
@@ -17,6 +17,7 @@ interface Props {
 export function CheckoutForm({ countryList }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
+   const clearCart = useShoppingCart((state) => state.clearCart)
    const dialogRef = useRef<HTMLDialogElement>(null)
 
    const states = StateCities.filter(({countryId}) => countryId === 1).flatMap(({ name }) => name)
@@ -39,11 +40,15 @@ export function CheckoutForm({ countryList }: Props) {
       }
       
       handlePromise(order)
-   }   
-
-   if (response?.status === 200 && dialogRef.current instanceof HTMLDialogElement) {
-      dialogRef.current.showModal()
    }
+
+   useEffect(() => {
+      if (response?.status === 200 && dialogRef.current instanceof HTMLDialogElement) {
+         dialogRef.current.showModal()
+         clearCart()
+      }
+   }, [response?.status, clearCart])
+
 
    return (
       <FormContainer
@@ -105,6 +110,7 @@ export function CheckoutForm({ countryList }: Props) {
             required={true}
             type='number'
             placeholder='867'
+            minValue={1}
             error={error?.houseNumber}
             disable={isLoading}
          />
@@ -112,6 +118,8 @@ export function CheckoutForm({ countryList }: Props) {
             label='Apartment'
             type='number'
             placeholder='321'
+            minValue={1}
+            maxValue={30000}
             error={error?.apartment}
             disable={isLoading}
          />
@@ -119,6 +127,8 @@ export function CheckoutForm({ countryList }: Props) {
             label='Floor'
             type='number'
             placeholder='2'
+            minValue={1}
+            maxValue={200}
             error={error?.floor}
             disable={isLoading}
          />

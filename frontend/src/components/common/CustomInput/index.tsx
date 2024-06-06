@@ -5,12 +5,16 @@ export interface InputProps extends UserInputProps {
    defaultValue?: string
    placeholder?: string
    type?: string
+   minValue?: number
+   maxValue?: number
 }
 
 export function CustomInput({
    label,
    placeholder = '',
    defaultValue = '',
+   minValue,
+   maxValue,
    type = 'text',
    required = false,
    description,
@@ -28,6 +32,8 @@ export function CustomInput({
             type={type}
             required={required}
             defaultValue={defaultValue}
+            min={minValue}
+            max={maxValue}
             placeholder={placeholder}
             disabled={disable}
             aria-invalid={Boolean(error)}

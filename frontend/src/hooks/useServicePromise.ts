@@ -35,6 +35,7 @@ export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) 
    return {
       isLoading,
       error,
+      setError,
       response,
       handlePromise
    }
