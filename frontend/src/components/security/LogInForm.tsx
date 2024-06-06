@@ -3,14 +3,21 @@ import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { logIn } from '@/services/customerService'
 import type { CustomerLogIn } from '@/types'
+import { getFormValue } from '@/utils/getFormValue'
 import { useEffect } from 'react'
 
 export function LogInForm() {
    const { isLoading, error, response, handlePromise } = useServicePromise<CustomerLogIn>(logIn)
-   const handleData = (formValues: string[]) => {
+
+   const labels = {
+      email: 'Email',
+      password: 'Password'
+   }
+
+   const handleData = (formValues: FormData) => {
       const customerLogIn = {
-         email: formValues[0],
-         password: formValues[1]
+         email: getFormValue(labels.email, formValues),
+         password: getFormValue(labels.password, formValues)
       }
 
       handlePromise(customerLogIn)
@@ -36,7 +43,7 @@ export function LogInForm() {
          }}
       >
          <CustomInput 
-            label='Email'
+            label={labels.email}
             placeholder='email@name.com'
             required={true}
             type='email'
@@ -44,7 +51,7 @@ export function LogInForm() {
             disable={isLoading}
          />
          <CustomInput 
-            label='Password'
+            label={labels.password}
             required={true}
             type='password'
             error={error?.password}

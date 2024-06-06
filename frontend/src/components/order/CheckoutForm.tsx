@@ -9,6 +9,7 @@ import { saveOrder } from '@/services/orderService'
 import type { OrderRequest } from '@/types'
 import { useEffect, useRef } from 'react'
 import { SmallModalContainer } from '../common/SmallModalContainer'
+import { getFormValue } from '@/utils/getFormValue'
 
 interface Props {
    countryList: { code: string, name: string }[]
@@ -22,17 +23,27 @@ export function CheckoutForm({ countryList }: Props) {
 
    const states = StateCities.filter(({countryId}) => countryId === 1).flatMap(({ name }) => name)
    const cities = StateCities.filter(({id}) => id === 3901).flatMap(({ cities }) => cities)
+
+   const labels = {
+      country: 'Country*',
+      state: 'State*',
+      city: 'City*',
+      street: 'Street*',
+      houseNumber: 'House number*',
+      floor: 'Floor',
+      apartment: 'Apartment'
+   }
    
-   const handleData = (formValues: string[]) => {
+   const handleData = (formValues: FormData) => {
       const order: OrderRequest = {
          idCustomer: Number(localStorage.getItem('id')) ?? '0',
-         country: formValues[0],
-         state: formValues[1],
-         city: formValues[2],
-         street: formValues[3],
-         houseNumber: Number(formValues[4]),
-         apartment: formValues[5] ? Number(formValues[5]) : null,
-         floor: formValues[6] ? Number(formValues[6]) : null,
+         country: getFormValue(labels.country, formValues),
+         state: getFormValue(labels.state, formValues),
+         city: getFormValue(labels.city, formValues),
+         street: getFormValue(labels.street, formValues),
+         houseNumber: Number(getFormValue(labels.houseNumber, formValues)),
+         floor: Number(getFormValue(labels.floor, formValues)),
+         apartment: Number(getFormValue(labels.apartment, formValues)),
          pizzaList: pizzaList.map((pizza) => {
             const { idPizza, ...rest } = pizza
             return rest
@@ -66,7 +77,7 @@ export function CheckoutForm({ countryList }: Props) {
             </>
          </SmallModalContainer>
          <CustomSelect
-            label='Country*'
+            label={labels.country}
             required={true}
             values={countryList.map(({ code }) => code)}
             options={countryList.map(({ name }) => name)}
@@ -77,7 +88,7 @@ export function CheckoutForm({ countryList }: Props) {
             disable={isLoading}
          />
          <CustomSelect
-            label='State*'
+            label={labels.state}
             required={true}
             values={states}
             options={states}
@@ -88,7 +99,7 @@ export function CheckoutForm({ countryList }: Props) {
             disable={isLoading}
          />
          <CustomSelect
-            label='City*'
+            label={labels.city}
             required={true}
             values={cities}
             options={cities}
@@ -99,14 +110,14 @@ export function CheckoutForm({ countryList }: Props) {
             disable={isLoading}
          />
          <CustomInput 
-            label='Street*'
+            label={labels.street}
             required={true}
             placeholder='Alameda'
             error={error?.street}
             disable={isLoading}
          />
          <CustomInput 
-            label='House number*'
+            label={labels.houseNumber}
             required={true}
             type='number'
             placeholder='867'
@@ -115,21 +126,21 @@ export function CheckoutForm({ countryList }: Props) {
             disable={isLoading}
          />
          <CustomInput 
-            label='Apartment'
-            type='number'
-            placeholder='321'
-            minValue={1}
-            maxValue={30000}
-            error={error?.apartment}
-            disable={isLoading}
-         />
-         <CustomInput 
-            label='Floor'
+            label={labels.floor}
             type='number'
             placeholder='2'
             minValue={1}
             maxValue={200}
             error={error?.floor}
+            disable={isLoading}
+         />
+         <CustomInput 
+            label={labels.apartment}
+            type='number'
+            placeholder='321'
+            minValue={1}
+            maxValue={30000}
+            error={error?.apartment}
             disable={isLoading}
          />
       </FormContainer>

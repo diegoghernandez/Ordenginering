@@ -9,14 +9,18 @@ export interface ChangeProfileValues extends ValuesForChangeDto {
    birthDate: string
 }
 
-export async function changeProfile(changeProfileValues: ChangeProfileValues) {
+export async function changeProfile({ name, birthDate, ...valuesForChangeDto }: ChangeProfileValues) {
    const response = await fetch(`${API}/profile`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
          'Content-Type': 'application/json',
       },
-      body: JSON.stringify(changeProfileValues)
+      body: JSON.stringify({
+         name,
+         birthDate,
+         valuesForChangeDto
+      })
    })
 
    if (response.ok) return response.text()

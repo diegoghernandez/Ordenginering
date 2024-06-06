@@ -3,17 +3,26 @@ import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { registerCustomer } from '@/services/customerService'
 import type { CustomerDto } from '@/types'
+import { getFormValue } from '@/utils/getFormValue'
 
 export function SignUpForm() {
    const { isLoading, error, response, handlePromise } = useServicePromise<CustomerDto>(registerCustomer)
 
-   const handleData = (formValues: string[]) => {
+   const labels = {
+      customerName: 'Name',
+      email: 'Email',
+      password: 'Password',
+      confirmPassword: 'Confirm password',
+      birthDate: 'Birth Date'
+   }
+   
+   const handleData = (formValues: FormData) => {
       const customerData: CustomerDto = {
-         customerName: formValues[0],
-         email: formValues[1],
-         password: formValues[2],
-         matchingPassword: formValues[3],
-         birthDate: formValues[4]
+         customerName: getFormValue(labels.customerName, formValues),
+         email: getFormValue(labels.email, formValues),
+         password: getFormValue(labels.password, formValues),
+         matchingPassword: getFormValue(labels.confirmPassword, formValues),
+         birthDate: getFormValue(labels.birthDate, formValues)
       }
 
       handlePromise(customerData)
@@ -29,14 +38,14 @@ export function SignUpForm() {
          }}
       >
          <CustomInput
-            label='Name'
+            label={labels.customerName}
             placeholder='Juan'
             required={true}
             error={error?.name}
             disable={isLoading}
          />
          <CustomInput
-            label='Email'
+            label={labels.email}
             type='email'
             placeholder='email@name.com'
             required={true}
@@ -44,21 +53,21 @@ export function SignUpForm() {
             disable={isLoading}
          />
          <CustomInput
-            label='Password'
+            label={labels.password}
             type='password'
             required={true}
             error={error?.password}
             disable={isLoading}
             />
          <CustomInput
-            label='Confirm password'
+            label={labels.confirmPassword}
             type='password'
             required={true}
             error={error?.confirmPassword}
             disable={isLoading}
          />
          <CustomInput
-            label='Birth Date'
+            label={labels.birthDate}
             type='date'
             required={true}
             error={error?.birthDate}

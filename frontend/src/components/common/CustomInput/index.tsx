@@ -28,7 +28,8 @@ export function CustomInput({
          <label htmlFor={customInputId}>{label}</label>
          {description ? <p id={customInputId + '-describe'}>{description}</p> : null}
          <input 
-            id={customInputId} 
+            id={customInputId}
+            name={label.toLowerCase().replace(' ', '-')}
             type={type}
             required={required}
             defaultValue={defaultValue}

@@ -1,17 +1,24 @@
 import { CardContainer } from '@/components/common/CardContainer'
+import { CustomInput } from '@/components/common/CustomInput'
 import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changePassword, type ChangePasswordValues } from '@/services/changeCustomerService'
-import { CustomInput } from '@/components/common/CustomInput'
+import { getFormValue } from '@/utils/getFormValue'
 
 export function PasswordForm() {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangePasswordValues>(changePassword)
 
-   const handleData = (formValues: string[]) => {
+   const labels = {
+      currentPassword: 'Current Password',
+      newPassword: 'New Password',
+      repeatPassword: 'Repeat Password'
+   }
+
+   const handleData = (formValues: FormData) => {
       handlePromise({
-         newPassword: formValues[1],
-         id: localStorage.getItem('id') ?? '0',
-         password: formValues[0]
+         password: getFormValue(labels.currentPassword, formValues),
+         newPassword: getFormValue(labels.newPassword, formValues),
+         id: localStorage.getItem('id') ?? '0'
       })
    }
 
@@ -27,21 +34,21 @@ export function PasswordForm() {
          >
             <h3>Password</h3>
             <CustomInput 
-               label='Current Password'
+               label={labels.currentPassword}
                type='password'
                disable={isLoading}
                error={error?.currentPassword}
                required={true}
             />
             <CustomInput 
-               label='New Password'
+               label={labels.newPassword}
                type='password'
                disable={isLoading}
                error={error?.newPassword}
                required={true}
             />
             <CustomInput 
-               label='Repeat Password'
+               label={labels.repeatPassword}
                type='password'
                disable={isLoading}
                error={error?.repeatPassword}

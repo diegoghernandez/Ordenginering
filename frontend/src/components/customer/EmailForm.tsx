@@ -3,6 +3,7 @@ import { FormContainer } from '@/components/common/FormContainer'
 import { CustomInput } from '@/components/common/CustomInput'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeEmail, type ChangeEmailValues } from '@/services/changeCustomerService'
+import { getFormValue } from '@/utils/getFormValue'
 
 interface Props {
    email: string
@@ -11,11 +12,17 @@ interface Props {
 export function EmailForm({ email }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangeEmailValues>(changeEmail)
 
-   const handleData = (formValues: string[]) => {
+   const labels = {
+      currentEmail: 'Current Email Address',
+      newEmail: 'New Email Address',
+      currentPassword: 'Current Password'
+   }
+
+   const handleData = (formValues: FormData) => {
       handlePromise({
-         email: formValues[2],
-         id: localStorage.getItem('id') ?? '0',
-         password: formValues[1]
+         email: getFormValue(labels.newEmail, formValues),
+         password: getFormValue(labels.currentPassword, formValues),
+         id: localStorage.getItem('id') ?? '0'
       })
    }
 
@@ -31,7 +38,7 @@ export function EmailForm({ email }: Props) {
          >
             <h3>Email address</h3>
             <CustomInput 
-               label='Current Email Address'
+               label={labels.currentEmail}
                defaultValue={email}
                type='email'
                disable={true}
@@ -39,14 +46,14 @@ export function EmailForm({ email }: Props) {
                required={true}
             />
             <CustomInput 
-               label='Current Password'
+               label={labels.currentPassword}
                type='password'
                disable={isLoading}
                error={error?.currentPassword}
                required={true}
             />
             <CustomInput 
-               label='New Email Address'
+               label={labels.newEmail}
                placeholder='email@email.com'
                type='email'
                disable={isLoading}

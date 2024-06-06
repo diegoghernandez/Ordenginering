@@ -32,7 +32,7 @@ export function CustomSelect({
          {description ? <p id={customSelectId + '-describe'}>{description}</p> : null}
          <select
             id={customSelectId} 
-            name={label}
+            name={label.toLowerCase().replace(' ', '-')}
             defaultValue={selectedOption}
             autoComplete='on'
             required={required}

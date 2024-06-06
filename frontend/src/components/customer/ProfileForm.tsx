@@ -3,6 +3,7 @@ import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeProfile, type ChangeProfileValues } from '@/services/changeCustomerService'
 import { CustomInput } from '@/components/common/CustomInput'
+import { getFormValue } from '@/utils/getFormValue'
 
 interface Props {
    name: string,
@@ -12,12 +13,17 @@ interface Props {
 export function ProfileForm({ name, birthDate }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangeProfileValues>(changeProfile)
 
-   const handleData = (formValues: string[]) => {
+   const labels = {
+      name: 'Name',
+      birthDate: 'Birth Date'
+   }
+
+   const handleData = (formValues: FormData) => {
       handlePromise({
-         name: formValues[0],
-         birthDate: formValues[1],
+         name: getFormValue(labels.name, formValues),
+         birthDate: getFormValue(labels.birthDate, formValues),
          id: localStorage.getItem('id') ?? '0',
-         password: ''
+         password: 'no-necessary'
       })
    }
 
@@ -33,7 +39,7 @@ export function ProfileForm({ name, birthDate }: Props) {
             >
             <h3>Profile</h3>
             <CustomInput
-               label='Name'
+               label={labels.name}
                defaultValue={name}
                type='text'
                disable={isLoading}
@@ -41,7 +47,7 @@ export function ProfileForm({ name, birthDate }: Props) {
                required={true}
             />
             <CustomInput
-               label='Birth Date'
+               label={labels.birthDate}
                defaultValue={birthDate}
                type='date'
                disable={isLoading}
