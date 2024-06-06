@@ -3,9 +3,9 @@ package com.backend.pizzaingredient.service;
 import com.backend.pizzaingredient.TestIngredientUtil;
 import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
-import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
-import com.backend.pizzaorder.persistence.repository.IngredientRepository;
+import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.setup.containers.SetUpForServiceWithContainers;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.assertj.core.api.Assertions;
@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest

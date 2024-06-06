@@ -1,6 +1,6 @@
 package com.backend.pizzaingredient.repository;
 
-import com.backend.pizzaorder.persistence.repository.IngredientRepository;
+import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.setup.containers.SetUpForTestWithContainers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

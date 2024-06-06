@@ -1,9 +1,9 @@
 package com.backend.pizzaingredient.domain;
 
 import com.backend.pizzaingredient.domain.service.IngredientService;
-import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
-import com.backend.pizzaorder.persistence.repository.IngredientRepository;
+import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.springframework.stereotype.Service;
 
