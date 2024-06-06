@@ -1,4 +1,4 @@
-name: Test and publish frontend image
+name: Test and publish pizza jwt image
 
 on:
    push:
