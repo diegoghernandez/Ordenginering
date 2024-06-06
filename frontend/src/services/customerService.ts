@@ -2,14 +2,13 @@ import type { Customer, CustomerDto, CustomerLogIn } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
 import type { AstroCookies } from 'astro'
 
-const PUBLIC_URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
-const PRIVATE_URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:8765'
-const API = (url: string)  => url +  '/customer'
+const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
+const API = URL +  '/customer'
 
 export async function getCustomerData(id: number, cookie: AstroCookies | undefined): Promise<Customer> {
    const jwtCookie = `jwt=${cookie?.get('jwt')?.value ?? ''}; Path=/;`
    
-   const response = await fetch(`${API(PRIVATE_URL)}/${id}`, {
+   const response = await fetch(`${API}/${id}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -23,7 +22,7 @@ export async function getCustomerData(id: number, cookie: AstroCookies | undefin
 }
 
 export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
-   const response = await fetch(`${API(PUBLIC_URL)}/auth/login`, {
+   const response = await fetch(`${API}/auth/login`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -37,7 +36,7 @@ export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
 }
 
 export async function registerCustomer(customerDto: CustomerDto): Promise<string> {
-   const response = await fetch(`${API(PUBLIC_URL)}/register`, {
+   const response = await fetch(`${API}/auth/register`, {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',

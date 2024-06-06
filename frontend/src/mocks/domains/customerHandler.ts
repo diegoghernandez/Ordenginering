@@ -29,13 +29,13 @@ export const customerHandler = [
       return new HttpResponse(null, { status: 403 })
    }),
 
-   http.post<PathParams<never>, CustomerDto>(`${API}/register`, async ({ request }) => {
+   http.post<PathParams<never>, CustomerDto>(`${API}/auth/register`, async ({ request }) => {
       const newCustomer = await request.json()
 
-      if (newCustomer.password === newCustomer.matchingPassword) {
+      if (newCustomer.email !== 'repeat@email.com') {
          return HttpResponse.text('Account create successfully')
       }
 
-      return HttpResponse.text("Passwords don't match")
+      return HttpResponse.json({ desc: 'Email is already used', fieldError: null }, { status: 400 })
    })
 ]

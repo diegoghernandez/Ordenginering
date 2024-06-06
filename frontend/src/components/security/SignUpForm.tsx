@@ -6,7 +6,7 @@ import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 
 export function SignUpForm() {
-   const { isLoading, error, response, handlePromise } = useServicePromise<CustomerDto>(registerCustomer)
+   const { isLoading, error, setError, response, handlePromise } = useServicePromise<CustomerDto>(registerCustomer)
 
    const labels = {
       customerName: 'Name',
@@ -17,15 +17,23 @@ export function SignUpForm() {
    }
    
    const handleData = (formValues: FormData) => {
-      const customerData: CustomerDto = {
-         customerName: getFormValue(labels.customerName, formValues),
-         email: getFormValue(labels.email, formValues),
-         password: getFormValue(labels.password, formValues),
-         matchingPassword: getFormValue(labels.confirmPassword, formValues),
-         birthDate: getFormValue(labels.birthDate, formValues)
+      if (getFormValue(labels.password, formValues) !== getFormValue(labels.confirmPassword, formValues)) {
+         setError({
+            password: "Passwords don't match",
+            confirmPassword: "Passwords don't match"
+         })
+      } else {
+         const customerData: CustomerDto = {
+            customerName: getFormValue(labels.customerName, formValues),
+            email: getFormValue(labels.email, formValues),
+            password: getFormValue(labels.password, formValues),
+            matchingPassword: getFormValue(labels.confirmPassword, formValues),
+            birthDate: getFormValue(labels.birthDate, formValues)
+         }
+   
+         handlePromise(customerData)
       }
 
-      handlePromise(customerData)
    }
 
    return (
