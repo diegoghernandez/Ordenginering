@@ -14,8 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,88 +62,31 @@ class IngredientServiceImplTest extends SetUpForServiceWithContainers {
 
    @Test
    @DisplayName("Should convert one ingredientDto to ingredientEntity, and send it to the repository")
-   void saveIngredient() throws NotAllowedException {
+   void saveIngredient() throws NotAllowedException, IOException {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
                       "Pepperoni",
                       IngredientType.VEGETABLE,
-                      "/meat/peperoni",
                       "Author"
-              )));
+              ), TestIngredientUtil.getImageFile()));
 
       ingredientService.saveIngredient(new IngredientDto(
               "Good",
               IngredientType.VEGETABLE,
-              "/meat/peperoni",
               "Author"
-      ));
+      ), TestIngredientUtil.getImageFile());
 
       var ingredientEntity = IngredientEntity.builder()
               .idIngredient(5)
               .ingredientName("Good")
               .ingredientType(IngredientType.VEGETABLE)
               .authorImage("Author")
-              .urlImage("/meat/peperoni")
+              .fileNameImage("image.jpg")
               .build();
 
       assertAll(
               () -> assertEquals(exception.getMessage(), "Repeat names are not allowed"),
               () -> assertEquals(ingredientEntity.toString(), ingredientRepository.findById(5).get().toString())
-      );
-   }
-
-   @Test
-   @DisplayName("Should convert all ingredientDto to ingredientEntity, and send them to the repository")
-   void saveIngredientList() throws NotAllowedException {
-      var ingredientDtoList = List.of(
-              new IngredientDto(
-                 "Cheese",
-                      IngredientType.CHEESE,
-                 "/meat/peperoni",
-                 "Author"
-              ),
-              new IngredientDto(
-                 "Lettuce",
-                      IngredientType.VEGETABLE,
-                 "/meat/peperoni",
-                 "Author"
-              )
-      );
-
-      Exception exception = assertThrows(NotAllowedException.class,
-              () -> ingredientService.saveIngredientList(Collections.singletonList(new IngredientDto(
-                      "Pepperoni",
-                      IngredientType.VEGETABLE,
-                      "/meat/peperoni",
-                      "Author"
-              ))));
-
-      ingredientService.saveIngredientList(ingredientDtoList);
-
-      var allIngredients = ingredientRepository.findAll();
-      var ingredientsSaved = List.of(allIngredients.get(allIngredients.size() -2), allIngredients.getLast()).toString();
-
-      var ingredientsExpected = List.of(
-              IngredientEntity.builder()
-                      .idIngredient(6)
-                      .ingredientName("Cheese")
-                      .ingredientType(IngredientType.CHEESE)
-                      .authorImage("Author")
-                      .urlImage("/meat/peperoni")
-                      .build(),
-
-              IngredientEntity.builder()
-                      .idIngredient(7)
-                      .ingredientName("Lettuce")
-                      .ingredientType(IngredientType.VEGETABLE)
-                      .authorImage("Author")
-                      .urlImage("/meat/peperoni")
-                      .build()
-      ).toString();
-
-      assertAll(
-              () -> assertEquals(exception.getMessage(), "Repeat names are not allowed"),
-              () -> assertEquals(ingredientsExpected, ingredientsSaved)
       );
    }
 }

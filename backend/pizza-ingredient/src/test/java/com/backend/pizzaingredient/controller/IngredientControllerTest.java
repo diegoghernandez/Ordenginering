@@ -1,8 +1,8 @@
 package com.backend.pizzaingredient.controller;
 
 import com.backend.pizzaingredient.TestIngredientUtil;
-import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.advice.PizzaDataExceptionHandler;
+import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.web.IngredientController;
@@ -16,12 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +56,7 @@ class IngredientControllerTest {
               .thenReturn(List.of());
 
       mockMvc.perform(MockMvcRequestBuilders.get("/")
-                  .contentType(MediaType.APPLICATION_JSON))
+                      .contentType(MediaType.APPLICATION_JSON))
               .andExpect(MockMvcResultMatchers.status().isNotFound());
    }
 
@@ -66,7 +69,7 @@ class IngredientControllerTest {
       var objectMapper = new ObjectMapper();
 
       mockMvc.perform(MockMvcRequestBuilders.get("/")
-                  .contentType(MediaType.APPLICATION_JSON))
+                      .contentType(MediaType.APPLICATION_JSON))
               .andExpect(MockMvcResultMatchers.status().isOk())
               .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(TestIngredientUtil.getIngredientList())));
    }
@@ -153,104 +156,69 @@ class IngredientControllerTest {
    }
 
    @Test
-   @DisplayName("Should catch an error instead of save it and return a bad request with a message")
-   void saveIngredient__BAD__REQUEST() throws Exception {
-      Mockito.doThrow(new NotAllowedException("No repeat name"))
-              .when(ingredientService).saveIngredient(Mockito.isA(IngredientDto.class));
-
-      var ingredientDto =  new IngredientDto(
+   @DisplayName("Should save one ingredientDto using the service or catch an error with a bad message")
+   void saveIngredient() throws Exception {
+      var ingredientDtoError = new IngredientDto(
               "Repeat name",
               IngredientType.VEGETABLE,
-              "/meat/peperoni",
               "Author"
       );
 
-      var objectMapper = new ObjectMapper();
-
-      mockMvc.perform(MockMvcRequestBuilders.post("/save/one")
-                      .contentType(MediaType.APPLICATION_JSON)
-                      .content(objectMapper.writeValueAsString(ingredientDto)))
-              .andExpect(MockMvcResultMatchers.status().isBadRequest())
-              .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"No repeat name\",\"fieldError\":null}"));
-   }
-
-   @Test
-   @DisplayName("Should save one ingredientDto using the service")
-   void saveIngredient__OK() throws Exception {
-      Mockito.doNothing().when(ingredientService).saveIngredient(Mockito.isA(IngredientDto.class));
-
-      var ingredientDto =  new IngredientDto(
+      var ingredientDto = new IngredientDto(
               "Good",
               IngredientType.VEGETABLE,
-              "/meat/peperoni",
               "Author"
       );
 
-      var objectMapper = new ObjectMapper();
+      Mockito.doThrow(new NotAllowedException("No repeat name")).when(ingredientService)
+              .saveIngredient(Mockito.eq(ingredientDtoError), Mockito.isA(MockMultipartFile.class));
 
-      mockMvc.perform(MockMvcRequestBuilders.post("/save/one")
-                      .contentType(MediaType.APPLICATION_JSON)
-                      .content(objectMapper.writeValueAsString(ingredientDto)))
-              .andExpect(MockMvcResultMatchers.status().isOk())
-              .andExpect(MockMvcResultMatchers.content().string("Ingredient save correctly"));
-   }
+      Mockito.doNothing().when(ingredientService)
+              .saveIngredient(Mockito.eq(ingredientDto), Mockito.isA(MockMultipartFile.class));
 
-   @Test
-   @DisplayName("Should catch an error instead of save them and return a bad request with a message")
-   void saveIngredientList__BAD__REQUEST() throws Exception {
-      Mockito.doThrow(new NotAllowedException("No repeat name"))
-              .when(ingredientService).saveIngredientList(Mockito.anyList());
+      assertAll(
+              () -> mockMvc.perform(MockMvcRequestBuilders.multipart("/")
+                              .file(TestIngredientUtil.getIngredientFile(ingredientDto))
+                              .file(new MockMultipartFile("file", "image.jpg",
+                                      MediaType.IMAGE_JPEG_VALUE, (byte[]) null))
+                              .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                      .andExpect(MockMvcResultMatchers.content().string("Image is required")),
 
-      var ingredientDtoList = List.of(
-              new IngredientDto(
-                 "Repeat",
-                 IngredientType.VEGETABLE,
-                 "/meat/peperoni",
-                 "Author"
-              ),
-              new IngredientDto(
-                 "Repeat",
-                 IngredientType.VEGETABLE,
-                 "/meat/peperoni",
-                 "Author"
-              )
+              () -> Mockito.verify(ingredientService, Mockito.times(0))
+                      .saveIngredient(Mockito.eq(ingredientDto), Mockito.isA(MockMultipartFile.class)),
+
+              () -> mockMvc.perform(MockMvcRequestBuilders.multipart("/")
+                              .file(TestIngredientUtil.getIngredientFile(ingredientDto))
+                              .file(new MockMultipartFile("file", "image.webp",
+                                      "image/webp", Files.readAllBytes(Path.of("src/test/resources/test.webp"))
+                              ))
+                              .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                      .andExpect(MockMvcResultMatchers.content().string("Image type is not one of the following supported: jpeg, png, bmp, webmp, gif")),
+
+              () -> Mockito.verify(ingredientService, Mockito.times(0))
+                      .saveIngredient(Mockito.eq(ingredientDto), Mockito.isA(MockMultipartFile.class)),
+
+              () -> mockMvc.perform(MockMvcRequestBuilders.multipart("/")
+                              .file(TestIngredientUtil.getIngredientFile(ingredientDtoError))
+                              .file(TestIngredientUtil.getImageFile())
+                              .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                      .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"No repeat name\",\"fieldError\":null}")),
+
+              () -> Mockito.verify(ingredientService, Mockito.times(1))
+                      .saveIngredient(Mockito.eq(ingredientDtoError), Mockito.isA(MockMultipartFile.class)),
+
+              () -> mockMvc.perform(MockMvcRequestBuilders.multipart("/")
+                              .file(TestIngredientUtil.getIngredientFile(ingredientDto))
+                              .file(TestIngredientUtil.getImageFile())
+                              .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+                      .andExpect(MockMvcResultMatchers.status().isOk())
+                      .andExpect(MockMvcResultMatchers.content().string("Ingredient save correctly")),
+
+              () -> Mockito.verify(ingredientService, Mockito.times(1))
+                      .saveIngredient(Mockito.eq(ingredientDto), Mockito.isA(MockMultipartFile.class))
       );
-
-      var objectMapper = new ObjectMapper();
-
-      mockMvc.perform(MockMvcRequestBuilders.post("/save/list")
-                      .contentType(MediaType.APPLICATION_JSON)
-                      .content(objectMapper.writeValueAsString(ingredientDtoList)))
-              .andExpect(MockMvcResultMatchers.status().isBadRequest())
-              .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"No repeat name\",\"fieldError\":null}"));
-   }
-
-   @Test
-   @DisplayName("Should save the ingredientDto list using the service")
-   void saveIngredientList__OK() throws Exception {
-      Mockito.doNothing().when(ingredientService).saveIngredientList(Mockito.anyList());
-
-      var ingredientDtoList = List.of(
-              new IngredientDto(
-                      "Good 1",
-                      IngredientType.VEGETABLE,
-                      "/meat/peperoni",
-                      "Author"
-              ),
-              new IngredientDto(
-                      "Good 2",
-                      IngredientType.VEGETABLE,
-                      "/meat/peperoni",
-                      "Author"
-              )
-      );
-
-      var objectMapper = new ObjectMapper();
-
-      mockMvc.perform(MockMvcRequestBuilders.post("/save/list")
-                      .contentType(MediaType.APPLICATION_JSON)
-                      .content(objectMapper.writeValueAsString(ingredientDtoList)))
-              .andExpect(MockMvcResultMatchers.status().isOk())
-              .andExpect(MockMvcResultMatchers.content().string("All ingredients save correctly"));
    }
 }

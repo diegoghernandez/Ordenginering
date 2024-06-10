@@ -2,7 +2,15 @@ package com.backend.pizzaingredient;
 
 import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.web.dto.IngredientDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 public final class TestIngredientUtil {
@@ -14,7 +22,7 @@ public final class TestIngredientUtil {
                       .ingredientName("Pepperoni")
                       .ingredientType(IngredientType.MEAT)
                       .authorImage("Author")
-                      .urlImage("/meat/peperoni/")
+                      .fileNameImage("peperoni.jpg")
                       .build(),
 
               IngredientEntity.builder()
@@ -22,7 +30,7 @@ public final class TestIngredientUtil {
                       .ingredientName("Mozzarella")
                       .ingredientType(IngredientType.CHEESE)
                       .authorImage("Author")
-                      .urlImage("/cheese/mozzarella")
+                      .fileNameImage("mozzarella.jpg")
                       .build(),
 
               IngredientEntity.builder()
@@ -30,7 +38,7 @@ public final class TestIngredientUtil {
                       .ingredientName("Pineapple")
                       .ingredientType(IngredientType.VEGETABLE)
                       .authorImage("Author")
-                      .urlImage("/vegetables/pineapple")
+                      .fileNameImage("pineapple.jpg")
                       .build(),
 
               IngredientEntity.builder()
@@ -38,8 +46,22 @@ public final class TestIngredientUtil {
                       .ingredientName("Ham")
                       .ingredientType(IngredientType.MEAT)
                       .authorImage("Author")
-                      .urlImage("/meat/ham")
+                      .fileNameImage("ham.jpg")
                       .build()
       );
+   }
+
+   public static MockMultipartFile getIngredientFile(IngredientDto ingredientDto) throws JsonProcessingException {
+      var objectMapper = new ObjectMapper();
+
+      return new MockMultipartFile("ingredient", null,
+              MediaType.APPLICATION_JSON_VALUE, objectMapper.writeValueAsString(ingredientDto).getBytes());
+   }
+
+   public static MockMultipartFile getImageFile() throws IOException {
+      var byteArray = Files.readAllBytes(Path.of("src/test/resources/test.jpg"));
+
+      return new MockMultipartFile("file", "image.jpg",
+              MediaType.IMAGE_JPEG_VALUE, byteArray);
    }
 }

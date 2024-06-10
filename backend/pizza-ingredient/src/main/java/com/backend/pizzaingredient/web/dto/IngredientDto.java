@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 public record IngredientDto(
         @NotBlank String ingredientName,
         @NotNull IngredientType ingredientType,
-        @NotBlank String urlImage,
         @NotBlank String authorImage
 ) {
 }

@@ -10,8 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping
@@ -24,7 +27,7 @@ public class IngredientController {
       this.ingredientService = ingredientService;
    }
 
-   @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<List<IngredientEntity>> getAllIngredients() {
       var ingredientList = ingredientService.getAllIngredients();
 
@@ -51,15 +54,20 @@ public class IngredientController {
               .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
    }
 
-   @PostMapping(value = "/save/one", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> saveIngredient(@Valid @RequestBody IngredientDto ingredientDto) throws NotAllowedException {
-      ingredientService.saveIngredient(ingredientDto);
-      return new ResponseEntity<>("Ingredient save correctly", HttpStatus.OK);
-   }
+   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<String> saveIngredient(
+           @Valid @RequestPart("ingredient") IngredientDto ingredientDto,
+           @RequestPart("file") MultipartFile image
+   ) throws NotAllowedException, IOException {
+      if (image.isEmpty()) return new ResponseEntity<>("Image is required", HttpStatus.BAD_REQUEST);
+      else if (!Objects.requireNonNull(image.getContentType()).matches("image/(jpeg|png|bmp|webmp|gif)")) {
+         return new ResponseEntity<>(
+                 "Image type is not one of the following supported: jpeg, png, bmp, webmp, gif",
+                 HttpStatus.BAD_REQUEST
+         );
+      }
 
-   @PostMapping(value = "/save/list", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> saveIngredientList(@Valid @RequestBody List<IngredientDto> ingredientDto) throws NotAllowedException {
-      ingredientService.saveIngredientList(ingredientDto);
-      return new ResponseEntity<>("All ingredients save correctly", HttpStatus.OK);
+      ingredientService.saveIngredient(ingredientDto, image);
+      return new ResponseEntity<>("Ingredient save correctly", HttpStatus.OK);
    }
 }

@@ -28,6 +28,6 @@ public class IngredientEntity {
    @Column(name = "author_image", length = 50, nullable = false)
    private String authorImage;
 
-   @Column(name = "url_image", length = 100, nullable = false)
-   private String urlImage;
+   @Column(name = "file_name_image", length = 50, nullable = false)
+   private String fileNameImage;
 }

@@ -1,5 +1,5 @@
-INSERT INTO `ingredient` (ingredient_name, ingredient_type, author_image, url_image) VALUES
-('Pepperoni', 'MEAT', 'Author', '/meat/peperoni/'),
-('Mozzarella', 'CHEESE', 'Author', '/cheese/mozzarella'),
-('Pineapple', 'VEGETABLE', 'Author', '/vegetables/pineapple'),
-('Ham', 'MEAT', 'Author', '/meat/ham');
+INSERT INTO `ingredient` (ingredient_name, ingredient_type, author_image, file_name_image)
+VALUES ('Pepperoni', 'MEAT', 'Author', 'peperoni.jpg'),
+       ('Mozzarella', 'CHEESE', 'Author', 'mozzarella.jpg'),
+       ('Pineapple', 'VEGETABLE', 'Author', 'pineapple.jpg'),
+       ('Ham', 'MEAT', 'Author', 'ham.jpg');
