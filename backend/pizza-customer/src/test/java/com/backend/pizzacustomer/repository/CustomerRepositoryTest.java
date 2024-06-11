@@ -1,6 +1,6 @@
 package com.backend.pizzacustomer.repository;
 
-import com.backend.pizzacustomer.setup.testcontainer.SetUpForTestWithContainers;
+import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class CustomerRepositoryTest extends SetUpForTestWithContainers {
+class CustomerRepositoryTest implements MysqlTestContainer {
 
    @Autowired
    private CustomerRepository customerRepository;

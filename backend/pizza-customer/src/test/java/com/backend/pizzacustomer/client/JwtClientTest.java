@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class JwtClientTest extends SetUpForJwtClient {
+public class JwtClientTest implements SetUpForJwtClient {
 
    @Autowired
    private JwtClient jwtClient;

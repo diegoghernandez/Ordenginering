@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class AuthControllerTest extends SetUpForJwtClient {
+class AuthControllerTest implements SetUpForJwtClient {
 
    private MockMvc mockMvc;
 

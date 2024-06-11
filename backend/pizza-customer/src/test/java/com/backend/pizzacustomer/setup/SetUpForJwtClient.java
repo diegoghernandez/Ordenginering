@@ -4,16 +4,15 @@ import com.backend.pizzacustomer.TestDataUtil;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
 @EnableFeignClients
-public abstract class SetUpForJwtClient {
+public interface SetUpForJwtClient {
 
-   static WireMockServer mockService = new WireMockServer(3000);
+   WireMockServer mockService = new WireMockServer(3000);
 
    @DynamicPropertySource
    static void configureProperties(DynamicPropertyRegistry registry) {
@@ -22,7 +21,7 @@ public abstract class SetUpForJwtClient {
    }
 
    @BeforeAll
-   public static void setupMockJWtResponse() {
+   static void setupMockJWtResponse() {
       mockService.start();
 
       mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/4234"))

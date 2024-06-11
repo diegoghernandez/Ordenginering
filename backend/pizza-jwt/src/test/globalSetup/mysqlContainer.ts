@@ -1,8 +1,8 @@
 import { GenericContainer } from 'testcontainers'
-import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl.js'
+import { CustomerRoleRepositoryImpl } from '../../repository/CustomerRoleRepositoryImpl.js'
 
-export default async function setup() {
-   await new GenericContainer('mysql:8.2')
+export default async function() {
+   const mysqlContainer = await new GenericContainer('mysql:8.2')
       .withExposedPorts({
          container: 3306,
          host: 3306
@@ -13,5 +13,13 @@ export default async function setup() {
       .withEnvironment({ MYSQL_PASSWORD: 'secret' })
       .start()
 
+   const port = mysqlContainer.getMappedPort(3306)
+   const host = mysqlContainer.getHost()
+   console.log(`Running Mysql on ${host}:${port}`)
+
    await new CustomerRoleRepositoryImpl().initializeTestContainersSetUp()
+
+   return async () => {
+      await mysqlContainer.stop()
+   }
 }

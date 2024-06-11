@@ -1,9 +1,18 @@
+import { ConnectionOptions, createPool } from 'mysql2/promise'
 import { CustomerRole, CustomerRoleId, CustomerRoleRepository } from '../../types.js'
-import { getMySQLConnection } from '../utils/createMySQLConnection.js'
+
+const DEFAULT_CONFIG: ConnectionOptions = {
+   database: 'pizzadatabase',
+   host: 'localhost',
+   port: 3306,
+   user: 'myuser',
+   password: 'secret'
+}
+
+const connection = createPool(DEFAULT_CONFIG)
 
 export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    existById = async (id: number) => {
-      const connection = await getMySQLConnection()
       const [result] = await connection.query<CustomerRoleId[]>(
          'SELECT customer_role_id from customer_role WHERE customer_role_id = ?;', [id]
       )
@@ -12,7 +21,6 @@ export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    }
 
    geByCustomerRoleId = async (id: number) => {
-      const connection = await getMySQLConnection()
       const [customerRole] = await connection.query<CustomerRole[]>(`
          SELECT customer_role.customer_role_id, role.role_name  FROM customer_role
          JOIN role ON customer_role.role_id = role.role_id
@@ -23,7 +31,6 @@ export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    }
 
    save = async (id: number) => {
-      const connection = await getMySQLConnection()
 
       await connection.query(`
          INSERT INTO customer_role(customer_role_id, role_id) VALUES 
@@ -32,7 +39,6 @@ export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    }
 
    initializeTestContainersSetUp = async () => {
-      const connection = await getMySQLConnection()
 
       await connection.query(`
          CREATE TABLE IF NOT EXISTS role (

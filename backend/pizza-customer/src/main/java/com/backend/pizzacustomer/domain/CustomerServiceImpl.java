@@ -1,5 +1,6 @@
 package com.backend.pizzacustomer.domain;
 
+import com.backend.pizzacustomer.domain.message.CustomerMessage;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
@@ -24,10 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
 
    private final PasswordEncoder passwordEncoder;
 
+   private final CustomerMessage customerMessage;
+
    @Autowired
-   public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+   public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
       this.customerRepository = customerRepository;
       this.passwordEncoder = passwordEncoder;
+      this.customerMessage = customerMessage;
    }
 
    @Override
@@ -45,7 +49,8 @@ public class CustomerServiceImpl implements CustomerService {
               .creationTimestamp(LocalDateTime.now())
               .build();
 
-      customerRepository.save(customer);
+      var customerSaved = customerRepository.save(customer);
+      customerMessage.sendCustomerRoleMessage(customerSaved.getIdCustomer());
    }
 
    @Override

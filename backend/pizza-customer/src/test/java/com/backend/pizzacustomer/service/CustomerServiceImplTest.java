@@ -1,26 +1,43 @@
 package com.backend.pizzacustomer.service;
 
+import com.backend.pizzacustomer.config.RabbitTestConfiguration;
 import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
-import com.backend.pizzacustomer.setup.testcontainer.SetUpForServiceTestWithContainers;
+import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
+import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @DataJpaTest
-@ImportAutoConfiguration(BCryptPasswordEncoder.class)
-class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
+@Import(RabbitTestConfiguration.class)
+@ExtendWith(OutputCaptureExtension.class)
+@ComponentScan(basePackages = "com.backend.pizzacustomer.domain")
+@ImportAutoConfiguration({BCryptPasswordEncoder.class, RabbitAutoConfiguration.class})
+class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
 
    @Autowired
    private CustomerService customerService;
@@ -28,9 +45,14 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
    private final static long ID__TO__REJECT = 34L;
    private final static long ID__TO__ACCEPT = 4234L;
 
+   @RabbitListener(queues = {"q.save-customer-role"})
+   public void onPaymentEvent(Long customerId) {
+      log.info("Customer id: " + customerId);
+   }
+
    @Test
    @DisplayName("Should convert one customerDto to customerEntity to send it to the repository")
-   void saveCustomer() throws NotAllowedException {
+   void saveCustomer(CapturedOutput capturedOutput) throws NotAllowedException {
       Exception exceptionEmail = assertThrows(NotAllowedException.class,
               () -> customerService.saveCustomer(new CustomerDto(
                       "Name",
@@ -59,6 +81,9 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
 
       var customerSaved = customerService.getCustomerById(1).get();
 
+      Awaitility.await().atMost(Duration.ofSeconds(5L))
+              .until(() -> capturedOutput.getOut().contains("Customer id: 1"));
+
       assertAll(
               () -> assertEquals(exceptionEmail.getMessage(), "Email already used"),
               () -> assertEquals(exceptionAge.getMessage(), "No older enough"),
@@ -66,7 +91,8 @@ class CustomerServiceImplTest extends SetUpForServiceTestWithContainers {
               () -> assertEquals("Name", customerSaved.getCustomerName()),
               () -> assertEquals("original@name.com", customerSaved.getEmail()),
               () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
-              () -> assertEquals(false, customerSaved.getDisable())
+              () -> assertEquals(false, customerSaved.getDisable()),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 1")
       );
    }
 
