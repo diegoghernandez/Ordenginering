@@ -1,6 +1,6 @@
 package com.backend.pizzaorder.client;
 
-import com.backend.pizzaorder.setup.client.SetUpForIngredientClient;
+import com.backend.pizzaorder.setup.client.IngredientClientWireMock;
 import com.backend.pizzaorder.web.api.IngredientClient;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class IngredientClientTest extends SetUpForIngredientClient {
+public class IngredientClientTest implements IngredientClientWireMock {
 
    @Autowired
    private IngredientClient ingredientClient;
@@ -24,9 +24,9 @@ public class IngredientClientTest extends SetUpForIngredientClient {
       var exception = assertThrows(FeignException.class, () -> ingredientClient.getIdByIngredientName("not-found"));
 
       assertAll(
-              () -> assertEquals(ingredientClient.getIdByIngredientName("Pepperoni"), 1),
-              () -> assertEquals(ingredientClient.getIdByIngredientName("Pineapple"), 3),
-              () -> assertEquals(exception.status(), 404)
+              () -> assertEquals(1, ingredientClient.getIdByIngredientName("Pepperoni")),
+              () -> assertEquals(3, ingredientClient.getIdByIngredientName("Pineapple")),
+              () -> assertEquals(404, exception.status())
       );
    }
 
@@ -36,8 +36,8 @@ public class IngredientClientTest extends SetUpForIngredientClient {
       var exception = assertThrows(FeignException.class, () -> ingredientClient.getIngredientNameById(8765));
 
       assertAll(
-              () -> assertEquals(ingredientClient.getIngredientNameById(3), "Mozzarella"),
-              () -> assertEquals(exception.status(), 404)
+              () -> assertEquals("Pineapple", ingredientClient.getIngredientNameById(3)),
+              () -> assertEquals(404, exception.status())
       );
    }
 }

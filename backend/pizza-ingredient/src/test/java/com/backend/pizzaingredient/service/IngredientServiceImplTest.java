@@ -6,20 +6,22 @@ import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
-import com.backend.pizzaingredient.setup.containers.SetUpForServiceWithContainers;
+import com.backend.pizzaingredient.setup.containers.MysqlTestContainer;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class IngredientServiceImplTest extends SetUpForServiceWithContainers {
+@ComponentScan(basePackages = "com.backend.pizzaingredient.domain")
+class IngredientServiceImplTest implements MysqlTestContainer {
 
    @Autowired
    private IngredientService ingredientService;

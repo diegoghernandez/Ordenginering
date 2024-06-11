@@ -4,19 +4,21 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
-public class SetUpForCustomerClient extends SetUpForClient{
+@EnableFeignClients
+public interface CustomerClientWireMock {
 
-   static WireMockServer mockService = new WireMockServer(8765);
+   WireMockServer mockService = new WireMockServer(8765);
 
    @BeforeAll
-   public static void setupMockCustomerResponse() {
+   static void setupMockCustomerResponse() {
       mockService.start();
 
-      mockService.stubFor(WireMock.head(WireMock.urlPathMatching("/customer/exist/2"))
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/customer/exist/2"))
               .willReturn(WireMock.status(200)));
 
-      mockService.stubFor(WireMock.head(WireMock.urlPathMatching("/customer/exist/8789"))
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/customer/exist/8789"))
               .willReturn(WireMock.status(404)));
    }
 

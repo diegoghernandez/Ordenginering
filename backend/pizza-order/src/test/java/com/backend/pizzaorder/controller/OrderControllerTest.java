@@ -4,7 +4,8 @@ import com.backend.pizzaorder.TestDataUtil;
 import com.backend.pizzaorder.advice.PizzaDataExceptionHandler;
 import com.backend.pizzaorder.domain.service.OrderService;
 import com.backend.pizzaorder.exceptions.NotAllowedException;
-import com.backend.pizzaorder.setup.client.SetUpForJwtClient;
+import com.backend.pizzaorder.setup.client.IngredientClientWireMock;
+import com.backend.pizzaorder.setup.client.JwtClientWireMock;
 import com.backend.pizzaorder.web.OrderController;
 import com.backend.pizzaorder.web.config.JwtFilter;
 import com.backend.pizzaorder.web.domain.IngredientDomain;
@@ -13,8 +14,6 @@ import com.backend.pizzaorder.web.domain.PizzaDomain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class OrderControllerTest extends SetUpForJwtClient {
+class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock {
 
    private MockMvc mockMvc;
 
@@ -70,16 +69,6 @@ class OrderControllerTest extends SetUpForJwtClient {
    @Test
    @DisplayName("Should return one page with order domains in json format with a specific customer id using the service or return a not found")
    void getOrdersByAccount() {
-      var mockService = new WireMockServer(2222);
-      mockService.start();
-
-      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/1"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("Pepperoni").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/2"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("Mozzarella").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-      mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/3"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("Pineapple").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-
       Mockito.when(orderService.getOrdersByCustomerId(6456546L, 0))
               .thenReturn(Optional.of(new PageImpl<>(List.of())));
 
@@ -141,8 +130,6 @@ class OrderControllerTest extends SetUpForJwtClient {
                       .getOrdersByCustomerId(4234L, 0)
 
       );
-
-      mockService.stop();
    }
 
    @Test

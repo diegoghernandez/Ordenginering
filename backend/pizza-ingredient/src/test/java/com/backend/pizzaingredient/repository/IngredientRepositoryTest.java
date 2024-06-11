@@ -1,7 +1,7 @@
 package com.backend.pizzaingredient.repository;
 
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
-import com.backend.pizzaingredient.setup.containers.SetUpForTestWithContainers;
+import com.backend.pizzaingredient.setup.containers.MysqlTestContainer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class IngredientRepositoryTest extends SetUpForTestWithContainers {
+class IngredientRepositoryTest implements MysqlTestContainer {
 
    @Autowired
    private IngredientRepository ingredientRepository;

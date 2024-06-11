@@ -1,6 +1,6 @@
 package com.backend.pizzaorder.client;
 
-import com.backend.pizzaorder.setup.client.SetUpForJwtClient;
+import com.backend.pizzaorder.setup.client.JwtClientWireMock;
 import com.backend.pizzaorder.web.api.JwtClient;
 import com.backend.pizzaorder.web.dto.JwtResponseDto;
 import feign.FeignException;
@@ -14,11 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class JwtClientTest extends SetUpForJwtClient {
+class JwtClientTest implements JwtClientWireMock {
 
    @Autowired
    private JwtClient jwtClient;

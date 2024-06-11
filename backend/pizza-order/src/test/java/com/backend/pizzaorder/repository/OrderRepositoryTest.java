@@ -1,22 +1,23 @@
 package com.backend.pizzaorder.repository;
 
 import com.backend.pizzaorder.TestDataUtil;
-import com.backend.pizzaorder.setup.containers.SetUpForTestWithContainers;
 import com.backend.pizzaorder.persistence.entity.PizzaEntity;
 import com.backend.pizzaorder.persistence.repository.OrderRepository;
+import com.backend.pizzaorder.setup.containers.MysqlTestContainer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-class OrderRepositoryTest extends SetUpForTestWithContainers {
+class OrderRepositoryTest implements MysqlTestContainer {
 
    @Autowired
    private OrderRepository orderRepository;

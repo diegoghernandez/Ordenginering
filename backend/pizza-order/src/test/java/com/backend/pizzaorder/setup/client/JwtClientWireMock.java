@@ -4,14 +4,16 @@ import com.backend.pizzaorder.TestDataUtil;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.MediaType;
 
-public class SetUpForJwtClient extends SetUpForClient {
+@EnableFeignClients
+public interface JwtClientWireMock {
 
-   static WireMockServer mockService = new WireMockServer(3000);
+   WireMockServer mockService = new WireMockServer(3000);
 
    @BeforeAll
-   public static void setupMockCustomerResponse() {
+   static void setupMockCustomerResponse() {
       mockService.start();
 
       mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestDataUtil.getCookie().getValue()))

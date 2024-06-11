@@ -5,9 +5,9 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-public abstract class SetUpForTestWithContainers {
+public interface MysqlTestContainer {
 
-   private static final MySQLContainer<?> databaseContainer = new MySQLContainer<>("mysql:8.2.0")
+   MySQLContainer<?> databaseContainer = new MySQLContainer<>("mysql:8.2.0")
            .withDatabaseName("pizzadatabase")
            .withUsername("myuser")
            .withPassword("verysecret");
