@@ -4,7 +4,6 @@
    min-height: 100vh;
    border: none;
    background-color: var(--background);
-   transition: opacity .5s;
    
    &:not([open]) {
       opacity: 0;
@@ -12,7 +11,7 @@
 
    @media (prefers-reduced-motion: no-preference) {
       &.left {
-         animation: slide-out-left var(--animation-properties);
+         animation: slide-vanish-left var(--animation-properties);
       
          &[open] {
             animation: slide-in-left var(--animation-properties);
@@ -26,8 +25,8 @@
 
    @media (prefers-reduced-motion: no-preference) {
       &.right {
-         animation: slide-out-right var(--animation-properties);
-
+         animation: slide-vanish-right var(--animation-properties);
+         
          &[open] {
             animation: slide-in-right var(--animation-properties);
          }
@@ -72,12 +71,20 @@
 
 @keyframes slide-in-left {
    0% {
+      display: block;
       transform: translateX(-100%);
    }
 }
 
-@keyframes slide-out-left {
+@keyframes slide-vanish-left {
+   from {
+      display: block;
+      opacity: 1;
+   }
+   
    to {
+      display: none;
+      opacity: 0;
       transform: translateX(-100%);
    }
 }
@@ -89,8 +96,15 @@
    }
 }
 
-@keyframes slide-out-right {
+@keyframes slide-vanish-right {
+   from {
+      display: block;
+      opacity: 1;
+   }
+
    to {
+      display: none;
+      opacity: 0;
       transform: translateX(100%);
    }
 }
