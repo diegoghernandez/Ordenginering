@@ -30,6 +30,17 @@ const pages = [
          </ul>
       </LargeModalContainer>
    </div>
+   <div class='menu--deskstop'>
+      <ul>
+         {pages.map((page) => (
+            <li>
+               <a href={`/client${page.link}`} data-astro-prefetch>
+                  {page.name}
+               </a>
+            </li>
+         ))}
+      </ul>
+   </div>
    <div class='nav--interaction--buttons'>
       <a href='/client/customer/'>
          Account
@@ -45,7 +56,7 @@ const pages = [
 </nav>
 
 <script>
-	const anchor = document.querySelectorAll('a')[3]
+	const anchor = document.querySelectorAll('.nav--interaction--buttons > a')[0]
 	if (anchor instanceof HTMLAnchorElement) {
 		anchor.pathname += localStorage.getItem('id') ?? '0'
 	}
@@ -109,6 +120,39 @@ const pages = [
       }
    }
 
+   .menu--deskstop {
+      display: none;
+
+      & ul {
+         list-style: none;
+         display: flex;
+         flex-direction: row;
+         gap: 24px;
+         color: var(--text-color);
+         & li {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            & a:hover,
+            & a:focus-within {
+               color: var(--primary-interaction);
+            }
+            & a:focus-within {
+               outline: 1px solid var(--outline);
+            }
+         }
+      }
+   }
+
+   @media (width > 640px) {
+      .menu--movil {
+         display: none;
+      }
+      .menu--deskstop {
+         display: block;
+      }
+   }
+
    .interaction--buttons {
       height: 24px;
       color: var(--text-color);
@@ -134,10 +178,10 @@ const pages = [
 			justify-content: center;
 			gap: 4px;
 			&:hover,
-			&:focus {
+			&:focus-within {
 				color: var(--primary-interaction);
 			}
-			&:focus {
+			&:focus-within {
 				outline: 1px solid var(--outline);
 			}
 		}
