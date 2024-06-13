@@ -32,28 +32,32 @@ const getAuhor = pizza !== 'empty' ?
 
 <Layout title={`Customize your ${pizza.replace('-', ' ')} pizza`}>
 	<main>
-		<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
-			<Image 
-					class='pizza-custom' 
-					src={`/client/images/pizza/${pizza}.jpg`}
-					alt={`${getDefaultName(pizza)} pizza`}
-					width='320'
-					height='260'
-					decoding='sync'
-					loading='eager'
-					transition:name={`image-${pizza.replace('-', ' ')}`}
-				/>
-		</ImgContainer>
-		<PizzaData 
-			client:load 
-			pizza={{
-				pizzaName: pizza,
-				pizzaImageUrl: `/client/images/pizza/${pizza}.jpg`,
-				pizzaImageAuthor: getAuhor
-			}}
-			prebuildIngredients={getIngredients} 
-		/>
-		<PizzaIngredients client:idle prebuildIngredients={getIngredients} />
+		<div>
+			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
+				<Image 
+						class='pizza-custom' 
+						src={`/client/images/pizza/${pizza}.jpg`}
+						alt={`${getDefaultName(pizza)} pizza`}
+						width='320'
+						height='260'
+						decoding='sync'
+						loading='eager'
+						transition:name={`image-${pizza.replace('-', ' ')}`}
+					/>
+			</ImgContainer>
+			<PizzaData 
+				client:load 
+				pizza={{
+					pizzaName: pizza,
+					pizzaImageUrl: `/client/images/pizza/${pizza}.jpg`,
+					pizzaImageAuthor: getAuhor
+				}}
+				prebuildIngredients={getIngredients} 
+			/>
+		</div>
+		<div>
+			<PizzaIngredients client:idle prebuildIngredients={getIngredients} />
+		</div>
 	</main>
 </Layout>
 <style is:global>
@@ -65,8 +69,35 @@ const getAuhor = pizza !== 'empty' ?
 <style>
 	main {
 		display: flex;
+		width: 100%;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		gap: 16px;
 		padding: 16px;
+		&> div {
+			width: 100%;
+			&:first-of-type {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				max-width: 480px;
+				gap: 16px;
+			}
+		}
+	}
+
+	@media (width > 720px) {
+		main {
+			display: flex;
+			flex-direction: row;
+			justify-content: start;
+			align-items: start;
+			max-height: calc(100svh - 56px );
+			overflow: hidden;
+			&> div:first-of-type {
+				max-width: 360px;
+			}
+		}
 	}
 </style>

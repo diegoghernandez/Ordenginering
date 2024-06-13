@@ -20,9 +20,9 @@ function getUrlImage(specificPath: string) {
 		<h1>Menu</h1>
 		<div>
 			{pizzaList.map((pizza, index) => (
-				<CardContainer styleClass='card-separation'>
+				<CardContainer styleClass='pizza-container'>
 					<>
-						<ImgContainer styleClass='pizza-container' figcaptionText={pizza.image.author}>
+						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>
 							<Image 
 								src={getUrlImage(pizza.image.url)}
 								alt={`${pizza.name} pizza`}
@@ -57,14 +57,14 @@ function getUrlImage(specificPath: string) {
 </Layout>
 
 <style is:global>
-	.card-separation {
+	.pizza-container {
 		display: flex;
 		max-width: 340px;
 		flex-direction: column;
 		gap: 12px;
 	}
 
-	.pizza-container {
+	.pizza-image {
 		height: 140px;
 		border-radius: 16px;
 		overflow: hidden;

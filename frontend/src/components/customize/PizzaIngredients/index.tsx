@@ -38,41 +38,43 @@ export function PizzaIngredients({ prebuildIngredients = [] }: Props) {
                </button>
             ))}
          </div>
-         {ingredientList.filter(({ ingredientType }) => (desiredType === ingredientTypeList[0] || desiredType === ingredientType))
-         .map((ingredient) => (
-            <CardContainer key={ingredient.idIngredient} styleClass={Styles['ingredients-card']}>
-               <>
-                  <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
-                     <img 
-                        src={`/client/images/${ingredient.urlImage}.jpg`}
-                        alt={ingredient.ingredientName}
-                        width='130'
-                        height='80'
-                        loading='lazy'
-                        decoding='async'
+         <div className={Styles['ingredients-container']}>
+            {ingredientList.filter(({ ingredientType }) => (desiredType === ingredientTypeList[0] || desiredType === ingredientType))
+               .map((ingredient) => (
+               <CardContainer key={ingredient.idIngredient} styleClass={Styles['ingredients-card']}>
+                  <>
+                     <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
+                        <img 
+                           src={`/client/images/${ingredient.urlImage}.jpg`}
+                           alt={ingredient.ingredientName}
+                           width='130'
+                           height='80'
+                           loading='lazy'
+                           decoding='async'
+                        />
+                     </ImgContainer>
+                     <h3>{ingredient.ingredientName}</h3>
+                     <p>Quantity</p>
+                     <SelectQuantity 
+                        valueToShow={ingredients.length === 0 ? 
+                           prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
+                           : ingredients.filter((element) => compareStringsOfNames(element?.name, ingredient.ingredientName))[0]?.quantity ?? 0
+                        }
+                        minValue={0}
+                        maxValue={2}
+                        increase={{
+                           label: 'Increase quantity',
+                           fun: () => addIngredient(ingredient.ingredientName)
+                        }}
+                        decrease={{
+                           label: 'Decrease quantity',
+                           fun: () => removeIngredient(ingredient.ingredientName)
+                        }}
                      />
-                  </ImgContainer>
-                  <h3>{ingredient.ingredientName}</h3>
-                  <p>Quantity</p>
-                  <SelectQuantity 
-                     valueToShow={ingredients.length === 0 ? 
-                        prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
-                        : ingredients.filter((element) => compareStringsOfNames(element?.name, ingredient.ingredientName))[0]?.quantity ?? 0
-                     }
-                     minValue={0}
-                     maxValue={2}
-                     increase={{
-                        label: 'Increase quantity',
-                        fun: () => addIngredient(ingredient.ingredientName)
-                     }}
-                     decrease={{
-                        label: 'Decrease quantity',
-                        fun: () => removeIngredient(ingredient.ingredientName)
-                     }}
-                  />
-               </>
-            </CardContainer>
-         ))}
+                  </>
+               </CardContainer>
+            ))}
+         </div>
       </>
    )
 }
