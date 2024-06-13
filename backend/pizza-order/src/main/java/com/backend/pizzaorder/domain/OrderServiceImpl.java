@@ -43,13 +43,12 @@ public class OrderServiceImpl implements OrderService {
    @Override
    public void saveOrder(OrderDto order, Cookie cookie) throws NotAllowedException {
       var idOrder = UUID.randomUUID();
+      var newCookie = ResponseCookie.from(cookie.getName(), cookie.getValue()).build();
 
-      if (customerClient.customerExist(
-              order.idCustomer(),
-              ResponseCookie.from(cookie.getName(), cookie.getValue()).build()
-      ).status() != 200) throw new NotAllowedException("Customer not found");
+      if (customerClient.customerExist(order.idCustomer(), newCookie).status() != 200)
+         throw new NotAllowedException("Customer not found");
 
-      var pizzaEntityList = convertPizzaDtoToEntity(idOrder, order.pizzaList());
+      var pizzaEntityList = convertPizzaDtoToEntity(idOrder, order.pizzaList(), newCookie);
 
       var orderEntity = OrderEntity.builder()
               .idOrder(idOrder)
@@ -69,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
       orderRepository.save(orderEntity);
    }
 
-   private List<PizzaEntity> convertPizzaDtoToEntity(UUID idOrder, List<PizzaDto> pizzaDtoList) throws NotAllowedException {
+   private List<PizzaEntity> convertPizzaDtoToEntity(UUID idOrder, List<PizzaDto> pizzaDtoList, ResponseCookie newCookie) throws NotAllowedException {
       var pizzaEntityList = new ArrayList<PizzaEntity>();
 
       for (var pizzaDto : pizzaDtoList) {
@@ -87,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
          var pizzaIngredients = new HashSet<PizzaIngredients>();
          try {
             for(var ingredientNameDto : pizzaDto.pizzaIngredients()) {
-               var idIngredient = ingredientClient.getIdByIngredientName(ingredientNameDto.name());
+               var idIngredient = ingredientClient.getIdByIngredientName(ingredientNameDto.name(), newCookie);
                pizzaIngredients.add(PizzaIngredients.builder()
                        .idIngredient(idIngredient)
                        .idPizza(idPizza)

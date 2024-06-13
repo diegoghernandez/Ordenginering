@@ -5,6 +5,7 @@ import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.Cookie;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -63,5 +64,9 @@ public final class TestIngredientUtil {
 
       return new MockMultipartFile("file", "image.jpg",
               MediaType.IMAGE_JPEG_VALUE, byteArray);
+   }
+
+   public static Cookie getCookie() {
+      return new Cookie("jwt", "token");
    }
 }

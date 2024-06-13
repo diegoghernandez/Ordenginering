@@ -37,7 +37,7 @@ function getModifyOrders(pageNumber) {
    }
 }
 
-dataApp.get('/data/order/customer/32', (req, res) => {
+dataApp.get('/order/customer/32', (req, res) => {
    const { page } = req.query
    
    if (page == 0) {

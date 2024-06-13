@@ -2,7 +2,7 @@ import type { OrderRequest } from '@/types'
 import { getJSON } from '@/utils/getJSON.mjs'
 import { HttpResponse, http, type PathParams } from 'msw'
 
-const API = 'http://localhost:4436/data/order'
+const API = 'http://localhost:4436/order'
 
 export const orderHandler = [
    http.get(`${API}/customer/:id`, ({ params }) => {
@@ -14,7 +14,7 @@ export const orderHandler = [
       return new HttpResponse(null, { status: 404 })
    }),
 
-   http.post<PathParams<never>, OrderRequest>(`${API}/save`, async ({ request }) => {
+   http.post<PathParams<never>, OrderRequest>(`${API}`, async ({ request }) => {
       const { country } = await request.json()
 
       if (country === 'MEX') {

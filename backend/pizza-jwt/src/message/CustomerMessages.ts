@@ -11,8 +11,10 @@ export class CustomerMessage {
       const customerRepository = new CustomerRoleRepositoryImpl()
       
       await channel.consume(queue, async (msg) => {
-         const customerId = Number(msg?.content)
-         if ((await customerRepository.existById(customerId)).length !== 1) {
+         const customerId = Number(JSON.parse(msg?.content.toString()?? '')?.customerId)
+         console.log(customerId);
+         
+         if ((await customerRepository.existById(customerId)).length === 0) {
             await customerRepository.save(customerId)
          }
       })

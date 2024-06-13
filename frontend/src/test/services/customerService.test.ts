@@ -1,27 +1,7 @@
+import { logIn, registerCustomer } from '@/services/customerService'
 import { describe, expect, it } from 'vitest'
-import { getCustomerData, logIn, registerCustomer } from '@/services/customerService'
 
 describe('Customer service tests', () => {
-   describe('getCustomerData tests', () => {
-      it('Should be a function', () => {
-         expect(typeof getCustomerData).toBe('function')
-      })
-
-      it('Should throw a error with the following message', async () => {
-         await expect(getCustomerData(42352, undefined)).rejects.toThrow('Customer not found')
-      })
-
-      it('Should return the right values', async () => {
-         const content = await getCustomerData(32, undefined)
-
-         expect(content).toStrictEqual({
-            customerName: 'Customer',
-            email: 'random@random.com',
-            birthDate: '2002-06-12'
-         })
-      })
-   }),
-
    describe('registerCustomer tests', () => {
       it('Should be a function', () => {
          expect(typeof logIn).toBe('function')

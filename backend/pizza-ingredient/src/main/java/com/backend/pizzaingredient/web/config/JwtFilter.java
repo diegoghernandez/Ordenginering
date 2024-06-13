@@ -1,6 +1,7 @@
-package com.backend.pizzacustomer.web.config;
+package com.backend.pizzaingredient.web.config;
 
-import com.backend.pizzacustomer.web.api.JwtClient;
+import com.backend.pizzaingredient.utils.JwtCookie;
+import com.backend.pizzaingredient.web.client.JwtClient;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,13 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -34,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
            HttpServletResponse response,
            FilterChain filterChain
    ) throws ServletException, IOException {
-      var token = Optional.ofNullable(WebUtils.getCookie(request, "jwt"));
+      var token = JwtCookie.getJwtCookie(request);
 
       if (token.isEmpty()) {
          filterChain.doFilter(request, response);

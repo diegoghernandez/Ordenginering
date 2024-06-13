@@ -1,8 +1,8 @@
-package com.backend.pizzacustomer.client;
+package com.backend.pizzaingredient.client;
 
-import com.backend.pizzacustomer.setup.SetUpForJwtClient;
-import com.backend.pizzacustomer.web.api.JwtClient;
-import com.backend.pizzacustomer.web.dto.JwtResponseDto;
+import com.backend.pizzaingredient.setup.client.JwtClientWireMock;
+import com.backend.pizzaingredient.web.client.JwtClient;
+import com.backend.pizzaingredient.web.dto.JwtResponseDto;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,31 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class JwtClientTest implements SetUpForJwtClient {
+class JwtClientTest implements JwtClientWireMock {
 
    @Autowired
    private JwtClient jwtClient;
-
-   @Test
-   @DisplayName("Should return a token if is valid or return a bad request if not")
-   void createJwt() {
-      var exception = assertThrows(FeignException.class, () -> jwtClient.createJWT(95679));
-      var arrayMessage = exception.getMessage().split(":");
-      var formatMessage = arrayMessage[arrayMessage.length - 1]
-              .replaceFirst(" ", "").replaceAll("[^a-zA-Z0-9 ]","");
-
-      assertAll(
-              () -> assertEquals(jwtClient.createJWT(4234), "token"),
-              () -> assertEquals("Email not valid", formatMessage)
-      );
-   }
 
    @Test
    @DisplayName("Should validate a token if is valid return a JwtResponseDto, otherwise return an unauthorized")
@@ -46,9 +31,10 @@ public class JwtClientTest implements SetUpForJwtClient {
       assertAll(
               () -> assertEquals(
                       jwtClient.validJwt("token"),
-                      Optional.of(new JwtResponseDto(321, "USER"))
+                      Optional.of(new JwtResponseDto(423, "USER"))
               ),
               () -> assertEquals("401 Unauthorized", formatMessage)
       );
    }
+
 }

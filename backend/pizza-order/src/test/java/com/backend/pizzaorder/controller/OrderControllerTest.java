@@ -110,7 +110,7 @@ class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock
       ));
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/customer/6456546")
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/customer/6456546")
                               .param("page", "0")
                               .cookie(TestDataUtil.getCookie())
                               .contentType(MediaType.APPLICATION_JSON))
@@ -119,7 +119,7 @@ class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock
               () -> Mockito.verify(orderService, Mockito.times(1))
                       .getOrdersByCustomerId(6456546L, 0),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/order/customer/4234")
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/customer/4234")
                               .param("page", "0")
                               .cookie(TestDataUtil.getCookie())
                               .contentType(MediaType.APPLICATION_JSON))
@@ -143,7 +143,7 @@ class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock
               .saveOrder(Mockito.eq(TestDataUtil.getOrderDto()), Mockito.eq(TestDataUtil.getCookie()));
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/order/save")
+              () -> mockMvc.perform(MockMvcRequestBuilders.post("/")
                               .contentType(MediaType.APPLICATION_JSON)
                               .cookie(TestDataUtil.getCookie())
                               .content(objectMapper.writeValueAsString(TestDataUtil.getOrderDto())))

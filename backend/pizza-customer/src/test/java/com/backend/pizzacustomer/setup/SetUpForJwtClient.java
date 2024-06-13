@@ -39,7 +39,7 @@ public interface SetUpForJwtClient {
       mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestDataUtil.getCookie().getValue()))
               .willReturn(WireMock.aResponse()
                       .withStatus(200)
-                      .withBody("{\"roles\":[\"USER\"], \"subject\": \"email@example.com\"}")
+                      .withBody("{\"id\": 321, \"role\":\"USER\"}")
                       .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
 
       mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/invalid"))

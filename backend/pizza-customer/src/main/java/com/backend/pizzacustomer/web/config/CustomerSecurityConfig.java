@@ -1,5 +1,6 @@
 package com.backend.pizzacustomer.web.config;
 
+import com.backend.pizzacustomer.constants.CustomerRoles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,13 +17,13 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig {
+public class CustomerSecurityConfig {
 
    private final JwtFilter jwtFilter;
 
    private final CorsConfiguration corsConfiguration;
 
-   public SecurityConfig(JwtFilter jwtFilter, CorsConfiguration corsConfiguration) {
+   public CustomerSecurityConfig(JwtFilter jwtFilter, CorsConfiguration corsConfiguration) {
       this.jwtFilter = jwtFilter;
       this.corsConfiguration = corsConfiguration;
    }
@@ -39,6 +40,10 @@ public class SecurityConfig {
               .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
                       .requestMatchers(mvcMatcherBuilder.pattern("/auth/**")).permitAll()
+                      .requestMatchers(mvcMatcherBuilder.pattern("/change/**"))
+                        .hasAnyRole(CustomerRoles.ADMIN.toString(), CustomerRoles.USER.toString())
+                      .requestMatchers(mvcMatcherBuilder.pattern("/**"))
+                        .hasAnyRole(CustomerRoles.ADMIN.toString(), CustomerRoles.USER.toString())
                       .anyRequest().authenticated()
               )
               .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

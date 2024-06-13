@@ -32,7 +32,7 @@ class JwtClientTest implements JwtClientWireMock {
       assertAll(
               () -> assertEquals(
                       jwtClient.validJwt("token"),
-                      Optional.of(new JwtResponseDto("email@example.com", List.of("USER")))
+                      Optional.of(new JwtResponseDto(423, "USER"))
               ),
               () -> assertEquals("401 Unauthorized", formatMessage)
       );

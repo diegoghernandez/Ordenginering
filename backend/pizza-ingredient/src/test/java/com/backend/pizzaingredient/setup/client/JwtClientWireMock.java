@@ -1,6 +1,6 @@
-package com.backend.pizzaorder.setup.client;
+package com.backend.pizzaingredient.setup.client;
 
-import com.backend.pizzaorder.TestDataUtil;
+import com.backend.pizzaingredient.TestIngredientUtil;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,7 +16,7 @@ public interface JwtClientWireMock {
    static void setupMockCustomerResponse() {
       mockService.start();
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestDataUtil.getCookie().getValue()))
+      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestIngredientUtil.getCookie().getValue()))
               .willReturn(WireMock.aResponse()
                       .withStatus(200)
                       .withBody("{\"id\": 423, \"role\":\"USER\"}")

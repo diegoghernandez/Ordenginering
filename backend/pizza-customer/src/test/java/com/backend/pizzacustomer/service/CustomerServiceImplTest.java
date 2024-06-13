@@ -1,11 +1,11 @@
 package com.backend.pizzacustomer.service;
 
-import com.backend.pizzacustomer.config.RabbitTestConfiguration;
 import com.backend.pizzacustomer.TestDataUtil;
+import com.backend.pizzacustomer.config.RabbitTestConfiguration;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
-import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
 import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
+import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
@@ -28,6 +29,7 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Import(RabbitTestConfiguration.class)
 @ExtendWith(OutputCaptureExtension.class)
 @ComponentScan(basePackages = "com.backend.pizzacustomer.domain")
-@ImportAutoConfiguration({BCryptPasswordEncoder.class, RabbitAutoConfiguration.class})
+@ImportAutoConfiguration({BCryptPasswordEncoder.class, RabbitAutoConfiguration.class, JacksonAutoConfiguration.class})
 class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
 
    @Autowired
@@ -46,7 +48,7 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
    private final static long ID__TO__ACCEPT = 4234L;
 
    @RabbitListener(queues = {"q.save-customer-role"})
-   public void onPaymentEvent(Long customerId) {
+   public void onPaymentEvent(Map<String, Integer> customerId) {
       log.info("Customer id: " + customerId);
    }
 
@@ -82,7 +84,7 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
       var customerSaved = customerService.getCustomerById(1).get();
 
       Awaitility.await().atMost(Duration.ofSeconds(5L))
-              .until(() -> capturedOutput.getOut().contains("Customer id: 1"));
+              .until(() -> capturedOutput.getOut().contains("Customer id: {customerId=1}"));
 
       assertAll(
               () -> assertEquals(exceptionEmail.getMessage(), "Email already used"),
@@ -92,7 +94,7 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
               () -> assertEquals("original@name.com", customerSaved.getEmail()),
               () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
               () -> assertEquals(false, customerSaved.getDisable()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 1")
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: {customerId=1}")
       );
    }
 

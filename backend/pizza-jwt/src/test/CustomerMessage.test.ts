@@ -19,7 +19,7 @@ describe('CustomerMessage tests', () => {
       vi.spyOn(customerRepository, 'existById')
       vi.spyOn(customerRepository, 'save')
 
-      channel.sendToQueue(queue, Buffer.from('1'))
+      channel.sendToQueue(queue, Buffer.from(JSON.stringify({ customerId: 1 })))
 
       vi.waitFor(() => {
          expect(customerRepository.existById).toBeCalledTimes(1)
@@ -32,7 +32,7 @@ describe('CustomerMessage tests', () => {
       expect((await customerRepository.geByCustomerRoleId(5432)).length).toBe(0)
       expect(await customerRepository.geByCustomerRoleId(5432)).toEqual([])
 
-      channel.sendToQueue(queue, Buffer.from('5432'))
+      channel.sendToQueue(queue, Buffer.from(JSON.stringify({ customerId: 5432 })))
 
       await vi.waitFor(async () => {
          expect(await customerRepository.geByCustomerRoleId(5432)).toEqual([{ 

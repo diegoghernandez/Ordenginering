@@ -1,5 +1,18 @@
 package com.backend.pizzaorder.web;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.backend.pizzaorder.domain.service.OrderService;
 import com.backend.pizzaorder.exceptions.NotAllowedException;
 import com.backend.pizzaorder.utils.JwtCookie;
@@ -8,16 +21,12 @@ import com.backend.pizzaorder.web.domain.IngredientDomain;
 import com.backend.pizzaorder.web.domain.OrderDomain;
 import com.backend.pizzaorder.web.domain.PizzaDomain;
 import com.backend.pizzaorder.web.dto.OrderDto;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping
 public class OrderController {
 
    private final OrderService orderService;
@@ -30,8 +39,13 @@ public class OrderController {
    }
 
    @GetMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<Page<OrderDomain>> getOrdersByAccount(@PathVariable long id, @RequestParam int page) {
+   public ResponseEntity<Page<OrderDomain>> getOrdersByAccount(
+           @PathVariable long id,
+           @RequestParam int page,
+           HttpServletRequest request
+   ) {
       var orderPage = orderService.getOrdersByCustomerId(id, page).get();
+      var cookie = JwtCookie.getJwtCookie(request).get();
 
       if (orderPage.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -57,7 +71,10 @@ public class OrderController {
                               pizzaEntity.getQuantity(),
                               pizzaEntity.getPizzaIngredients()
                                       .stream().map((pizzaIngredients) -> new IngredientDomain(
-                                              ingredientClient.getIngredientNameById(pizzaIngredients.getIdIngredient()),
+                                              ingredientClient.getIngredientNameById(
+                                                      pizzaIngredients.getIdIngredient(),
+                                                      ResponseCookie.from(cookie.getName(), cookie.getValue()).build()
+                                              ),
                                               pizzaIngredients.getIngredientQuantity()
                                       )).toList()
                       )).toList()
@@ -66,7 +83,7 @@ public class OrderController {
       return new ResponseEntity<>(mappedOrder, HttpStatus.OK);
    }
 
-   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<String> saveOrder(
            @Valid @RequestBody OrderDto orderDto,
            HttpServletRequest request

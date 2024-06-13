@@ -14,6 +14,7 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import java.time.Duration;
+import java.util.Map;
 
 @Slf4j
 @SpringBootTest
@@ -24,7 +25,7 @@ class CustomerMessageTest implements RabbitTestContainer {
    private CustomerMessage customerMessage;
 
    @RabbitListener(queues = {"q.save-customer-role"})
-   public void onPaymentEvent(Long customerId) {
+   public void onPaymentEvent(Map<String, Long> customerId) {
       log.info("Customer id: " + customerId);
    }
 
@@ -33,8 +34,8 @@ class CustomerMessageTest implements RabbitTestContainer {
       customerMessage.sendCustomerRoleMessage(32);
 
       Awaitility.await().atMost(Duration.ofSeconds(5L))
-                      .until(() -> capturedOutput.getOut().contains("Customer id: 32"));
+                      .until(() -> capturedOutput.getOut().contains("Customer id: {customerId=32}"));
 
-      Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 32");
+      Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: {customerId=32}");
    }
 }

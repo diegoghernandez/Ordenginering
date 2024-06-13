@@ -1,4 +1,4 @@
-package com.backend.pizzaorder.web.dto;
+package com.backend.pizzaingredient.web.dto;
 
 public record JwtResponseDto(
         long id,

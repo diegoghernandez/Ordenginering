@@ -2,7 +2,7 @@ import { StatusError } from '@/services/exceptions/StatusError'
 import type { OrderRequest, PageOrder } from '@/types'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:4436'
-const API = URL +  '/data/order'
+const API = URL +  '/order'
 
 export async function getOrdersByAccount(id: number, page: number): Promise<PageOrder> {   
    const response = await fetch(`${API}/customer/${id}?page=${page}`, {
@@ -18,7 +18,7 @@ export async function getOrdersByAccount(id: number, page: number): Promise<Page
 }
 
 export async function saveOrder(order: OrderRequest) {   
-   const response = await fetch(`${API}/save`, {
+   const response = await fetch(API, {
       method: 'POST',
       credentials: 'include',
       headers: {

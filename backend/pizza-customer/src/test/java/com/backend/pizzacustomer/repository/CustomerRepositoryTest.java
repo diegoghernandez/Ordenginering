@@ -1,7 +1,7 @@
 package com.backend.pizzacustomer.repository;
 
-import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
+import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

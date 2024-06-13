@@ -14,7 +14,7 @@ const connection = createPool(DEFAULT_CONFIG)
 export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    existById = async (id: number) => {
       const [result] = await connection.query<CustomerRoleId[]>(
-         'SELECT customer_role_id from customer_role WHERE customer_role_id = ?;', [id]
+         'SELECT customer_role_id from customer_role WHERE customer_role_id = ? LIMIT 1;', [id]
       )
 
       return result

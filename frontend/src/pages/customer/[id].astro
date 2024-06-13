@@ -4,7 +4,7 @@ import { PasswordForm } from '@/components/customer/PasswordForm'
 import { ProfileForm } from '@/components/customer/ProfileForm'
 import LinksContainer from '@/components/customer/LinksContainer.astro'
 import FormLayout from '@/layouts/FormLayout.astro'
-import { getCustomerData } from '@/services/customerService'
+import { getCustomerData } from '@/services/server/customerServer'
 import type { Customer, ProfileLinks } from '@/types'
 
 export const prerender = false
