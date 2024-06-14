@@ -4,18 +4,18 @@
    --surface: #332E2B;
    --surface-40: #332E2B40;
    --primary-interaction: #F55700;
-   --secondary-interaction: #A05B34;
+   --secondary-interaction: #4d2700;
    --text-color: #4C3B33;
    --text-light-color: #7B6358;
    --outline: #855A45;
    --outline-light: #F3EBE6;
    --error: #a91313;
    --error-light: #FEF6F6;
-   --state-layer-color: #332E2B;
+   --state-layer-color: #ffc7a6;
    --shadow-input: #BA9484 0 0 0 3px;
    --shadow-error: #fb361f 0 0 0 3px;
    --shadow-primary-button: #FFBE83 0 0 0 3px;
-   --shadow-secondary-button: #E19267 0 0 0 3px;
+   --shadow-secondary-button: #8e6d20 0 0 0 3px;
 }
 
 @media (prefers-color-scheme: dark) {
