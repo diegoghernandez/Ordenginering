@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function CheckoutForm({ countryList }: Props) {
-   const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest>(saveOrder)
+   const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest, string>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
    const clearCart = useShoppingCart((state) => state.clearCart)
    const dialogRef = useRef<HTMLDialogElement>(null)

@@ -1,4 +1,4 @@
 export function getFormValue(parameter: string, formValues: FormData) {
    const value = formValues.get(parameter.toLowerCase().replace(' ', '-'))
-   return value ?? ''
+   return value as string ?? ''
 }

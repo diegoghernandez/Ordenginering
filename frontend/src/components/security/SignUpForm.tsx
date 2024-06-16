@@ -6,7 +6,7 @@ import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 
 export function SignUpForm() {
-   const { isLoading, error, setError, response, handlePromise } = useServicePromise<CustomerDto>(registerCustomer)
+   const { isLoading, error, setError, response, handlePromise } = useServicePromise<CustomerDto, string>(registerCustomer)
 
    const labels = {
       customerName: 'Name',

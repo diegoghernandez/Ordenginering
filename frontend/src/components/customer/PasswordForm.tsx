@@ -6,7 +6,7 @@ import { changePassword, type ChangePasswordValues } from '@/services/changeCust
 import { getFormValue } from '@/utils/getFormValue'
 
 export function PasswordForm() {
-   const { isLoading, error, response, handlePromise } = useServicePromise<ChangePasswordValues>(changePassword)
+   const { isLoading, error, response, handlePromise } = useServicePromise<ChangePasswordValues, string>(changePassword)
 
    const labels = {
       currentPassword: 'Current Password',

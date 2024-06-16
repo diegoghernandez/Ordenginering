@@ -7,7 +7,7 @@ import { getFormValue } from '@/utils/getFormValue'
 import { useEffect } from 'react'
 
 export function LogInForm() {
-   const { isLoading, error, response, handlePromise } = useServicePromise<CustomerLogIn>(logIn)
+   const { isLoading, error, response, handlePromise } = useServicePromise<CustomerLogIn, string>(logIn)
 
    const labels = {
       email: 'Email',

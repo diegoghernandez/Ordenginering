@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function ProfileForm({ name, birthDate }: Props) {
-   const { isLoading, error, response, handlePromise } = useServicePromise<ChangeProfileValues>(changeProfile)
+   const { isLoading, error, response, handlePromise } = useServicePromise<ChangeProfileValues, string>(changeProfile)
 
    const labels = {
       name: 'Name',
