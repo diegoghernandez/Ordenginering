@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function EmailForm({ email }: Props) {
-   const { isLoading, error, response, handlePromise } = useServicePromise<ChangeEmailValues>(changeEmail)
+   const { isLoading, error, response, handlePromise } = useServicePromise<ChangeEmailValues, string>(changeEmail)
 
    const labels = {
       currentEmail: 'Current Email Address',

@@ -56,8 +56,8 @@ public class IngredientController {
 
    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<String> saveIngredient(
-           @Valid @RequestPart("ingredient") IngredientDto ingredientDto,
-           @RequestPart("file") MultipartFile image
+           @RequestPart("file") MultipartFile image,
+           @Valid @RequestPart("ingredient") IngredientDto ingredientDto
    ) throws NotAllowedException, IOException {
       if (image.isEmpty()) return new ResponseEntity<>("Image is required", HttpStatus.BAD_REQUEST);
       else if (!Objects.requireNonNull(image.getContentType()).matches("image/(jpeg|png|bmp|webmp|gif)")) {

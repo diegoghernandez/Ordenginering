@@ -1,11 +1,12 @@
 ---
 import { EmailForm } from '@/components/customer/EmailForm'
+import LinksContainer from '@/components/customer/LinksContainer.astro'
 import { PasswordForm } from '@/components/customer/PasswordForm'
 import { ProfileForm } from '@/components/customer/ProfileForm'
-import LinksContainer from '@/components/customer/LinksContainer.astro'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getCustomerData } from '@/services/server/customerServer'
-import type { Customer, ProfileLinks } from '@/types'
+import type { Customer } from '@/types'
+import { getProfileLinks } from '@/utils/getProfileLinks'
 
 export const prerender = false
 
@@ -15,25 +16,15 @@ const { id } = Astro.params
 
 let customer: Customer
 try {
-   customer = await getCustomerData(Number(id), Astro.cookies)
+   customer = await getCustomerData(Number(id), Astro.cookies.get('jwt')?.value)
 } catch (error) {   
    console.error(error);
    return Astro.redirect('/client/404')
 }
-
-const profileLinks: ProfileLinks[] = [{
-   url: '/client/customer/' + id,
-   name: 'Profile',
-   active: true
-}, {
-   url: `/client/customer/${id}/orders`,
-   name: 'Orders'
-}]
-
 ---
 
 <FormLayout title='Customer page'>
-   <LinksContainer links={profileLinks} />
+   <LinksContainer links={getProfileLinks(Number(id), '', 'PROFILE')} />
    <ProfileForm client:load name={customer.customerName} birthDate={customer.birthDate} />
    <PasswordForm client:load />
    <EmailForm client:load email={customer.email} />

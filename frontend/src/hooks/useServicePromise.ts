@@ -1,10 +1,10 @@
 import { StatusError } from '@/services/exceptions/StatusError'
 import { useState } from 'react'
 
-export function useServicePromise<Type>(servicePromise: (valueForPromise: Type) => Promise<string>) {
+export function useServicePromise<Type, Response>(servicePromise: (valueForPromise: Type) => Promise<Response>) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [error, setError] = useState<{[key: string]: string}| undefined>({})
-   const [response, setResponse] = useState<{status: number, message: string} | null>(null)
+   const [response, setResponse] = useState<{status: number, message: Response | string} | null>(null)
 
    const handlePromise = (valueForPromise: Type) => {
       setIsLoading(true)

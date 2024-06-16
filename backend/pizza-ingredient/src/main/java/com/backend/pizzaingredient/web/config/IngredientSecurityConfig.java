@@ -23,8 +23,11 @@ public class IngredientSecurityConfig {
 
    private final JwtFilter jwtFilter;
 
-   public IngredientSecurityConfig(JwtFilter jwtFilter) {
+   private final CorsConfiguration corsConfiguration;
+
+   public IngredientSecurityConfig(JwtFilter jwtFilter, CorsConfiguration corsConfiguration) {
       this.jwtFilter = jwtFilter;
+      this.corsConfiguration = corsConfiguration;
    }
 
    @Bean
@@ -36,6 +39,7 @@ public class IngredientSecurityConfig {
 
       http
               .csrf(AbstractHttpConfigurer::disable)
+              .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/ingredient"))
                         .hasRole(IngredientCustomerRoles.ADMIN.toString())

@@ -1,13 +1,15 @@
 import { changeCustomerHandler } from './domains/changeCustomerHandler'
 import { customerHandler } from './domains/customerHandler'
-import { ingredientsHandler } from './domains/ingredientsHandler'
+import { ingredientHandler } from './domains/ingredientHandler'
+import { jwtHandler } from './domains/jwtHandler'
 import { orderHandler } from './domains/orderHandler'
 import { pizzaHandler } from './domains/pizzaHandler'
 
 export const handlers = [
    ...customerHandler,
    ...changeCustomerHandler,
-   ...ingredientsHandler,
+   ...ingredientHandler,
    ...pizzaHandler,
-   ...orderHandler
+   ...orderHandler,
+   ...jwtHandler
 ]

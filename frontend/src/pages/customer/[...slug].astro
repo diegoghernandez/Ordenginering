@@ -4,6 +4,7 @@ import { ShowPastOrders } from '@/components/pastOrders/ShowPastOrders'
 import Layout from '@/layouts/Layout.astro'
 import { getOrdersByAccount } from '@/services/server/orderServer'
 import type { PageOrder, ProfileLinks } from '@/types'
+import { getProfileLinks } from '@/utils/getProfileLinks'
 
 export const prerender = false
 
@@ -19,21 +20,11 @@ try {
    console.error(error);
    orders = null
 }
-
-const profileLinks: ProfileLinks[] = [{
-   url: '/client/customer/' + slug.split('/')[0],
-   name: 'Profile'
-}, {
-   url: `/client/customer/${slug}`,
-   name: 'Orders',
-   active: true
-}]
-
 ---
 
 <Layout title='Customer orders'>
    <main>
-      <LinksContainer links={profileLinks} />
+      <LinksContainer links={getProfileLinks(Number(slug.split('/')[0]), '', 'ORDER')} />
       {orders !== null ?
          <ShowPastOrders
             client:load

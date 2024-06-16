@@ -22,17 +22,29 @@ export interface Ingredient {
    quantity: number;
 }
 
+export interface IngredientDto {
+   imageFile: FormData
+   ingredientName: string;
+   ingredientType: IngredientTypes;
+   authorImage: string;
+}
+
 export interface IngredientRequest {
    idIngredient: number;
    ingredientName: string;
    ingredientType: IngredientTypes;
    authorImage: string;
-   urlImage: string;
+   imageFileName: string;
 }
 
 export interface CustomerLogIn {
    email: string;
    password: string;
+}
+
+export interface CustomerRole {
+   id: number
+   role: 'USER' | 'ADMIN'
 }
 
 export interface Customer {

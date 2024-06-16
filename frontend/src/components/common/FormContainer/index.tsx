@@ -1,7 +1,7 @@
-import type { FormEvent, ReactElement } from 'react'
 import { Callout } from '@/components/common/Callout'
-import './FormContainer.module.css'
 import { PRIMARY__BUTTON } from '@/constants/styles'
+import type { FormEvent, ReactElement } from 'react'
+import './FormContainer.module.css'
 
 interface Props {
    handleData: (formValues: FormData) => void;
@@ -9,7 +9,7 @@ interface Props {
       status: number;
       message: string;
    } | null;
-   children: ReactElement[];
+   children: Array<ReactElement | null>;
    submitButton: {
       label: string;
       isLoading: boolean;

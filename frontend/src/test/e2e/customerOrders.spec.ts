@@ -1,5 +1,6 @@
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from './utils/navbarUtils'
+import { getProfileLinks } from '@/utils/getProfileLinks'
 
 test.describe('Customer orders page tests', () => {
    test.beforeEach(async ({ page, context }) => {
@@ -11,15 +12,15 @@ test.describe('Customer orders page tests', () => {
    test('Should render correctly', async ({ page }) => {
       await findNavbarElements(page)
 
-      await expect(page.getByRole('link', { name: 'Profile' })).toBeVisible()
-      await expect(page.getByRole('link', { name: 'Profile' })).not.toHaveClass('active')
-      await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
+      getProfileLinks(32, 'ADMIN', 'ORDER').forEach(async ({ name }) => {
+         await expect(page.getByRole('link', { name })).toBeVisible()
+      })
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
       
       await expect(page.getByRole('article')).toHaveCount(6)
       await expect(page.getByRole('alert')).not.toBeVisible()
       
-      await page.mouse.wheel(0, 300)
+      await page.mouse.wheel(0, 600)
       
       await expect(page.getByRole('alert')).toBeVisible()
       await expect(page.getByRole('article')).toHaveCount(9)

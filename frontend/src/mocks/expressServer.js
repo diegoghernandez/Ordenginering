@@ -2,9 +2,8 @@ import { getJSON } from '../utils/getJSON.mjs'
 import express from 'express'
 
 const customerApp = express()
-customerApp.use(express.json())
-
 const CUSTOMER_PORT = 8765
+customerApp.use(express.json())
 
 customerApp.get('/customer/32', (_req, res) => {
    res.status(200).json(getJSON('../mocks/fixtures/customer.json'))
@@ -12,17 +11,16 @@ customerApp.get('/customer/32', (_req, res) => {
 
 customerApp.listen(CUSTOMER_PORT)
 
-const dataApp = express()
-dataApp.use(express.json())
-dataApp.use((_req, res, next) => {
+const orderApp = express()
+const ORDER_PORT = 4436
+orderApp.use(express.json())
+orderApp.use((_req, res, next) => {
    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4321')
    res.setHeader('Access-Control-Allow-Credentials', true)
    res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'DELETE', 'PATCH')
    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers')
    next()
 })
-
-const DATA_PORT = 4436
 
 function getModifyOrders(pageNumber) {
    const { content, pageable, ...rest } = getJSON('../mocks/fixtures/orders.json')
@@ -37,7 +35,7 @@ function getModifyOrders(pageNumber) {
    }
 }
 
-dataApp.get('/order/customer/32', (req, res) => {
+orderApp.get('/order/customer/32', (req, res) => {
    const { page } = req.query
    
    if (page == 0) {
@@ -61,4 +59,16 @@ dataApp.get('/order/customer/32', (req, res) => {
    }
 })
 
-dataApp.listen(DATA_PORT)
+orderApp.listen(ORDER_PORT)
+
+const jwtApp = express()
+const JWT_PORT = 3000
+
+jwtApp.get('/jwt/verify/token', (_req, res) => {
+   res.status(200).json({
+      id: 32,
+      role: 'ADMIN'
+   })
+})
+
+jwtApp.listen(JWT_PORT)

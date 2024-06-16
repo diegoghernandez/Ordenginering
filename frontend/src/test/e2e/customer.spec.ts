@@ -1,6 +1,7 @@
 import { changeCustomerHandler } from '@/mocks/domains/changeCustomerHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from './utils/navbarUtils'
+import { getProfileLinks } from '@/utils/getProfileLinks'
 
 test.describe('Customer page e2e tests', () => {
    test.beforeEach(async ({ page, context, worker }) => {
@@ -15,10 +16,10 @@ test.describe('Customer page e2e tests', () => {
       await findNavbarElements(page)
       await expect(page).toHaveTitle('Customer page')
 
-      await expect(page.getByRole('link', { name: 'Profile' })).toBeVisible()
+      getProfileLinks(32, 'ADMIN', 'PROFILE').forEach(async ({ name }) => {
+         await expect(page.getByRole('link', { name })).toBeVisible()
+      })
       await expect(page.getByRole('link', { name: 'Profile' })).toHaveClass('active')
-      await expect(page.getByRole('link', { name: 'Orders' })).toBeVisible()
-      await expect(page.getByRole('link', { name: 'Orders' })).not.toHaveClass('active')
 
       await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible()
       const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })

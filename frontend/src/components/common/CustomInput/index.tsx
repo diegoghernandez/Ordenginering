@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, type ChangeEvent } from 'react'
 import type { UserInputProps } from '@/types'
 
 export interface InputProps extends UserInputProps {
@@ -7,6 +7,8 @@ export interface InputProps extends UserInputProps {
    type?: string
    minValue?: number
    maxValue?: number
+   accept?: string
+   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function CustomInput({
@@ -19,14 +21,16 @@ export function CustomInput({
    required = false,
    description,
    error = '',
-   disable = true
+   disable = true,
+   accept,
+   onChange
 }: InputProps) {
    const customInputId = useId()
    
    return (
       <div className='user-input'>
          <label htmlFor={customInputId}>{label}</label>
-         {description ? <p id={customInputId + '-describe'}>{description}</p> : null}
+         {description ? <p id={customInputId + '-describe'}>{description}.</p> : null}
          <input 
             id={customInputId}
             name={label.toLowerCase().replace(' ', '-')}
@@ -37,10 +41,12 @@ export function CustomInput({
             max={maxValue}
             placeholder={placeholder}
             disabled={disable}
+            accept={accept}
+            onChange={onChange}
             aria-invalid={Boolean(error)}
-            aria-describedby={customInputId + '-describe'}
+            aria-describedby={`${customInputId}-describe ${customInputId}-error`}
          />
-         {error ? <p id={customInputId + '-describe'}>{error}</p> : null}
+         {error ? <p id={customInputId + '-error'}>{error}</p> : null}
       </div>
    )
 }

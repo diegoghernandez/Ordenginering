@@ -1,0 +1,36 @@
+---
+import LinksContainer from '@/components/customer/LinksContainer.astro'
+import { IngredientForm } from '@/components/ingredient/IngredientForm'
+import FormLayout from '@/layouts/FormLayout.astro'
+import { getRoles } from '@/services/server/jwtServer'
+import { getProfileLinks } from '@/utils/getProfileLinks'
+
+export const prerender = false
+
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+
+let customerRole: {
+   id: number,
+   role: 'USER' | 'ADMIN'
+}
+
+try {
+   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
+} catch (error) {   
+   console.error(error);
+   return Astro.redirect('/client/404')
+}
+---
+
+<FormLayout title='Create a new ingredient'>
+   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'INGREDIENT')} />
+   <h1>Create a new ingredient</h1>
+   <IngredientForm client:load  />
+</FormLayout>
+
+<style>
+   h1 {
+      width: 100%;
+      text-align: center;
+   }
+</style>
