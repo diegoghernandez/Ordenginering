@@ -5,20 +5,27 @@ import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepository
 const customerRoleRepository = new CustomerRoleRepositoryImpl()
 
 describe('CustomRoleRepository tests', () => {
+   describe('databaseIsAvailable tests', () => {
+      it('Should be a function', async () => {
+         assert.equal(typeof customerRoleRepository.databaseIsAvailable, 'function')
+      })
+
+      it('Should get an array with the desired customerRoleId', async () => {
+         assert.equal(await customerRoleRepository.databaseIsAvailable(), true)
+      })
+   })
+
    describe('existById tests', () => {
       it('Should be a function', async () => {
          assert.equal(typeof customerRoleRepository.existById, 'function')
       })
 
       it("Should get an empty array if the customerRoleId doesn't exist", async () => {
-         assert.deepEqual(await customerRoleRepository.existById(9045385342), [])
+         assert.equal(await customerRoleRepository.existById(9045385342), false)
       })
 
       it('Should get an array with the desired customerRoleId', async () => {
-         assert.deepEqual(
-            await customerRoleRepository.existById(3),
-            [{ customer_role_id: 3 }]
-         )
+         assert.equal(await customerRoleRepository.existById(3), true)
       })
    })
 

@@ -1,11 +1,11 @@
 import { Router } from 'express'
+import { CustomerRoleRepository } from '../../../types.js'
 import { JwtController } from '../controller/JwtController.js'
-import { CustomerRoleRepositoryImpl } from '../../repository/CustomerRoleRepositoryImpl.js'
 
-export function createJwtRouter(customerRoleRepositoryImpl: CustomerRoleRepositoryImpl) {
+export function createJwtRouter(CustomerRoleRepository: CustomerRoleRepository) {
    const jwtRouter = Router()
 
-   const jwtController = new JwtController(customerRoleRepositoryImpl)
+   const jwtController = new JwtController(CustomerRoleRepository)
 
    jwtRouter.get('/create/:customerId', jwtController.createJwt)
    jwtRouter.get('/verify/:token', jwtController.verifyJwt)

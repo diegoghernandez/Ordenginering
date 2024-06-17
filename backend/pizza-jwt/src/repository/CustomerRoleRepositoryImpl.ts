@@ -1,5 +1,5 @@
 import { ConnectionOptions, createPool } from 'mysql2/promise'
-import { CustomerRole, CustomerRoleId, CustomerRoleRepository } from '../../types.js'
+import { CustomerRole, CustomerRoleId, CustomerRoleRepository, SelectOne } from '../../types.js'
 
 const DEFAULT_CONFIG: ConnectionOptions = {
    database: 'pizzadatabase',
@@ -12,12 +12,18 @@ const DEFAULT_CONFIG: ConnectionOptions = {
 const connection = createPool(DEFAULT_CONFIG)
 
 export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
+   databaseIsAvailable = async () => {
+      const [result] = await connection.query<SelectOne[]>('SELECT 1;')
+
+      return result.length !== 0
+   }
+
    existById = async (id: number) => {
       const [result] = await connection.query<CustomerRoleId[]>(
          'SELECT customer_role_id from customer_role WHERE customer_role_id = ? LIMIT 1;', [id]
       )
 
-      return result
+      return result.length !== 0
    }
 
    geByCustomerRoleId = async (id: number) => {

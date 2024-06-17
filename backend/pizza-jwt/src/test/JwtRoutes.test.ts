@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import supertest from 'supertest'
 import { afterAll, describe, it } from 'vitest'
-import { app, listen } from '../index.js'
+import { app, listen } from '../index'
 
 const api = supertest(app)
 
