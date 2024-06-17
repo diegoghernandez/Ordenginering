@@ -44,7 +44,24 @@ test.describe('Ingredient page tests', () => {
          .toHaveAccessibleDescription('jpeg, png, bmp, webmp, gif (2MB Max). Image need to be smaller (2MB or less)')
    })
 
-   test('Should get an error if send a name repeated', async ({ page, worker }) => {
+   test('Should show a card with ingredient characteristics', async ({ page }) => {
+      const fileChooserPromise = page.waitForEvent('filechooser')
+      await page.getByLabel('Upload ingredient image').click()
+      const fileChooser = await fileChooserPromise
+      await fileChooser.setFiles('src/test/e2e/static/test.jpg')
+      await expect(page.getByRole('img', { name: 'Image to upload as the ingredient image' })).toBeVisible()
+      
+      await page.getByLabel('Image author').fill('Author')
+      await expect(page.getByText('Author: Author')).toBeVisible()
+      
+      await page.getByLabel('Ingredient name').fill('Show')
+      await expect(page.getByText('Ingredient name: Show')).toBeVisible()
+      
+      await page.getByLabel('Ingredient type').selectOption({ index: 2 })
+      await expect(page.getByText('Ingredient type: Meat')).toBeVisible()
+   })
+
+   test('Should get an error if the name send is repeated', async ({ page, worker }) => {
       const fileChooserPromise = page.waitForEvent('filechooser')
       await page.getByLabel('Upload ingredient image').click()
       const fileChooser = await fileChooserPromise
