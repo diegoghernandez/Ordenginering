@@ -22,15 +22,15 @@
     "supertest": "7.0.0",
     "testcontainers": "10.9.0",
     "ts-standard": "12.0.2",
-    "tsx": "4.15.1",
-    "typescript": "5.4.5",
+    "tsx": "4.15.6",
+    "typescript": "5.1.6",
     "vitest": "1.6.0"
   },
   "dependencies": {
     "amqplib": "0.10.4",
     "express": "4.19.2",
     "jose": "5.4.0",
-    "mysql2": "3.10.0",
+    "mysql2": "3.10.1",
     "zod": "3.23.8"
   },
   "eslintConfig": {
@@ -45,13 +45,15 @@
     "rules": {
       "indent": "off",
       "@typescript-eslint/indent": "off",
-      "@typescript-eslint/space-before-function-paren": "off",
+      "@typescript-eslint/space-before-function-parent": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
       "@typescript-eslint/no-extraneous-class": "off",
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/restrict-template-expressions": "off",
-      "@typescript-eslint/explicit-function-return-type": "off"
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/space-before-function-paren": "off"
     }
-  }
+  },
+  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
 }

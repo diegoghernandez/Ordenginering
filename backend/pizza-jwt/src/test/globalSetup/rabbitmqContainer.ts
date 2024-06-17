@@ -1,4 +1,4 @@
-import { GenericContainer, Wait } from "testcontainers"
+import { GenericContainer, Wait } from 'testcontainers'
 
 export default async function() {
    const rabbitmqContainer = await new GenericContainer('rabbitmq:3.13-management')

@@ -31,7 +31,6 @@ export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    }
 
    save = async (id: number) => {
-
       await connection.query(`
          INSERT INTO customer_role(customer_role_id, role_id) VALUES 
             (?, (SELECT role_id FROM role WHERE role_name = 'USER' LIMIT 1));
@@ -39,7 +38,6 @@ export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    }
 
    initializeTestContainersSetUp = async () => {
-
       await connection.query(`
          CREATE TABLE IF NOT EXISTS role (
             role_id SMALLINT AUTO_INCREMENT,

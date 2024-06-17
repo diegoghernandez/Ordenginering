@@ -1,9 +1,8 @@
-import { describe, expect, it, vi } from "vitest"
-import { CustomerMessage } from "../message/CustomerMessages"
-import { connect } from "amqplib"
-import { CustomerRoleRepositoryImpl } from "../repository/CustomerRoleRepositoryImpl"
+import { describe, expect, it, vi } from 'vitest'
+import { onSaveCustomerRole } from '../message/CustomerMessages'
+import { connect } from 'amqplib'
+import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl'
 
-const customerMessage = new CustomerMessage()
 const connection = await connect('amqp://localhost')
 const channel = await connection.createChannel()
 const queue = 'q.save-customer-role'
@@ -11,7 +10,7 @@ await channel.assertQueue(queue, { durable: false })
 
 describe('CustomerMessage tests', () => {
    it('Should be a function', () => {
-      expect(typeof customerMessage.onSaveCustomerRole).toBe('function')
+      expect(typeof onSaveCustomerRole).toBe('function')
    })
 
    it('Should process the customer id but no save it, because is already in the database', () => {
@@ -35,7 +34,7 @@ describe('CustomerMessage tests', () => {
       channel.sendToQueue(queue, Buffer.from(JSON.stringify({ customerId: 5432 })))
 
       await vi.waitFor(async () => {
-         expect(await customerRepository.geByCustomerRoleId(5432)).toEqual([{ 
+         expect(await customerRepository.geByCustomerRoleId(5432)).toEqual([{
             customer_role_id: 5432,
             role_name: 'USER'
          }])
