@@ -5,14 +5,14 @@ const secret = new TextEncoder().encode('SECRET')
 const alg = 'HS256'
 
 export class JwtService {
-   readonly customerRoleRepository: CustomerRoleRepository
+   #customerRoleRepository: CustomerRoleRepository
 
    constructor(customerRoleRepository: CustomerRoleRepository) {
-      this.customerRoleRepository = customerRoleRepository
+      this.#customerRoleRepository = customerRoleRepository
    }
 
    createJwt = async (id: number) => {
-      const customerRole = await this.customerRoleRepository.geByCustomerRoleId(id)
+      const customerRole = await this.#customerRoleRepository.geByCustomerRoleId(id)
 
       if (customerRole.length === 0) throw new Error('Customer not found')
 

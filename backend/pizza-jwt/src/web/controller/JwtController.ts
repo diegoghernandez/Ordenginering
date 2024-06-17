@@ -4,10 +4,10 @@ import { JwtService } from '../../service/JwtService.js'
 import { CustomerRoleRepository } from '../../../types.js'
 
 export class JwtController {
-   readonly jwtService: JwtService
+   #jwtService: JwtService
 
    constructor(customerRoleRepository: CustomerRoleRepository) {
-      this.jwtService = new JwtService(customerRoleRepository)
+      this.#jwtService = new JwtService(customerRoleRepository)
    }
 
    createJwt = async (req: Request, res: Response) => {
@@ -19,7 +19,7 @@ export class JwtController {
          return
       }
 
-      this.jwtService.createJwt(customerId.data)
+      this.#jwtService.createJwt(customerId.data)
          .then((token) => res.send(token))
          .catch(() => res.sendStatus(404))
    }
@@ -27,7 +27,7 @@ export class JwtController {
    verifyJwt = async (req: Request, res: Response) => {
       const { token } = req.params
 
-      this.jwtService.verifyJwt(token)
+      this.#jwtService.verifyJwt(token)
          .then((result) => res.status(200).json({
             id: result.protectedHeader.id,
             role: result.protectedHeader.role
