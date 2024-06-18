@@ -5,12 +5,11 @@ import { createHealthRoute } from './web/routes/HealthRoutes.js'
 import { createJwtRouter } from './web/routes/JwtRoutes.js'
 
 const app = express()
+const PORT = globalThis.process.env.SERVER_PORT ?? 0
 app.use(express.json())
 
 app.use('/jwt', createJwtRouter(new CustomerRoleRepositoryImpl()))
 app.use('/health', createHealthRoute(new CustomerRoleRepositoryImpl(), new CustomerMessageImpl()))
-
-const PORT = 3000
 
 const customerMessage = new CustomerMessageImpl()
 customerMessage.onSaveCustomerRole()

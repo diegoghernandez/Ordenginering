@@ -4,7 +4,7 @@ import { app, listen } from '../index'
 
 const api = supertest(app)
 
-describe('Jwt routes tests', () => {
+describe.concurrent('Jwt routes tests', () => {
    afterAll(() => {
       listen.close()
    })
