@@ -2,7 +2,7 @@ package com.backend.pizzaorder.client;
 
 import com.backend.pizzaorder.TestDataUtil;
 import com.backend.pizzaorder.setup.client.IngredientClientWireMock;
-import com.backend.pizzaorder.web.api.IngredientClient;
+import com.backend.pizzaorder.web.client.IngredientClient;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

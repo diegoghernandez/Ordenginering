@@ -14,8 +14,8 @@ app.use('/health', createHealthRoute(new CustomerRoleRepositoryImpl(), new Custo
 const customerMessage = new CustomerMessageImpl()
 customerMessage.onSaveCustomerRole()
 
-const listen = app.listen(PORT, () => {
-   console.log(`Server running on port ${PORT}`)
+const listen = app.listen(PORT, function() {
+   console.log(`Server running on port ${this.address().port}`)
 })
 
 export { app, listen }

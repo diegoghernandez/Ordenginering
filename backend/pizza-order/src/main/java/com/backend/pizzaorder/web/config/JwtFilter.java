@@ -1,7 +1,7 @@
 package com.backend.pizzaorder.web.config;
 
 import com.backend.pizzaorder.utils.JwtCookie;
-import com.backend.pizzaorder.web.api.JwtClient;
+import com.backend.pizzaorder.web.client.JwtClient;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package com.backend.pizzaorder.client;
 
 import com.backend.pizzaorder.setup.client.JwtClientWireMock;
-import com.backend.pizzaorder.web.api.JwtClient;
+import com.backend.pizzaorder.web.client.JwtClient;
 import com.backend.pizzaorder.web.dto.JwtResponseDto;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

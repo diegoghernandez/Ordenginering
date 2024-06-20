@@ -1,4 +1,4 @@
-package com.backend.pizzacustomer.web.api;
+package com.backend.pizzacustomer.web.client;
 
 import com.backend.pizzacustomer.web.dto.JwtResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-@FeignClient(name = "pizza-jwt", url = "http://localhost:3000/jwt")
+@FeignClient(name = "pizza-jwt", url = "http://${jwt.service.domain}/jwt")
 public interface JwtClient {
 
    @GetMapping("/create/{customerId}")

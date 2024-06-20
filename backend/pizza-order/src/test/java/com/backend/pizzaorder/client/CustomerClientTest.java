@@ -2,7 +2,7 @@ package com.backend.pizzaorder.client;
 
 import com.backend.pizzaorder.TestDataUtil;
 import com.backend.pizzaorder.setup.client.CustomerClientWireMock;
-import com.backend.pizzaorder.web.api.CustomerClient;
+import com.backend.pizzaorder.web.client.CustomerClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

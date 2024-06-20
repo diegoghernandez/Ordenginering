@@ -2,7 +2,7 @@ package com.backend.pizzacustomer.web;
 
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
-import com.backend.pizzacustomer.web.api.JwtClient;
+import com.backend.pizzacustomer.web.client.JwtClient;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.LoginDto;
 import jakarta.validation.Valid;

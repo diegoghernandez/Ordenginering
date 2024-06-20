@@ -1,4 +1,4 @@
-package com.backend.pizzaorder.web.api;
+package com.backend.pizzaorder.web.client;
 
 import com.backend.pizzaorder.web.dto.JwtResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-@FeignClient(name = "pizza-jwt", url = "http://localhost:3000/jwt")
+@FeignClient(name = "pizza-jwt", url = "http://${jwt.service.domain}/jwt")
 public interface JwtClient {
 
    @GetMapping(value = "/verify/{token}")

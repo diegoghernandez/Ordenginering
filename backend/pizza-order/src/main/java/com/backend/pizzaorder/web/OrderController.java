@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.pizzaorder.domain.service.OrderService;
 import com.backend.pizzaorder.exceptions.NotAllowedException;
 import com.backend.pizzaorder.utils.JwtCookie;
-import com.backend.pizzaorder.web.api.IngredientClient;
+import com.backend.pizzaorder.web.client.IngredientClient;
 import com.backend.pizzaorder.web.domain.IngredientDomain;
 import com.backend.pizzaorder.web.domain.OrderDomain;
 import com.backend.pizzaorder.web.domain.PizzaDomain;
