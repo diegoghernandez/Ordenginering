@@ -13,14 +13,14 @@ spec:
       backendRefs:
         - kind: Service
           name: pizza-customer-svc
-          port: 8765
+          port: 80
 
 ---
 
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: pizza-data-route
+  name: pizza-order-route
 spec:
   parentRefs:
     - name: pizza-gw
@@ -28,11 +28,30 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /data
+            value: /order
       backendRefs:
         - kind: Service
-          name: pizza-data-svc
-          port: 4436
+          name: pizza-order-svc
+          port: 80
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pizza-ingredient-route
+spec:
+  parentRefs:
+    - name: pizza-gw
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ingredient
+      backendRefs:
+        - kind: Service
+          name: pizza-ingredient-svc
+          port: 80
 
 ---
 
@@ -51,4 +70,4 @@ spec:
       backendRefs:
         - kind: Service
           name: pizza-client-svc
-          port: 4321
+          port: 80

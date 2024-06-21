@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: default
+  name: client-configmap
+data:
+  jwt_domain: pizza-jwt-svc
+  customer_domain: pizza-customer-svc
+  ingredient_domain: pizza-ingredient-svc
+immutable: true

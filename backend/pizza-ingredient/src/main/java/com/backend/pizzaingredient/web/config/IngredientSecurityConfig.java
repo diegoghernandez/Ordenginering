@@ -41,6 +41,7 @@ public class IngredientSecurityConfig {
               .csrf(AbstractHttpConfigurer::disable)
               .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
+                      .requestMatchers(mvcMatcherBuilder.pattern("/actuator/**")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/ingredient"))
                         .hasRole(IngredientCustomerRoles.ADMIN.toString())
                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/ingredient"))

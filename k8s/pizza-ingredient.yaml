@@ -2,34 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
-  name: pizza-customer
+  name: pizza-ingredient
   labels:
-    app: pizza-customer
+    app: pizza-ingredient
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pizza-customer
+      app: pizza-ingredient
   template:
     metadata:
-      name: pizza-customer
+      name: pizza-ingredient
       labels:
-        app: pizza-customer
+        app: pizza-ingredient
     spec:
       containers:
-        - name: pizza-customer
-          image: diegoj4v/pizza-customer:latest
+        - name: pizza-ingredient
+          image: diegoj4v/pizza-ingredient:latest
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
               port: 80
-              path: /customer/actuator/health/readiness
+              path: /ingredient/actuator/health/readiness
             initialDelaySeconds: 30
             periodSeconds: 30
           livenessProbe:
             httpGet:
               port: 80
-              path: /customer/actuator/health/liveness
+              path: /ingredient/actuator/health/liveness
             initialDelaySeconds: 30
             periodSeconds: 30
           lifecycle:
@@ -56,20 +56,40 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql_password
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql_password
             - name: JWT_SERVICE_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: client-configmap
                   key: jwt_domain
+            - name: ENV_ACCESSKEYID
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-secret
+                  key: aws_access_key
+            - name: ENV_SECRETACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-secret
+                  key: aws_secret_key
+            - name: ENV_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-secret
+                  key: aws_bucket
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pizza-customer-svc
+  name: pizza-ingredient-svc
 spec:
   selector:
-    app: pizza-customer
+    app: pizza-ingredient
   ports:
     - port: 80
       targetPort: 80

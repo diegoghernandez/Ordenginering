@@ -40,6 +40,7 @@ public class CustomerSecurityConfig {
               .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
                       .requestMatchers(mvcMatcherBuilder.pattern("/auth/**")).permitAll()
+                      .requestMatchers(mvcMatcherBuilder.pattern("/actuator/**")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern("/change/**"))
                         .hasAnyRole(CustomerRoles.ADMIN.toString(), CustomerRoles.USER.toString())
                       .requestMatchers(mvcMatcherBuilder.pattern("/**"))

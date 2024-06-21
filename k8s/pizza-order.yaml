@@ -1,35 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: pizza-customer
+  name: pizza-order
   labels:
-    app: pizza-customer
+    app: pizza-order
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pizza-customer
+      app: pizza-order
   template:
     metadata:
-      name: pizza-customer
+      name: pizza-order
       labels:
-        app: pizza-customer
+        app: pizza-order
     spec:
       containers:
-        - name: pizza-customer
-          image: diegoj4v/pizza-customer:latest
+        - name: pizza-order
+          image: diegoj4v/pizza-order:latest
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
               port: 80
-              path: /customer/actuator/health/readiness
+              path: /order/actuator/health/readiness
             initialDelaySeconds: 30
             periodSeconds: 30
           livenessProbe:
             httpGet:
               port: 80
-              path: /customer/actuator/health/liveness
+              path: /order/actuator/health/liveness
             initialDelaySeconds: 30
             periodSeconds: 30
           lifecycle:
@@ -61,15 +60,25 @@ spec:
                 configMapKeyRef:
                   name: client-configmap
                   key: jwt_domain
+            - name: CUSTOMER_SERVICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: client-configmap
+                  key: customer_domain
+            - name: INGREDIENT_SERVICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: client-configmap
+                  key: ingredient_domain
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pizza-customer-svc
+  name: pizza-order-svc
 spec:
   selector:
-    app: pizza-customer
+    app: pizza-order
   ports:
     - port: 80
       targetPort: 80
