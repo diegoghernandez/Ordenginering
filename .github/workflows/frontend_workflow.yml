@@ -1,4 +1,4 @@
-name: Test and publish frontend image
+name: Test and publish pizza client image
 
 on:
    push:
@@ -78,18 +78,6 @@ jobs:
            with:
             sparse-checkout: frontend
             fetch-depth: 0
-         - uses: pnpm/action-setup@v3
-           with:
-            version: 9
-         - uses: actions/setup-node@v4
-           with:
-            node-version: 20
-            cache: 'pnpm'
-            cache-dependency-path: frontend/pnpm-lock.yaml
-         - name: Install dependencies
-           run: pnpm install --frozen-lockfile
-         - name: Build application
-           run: pnpm run build
          - name: Build image
            run: docker build -t diegoj4v/pizza-client .
          - name: Login to Docker Hub
