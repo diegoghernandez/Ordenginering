@@ -1,28 +1,17 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { CustomSelect } from '@/components/common/CustomSelect'
 import { FormContainer } from '@/components/common/FormContainer'
-import { IngredientCard } from '@/components/ingredient/IngredientCard'
+import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientTypes } from '@/constants/ingredientTypes'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { saveIngredient } from '@/services/ingredientsService'
 import { getFormValue } from '@/utils/getFormValue'
 import { useState, type ChangeEvent } from 'react'
-
-interface ImageCharacteristics {
-   ingredientName: string
-   ingredientType: string
-   imageAuthor: string
-   imageUrl: string
-}
+import Styles from './IngredientForm.module.css'
 
 export function IngredientForm() {
    const { response, isLoading, error, setError, handlePromise } = useServicePromise<FormData, string>(saveIngredient)
-   const [imageCharacteristics, setImageCharacteristics] = useState<ImageCharacteristics>({
-      imageAuthor: '',
-      imageUrl: '',
-      ingredientName: '',
-      ingredientType: ''
-   })
+   const [imageUrl, setImageUrl] = useState('')
 
    const labels = {
       uploadImage: 'Upload ingredient image',
@@ -39,10 +28,7 @@ export function IngredientForm() {
             if (imageFile?.size > 1000 * 2000) {
                setError({ uploadImage: 'Image need to be smaller (2MB or less)' })
             } else {
-               setImageCharacteristics((prev) => ({
-                  ...prev,
-                  imageUrl: URL.createObjectURL(imageFile)
-               }))
+               setImageUrl(URL.createObjectURL(imageFile))
             }
          }         
       }
@@ -68,15 +54,14 @@ export function IngredientForm() {
 
    return (
       <>
-         {imageCharacteristics.imageUrl ?
-            <IngredientCard
-               ingredientName={imageCharacteristics.ingredientName}
-               ingredientType={imageCharacteristics.ingredientType}
-               imageAuthor={imageCharacteristics.imageAuthor}
-               imageUrl={imageCharacteristics.imageUrl}
-               altImage='Image to upload as the ingredient image'
-               onload={() => URL.revokeObjectURL(imageCharacteristics.imageUrl)}
-            />
+         {imageUrl ?
+            <ImgContainer styleClass={Styles['image-container']}>
+               <img
+                  src={imageUrl}
+                  alt='Image to upload as the ingredient image'
+                  onLoad={() => {URL.revokeObjectURL(imageUrl)}}
+               />
+            </ImgContainer>
             : null
          }
          <FormContainer
@@ -102,14 +87,12 @@ export function IngredientForm() {
                type='text'
                required={true}
                disable={isLoading}
-               onChange={(event) => setImageCharacteristics((prev) => ({ ...prev, imageAuthor: event.target.value }))}
             />
             <CustomInput
                label={labels.ingredientName}
                type='text'
                required={true}
                disable={isLoading}
-               onChange={(event) => setImageCharacteristics((prev) => ({ ...prev, ingredientName: event.target.value }))}
             />
             <CustomSelect
                label={labels.ingredientType}
@@ -118,10 +101,6 @@ export function IngredientForm() {
                defaultValue={{ text: 'Choose a type', value: '' }}
                required={true}
                disable={isLoading}
-               onChange={(value) => setImageCharacteristics((prev) => ({ 
-                  ...prev, 
-                  ingredientType: value ? value.at(0) + value.substring(1).toLocaleLowerCase() : ''
-               }))}
             />
          </FormContainer>
       </>

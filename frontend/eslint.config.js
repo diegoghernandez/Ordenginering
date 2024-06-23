@@ -27,7 +27,7 @@ export default [
 	rules: {
 		...eslintHooks.configs.recommended.rules,
 		...tsPlugin.configs['eslint-recommended'].rules,
-      	...tsPlugin.configs['recommended'].rules,
+      ...tsPlugin.configs['recommended'].rules,
 		'react/react-in-jsx-scope': 'off',
 		'no-console': 'error',
 		'react/prop-types': 'off',
