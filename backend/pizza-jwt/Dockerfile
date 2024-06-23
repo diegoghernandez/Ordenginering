@@ -17,5 +17,5 @@ FROM base
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
 
-EXPOSE 3000
+EXPOSE 80
 CMD [ "pnpm", "start" ]

@@ -1,0 +1,12 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+spec:
+  rabbitmq:
+    additionalConfig: |
+      default_user = guest 
+      default_pass = guest
+      default_user_tags.administrator = true

@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: pizza-jwt
+  labels:
+    app: pizza-jwt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizza-jwt
+  template:
+    metadata:
+      name: pizza-jwt
+      labels:
+        app: pizza-jwt
+    spec:
+      containers:
+        - name: pizza-jwt
+          image: diegoj4v/pizza-jwt:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 80
+              path: /jwt/health/readiness
+            #initialDelaySeconds: 30
+            #periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              port: 80
+              path: /jwt/health/liveness
+            #initialDelaySeconds: 30
+            #periodSeconds: 30
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+          ports:
+            - containerPort: 80
+          env:
+            - name: SERVER_PORT
+              value: "80"
+            - name: RABBIT_HOST
+              value: rabbitmq
+            - name: MYSQL_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql_domain
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql_username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql_password
+            - name: RABBIT_USERNAME
+              value: default_user_A0aXhobZmUUPpyhSVoH
+            - name: RABBIT_PASSWORD
+              value: YFARyA7v-OY5SdCjOi5fN3CtfQ2zKukw
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-jwt-svc
+spec:
+  selector:
+    app: pizza-jwt
+  ports:
+    - port: 80
+      targetPort: 80

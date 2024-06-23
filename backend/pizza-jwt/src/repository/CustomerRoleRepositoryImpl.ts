@@ -1,15 +1,16 @@
 import { ConnectionOptions, createPool } from 'mysql2/promise'
 import { CustomerRole, CustomerRoleId, CustomerRoleRepository, SelectOne } from '../../types.js'
+import { MYSQL_SECRETS } from '../config/mysqlSecrets.js'
 
-const DEFAULT_CONFIG: ConnectionOptions = {
+const MYSQL_CONFIG: ConnectionOptions = {
    database: 'pizzadatabase',
-   host: 'localhost',
+   host: MYSQL_SECRETS.MYSQL_DOMAIN ?? 'localhost',
    port: 3306,
-   user: 'myuser',
-   password: 'secret'
+   user: MYSQL_SECRETS.MYSQL_USERNAME ?? 'myuser',
+   password: MYSQL_SECRETS.MYSQL_PASSWORD ?? 'secret'
 }
 
-const connection = createPool(DEFAULT_CONFIG)
+const connection = createPool(MYSQL_CONFIG)
 
 export class CustomerRoleRepositoryImpl implements CustomerRoleRepository {
    databaseIsAvailable = async () => {

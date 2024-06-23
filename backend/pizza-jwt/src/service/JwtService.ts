@@ -1,7 +1,8 @@
 import * as jose from 'jose'
 import { CustomerRoleRepository } from '../../types.js'
+import { GENERAL_SECRETS } from '../config/generalSecrets.js'
 
-const secret = new TextEncoder().encode('SECRET')
+const secret = new TextEncoder().encode(GENERAL_SECRETS.JWT_SECRET ?? 'SECRET')
 const alg = 'HS256'
 
 export class JwtService {

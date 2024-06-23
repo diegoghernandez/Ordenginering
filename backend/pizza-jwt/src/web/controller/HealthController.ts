@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { CustomerMessage, CustomerRoleRepository } from '../../../types'
-import { HealthService } from '../../service/HealthService'
+import { HealthService } from '../../service/HealthService.js'
 
 export class HealthController {
    #healthService: HealthService

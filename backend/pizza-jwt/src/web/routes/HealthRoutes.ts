@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { HealthController } from '../controller/HealthController'
+import { HealthController } from '../controller/HealthController.js'
 import { CustomerMessage, CustomerRoleRepository } from '../../../types'
 
 export function createHealthRoute(customerRoleRepository: CustomerRoleRepository, customerMessage: CustomerMessage) {
