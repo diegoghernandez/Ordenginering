@@ -1,6 +1,7 @@
 package com.backend.pizzacustomer.web;
 
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.env.CookiesProperties;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.web.client.JwtClient;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
@@ -29,10 +30,13 @@ public class AuthController {
 
    private final JwtClient jwtClient;
 
-   public AuthController(CustomerService customerService, AuthenticationManager authenticationManager, JwtClient jwtClient) {
+   private final CookiesProperties cookiesProperties;
+
+   public AuthController(CustomerService customerService, AuthenticationManager authenticationManager, JwtClient jwtClient, CookiesProperties cookiesProperties) {
       this.customerService = customerService;
       this.authenticationManager = authenticationManager;
       this.jwtClient = jwtClient;
+      this.cookiesProperties = cookiesProperties;
    }
 
    @PostMapping(value = "/register", consumes = {"application/json"})
@@ -57,10 +61,11 @@ public class AuthController {
 
       var cookie = ResponseCookie.from("jwt", jwt)
               .httpOnly(true)
-              .maxAge(TimeUnit.DAYS.toSeconds(15))
               .path("/")
-              /*.secure(true)
-              .domain("")*/
+              .sameSite(cookiesProperties.sameSite())
+              .secure(cookiesProperties.secure())
+              .domain(cookiesProperties.domain())
+              .maxAge(TimeUnit.DAYS.toSeconds(15))
               .build().toString();
 
       var header = new HttpHeaders();

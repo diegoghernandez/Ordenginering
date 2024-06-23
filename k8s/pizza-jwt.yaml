@@ -41,8 +41,6 @@ spec:
           env:
             - name: SERVER_PORT
               value: "80"
-            - name: RABBIT_HOST
-              value: rabbitmq
             - name: MYSQL_DOMAIN
               valueFrom:
                 secretKeyRef:
@@ -58,6 +56,8 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql_password
+            - name: RABBIT_HOST
+              value: rabbitmq
             - name: RABBIT_USERNAME
               value: default_user_A0aXhobZmUUPpyhSVoH
             - name: RABBIT_PASSWORD

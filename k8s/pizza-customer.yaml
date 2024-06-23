@@ -41,6 +41,18 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
+            - name: SPRING_RABBITMQ_USERNAME
+              value: default_user_A0aXhobZmUUPpyhSVoH
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: YFARyA7v-OY5SdCjOi5fN3CtfQ2zKukw
+            - name: COOKIE_SECURE
+              value: "true"
+            - name: COOKIE_DOMAIN
+              value: localhost
+            - name: COOKIE_SAME-SITE
+              value: Strict
             - name: MYSQL_DOMAIN
               valueFrom:
                 secretKeyRef:
