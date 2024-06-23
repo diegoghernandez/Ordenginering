@@ -14,6 +14,8 @@ if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 
 const { id } = Astro.params
 
+if(id === '0') return Astro.redirect('/client/login')
+
 let customer: Customer
 try {
    customer = await getCustomerData(Number(id), Astro.cookies.get('jwt')?.value)

@@ -6,5 +6,6 @@ metadata:
 data:
   jwt_domain: pizza-jwt-svc
   customer_domain: pizza-customer-svc
+  order_domain: pizza-order-svc
   ingredient_domain: pizza-ingredient-svc
 immutable: true

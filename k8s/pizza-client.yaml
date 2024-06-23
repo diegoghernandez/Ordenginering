@@ -20,8 +20,32 @@ spec:
           image: diegoj4v/pizza-client:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 4321
+            - containerPort: 80
+          env:
+            - name: PUBLIC_URL
+              value: http://localhost
+            #- name: ASTRO_PORT
+            #  value: '80'
+            #- name: ASTRO_SITE
+            #  value: http://localhost
+            - name: JWT_SERVICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: client-configmap
+                  key: jwt_domain
+            - name: CUSTOMER_SERVICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: client-configmap
+                  key: customer_domain
+            - name: ORDER_SERVICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: client-configmap
+                  key: order_domain
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -30,5 +54,5 @@ spec:
   selector:
     app: pizza-client
   ports:
-    - port: 4321
-      targetPort: 4321
+    - port: 80
+      targetPort: 80

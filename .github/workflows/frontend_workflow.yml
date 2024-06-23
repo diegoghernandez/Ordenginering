@@ -89,10 +89,7 @@ jobs:
          - name: Install dependencies
            run: pnpm install --frozen-lockfile
          - name: Build application
-           run: pnpm run build           
-           env: 
-            PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
-            PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
+           run: pnpm run build
          - name: Build image
            run: docker build -t diegoj4v/pizza-client .
          - name: Login to Docker Hub

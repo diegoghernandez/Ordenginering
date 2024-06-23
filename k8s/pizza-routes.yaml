@@ -89,4 +89,4 @@ spec:
       backendRefs:
         - kind: Service
           name: pizza-client-svc
-          port: 4321
+          port: 80

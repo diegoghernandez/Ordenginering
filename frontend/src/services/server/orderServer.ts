@@ -1,7 +1,8 @@
 import type { PageOrder } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
+import { SERVER_DOMAIN_VARIABLES } from '@/env-config/serverDomainVariables'
 
-const URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:4436'
+const URL = SERVER_DOMAIN_VARIABLES.ORDER_DOMAIN ?? 'http://localhost:4436'
 const API = URL +  '/order'
 
 export async function getOrdersByAccount(id: number, cookie: string | undefined, page: number): Promise<PageOrder> {

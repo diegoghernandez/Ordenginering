@@ -1,7 +1,8 @@
+import { SERVER_DOMAIN_VARIABLES } from '@/env-config/serverDomainVariables'
 import { StatusError } from '@/services/exceptions/StatusError'
 import type { Customer } from '@/types'
 
-const URL = import.meta.env.PRIVATE_URL ?? 'http://localhost:8765'
+const URL = SERVER_DOMAIN_VARIABLES.CUSTOMER_DOMAIN ?? 'http://localhost:8765'
 export const API = URL +  '/customer'
 
 export async function getCustomerData(id: number, cookie: string | undefined): Promise<Customer> {
