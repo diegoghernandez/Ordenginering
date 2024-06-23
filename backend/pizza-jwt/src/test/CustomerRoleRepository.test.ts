@@ -52,11 +52,11 @@ describe('CustomRoleRepository tests', () => {
       })
 
       it('Should save one Customer Role correctly', async () => {
-         await customerRoleRepository.save(6345)
+         await customerRoleRepository.save(54365)
 
          assert.deepEqual(
-            await customerRoleRepository.geByCustomerRoleId(6345),
-            [{ customer_role_id: 6345, role_name: 'USER' }]
+            await customerRoleRepository.geByCustomerRoleId(54365),
+            [{ customer_role_id: 54365, role_name: 'USER' }]
          )
       })
    })

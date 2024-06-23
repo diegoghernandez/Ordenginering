@@ -1,7 +1,7 @@
 import node from '@astrojs/node'
 import react from '@astrojs/react'
 import { defineConfig } from 'astro/config'
-import { ASTRO_VARIABLES } from './src/env-config/astroVariables'
+import { ASTRO_VARIABLES } from './src/env/astroVariables'
 
 // https://astro.build/config
 export default defineConfig({

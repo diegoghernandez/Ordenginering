@@ -3,7 +3,7 @@ import { CustomerMessageImpl } from './message/CustomerMessages.js'
 import { CustomerRoleRepositoryImpl } from './repository/CustomerRoleRepositoryImpl.js'
 import { createHealthRoute } from './web/routes/HealthRoutes.js'
 import { createJwtRouter } from './web/routes/JwtRoutes.js'
-import { GENERAL_SECRETS } from './config/generalSecrets.js'
+import { GENERAL_SECRETS } from './env/generalSecrets.js'
 import { Server } from 'node:http'
 import { AddressInfo } from 'node:net'
 

@@ -12,7 +12,7 @@ describe.concurrent('Jwt routes tests', () => {
    describe('healthLiveness tests', () => {
       it('Should return an object with startup data', async () => {
          const { body } = await api
-               .get('/health/liveness')
+               .get('/jwt/health/liveness')
                .expect(200)
                .expect('Content-Type', /application\/json/)
 
@@ -25,7 +25,7 @@ describe.concurrent('Jwt routes tests', () => {
    describe('healthReadiness tests', () => {
       it('Should return an object with startup data', async () => {
          const { body } = await api
-               .get('/health/readiness')
+               .get('/jwt/health/readiness')
                .expect(200)
                .expect('Content-Type', /application\/json/)
 

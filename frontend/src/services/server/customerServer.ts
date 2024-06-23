@@ -1,4 +1,4 @@
-import { SERVER_DOMAIN_VARIABLES } from '@/env-config/serverDomainVariables'
+import { SERVER_DOMAIN_VARIABLES } from '@/env/serverDomainVariables'
 import { StatusError } from '@/services/exceptions/StatusError'
 import type { Customer } from '@/types'
 

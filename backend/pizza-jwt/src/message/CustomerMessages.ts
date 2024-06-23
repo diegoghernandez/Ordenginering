@@ -1,7 +1,7 @@
 import { connect } from 'amqplib'
 import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl.js'
 import { CustomerMessage } from '../../types'
-import { RABBIT_SECRETS } from '../config/rabbitSecrets.js'
+import { RABBIT_SECRETS } from '../env/rabbitSecrets.js'
 
 const queue = 'q.save-customer-role'
 const RABBIT_CONFIG = {

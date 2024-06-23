@@ -1,6 +1,6 @@
 import { ConnectionOptions, createPool } from 'mysql2/promise'
 import { CustomerRole, CustomerRoleId, CustomerRoleRepository, SelectOne } from '../../types.js'
-import { MYSQL_SECRETS } from '../config/mysqlSecrets.js'
+import { MYSQL_SECRETS } from '../env/mysqlSecrets.js'
 
 const MYSQL_CONFIG: ConnectionOptions = {
    database: 'pizzadatabase',

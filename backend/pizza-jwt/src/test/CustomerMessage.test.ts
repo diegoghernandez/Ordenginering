@@ -27,13 +27,13 @@ describe('CustomerMessage tests', () => {
 
    it('Should process customer id and save it', async () => {
       const customerRepository = new CustomerRoleRepositoryImpl()
-      expect((await customerRepository.existById(5432))).toBeFalsy()
+      expect((await customerRepository.existById(3463))).toBeFalsy()
 
-      channel.sendToQueue(queue, Buffer.from(JSON.stringify({ customerId: 5432 })))
+      channel.sendToQueue(queue, Buffer.from(JSON.stringify({ customerId: 3463 })))
 
       await vi.waitFor(async () => {
-         expect(await customerRepository.geByCustomerRoleId(5432)).toEqual([{
-            customer_role_id: 5432,
+         expect(await customerRepository.geByCustomerRoleId(3463)).toEqual([{
+            customer_role_id: 3463,
             role_name: 'USER'
          }])
       })

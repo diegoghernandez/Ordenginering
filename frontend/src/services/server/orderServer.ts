@@ -1,6 +1,6 @@
 import type { PageOrder } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
-import { SERVER_DOMAIN_VARIABLES } from '@/env-config/serverDomainVariables'
+import { SERVER_DOMAIN_VARIABLES } from '@/env/serverDomainVariables'
 
 const URL = SERVER_DOMAIN_VARIABLES.ORDER_DOMAIN ?? 'http://localhost:4436'
 const API = URL +  '/order'
