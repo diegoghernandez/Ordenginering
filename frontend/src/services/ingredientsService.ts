@@ -1,5 +1,5 @@
 import type { IngredientRequest } from '@/types'
-import { StatusError } from './exceptions/StatusError'
+import { StatusError } from '@/services/exceptions/StatusError'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:2222'
 const API = URL +  '/ingredient'
@@ -22,9 +22,9 @@ export async function getAllIngredients(): Promise<Array<IngredientRequest>> {
 
 export async function saveIngredient(formData: FormData): Promise<string> {
    const response = await fetch(API, { 
-	   method: 'POST',
-	   credentials: 'include',
-	   body: formData 
+      method: 'POST',
+      credentials: 'include',
+      body: formData 
    })
 
    if (response.ok) return response.text()
