@@ -30,9 +30,7 @@ jobs:
             java-version: '21'
          - name: Test and publish image
            run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKERHUB_TOKEN }} -Dgit-hash=$(git rev-parse --short ${{ github.sha }}) \
-               -DBUCKET_ACCESSKEYID=${{ secrets.BUCKET_ACCESSKEYID }} \
-               -DBUCKET_SECRETACCESSKEY=${{ secrets.BUCKET_SECRETACCESSKEY }} \
-               -DBUCKET_BUCKET=${{ secrets.BUCKET_BUCKET }}
+               -Dspring-boot.run.arguments=--bucket.accessKeyId=${{ secrets.BUCKET_ACCESSKEYID }},--bucket.secretAccessKey=${{ secrets.BUCKET_SECRETACCESSKEY }},--bucket.bucket=${{ secrets.BUCKET_BUCKET }}
 
    #login__and__update__deployment: 
    #   needs: test__and__build__image
