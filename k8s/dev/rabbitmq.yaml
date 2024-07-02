@@ -5,6 +5,13 @@ metadata:
   labels:
     app: rabbitmq
 spec:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
   rabbitmq:
     additionalConfig: |
       default_user = guest 

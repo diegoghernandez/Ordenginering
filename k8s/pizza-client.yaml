@@ -21,6 +21,13 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          resources:
+            limits:
+              cpu: 200m
+              memory: 240Mi 
+            requests:
+              cpu: 120m
+              memory: 100Mi 
           env:
             - name: PUBLIC_URL
               value: http://localhost
