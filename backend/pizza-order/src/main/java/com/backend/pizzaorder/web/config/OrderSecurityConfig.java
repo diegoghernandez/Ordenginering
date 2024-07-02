@@ -27,6 +27,7 @@ public class OrderSecurityConfig {
    @Bean
    public SecurityFilterChain filterChain(
            HttpSecurity http,
+           CustomerIdAuthorizationManager customerIdAuthorizationManager,
            HandlerMappingIntrospector introspector
    ) throws Exception {
       var mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
@@ -35,6 +36,7 @@ public class OrderSecurityConfig {
               .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
                       .requestMatchers(mvcMatcherBuilder.pattern("/actuator/health/**")).permitAll()
+                      .requestMatchers(mvcMatcherBuilder.pattern("/customer/*")).access(customerIdAuthorizationManager)
                       .requestMatchers(mvcMatcherBuilder.pattern("/**"))
                         .hasAnyRole(OrderCustomerRoles.ADMIN.toString(), OrderCustomerRoles.USER.toString())
                       .anyRequest().authenticated()

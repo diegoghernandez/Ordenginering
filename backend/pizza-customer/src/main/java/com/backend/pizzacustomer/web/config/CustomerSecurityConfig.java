@@ -28,10 +28,10 @@ public class CustomerSecurityConfig {
       this.corsConfiguration = corsConfiguration;
    }
 
-
    @Bean
    public SecurityFilterChain filterChain(
            HttpSecurity http,
+           CustomerIdAuthorizationManager customerIdAuthorizationManager,
            HandlerMappingIntrospector introspector
    ) throws Exception {
       var mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
@@ -43,6 +43,8 @@ public class CustomerSecurityConfig {
                       .requestMatchers(mvcMatcherBuilder.pattern("/actuator/health/**")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern("/change/**"))
                         .hasAnyRole(CustomerRoles.ADMIN.toString(), CustomerRoles.USER.toString())
+                      .requestMatchers(mvcMatcherBuilder.pattern("/*")).access(customerIdAuthorizationManager)
+                      .requestMatchers(mvcMatcherBuilder.pattern("/exist/*")).access(customerIdAuthorizationManager)
                       .requestMatchers(mvcMatcherBuilder.pattern("/**"))
                         .hasAnyRole(CustomerRoles.ADMIN.toString(), CustomerRoles.USER.toString())
                       .anyRequest().authenticated()
