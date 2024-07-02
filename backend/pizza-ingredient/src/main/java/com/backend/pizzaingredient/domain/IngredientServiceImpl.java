@@ -6,6 +6,7 @@ import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.web.config.PizzaIngredientProperties;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -20,9 +21,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -61,9 +60,8 @@ public class IngredientServiceImpl implements IngredientService {
       BufferedImage outputImage = new BufferedImage(124, 112, BufferedImage.TYPE_INT_RGB);
       outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
 
-      var imageExtension = Arrays.stream(Objects.requireNonNull(image.getContentType()).split("/")).toList().get(1);
       var baos = new ByteArrayOutputStream();
-      ImageIO.write(outputImage, imageExtension, baos);
+      ImageIO.write(outputImage, "jpg", baos);
 
       var credentials = AwsBasicCredentials.builder()
               .accessKeyId(pizzaIngredientProperties.accessKeyId())
@@ -71,14 +69,14 @@ public class IngredientServiceImpl implements IngredientService {
               .build();
 
       var s3 = S3Client.builder()
-              .region(Region.CA_WEST_1)
+              .region(Region.US_WEST_2)
               .credentialsProvider(StaticCredentialsProvider.create(credentials))
               .build();
 
       var objectRequest = PutObjectRequest.builder()
               .bucket(pizzaIngredientProperties.bucket())
-              .key(image.getOriginalFilename())
-              .contentType(image.getContentType())
+              .key("image/" + image.getOriginalFilename())
+              .contentType(MediaType.IMAGE_JPEG_VALUE)
               .build();
 
       s3.putObject(objectRequest, RequestBody.fromBytes(baos.toByteArray()));

@@ -58,12 +58,8 @@ spec:
               value: default_user_A0aXhobZmUUPpyhSVoH
             - name: SPRING_RABBITMQ_PASSWORD
               value: YFARyA7v-OY5SdCjOi5fN3CtfQ2zKukw
-            - name: COOKIE_SECURE
-              value: "true"
             - name: COOKIE_DOMAIN
               value: localhost
-            - name: COOKIE_SAME-SITE
-              value: Strict
             - name: MYSQL_DOMAIN
               valueFrom:
                 secretKeyRef:
