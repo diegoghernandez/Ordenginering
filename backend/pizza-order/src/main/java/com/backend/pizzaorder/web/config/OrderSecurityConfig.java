@@ -34,7 +34,7 @@ public class OrderSecurityConfig {
               .csrf(AbstractHttpConfigurer::disable)
               .cors((cors) -> cors.configurationSource(corsConfiguration.corsConfigurationSource()))
               .authorizeHttpRequests((authorize) -> authorize
-                      .requestMatchers(mvcMatcherBuilder.pattern("/actuator/**")).permitAll()
+                      .requestMatchers(mvcMatcherBuilder.pattern("/actuator/health/**")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern("/**"))
                         .hasAnyRole(OrderCustomerRoles.ADMIN.toString(), OrderCustomerRoles.USER.toString())
                       .anyRequest().authenticated()

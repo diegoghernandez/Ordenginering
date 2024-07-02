@@ -2,6 +2,7 @@ package com.backend.pizzacustomer.web;
 
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class CustomerController {
       this.customerService = customerService;
    }
 
-   @GetMapping(value = "/{id}", produces = {"application/json;charset=UTF-8"})
+   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<CustomerDomain> getCustomerById(@PathVariable long id) {
       return customerService.getCustomerById(id)
               .map((customer) -> new ResponseEntity<>(new CustomerDomain(

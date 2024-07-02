@@ -3,16 +3,14 @@ import LinksContainer from '@/components/customer/LinksContainer.astro'
 import { IngredientForm } from '@/components/ingredient/ingredientForm'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getRoles } from '@/services/server/jwtServer'
+import type { CustomerRole } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 export const prerender = false
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 
-let customerRole: {
-   id: number,
-   role: 'USER' | 'ADMIN'
-}
+let customerRole: CustomerRole
 
 try {
    customerRole = await getRoles(Astro.cookies.get('jwt')?.value)

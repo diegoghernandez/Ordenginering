@@ -22,7 +22,6 @@ public class IngredientController {
 
    private final IngredientService ingredientService;
 
-   @Autowired
    public IngredientController(IngredientService ingredientService) {
       this.ingredientService = ingredientService;
    }

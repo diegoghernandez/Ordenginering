@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc",
-    "start": "node build/index.js",
+    "start": "node --env-file=.env build/index.js",
     "dev": "tsx watch src/index.ts",
     "lint": "eslint src --ext ts --report-unused-disable-directives",
     "test": "vitest"
