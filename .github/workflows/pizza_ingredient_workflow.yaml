@@ -29,8 +29,11 @@ jobs:
             distribution: 'temurin'
             java-version: '21'
          - name: Test and publish image
-           run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKERHUB_TOKEN }} -Dgit-hash=$(git rev-parse --short ${{ github.sha }}) \
-               -Dspring-boot.build-image.arguments=--bucket.accessKeyId=${{ secrets.BUCKET_ACCESSKEYID }},--bucket.secretAccessKey=${{ secrets.BUCKET_SECRETACCESSKEY }},--bucket.bucket=${{ secrets.BUCKET_BUCKET }}
+           run: ./mvnw spring-boot:build-image -Ddocker-password=${{ secrets.DOCKERHUB_TOKEN }} -Dgit-hash=$(git rev-parse --short ${{ github.sha }})
+           env:
+              BUCKET_ACCESSKEYID: ${{ secrets.BUCKET_ACCESSKEYID }}
+              BUCKET_SECRETACCESSKEY: ${{ secrets.BUCKET_SECRETACCESSKEY }}
+              BUCKET_BUCKET: ${{ secrets.BUCKET_BUCKET }}
 
    #login__and__update__deployment: 
    #   needs: test__and__build__image
