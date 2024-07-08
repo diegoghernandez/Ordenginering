@@ -11,13 +11,12 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 FROM base AS build
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run build
+RUN PUBLIC_URL=https://ordeninginering.com pnpm run build
 
 FROM base
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
-ENV HOST=0.0.0.0
-ENV PORT=80
-EXPOSE 80
-CMD node ./dist/server/entry.mjs
+# EXPOSE 80
+COPY index.mjs ./
+CMD PORT=80 pnpm start

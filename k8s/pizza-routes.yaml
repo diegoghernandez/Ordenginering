@@ -1,6 +1,24 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
+  name: pizza-default-route
+spec:
+  parentRefs:
+    - name: pizza-gw
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /client
+            statusCode: 302
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
   name: pizza-customer-route
 spec:
   parentRefs:

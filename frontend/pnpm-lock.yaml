@@ -20,6 +20,9 @@ importers:
       astro:
         specifier: 4.9.2
         version: 4.9.2(@types/node@20.13.0)(typescript@5.4.5)
+      express:
+        specifier: 4.19.2
+        version: 4.19.2
       humbleicons:
         specifier: 1.10.0
         version: 1.10.0
@@ -78,9 +81,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: 4.6.2
         version: 4.6.2(eslint@8.57.0)
-      express:
-        specifier: 4.19.2
-        version: 4.19.2
       happy-dom:
         specifier: 14.12.0
         version: 14.12.0

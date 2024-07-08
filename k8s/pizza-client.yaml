@@ -19,22 +19,28 @@ spec:
         - name: pizza-client
           image: diegoj4v/pizza-client:latest
           imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 80
+              path: /client/health
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 4
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
           ports:
             - containerPort: 80
           resources:
             limits:
               cpu: 200m
-              memory: 240Mi 
+              memory: 240Mi
             requests:
               cpu: 120m
-              memory: 100Mi 
+              memory: 100Mi
           env:
-            - name: PUBLIC_URL
-              value: http://localhost
-            #- name: ASTRO_PORT
-            #  value: '80'
-            #- name: ASTRO_SITE
-            #  value: http://localhost
             - name: JWT_SERVICE_DOMAIN
               valueFrom:
                 configMapKeyRef:

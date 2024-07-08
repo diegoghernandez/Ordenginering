@@ -8,8 +8,8 @@ const RABBIT_CONFIG = {
    hostname: RABBIT_SECRETS.RABBIT_HOST ?? 'localhost', 
    username: RABBIT_SECRETS.RABBIT_USERNAME ?? 'guest',
    password: RABBIT_SECRETS.RABBIT_PASSWORD ?? 'guest',
-   protocol: 'amqp',
-   port: 5672
+   protocol: RABBIT_SECRETS.RABBIT_PROTOCOL ?? 'amqp',
+   port: Number(RABBIT_SECRETS.RABBIT_PORT) ?? 5672
 }
 
 export class CustomerMessageImpl implements CustomerMessage {

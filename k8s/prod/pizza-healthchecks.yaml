@@ -1,0 +1,81 @@
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: client-lb-healthcheck
+spec:
+  default:
+    checkIntervalSec: 15
+    timeoutSec: 10
+    unhealthyThreshold: 8
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 80
+        requestPath: /client/health
+  targetRef:
+    group: ""
+    kind: Service
+    name: pizza-client-svc
+
+---
+
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: customer-lb-healthcheck
+spec:
+  default:
+    checkIntervalSec: 15
+    timeoutSec: 10
+    unhealthyThreshold: 8
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 8080
+        requestPath: /customer/actuator/health/liveness
+  targetRef:
+    group: ""
+    kind: Service
+    name: pizza-customer-svc
+
+---
+
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: ingredient-lb-healthcheck
+spec:
+  default:
+    checkIntervalSec: 15
+    timeoutSec: 10
+    unhealthyThreshold: 8
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 8080
+        requestPath: /ingredient/actuator/health/liveness
+  targetRef:
+    group: ""
+    kind: Service
+    name: pizza-ingredient-svc
+
+---
+
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: order-lb-healthcheck
+spec:
+  default:
+    checkIntervalSec: 15
+    timeoutSec: 10
+    unhealthyThreshold: 8
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 8080
+        requestPath: /order/actuator/health/liveness
+  targetRef:
+    group: ""
+    kind: Service
+    name: pizza-order-svc

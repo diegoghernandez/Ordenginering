@@ -24,23 +24,39 @@ spec:
             httpGet:
               port: 80
               path: /jwt/health/readiness
-            #initialDelaySeconds: 30
-            #periodSeconds: 30
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 4
           livenessProbe:
             httpGet:
               port: 80
               path: /jwt/health/liveness
-            #initialDelaySeconds: 30
-            #periodSeconds: 30
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 4
           lifecycle:
             preStop:
               exec:
                 command: [ "sh", "-c", "sleep 10" ]
           ports:
             - containerPort: 80
+          resources:
+            limits:
+              cpu: 200m
+              memory: 240Mi
+            requests:
+              cpu: 120m
+              memory: 100Mi
           env:
             - name: SERVER_PORT
               value: "80"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt-key
             - name: MYSQL_DOMAIN
               valueFrom:
                 secretKeyRef:
@@ -56,12 +72,25 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql_password
+            - name: RABBIT_PROTOCOL
+              value: "amqps"
+            - name: RABBIT_PORT
+              value: "5671"
             - name: RABBIT_HOST
-              value: rabbitmq
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: rabbitmq-host
             - name: RABBIT_USERNAME
-              value: default_user_A0aXhobZmUUPpyhSVoH
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: rabbitmq-user
             - name: RABBIT_PASSWORD
-              value: YFARyA7v-OY5SdCjOi5fN3CtfQ2zKukw
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: rabbitmq-password
 
 ---
 apiVersion: v1
