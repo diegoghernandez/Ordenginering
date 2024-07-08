@@ -17,13 +17,13 @@ test.describe('Customer orders page tests', () => {
       })
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
       
-      await expect(page.getByRole('article')).toHaveCount(6)
+      await expect(page.getByRole('article')).toHaveCount(9)
       await expect(page.getByRole('alert')).not.toBeVisible()
       
       await page.mouse.wheel(0, 600)
       
       await expect(page.getByRole('alert')).toBeVisible()
-      await expect(page.getByRole('article')).toHaveCount(9)
+      await expect(page.getByRole('article')).toHaveCount(12)
       await expect(page.getByRole('alert')).not.toBeVisible()
 
       for (const element of await page.getByRole('article').all()) {
