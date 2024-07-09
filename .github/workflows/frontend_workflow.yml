@@ -59,7 +59,7 @@ jobs:
          - name: Build application
            run: pnpm run build
          - name: Initialize e2e tests
-           run: (pnpm run preview &) && (pnpm run e2e-express &) && pnpm run e2e:ci
+           run: (pnpm run start &) && (pnpm run e2e-express &) && pnpm run e2e:ci
          - uses: actions/upload-artifact@v4
            if: always()
            with:
@@ -89,3 +89,31 @@ jobs:
            run: |
             docker tag diegoj4v/pizza-client diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
             docker push diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
+
+   login__and__update__deployment: 
+      needs: [build__and__deploy]
+      runs-on: ubuntu-22.04
+      permissions:
+         contents: read
+      defaults:
+         run:
+            working-directory: k8s
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: k8s
+            fetch-depth: 0
+         - id: 'auth'
+           name: 'Obtain access token by using workload identity federation'
+           uses: 'google-github-actions/auth@v1'
+           with:
+            create_credentials_file: true
+            workload_identity_provider: 'projects/${{ secrets.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL_ID }}/providers/${{ secrets.PROVIDER_ID }}'
+            service_account: github-actions-workflow@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+         - name: Connect to GKE
+           uses: google-github-actions/get-gke-credentials@v0
+           with:
+            cluster_name: pizza-cluster
+            location: us-west1-a
+         - name: Update deployment image
+           run: kubectl set image deployment/pizza-client pizza-client=diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
