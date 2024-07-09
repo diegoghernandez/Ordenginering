@@ -94,6 +94,7 @@ jobs:
       needs: [build__and__deploy]
       runs-on: ubuntu-22.04
       permissions:
+         id-token: write
          contents: read
       defaults:
          run:
@@ -109,7 +110,7 @@ jobs:
            with:
             create_credentials_file: true
             workload_identity_provider: 'projects/${{ secrets.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL_ID }}/providers/${{ secrets.PROVIDER_ID }}'
-            service_account: github-actions-workflow@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+            service_account: ${{ secrets.SERVICE_EMAIL }}
          - name: Connect to GKE
            uses: google-github-actions/get-gke-credentials@v0
            with:
