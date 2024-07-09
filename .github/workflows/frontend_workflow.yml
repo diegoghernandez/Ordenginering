@@ -108,8 +108,8 @@ jobs:
            name: 'Obtain access token by using workload identity federation'
            uses: 'google-github-actions/auth@v2'
            with:
-            # create_credentials_file: true
-            workload_identity_provider: 'projects/${{ secrets.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL_ID }}/providers/${{ secrets.PROVIDER_ID }}'
+            create_credentials_file: true
+            workload_identity_provider: ${{ secrets.WIP }}
             service_account: ${{ secrets.SERVICE_EMAIL }}
          - name: Connect to GKE
            uses: google-github-actions/get-gke-credentials@v2
