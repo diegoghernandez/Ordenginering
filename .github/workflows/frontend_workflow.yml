@@ -114,6 +114,6 @@ jobs:
            uses: google-github-actions/get-gke-credentials@v2
            with:
             cluster_name: pizza-cluster
-            location: us-west2-a
+            location: us-west2
          - name: Update deployment image
            run: kubectl set image deployment/pizza-client pizza-client=diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
