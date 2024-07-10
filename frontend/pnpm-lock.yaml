@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@astrojs/check':
-        specifier: 0.8.0
-        version: 0.8.0(typescript@5.5.3)
+        specifier: 0.8.1
+        version: 0.8.1(typescript@5.5.3)
       '@astrojs/node':
         specifier: 8.3.2
         version: 8.3.2(astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3))
@@ -73,8 +73,8 @@ importers:
         specifier: 8.57.0
         version: 8.57.0
       eslint-plugin-astro:
-        specifier: 1.2.2
-        version: 1.2.2(eslint@8.57.0)(typescript@5.5.3)
+        specifier: 1.2.3
+        version: 1.2.3(eslint@8.57.0)(typescript@5.5.3)
       eslint-plugin-react:
         specifier: 7.34.3
         version: 7.34.3(eslint@8.57.0)
@@ -97,8 +97,8 @@ importers:
         specifier: 14.0.1
         version: 14.0.1(stylelint@16.6.1(typescript@5.5.3))
       stylelint-config-standard:
-        specifier: 36.0.0
-        version: 36.0.0(stylelint@16.6.1(typescript@5.5.3))
+        specifier: 36.0.1
+        version: 36.0.1(stylelint@16.6.1(typescript@5.5.3))
       typescript:
         specifier: 5.5.3
         version: 5.5.3
@@ -118,8 +118,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@astrojs/check@0.8.0':
-    resolution: {integrity: sha512-2nh0Trn0yzMl3VVoPmDliFsgdApcbyspmbRV9chPuOYCHr7LZsapEGLHsLn5b2OMpydqRO38UpuvnzVPqtabHw==}
+  '@astrojs/check@0.8.1':
+    resolution: {integrity: sha512-QTzCuiBWll3SLSe7OsWtWyZRbwChXwxM4Y0Jb84jdPOdYobzHad9ubU7V23qmK3Y0BNwgzCbEP5C5FPVitb31Q==}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -130,8 +130,8 @@ packages:
   '@astrojs/internal-helpers@0.4.1':
     resolution: {integrity: sha512-bMf9jFihO8YP940uD70SI/RDzIhUHJAolWVcO1v5PUivxGKvfLZTLTVVxEYzGYyPsA3ivdLNqMnL5VgmQySa+g==}
 
-  '@astrojs/language-server@2.11.0':
-    resolution: {integrity: sha512-GmhF4A2rDCFzk/U0k1ySa8d/p6binaQZQJwSmHsY4Q8aHi5urjkG9csm0ZevKMPJmIRewE4jgh3pwzMGa4e0eQ==}
+  '@astrojs/language-server@2.11.1':
+    resolution: {integrity: sha512-WSIBBUK9lSeVD4KhPiZk2u3wsXdj7WEYvYPPs8ZsgbSVIOzUJWAKVcITHiXmcXlzZB5ubK44YUN/Hq+f2GeMyQ==}
     hasBin: true
     peerDependencies:
       prettier: ^3.0.0
@@ -1600,8 +1600,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-plugin-astro@1.2.2:
-    resolution: {integrity: sha512-3UUWo/gwk/YhurYpFKgLJswV33kR9zhtzXk+u2g3WE5Px07wDtWSR3PoyPadHERA4g/9TCCGjsimU/TZyUKxow==}
+  eslint-plugin-astro@1.2.3:
+    resolution: {integrity: sha512-asHT0VUs68oppVnTHfp/WgLqs0yCx9kG9AC/PKLmp+87imeh3nGHMdFm0qP46vHxTM0NLDEhvmjFdAVAqw+QPQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -3106,8 +3106,8 @@ packages:
     peerDependencies:
       stylelint: ^16.1.0
 
-  stylelint-config-standard@36.0.0:
-    resolution: {integrity: sha512-3Kjyq4d62bYFp/Aq8PMKDwlgUyPU4nacXsjDLWJdNPRUgpuxALu1KnlAHIj36cdtxViVhXexZij65yM0uNIHug==}
+  stylelint-config-standard@36.0.1:
+    resolution: {integrity: sha512-8aX8mTzJ6cuO8mmD5yon61CWuIM4UD8Q5aBcWKGSf6kg+EC3uhB+iOywpTK4ca6ZL7B49en8yanOFtUW0qNzyw==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       stylelint: ^16.1.0
@@ -3609,9 +3609,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@astrojs/check@0.8.0(typescript@5.5.3)':
+  '@astrojs/check@0.8.1(typescript@5.5.3)':
     dependencies:
-      '@astrojs/language-server': 2.11.0(typescript@5.5.3)
+      '@astrojs/language-server': 2.11.1(typescript@5.5.3)
       chokidar: 3.6.0
       fast-glob: 3.3.2
       kleur: 4.1.5
@@ -3625,7 +3625,7 @@ snapshots:
 
   '@astrojs/internal-helpers@0.4.1': {}
 
-  '@astrojs/language-server@2.11.0(typescript@5.5.3)':
+  '@astrojs/language-server@2.11.1(typescript@5.5.3)':
     dependencies:
       '@astrojs/compiler': 2.8.1
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -5297,7 +5297,7 @@ snapshots:
       eslint: 8.57.0
       semver: 7.6.2
 
-  eslint-plugin-astro@1.2.2(eslint@8.57.0)(typescript@5.5.3):
+  eslint-plugin-astro@1.2.3(eslint@8.57.0)(typescript@5.5.3):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -7185,7 +7185,7 @@ snapshots:
     dependencies:
       stylelint: 16.6.1(typescript@5.5.3)
 
-  stylelint-config-standard@36.0.0(stylelint@16.6.1(typescript@5.5.3)):
+  stylelint-config-standard@36.0.1(stylelint@16.6.1(typescript@5.5.3)):
     dependencies:
       stylelint: 16.6.1(typescript@5.5.3)
       stylelint-config-recommended: 14.0.1(stylelint@16.6.1(typescript@5.5.3))
