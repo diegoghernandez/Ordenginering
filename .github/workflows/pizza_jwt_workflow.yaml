@@ -58,7 +58,7 @@ jobs:
             docker push diegoj4v/pizza-jwt:$(git rev-parse --short ${{ github.sha }})
 
    login__and__update__deployment: 
-      needs: [test]
+      needs: [buid_image]
       runs-on: ubuntu-22.04
       permissions:
          id-token: write
