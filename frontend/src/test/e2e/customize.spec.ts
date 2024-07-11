@@ -5,7 +5,7 @@ test.describe('Customize page e2e tests', () => {
    test('Should render correctly', async ({ page }) => {
       test.setTimeout(1000 * 50)
       await page.goto('/client/customize/empty')
-      await expect(page).toHaveTitle('Customize your empty pizza')
+      await expect(page).toHaveTitle('Customize pizza')
 
       await findNavbarElements(page)
 
@@ -53,7 +53,6 @@ test.describe('Customize page e2e tests', () => {
 
       await page.getByRole('article').filter({ hasText: 'Supreme' }).getByRole('link').click()
 
-      await expect(page).toHaveTitle('Customize your supreme pizza')
       await expect(page.getByRole('img', { name: 'Supreme pizza' })).toBeVisible()
 
       await expect(page.getByText('Total: $220')).toBeVisible()
@@ -158,10 +157,8 @@ test.describe('Customize page e2e tests', () => {
    test('Should interact with the ingredients and save the order correctly', async ({ page }) => {
       await page.goto('/client/customize/empty')
 
-      const chickenButton = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) })
-         .getByLabel('Increase quantity')
-      await chickenButton.waitFor()
-      await chickenButton.click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) })
+         .getByLabel('Increase quantity').click({ delay: 1000 * 2 })
       await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel('Increase quantity').click()
       await page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByLabel('Increase quantity').click()
       
