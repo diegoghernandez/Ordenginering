@@ -34,7 +34,7 @@ jobs:
          - name: Test project
            run: pnpm run test
    
-   e2e-playwright:
+   e2e-playwright-chromium:
       runs-on: ubuntu-22.04
       defaults:
          run:
@@ -55,11 +55,77 @@ jobs:
          - name: Install dependencies
            run: pnpm install --frozen-lockfile
          - name: Install Playwright Browsers
-           run: pnpm exec playwright install --with-deps
+           run: pnpm exec playwright install --with-deps chromium
          - name: Build application
            run: pnpm run build
          - name: Initialize e2e tests
-           run: (pnpm run start &) && (pnpm run e2e-express &) && pnpm run e2e:ci
+           run: (pnpm run start &) && (pnpm run e2e-express &) && pnpm run e2e:ci --project=chromium
+         - uses: actions/upload-artifact@v4
+           if: always()
+           with:
+             name: playwright-report
+             path: playwright-report/
+             retention-days: 30
+
+   e2e-playwright-firefox:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: frontend
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: frontend
+            fetch-depth: 0
+         - uses: pnpm/action-setup@v3
+           with:
+            version: 9
+         - uses: actions/setup-node@v4
+           with:
+            node-version: 20
+            cache: 'pnpm'
+            cache-dependency-path: frontend/pnpm-lock.yaml
+         - name: Install dependencies
+           run: pnpm install --frozen-lockfile
+         - name: Install Playwright Browsers
+           run: pnpm exec playwright install --with-deps firefox
+         - name: Build application
+           run: pnpm run build
+         - name: Initialize e2e tests
+           run: (pnpm run start &) && (pnpm run e2e-express &) && pnpm run e2e:ci --project=firefox
+         - uses: actions/upload-artifact@v4
+           if: always()
+           with:
+             name: playwright-report
+             path: playwright-report/
+             retention-days: 30
+
+   e2e-playwright-webkit:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: frontend
+      steps:
+         - uses: actions/checkout@v4
+           with:
+            sparse-checkout: frontend
+            fetch-depth: 0
+         - uses: pnpm/action-setup@v3
+           with:
+            version: 9
+         - uses: actions/setup-node@v4
+           with:
+            node-version: 20
+            cache: 'pnpm'
+            cache-dependency-path: frontend/pnpm-lock.yaml
+         - name: Install dependencies
+           run: pnpm install --frozen-lockfile
+         - name: Install Playwright Browsers
+           run: pnpm exec playwright install --with-deps webkit
+         - name: Build application
+           run: pnpm run build
+         - name: Initialize e2e tests
+           run: (pnpm run start &) && (pnpm run e2e-express &) && pnpm run e2e:ci --project=webkit
          - uses: actions/upload-artifact@v4
            if: always()
            with:
@@ -68,7 +134,7 @@ jobs:
              retention-days: 30
 
    build__and__deploy:
-      needs: [test, e2e-playwright]
+      needs: [test, e2e-playwright-chromium, e2e-playwright-firefox, e2e-playwright-webkit]
       runs-on: ubuntu-22.04
       defaults:
          run:
