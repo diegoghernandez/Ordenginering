@@ -9,7 +9,11 @@ export const prerender = false
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 ---
 
-<FormLayout title='Checkout order' h1Text='Choose delivery address'>
+<FormLayout 
+   title='Checkout order'
+   description='Put your data to know where send the pizza'
+   h1Text='Choose delivery address'
+>
    <p>* Required field</p>
    <CheckoutForm countryList={CountryList} client:load />
    <a class={SECONDARY__BUTTON} href='/client/menu'>Return to choose</a>

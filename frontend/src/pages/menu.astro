@@ -15,7 +15,10 @@ function getUrlImage(specificPath: string) {
 
 ---
 
-<Layout title='Menu page'>
+<Layout 
+	title='Menu page'
+	description="Don't want to think? Don't worry, choose one of our premade pizza"
+>
 	<main>
 		<h1>Menu</h1>
 		<div>
@@ -49,7 +52,7 @@ function getUrlImage(specificPath: string) {
 							}} />
 							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Personalizar</a>
 						</div>
-					</I>
+					</>
 				</CardContainer>
 			))}
 		</div>

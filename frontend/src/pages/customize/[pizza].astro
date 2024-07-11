@@ -30,7 +30,10 @@ const getAuhor = pizza !== 'empty' ?
 //const ingredients = await getAllIngredients()
 ---
 
-<Layout title={`Customize your ${pizza.replace('-', ' ')} pizza`}>
+<Layout 
+	title='Customize pizza'
+	description={`Customize your ${pizza.replace('-', ' ')} pizza with a selection quantity of ingredients`}
+>
 	<main>
 		<div>
 			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
