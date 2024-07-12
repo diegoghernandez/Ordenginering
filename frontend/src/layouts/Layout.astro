@@ -1,19 +1,16 @@
 ---
 import Navbar from '@/components/common/Navbar.astro'
 import '@/styles/index.css'
+import type { ActiveLink } from '@/types'
 
 interface Props {
 	title: string
 	description: string
+	activeLink: ActiveLink
 }
 
-const socialLinks = [
-	{ name: 'Personal', link: 'https://diegoj4v.github.io/My-website'},
-	{ name: 'Github', link: 'https://github.com/DiegoJ4V'},
-	{ name: 'LinkedIn', link: 'https://www.linkedin.com/in/diegoj4v/'}
-]
 
-const { title, description } = Astro.props
+const { title, description, activeLink } = Astro.props
 ---
 
 <!doctype html>
@@ -41,7 +38,7 @@ const { title, description } = Astro.props
 		{/*<ViewTransitions fallback='animate' /> */}
 	</head>
 	<body>
-		<Navbar />
+		<Navbar activeLink={activeLink} />
 		<slot />
 		<!-- <footer>
 			{socialLinks.map((socialLink) => (

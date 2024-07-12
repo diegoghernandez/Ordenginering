@@ -32,6 +32,7 @@ try {
 <FormLayout 
    title='Customer page'
    description='Your page to change any value of your account'
+   activeLink='Account'
 >
    <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'PROFILE')} />
    <ProfileForm client:load name={customer.customerName} birthDate={customer.birthDate} />

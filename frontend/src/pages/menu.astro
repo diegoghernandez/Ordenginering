@@ -19,6 +19,7 @@ function getUrlImage(specificPath: string) {
 <Layout 
 	title='Menu page'
 	description="Don't want to think? Don't worry, choose one of our premade pizza"
+	activeLink='Menu'
 >
 	<main>
 		<h1>Menu</h1>
@@ -51,7 +52,9 @@ function getUrlImage(specificPath: string) {
 								pizzaIngredients: pizza.ingredients.map(
 									(ingredient) => ({ name: ingredient, quantity: 1 }))
 							}} />
-							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>Customize</a>
+							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>
+								Customize {pizza.name.toLowerCase()}
+							</a>
 						</div>
 					</>
 				</CardContainer>

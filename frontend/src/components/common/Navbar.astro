@@ -2,6 +2,7 @@
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
+import type { ActiveLink } from '@/types'
 
 const pages = [
 	{ name: 'Home', link: '/'},
@@ -9,6 +10,11 @@ const pages = [
 	{ name: 'Customize', link: '/customize/empty'}
 ]
 
+interface Props {
+	activeLink: ActiveLink
+}
+
+const { activeLink } = Astro.props
 ---
 
 <nav>
@@ -22,7 +28,7 @@ const pages = [
          <ul>
             {pages.map((page) => (
                <li>
-                  <a href={`/client${page.link}`} data-astro-prefetch>
+                  <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } data-astro-prefetch>
                      {page.name}
                   </a>
                </li>
@@ -34,7 +40,7 @@ const pages = [
       <ul>
          {pages.map((page) => (
             <li>
-               <a href={`/client${page.link}`} data-astro-prefetch>
+               <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } data-astro-prefetch>
                   {page.name}
                </a>
             </li>
@@ -42,7 +48,7 @@ const pages = [
       </ul>
    </div>
    <div class='nav--interaction--buttons'>
-      <a href='/client/customer/'>
+      <a href='/client/customer/' class={activeLink === 'Account' ? 'active' : '' }>
          Account
          <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
@@ -77,6 +83,20 @@ const pages = [
 </script>
 
 <style>
+   a {
+      color: var(--text-color);
+      &.active {
+         color: var(--primary-interaction);
+      }
+      &:hover,
+      &:focus-within {
+         color: var(--primary-interaction);
+      }
+      &:focus-within {
+         outline: 1px solid var(--outline);
+      }
+   }
+
    .menu--movil {
       & button {
          border: none;
@@ -110,13 +130,8 @@ const pages = [
          width: 100%;
          padding: 24px;
          align-items: center;
-         color: var(--text-color);
          border-bottom: 1px solid var(--divider);
          outline: none;
-         &:hover,
-         &:focus {
-            color: var(--primary-interaction);
-         }
       }
    }
 
@@ -134,14 +149,7 @@ const pages = [
          & li {
             display: flex;
             justify-content: center;
-            gap: 4px;
-            & a:hover,
-            & a:focus-within {
-               color: var(--primary-interaction);
-            }
-            & a:focus-within {
-               outline: 1px solid var(--outline);
-            }
+            gap: 4px;            
          }
       }
    }
@@ -179,13 +187,6 @@ const pages = [
 			display: flex;
 			justify-content: center;
 			gap: 4px;
-			&:hover,
-			&:focus-within {
-				color: var(--primary-interaction);
-			}
-			&:focus-within {
-				outline: 1px solid var(--outline);
-			}
 		}
 	}
 </style>

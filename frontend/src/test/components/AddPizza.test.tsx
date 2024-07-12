@@ -6,6 +6,6 @@ describe('AddPizza component tests ', () => {
    it('Should render correctly', () => {
       render(<AddPizza />)
 
-      expect(screen.getByText('Agregar')).toBeDefined()
+      expect(screen.getByText('Add')).toBeDefined()
    })
 })

@@ -6,7 +6,7 @@ export async function findNavbarElements(page: Page) {
    
    await expect(page.getByRole('link', { name: 'Home' })).toBeVisible()
    await expect(page.getByRole('link', { name: 'Menu' })).toBeVisible()
-   await expect(page.getByRole('link', { name: 'Customize' })).toBeVisible()
+   await expect(page.getByRole('link', { name: 'Customize', exact: true })).toBeVisible()
    
    await page.getByRole('button', { name: 'Close menu' }).click()
    
@@ -14,7 +14,7 @@ export async function findNavbarElements(page: Page) {
 
    await expect(page.getByRole('link', { name: 'Home' })).toBeVisible()
    await expect(page.getByRole('link', { name: 'Menu' })).toBeVisible()
-   await expect(page.getByRole('link', { name: 'Customize' })).toBeVisible()
+   await expect(page.getByRole('link', { name: 'Customize', exact: true })).toBeVisible()
    
    await expect(page.getByRole('link', { name: 'Account' })).toBeVisible()
    await expect(page.getByLabel('Shopping cart')).toBeVisible()

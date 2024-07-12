@@ -1,16 +1,18 @@
 ---
+import type { ActiveLink } from '@/types'
 import Layout from './Layout.astro'
 
 interface Props {
 	title: string
 	description: string
    h1Text?: string
+   activeLink?: ActiveLink
 }
 
-const { title, description, h1Text } = Astro.props
+const { title, description, h1Text, activeLink } = Astro.props
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} activeLink={activeLink ?? ''}>
    <main>
       {h1Text ? <h1>{h1Text}</h1> : null}
       <slot />

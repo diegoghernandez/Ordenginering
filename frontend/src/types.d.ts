@@ -107,6 +107,8 @@ export interface UserInputProps {
    disable?: boolean;
 }
 
+export type ActiveLink = 'Home' | 'Menu' | 'Customize' | 'Account' | ''
+
 export interface ProfileLinks {
    url: string,
    name: string,
