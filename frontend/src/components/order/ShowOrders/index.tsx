@@ -35,7 +35,7 @@ export function ShowOrder() {
                      <>
                         <ImgContainer figcaptionText={pizzaInOrder.pizzaImageAuthor}>
                            <img 
-                              src={pizzaInOrder.pizzaImageUrl} 
+                              src={pizzaInOrder.pizzaImageName} 
                               alt={`${pizzaInOrder.pizzaName} pizza`} 
                               loading='lazy' 
                               decoding='async'

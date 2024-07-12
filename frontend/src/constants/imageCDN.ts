@@ -1,0 +1,1 @@
+export const IMAGE_CDN = 'https://cdn.ordeninginering.com/image'

@@ -11,7 +11,7 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImageUrl: 'url',
+         pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
       }} />)
 
@@ -34,7 +34,7 @@ describe('PizzaData component tests', () => {
       useDesireIngredients.setState({ ingredients: [] })
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImageUrl: 'url',
+         pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
       }} prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
 
@@ -52,7 +52,7 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImageUrl: 'url',
+         pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
       }}/>)
       const user = userEvent.setup()
@@ -80,7 +80,7 @@ describe('PizzaData component tests', () => {
       setIngredients()
       render(<PizzaData pizza={{
          pizzaName: 'Pizza',
-         pizzaImageUrl: 'url',
+         pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
       }}/>)
 

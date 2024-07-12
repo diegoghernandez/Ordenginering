@@ -69,7 +69,7 @@ export interface CustomerDto {
 export interface Pizza {
    idPizza?:         `${string}-${string}-${string}-${string}-${string}`
    pizzaName:        string
-   pizzaImageUrl: string,
+   pizzaImageName: string,
    pizzaImageAuthor: string
    price?: number
    size:        Size

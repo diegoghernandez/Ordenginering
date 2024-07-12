@@ -19,7 +19,7 @@ describe('ShoppingCart component tests', () => {
          pizza: [{
             idPizza: '9398812b-8ba2-4a20-8613-339c13df14ca',
             pizzaName: 'Pepperoni',
-            pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+            pizzaImageName: '/client/images/pizza/pepperoni.jpg',
             pizzaImageAuthor: 'Author',
             size: Size.MEDIUM,
             quantity: 2,

@@ -6,7 +6,7 @@ import { useRef, useState } from 'react'
 import type { Characteristics } from './PizzaData'
 
 interface Props {
-   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageUrl' | 'pizzaImageAuthor'>
+   pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    characteristics: Characteristics,
    ingredients: Ingredient[]
 }
@@ -29,7 +29,7 @@ export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props
          showModal()
          addPizza({
             pizzaName: pizza.pizzaName,
-            pizzaImageUrl: pizza.pizzaImageUrl,
+            pizzaImageName: pizza.pizzaImageName,
             pizzaImageAuthor: pizza.pizzaImageAuthor,
             size: characteristics.size,
             quantity: characteristics.quantity,

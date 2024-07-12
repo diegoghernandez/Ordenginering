@@ -2,6 +2,7 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { AddPizza } from '@/components/order/AddPizza'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 import { Size } from '@/constants/size'
 import { SECONDARY__BUTTON } from '@/constants/styles'
 import pizzaList from '@/data/pizza.json'
@@ -10,7 +11,7 @@ import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
 
 function getUrlImage(specificPath: string) {
-	return `/client/images/pizza/${specificPath}.jpg`
+	return `${IMAGE_CDN}/pizza/${specificPath}.avif`
 }
 
 ---
@@ -27,7 +28,7 @@ function getUrlImage(specificPath: string) {
 					<>
 						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>
 							<Image 
-								src={getUrlImage(pizza.image.url)}
+								src={getUrlImage(pizza.image.name)}
 								alt={`${pizza.name} pizza`}
 								width='280'
 								height='220'
@@ -43,7 +44,7 @@ function getUrlImage(specificPath: string) {
 						<div class='buttons-column'>
 							<AddPizza client:idle pizza={{
 								pizzaName: pizza.name,
-								pizzaImageUrl: getUrlImage(pizza.image.url),
+								pizzaImageName: getUrlImage(pizza.image.name + '--small'),
 								pizzaImageAuthor: pizza.image.author,
 								size: Size.MEDIUM,
 								quantity: 1,

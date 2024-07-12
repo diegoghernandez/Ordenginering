@@ -12,7 +12,7 @@ test.describe('Menu page e2e tests', () => {
       await findNavbarElements(page)
       
       await expect(page.getByRole('heading', { name: 'Menu' })).toBeVisible()
-      await expect(page.getByRole('article')).toHaveCount(13)
+      await expect(page.getByRole('article')).toHaveCount(9)
       for (const element of await page.getByRole('article').all()) {
          await element.screenshot()
          await expect(element.getByRole('figure')).toBeVisible()

@@ -4,6 +4,7 @@ import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import type { Order } from '@/types'
 import Styles from './OrderModal.module.css'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 
 interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void,
@@ -35,7 +36,7 @@ export function OrderModal({ funToSaveDialog, order }: Props) {
                <CardContainer key={pizza.idPizza} styleClass={Styles['order-pizza-container']}>
                   <>
                      <ImgContainer figcaptionText={pizza.pizzaImageAuthor}>
-                        <img src={`/client/images/pizza/${pizza.pizzaImageUrl}.jpg`} alt={pizza.pizzaName + ' pizza'} />
+                        <img src={`${IMAGE_CDN}/pizza/${pizza.pizzaImageName}.avif`} alt={pizza.pizzaName + ' pizza'} />
                      </ImgContainer>
                      <h2>{pizza.pizzaName}</h2>
                      <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>

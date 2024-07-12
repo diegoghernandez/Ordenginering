@@ -35,7 +35,7 @@ test.describe('Checkout page tests', () => {
 
       await addPizzaInMenu(page, 3)
       await addPizzaInMenu(page, 2)
-      await addPizzaInMenu(page, 9)
+      await addPizzaInMenu(page, 1)
       await addPizzaInMenu(page, 7)
 
       await expect(page.getByLabel('Shopping cart').getByText('4')).toBeVisible()
@@ -67,7 +67,7 @@ test.describe('Checkout page tests', () => {
 
       await addPizzaInMenu(page, 3)
       await addPizzaInMenu(page, 2)
-      await addPizzaInMenu(page, 9)
+      await addPizzaInMenu(page, 1)
       await addPizzaInMenu(page, 7)
 
       await expect(page.getByLabel('Shopping cart').getByText('4')).toBeVisible()

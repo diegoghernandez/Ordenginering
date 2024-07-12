@@ -2,105 +2,73 @@
    {
       "name": "Pepperoni",
       "image": {
-         "url": "pepperoni",
-         "author": "Foto de Fernando Andrade en Unsplash"
+         "name": "pepperoni",
+         "author": "Fernando Andrade's photo on Unsplash"
       },
       "ingredients": ["Pepperoni", "Mozzarella"]
    },
    {
       "name": "Hawaiana",
       "image": {
-         "url": "hawaiana",
-         "author": "Foto de bckfwd en Unsplash"
+         "name": "hawaiana",
+         "author": "bckfwd's photo on Unsplash"
       },
       "ingredients": ["Ham", "Pineapple", "Mozzarella"]
    },
    {
       "name": "Margherita",
       "image": {
-         "url": "margherita",
-         "author": "Foto de Aurélien Lemasson-Théobald en Unsplash"
+         "name": "margherita",
+         "author": "Aurélien Lemasson-Théobald's photo on Unsplash"
       },
       "ingredients": ["Tomato", "Mozzarella", "Basil"]
    },
    {
       "name": "Four Cheese",
       "image": {
-         "url": "four-cheese",
-         "author": "Foto de Kristina Bratko en Unsplash"
+         "name": "four-cheese",
+         "author": "Getúlio Moraes's photo on Unsplash"
       },
       "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
    },
    {
       "name": "Vegetarian",
       "image": {
-         "url": "vegetarian",
-         "author": "Foto de Edgar Castrejon en Unsplash"
+         "name": "vegetarian",
+         "author": "LUM3N's photo on Unsplash"
       },
       "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
    },
    {
       "name": "BBQ Chicken",
       "image": {
-         "url": "bbq-chicken",
-         "author": "Foto de Sharan Pagadala en Unsplash"
+         "name": "bbq-chicken",
+         "author": "Erik Mclean's photo on Unsplash"
       },
       "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
    },
    {
       "name": "Supreme",
       "image": {
-         "url": "supreme",
-         "author": "Foto de Drake Whitney en Unsplash"
+         "name": "supreme",
+         "author": "Drake Whitney's photo on Unsplash"
       },
       "ingredients": ["Pepperoni", "Tomato sauce", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
    },
    {
       "name": "Mushroom",
       "image": {
-         "url": "mushroom",
-         "author": "Foto de Lavi Perchik en Unsplash"
+         "name": "mushroom",
+         "author": "Lavi Perchik's photo on Unsplash"
       },
       "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
    },
    {
       "name": "Seafood",
       "image": {
-         "url": "seafood",
-         "author": "Foto de Yana Hurska en Unsplash"
+         "name": "seafood",
+         "author": "serjan midili's photo on Unsplash"
       },
       "ingredients": ["Shrimp", "Calamar", "Mussels", "Garlic", "Mozzarella"]
-   },
-   {
-      "name": "Pesto Chicken",
-      "image": {
-         "url": "pesto-chicken",
-         "author": ""
-      },
-      "ingredients": ["Pesto Sauce", "Grilled Chicken", "Sun-Dried Tomatoes", "Mozzarella", "Parmesan"]
-   },
-   {
-      "name": "Buffalo Chicken",
-      "image": {
-         "url": "buffalo-chicken",
-         "author": ""
-      },
-      "ingredients": ["Buffalo Sauce", "Grilled Chicken", "Red Onions", "Mozzarella", "Blue Cheese"]
-   },
-   {
-      "name": "Greek",
-      "image": {
-         "url": "greek",
-         "author": ""
-      },
-      "ingredients": ["Spinach", "Feta", "Olives", "Tomatoes", "Red Onions", "Mozzarella"]
-   },
-   {
-      "name": "Mixed Mushrooms",
-      "image": {
-         "url": "mixed-mushrooms",
-         "author": ""
-      },
-      "ingredients": ["Mixed Mushrooms", "Fontina", "Mozzarella"]
    }
 ]

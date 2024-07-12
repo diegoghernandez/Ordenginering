@@ -37,7 +37,7 @@ describe('Order service tests', () => {
             pizzaList: [{
                idPizza: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
                pizzaName: 'Pepperoni',
-               pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+               pizzaImageName: '/client/images/pizza/pepperoni.jpg',
                pizzaImageAuthor: 'Author',
                size: 'LARGE',
                quantity: 2,
@@ -66,7 +66,7 @@ describe('Order service tests', () => {
                idPizza: '480870a9-af45-4d2c-bda2-7a6e6e3a1ab8',
                pizzaName: 'Pepperoni',
                quantity: 2,
-               pizzaImageUrl: '/client/images/pizza/pepperoni.jpg',
+               pizzaImageName: '/client/images/pizza/pepperoni.jpg',
                pizzaImageAuthor: 'Author',
                size: 'LARGE',
                pizzaIngredients: [{
