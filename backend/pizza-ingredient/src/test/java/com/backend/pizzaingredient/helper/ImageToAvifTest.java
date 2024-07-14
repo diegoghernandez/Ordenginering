@@ -13,6 +13,7 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +26,7 @@ class ImageToAvifTest {
    @DisplayName("Should convert an image with the supported type bu java to avif")
    void converter(CapturedOutput capturedOutput) throws IOException, InterruptedException {
       var avifImageBytes = ImageToAvif.converter(TestIngredientUtil.getImageFile());
-      FileUtils.writeByteArrayToFile(new File("src/test/resources/test.avif"), avifImageBytes);
+      FileUtils.writeByteArrayToFile(Path.of("src", "test", "resources", "test.avif").toFile(), avifImageBytes);
       var avifFile = new File("src/test/resources/test.avif");
 
       assertAll(
