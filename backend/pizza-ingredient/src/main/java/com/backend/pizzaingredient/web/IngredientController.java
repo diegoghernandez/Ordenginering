@@ -57,7 +57,7 @@ public class IngredientController {
    public ResponseEntity<String> saveIngredient(
            @RequestPart("file") MultipartFile image,
            @Valid @RequestPart("ingredient") IngredientDto ingredientDto
-   ) throws NotAllowedException, IOException {
+   ) throws NotAllowedException, IOException, InterruptedException {
       if (image.isEmpty()) return new ResponseEntity<>("Image is required", HttpStatus.BAD_REQUEST);
       else if (!Objects.requireNonNull(image.getContentType()).matches("image/(jpeg|png|bmp|webmp|gif)")) {
          return new ResponseEntity<>(
