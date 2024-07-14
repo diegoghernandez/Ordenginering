@@ -46,7 +46,7 @@ public class ImageToAvif {
               "-j", "all", "-d", "10", "-y", "422", "--min", "36", "--max", "36", "--minalpha", "36", "--maxalpha", "36",
               "images/" + originalName + ".avif"
       );
-      builder.directory(WORKING__DIRECTORY.toFile().getAbsoluteFile());
+      builder.directory(WORKING__DIRECTORY.resolve("").toFile());
 
       var process = builder.start();
 
