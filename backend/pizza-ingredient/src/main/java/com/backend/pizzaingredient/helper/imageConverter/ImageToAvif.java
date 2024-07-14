@@ -12,9 +12,10 @@ import java.util.Objects;
 
 public class ImageToAvif {
 
-   private static final String WORKING__DIRECTORY = "pizza-ingredient/src/main/java/com/backend/pizzaingredient/helper/imageConverter/";
+   private static final String WORKING__DIRECTORY = new File("").getAbsolutePath() + "/src/main/java/com/backend/pizzaingredient/helper/imageConverter/";
 
    public static byte[] converter(MultipartFile image) throws IOException, InterruptedException {
+      System.out.println(WORKING__DIRECTORY);
       Image resultingImage = ImageIO.read(image.getInputStream()).getScaledInstance(124, 112, Image.SCALE_DEFAULT);
       BufferedImage outputImage = new BufferedImage(124, 112, BufferedImage.TYPE_INT_RGB);
       outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
