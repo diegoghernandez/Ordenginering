@@ -23,6 +23,7 @@ public class ImageToAvif {
            .normalize();
 
    public static byte[] converter(MultipartFile image) throws IOException, NotAllowedException {
+      var IMAGE__DIRECTORY = WORKING__DIRECTORY.resolve("images");
       log.info("Start processing of multipartFile to a jpg image with the right width and height");
       long startJPG = System.currentTimeMillis();
 
@@ -32,31 +33,27 @@ public class ImageToAvif {
 
       String originalNameWithoutExtension = Objects.requireNonNull(image.getOriginalFilename()).split("\\.")[0];
 
-      ImageIO.write(outputImage, "jpg", new FileOutputStream(
-              WORKING__DIRECTORY.toAbsolutePath() + "/images/" + originalNameWithoutExtension + ".jpg")
-      );
+      ImageIO.write(outputImage, "jpg", new FileOutputStream(IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".jpg").toString()));
 
-      log.info("Jpg image created at: " + WORKING__DIRECTORY.toAbsolutePath() + "/images/" + originalNameWithoutExtension + ".jpg");
+      log.info("Jpg image created at: " + IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".jpg").toAbsolutePath());
       long endJPG = System.currentTimeMillis();
       log.info("Converted multipartFile to a jpg with the right size, took: " + ((endJPG - startJPG) * 0.001) + " seconds");
 
       long startAvif = System.currentTimeMillis();
       var makeAvifImageResponse = makeAvifImage(originalNameWithoutExtension);
 
-      Path jpgImagePath = Path.of("images", originalNameWithoutExtension + ".jpg");
       if (!makeAvifImageResponse) {
-         Files.delete(WORKING__DIRECTORY.resolve(jpgImagePath));
+         Files.delete(IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".jpg"));
          throw new NotAllowedException("Couldn't transform the image to avif");
       }
 
       long endAvif = System.currentTimeMillis();
       log.info("Converted jpg image to avif, took: " + ((endAvif - startAvif) * 0.001) + " seconds");
 
-      Files.delete(WORKING__DIRECTORY.resolve(jpgImagePath));
+      Files.delete(IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".jpg"));
 
-      Path avifImage = Path.of("images", originalNameWithoutExtension + ".avif");
-      var avifFileBytes = Files.readAllBytes(WORKING__DIRECTORY.resolve(avifImage));
-      Files.delete(WORKING__DIRECTORY.resolve(avifImage));
+      var avifFileBytes = Files.readAllBytes(IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".avif"));
+      Files.delete(IMAGE__DIRECTORY.resolve(originalNameWithoutExtension + ".avif"));
 
       return avifFileBytes;
    }
@@ -78,9 +75,13 @@ public class ImageToAvif {
             process.destroy();
          }
 
-         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-         while (stdInput.ready()) System.out.println(stdInput.readLine());
+         Path avifPath = WORKING__DIRECTORY.resolve(Path.of("images", originalName + ".avif"));
+         if (!Files.exists(avifPath)) throw new IOException("Avif file couldn't be created in the path: " + avifPath.toAbsolutePath());
 
+         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+         while (stdInput.ready()) log.info(stdInput.readLine());
+
+         log.info("JPG image converted to avif at: " + avifPath.toAbsolutePath());
          return true;
       } catch (IOException | InterruptedException e) {
          log.error(e.getMessage());

@@ -41,6 +41,7 @@ class ImageToAvifTest {
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Successfully loaded: images/image.jpg"),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("AVIF to be written: (Lossy)"),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Wrote AVIF: images/image.avif"),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("JPG image converted to avif at:"),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Converted jpg image to avif, took: ")
       );
 
