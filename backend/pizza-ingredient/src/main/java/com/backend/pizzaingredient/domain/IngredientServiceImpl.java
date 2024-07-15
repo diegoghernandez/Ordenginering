@@ -49,7 +49,7 @@ public class IngredientServiceImpl implements IngredientService {
    }
 
    @Override
-   public void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException, InterruptedException {
+   public void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException {
       if (ingredientRepository.existsByIngredientName(ingredientDto.ingredientName()))
          throw new NotAllowedException("Repeat names are not allowed");
 

@@ -17,5 +17,5 @@ public interface IngredientService {
 
    Optional<String> getIngredientNameById(int id);
 
-   void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException, InterruptedException;
+   void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException;
 }
