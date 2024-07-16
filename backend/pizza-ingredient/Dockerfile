@@ -5,7 +5,7 @@ RUN apt update && apt install -y libavif-bin
 FROM base AS build
 COPY . /app
 RUN --mount=type=cache,id=maven,target=/root/.m2 ./mvnw clean dependency:go-offline
-RUN --mount=type=cache,id=maven,target=/root/.m2 ./mvnw clean -o package -Dmaven.test.skip=true
+RUN --mount=type=cache,id=maven,target=/root/.m2 ./mvnw clean package -Dmaven.test.skip=true
 #RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../../target/*.jar)
 
 FROM base
