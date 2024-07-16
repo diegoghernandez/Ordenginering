@@ -128,7 +128,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <image>
+                    <!-- <image>
+                        <builder>paketobuildpacks/builder-jammy-base:latest</builder>
                         <name>diegoj4v/pizza-ingredient:${git-hash}</name>
                         <publish>true</publish>
                     </image>
@@ -137,9 +138,9 @@
                             <username>diegoj4v</username>
                             <password>${docker-password}</password>
                         </publishRegistry>
-                    </docker>
+                    </docker> -->
                 </configuration>
-                <executions>
+                <!-- <executions>
 					<execution>
 						<goals>
 							<goal>build-info</goal>
@@ -152,9 +153,8 @@
 							</additionalProperties>
 						</configuration>
 					</execution>
-				</executions>
+				</executions> -->
             </plugin>
         </plugins>
     </build>
-
 </project>
