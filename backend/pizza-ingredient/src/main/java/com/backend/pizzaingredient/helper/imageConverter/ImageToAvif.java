@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ImageToAvif {
 
-   private static final Path WORKING__DIRECTORY = Path.of("src", "main", "java", "com", "backend", "pizzaingredient", "helper", "imageConverter")
+   private static final Path IMAGE__DIRECTORY = Path.of("").resolve("images")
            .normalize();
 
    public static byte[] converter(MultipartFile image) throws IOException, NotAllowedException {
-      var IMAGE__DIRECTORY = WORKING__DIRECTORY.resolve("images");
+      Files.createDirectories(IMAGE__DIRECTORY);
       log.info("Start processing of multipartFile at: " + IMAGE__DIRECTORY.toAbsolutePath());
       long startJPG = System.currentTimeMillis();
 
@@ -63,11 +63,11 @@ public class ImageToAvif {
       try {
          ProcessBuilder builder = new ProcessBuilder();
          builder.command(
-                 "avifenc", "images/" + originalName + ".jpg",
+                 "avifenc", originalName + ".jpg",
                  "-j", "all", "-d", "10", "-y", "422", "--min", "36", "--max", "36", "--minalpha", "36", "--maxalpha", "36",
-                 "images/" + originalName + ".avif"
+                 originalName + ".avif"
          );
-         builder.directory(WORKING__DIRECTORY.toFile());
+         builder.directory(IMAGE__DIRECTORY.toFile());
 
          var process = builder.start();
          boolean finished = process.waitFor(3, TimeUnit.SECONDS);
@@ -75,7 +75,7 @@ public class ImageToAvif {
             process.destroy();
          }
 
-         Path avifPath = WORKING__DIRECTORY.resolve(Path.of("images", originalName + ".avif"));
+         Path avifPath = IMAGE__DIRECTORY.resolve(Path.of(originalName + ".avif"));
          if (!Files.exists(avifPath)) throw new IOException("Avif file couldn't be created in the path: " + avifPath.toAbsolutePath());
 
          BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
