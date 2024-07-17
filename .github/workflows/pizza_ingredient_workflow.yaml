@@ -35,7 +35,7 @@ jobs:
            env:
               BUCKET_ACCESSKEYID: ${{ secrets.BUCKET_ACCESSKEYID }}
               BUCKET_SECRETACCESSKEY: ${{ secrets.BUCKET_SECRETACCESSKEY }}
-              BUCKET_BUCKET: ${{ secrets.BUCKET_BUCKET }}
+              BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
 
    build__and__push__image:
       needs: [test__code]
