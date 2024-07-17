@@ -1,5 +1,5 @@
 .gitignore
 target
 HELP.md
-#src/main/resources/.env.properties
-#src/test/resources/.env.properties
+src/main/resources/.env.properties
+src/test/resources/.env.properties
