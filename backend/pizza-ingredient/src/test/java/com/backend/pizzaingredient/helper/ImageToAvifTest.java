@@ -34,7 +34,7 @@ class ImageToAvifTest {
 
       assertAll(
               () -> assertEquals("test.avif", avifFile.toFile().getName()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Start processing of multipartFile to a jpg image with the right width and height"),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Start processing of multipartFile at: "),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Jpg image created at:"),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Converted multipartFile to a jpg with the right size, took: "),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Start processing of jpg image to avif"),

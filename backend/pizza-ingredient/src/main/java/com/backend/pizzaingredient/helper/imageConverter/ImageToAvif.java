@@ -24,7 +24,7 @@ public class ImageToAvif {
 
    public static byte[] converter(MultipartFile image) throws IOException, NotAllowedException {
       var IMAGE__DIRECTORY = WORKING__DIRECTORY.resolve("images");
-      log.info("Start processing of multipartFile to a jpg image with the right width and height");
+      log.info("Start processing of multipartFile at: " + IMAGE__DIRECTORY.toAbsolutePath());
       long startJPG = System.currentTimeMillis();
 
       Image resultingImage = ImageIO.read(image.getInputStream()).getScaledInstance(124, 112, Image.SCALE_DEFAULT);
