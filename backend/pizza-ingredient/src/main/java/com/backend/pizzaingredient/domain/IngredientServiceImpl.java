@@ -5,7 +5,7 @@ import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.helper.imageConverter.ImageToAvif;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
-import com.backend.pizzaingredient.web.config.PizzaIngredientProperties;
+import com.backend.pizzaingredient.web.config.BucketProperties;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,12 +24,12 @@ import java.util.Optional;
 @Service
 public class IngredientServiceImpl implements IngredientService {
 
-   private final PizzaIngredientProperties pizzaIngredientProperties;
+   private final BucketProperties bucketProperties;
 
    private final IngredientRepository ingredientRepository;
 
-   public IngredientServiceImpl(PizzaIngredientProperties pizzaIngredientProperties, IngredientRepository ingredientRepository) {
-      this.pizzaIngredientProperties = pizzaIngredientProperties;
+   public IngredientServiceImpl(BucketProperties bucketProperties, IngredientRepository ingredientRepository) {
+      this.bucketProperties = bucketProperties;
       this.ingredientRepository = ingredientRepository;
    }
 
@@ -57,8 +57,8 @@ public class IngredientServiceImpl implements IngredientService {
       var imageNameWithoutExtension = Objects.requireNonNull(image.getOriginalFilename()).split("\\.")[0];
 
       var credentials = AwsBasicCredentials.builder()
-              .accessKeyId(pizzaIngredientProperties.accessKeyId())
-              .secretAccessKey(pizzaIngredientProperties.secretAccessKey())
+              .accessKeyId(bucketProperties.accessKeyId())
+              .secretAccessKey(bucketProperties.secretAccessKey())
               .build();
 
       var s3 = S3Client.builder()
@@ -67,7 +67,7 @@ public class IngredientServiceImpl implements IngredientService {
               .build();
 
       var objectRequest = PutObjectRequest.builder()
-              .bucket(pizzaIngredientProperties.bucket())
+              .bucket(bucketProperties.name())
               .key("image/ingredients/" + imageNameWithoutExtension + ".avif")
               .contentType("image/avif")
               .build();

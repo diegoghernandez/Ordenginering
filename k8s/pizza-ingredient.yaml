@@ -76,17 +76,17 @@ spec:
                 configMapKeyRef:
                   name: client-configmap
                   key: jwt_domain
-            - name: ENV_ACCESSKEYID
+            - name: BUCKET_ACCESSKEYID
               valueFrom:
                 secretKeyRef:
                   name: bucket-secret
                   key: aws_access_key
-            - name: ENV_SECRETACCESSKEY
+            - name: BUCKET_SECRETACCESSKEY
               valueFrom:
                 secretKeyRef:
                   name: bucket-secret
                   key: aws_secret_key
-            - name: ENV_BUCKET
+            - name: BUCKET_BUCKET
               valueFrom:
                 secretKeyRef:
                   name: bucket-secret
