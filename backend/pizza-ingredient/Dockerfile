@@ -6,7 +6,6 @@ RUN --mount=type=cache,id=maven,target=/root/.m2 ./mvnw clean package -Dmaven.te
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../../target/*-SNAPSHOT.jar)
 
 FROM eclipse-temurin:21
-WORKDIR /src/main/java
 ARG DEPENDENCY=/app/build/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib ./lib
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes .
