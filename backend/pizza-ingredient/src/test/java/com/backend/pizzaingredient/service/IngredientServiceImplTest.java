@@ -64,7 +64,7 @@ class IngredientServiceImplTest implements MysqlTestContainer {
 
    @Test
    @DisplayName("Should convert one ingredientDto to ingredientEntity, and send it to the repository")
-   void saveIngredient() throws NotAllowedException, IOException, InterruptedException {
+   void saveIngredient() throws NotAllowedException, IOException {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
                       "Pepperoni",

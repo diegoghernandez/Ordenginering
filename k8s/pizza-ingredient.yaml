@@ -86,7 +86,7 @@ spec:
                 secretKeyRef:
                   name: bucket-secret
                   key: aws_secret_key
-            - name: BUCKET_BUCKET
+            - name: BUCKET_NAME
               valueFrom:
                 secretKeyRef:
                   name: bucket-secret

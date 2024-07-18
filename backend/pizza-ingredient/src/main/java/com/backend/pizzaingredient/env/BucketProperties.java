@@ -1,4 +1,4 @@
-package com.backend.pizzaingredient.web.config;
+package com.backend.pizzaingredient.env;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

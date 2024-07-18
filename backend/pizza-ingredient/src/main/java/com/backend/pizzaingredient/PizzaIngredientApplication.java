@@ -1,6 +1,6 @@
 package com.backend.pizzaingredient;
 
-import com.backend.pizzaingredient.web.config.BucketProperties;
+import com.backend.pizzaingredient.env.BucketProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

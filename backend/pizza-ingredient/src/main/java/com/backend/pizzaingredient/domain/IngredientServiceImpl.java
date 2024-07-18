@@ -5,7 +5,7 @@ import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.helper.imageConverter.ImageToAvif;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
-import com.backend.pizzaingredient.web.config.BucketProperties;
+import com.backend.pizzaingredient.env.BucketProperties;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
