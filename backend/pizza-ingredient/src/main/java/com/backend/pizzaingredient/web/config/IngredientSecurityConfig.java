@@ -1,7 +1,6 @@
 package com.backend.pizzaingredient.web.config;
 
 import com.backend.pizzaingredient.constants.IngredientCustomerRoles;
-import com.backend.pizzaingredient.web.client.JwtClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -44,8 +43,7 @@ public class IngredientSecurityConfig {
                       .requestMatchers(mvcMatcherBuilder.pattern("/actuator/health/**")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, ""))
                         .hasRole(IngredientCustomerRoles.ADMIN.toString())
-                      .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, ""))
-                        .hasAnyRole(IngredientCustomerRoles.ADMIN.toString(), IngredientCustomerRoles.CI.toString())
+                      .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "")).permitAll()
                       .requestMatchers(mvcMatcherBuilder.pattern("/**"))
                         .hasAnyRole(IngredientCustomerRoles.ADMIN.toString(), IngredientCustomerRoles.USER.toString())
                       .anyRequest().authenticated()
