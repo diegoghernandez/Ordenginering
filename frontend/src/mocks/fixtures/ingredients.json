@@ -1,247 +1,240 @@
 [
    {
       "idIngredient": 1,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Pineapple",
-      "urlImage": "vegetables/pineapple",
-      "authorImage": "Foto de Phoenix Han en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Phoenix Han's photo on Unsplash",
+      "fileNameImage": "pineapple"
    },
    {
       "idIngredient": 2,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Tomato",
-      "urlImage": "vegetables/tomato",
-      "authorImage": "Foto de Deniz Altindas en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Deniz Altindas's photo on Unsplash",
+      "fileNameImage": "tomato"
    },
    {
       "idIngredient": 3,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Basil",
-      "urlImage": "vegetables/basil",
-      "authorImage": "Foto de Yakov Leonov en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Yakov Leonov's photo on Unsplash",
+      "fileNameImage": "basil"
    },
    {
       "idIngredient": 4,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Bell Peppers",
-      "urlImage": "vegetables/bell-peppers",
-      "authorImage": "Foto de Mire Carlo en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Andrew Scarborough's photo on Unsplash",
+      "fileNameImage": "bell-peppers"
    },
    {
       "idIngredient": 5,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Onions",
-      "urlImage": "vegetables/onions",
-      "authorImage": "Foto de Obed Hernández en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Obed Hernández's photo on Unsplash",
+      "fileNameImage": "onions"
    },
    {
       "idIngredient": 6,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Mushrooms",
-      "urlImage": "vegetables/mushrooms",
-      "authorImage": "Foto de Waldemar en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Harshal S. Hirve's photo on Unsplash",
+      "fileNameImage": "mushrooms"
    },
    {
       "idIngredient": 7,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Olives",
-      "urlImage": "vegetables/olives",
-      "authorImage": "Foto de Furkan Dokuzlar en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "John Cameron's photo on Unsplash",
+      "fileNameImage": "olives"
    },
    {
       "idIngredient": 8,
-      "ingredientType": "VEGETABLES",
-      "ingredientName": "Red Onions",
-      "urlImage": "vegetables/red-onions",
-      "authorImage": "Foto de Richard R en Unsplash"
+      "ingredientName": "Black Olives",
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Clem Onojeghuo's photo on Unsplash",
+      "fileNameImage": "black-olives"
    },
    {
       "idIngredient": 9,
-      "ingredientType": "VEGETABLES",
-      "ingredientName": "Black Olives",
-      "urlImage": "vegetables/black-olives",
-      "authorImage": "Foto de Furkan Dokuzlar en Unsplash"
+      "ingredientName": "Red Onions",
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Eric Prouzet's photo on Unsplash",
+      "fileNameImage": "red-onions"
    },
    {
       "idIngredient": 10,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Garlic",
-      "urlImage": "vegetables/garlic",
-      "authorImage": "Foto de Matthew Pilachowski en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Joey Huang's photo on Unsplash",
+      "fileNameImage": "garlic"
    },
    {
       "idIngredient": 11,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Oregano",
-      "urlImage": "vegetables/oregano",
-      "authorImage": "Foto de Charles C. Collingwood en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Elias Moor's photo on Unsplash",
+      "fileNameImage": "oregano"
    },
    {
       "idIngredient": 12,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Sun-Dried Tomatoes",
-      "urlImage": "vegetables/sun-dried-tomatoes",
-      "authorImage": "Foto de engin akyurt en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "engin akyurt's photo on Unsplash",
+      "fileNameImage": "sun-dried-tomatoes"
    },
    {
       "idIngredient": 13,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Spinach",
-      "urlImage": "vegetables/spinach",
-      "authorImage": "Foto de Soo Ann Woon en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Elianna Friedman's photo on Unsplash",
+      "fileNameImage": "spinach"
    },
    {
       "idIngredient": 14,
-      "ingredientType": "VEGETABLES",
       "ingredientName": "Mixed Mushrooms",
-      "urlImage": "vegetables/mixed-mushrooms",
-      "authorImage": "Foto de Andrew Ridley en Unsplash"
+      "ingredientType": "VEGETABLE",
+      "authorImage": "Andrew Ridley's photo on Unsplash",
+      "fileNameImage": "mixed-mushrooms"
    },
    {
       "idIngredient": 15,
-      "ingredientType": "MEAT",
       "ingredientName": "Grilled Chicken",
-      "urlImage": "meat/grilled-chicken",
-      "authorImage": "Foto de Daniel Hooper 🌊 en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Denis Agati's photo on Unsplash",
+      "fileNameImage": "grilled-chicken"
    },
    {
       "idIngredient": 16,
-      "ingredientType": "MEAT",
       "ingredientName": "Ham",
-      "urlImage": "meat/ham",
-      "authorImage": "Foto de Karo Kujanpaa en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Сергей Орловский's photo on Unsplash",
+      "fileNameImage": "ham"
    },
    {
       "idIngredient": 17,
-      "ingredientType": "MEAT",
       "ingredientName": "Pepperoni",
-      "urlImage": "meat/peperoni",
-      "authorImage": "Foto de Payam Tahery en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Payam Tahery's photo on Unsplash",
+      "fileNameImage": "peperoni"
    },
    {
       "idIngredient": 18,
-      "ingredientType": "MEAT",
       "ingredientName": "Turkey",
-      "urlImage": "meat/turkey",
-      "authorImage": "Foto de Claudio Schwarz en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Tengyart's photo on Unsplash",
+      "fileNameImage": "turkey"
    },
    {
       "idIngredient": 19,
-      "ingredientType": "MEAT",
       "ingredientName": "Tuna",
-      "urlImage": "meat/tuna",
-      "authorImage": "Foto de Artiom Vallat en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Justus Menke's photo on Unsplash",
+      "fileNameImage": "tuna"
    },
    {
       "idIngredient": 20,
-      "ingredientType": "MEAT",
       "ingredientName": "Bacon",
-      "urlImage": "meat/bacon",
-      "authorImage": "Foto de Wright Brand Bacon en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "James Trenda's photo on Unsplash",
+      "fileNameImage": "bacon"
    },
    {
       "idIngredient": 21,
-      "ingredientType": "MEAT",
       "ingredientName": "Chorizo",
-      "urlImage": "meat/chorizo",
-      "authorImage": "Foto de Wesual Click en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Wesual Click's photo on Unsplash",
+      "fileNameImage": "chorizo"
    },
    {
       "idIngredient": 22,
-      "ingredientType": "MEAT",
       "ingredientName": "Shrimp",
-      "urlImage": "meat/shrimp",
-      "authorImage": "Foto de Daniel Klein en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Daniel Klein's photo on Unsplash",
+      "fileNameImage": "shrimp"
    },
    {
       "idIngredient": 23,
-      "ingredientType": "MEAT",
       "ingredientName": "Calamar",
-      "urlImage": "meat/calamar",
-      "authorImage": "Foto de Alex Knight en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Alex Knight's photo on Unsplash",
+      "fileNameImage": "calamar"
    },
    {
       "idIngredient": 24,
-      "ingredientType": "MEAT",
       "ingredientName": "Mussels",
-      "urlImage": "meat/mussels",
-      "authorImage": "Foto de Nick Karvounis en Unsplash"
+      "ingredientType": "MEAT",
+      "authorImage": "Nick Karvounis's photo on Unsplash",
+      "fileNameImage": "mussels"
    },
    {
       "idIngredient": 25,
-      "ingredientType": "CHEESE",
       "ingredientName": "Mozzarella",
-      "urlImage": "cheese/mozzarella",
-      "authorImage": "Image by Racool_studio on Freepik"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "mozzarella"
    },
    {
       "idIngredient": 26,
-      "ingredientType": "CHEESE",
       "ingredientName": "Cheddar",
-      "urlImage": "cheese/cheddar",
-      "authorImage": "Foto de Önder Örtel en Unsplash"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "cheddar"
    },
    {
       "idIngredient": 27,
-      "ingredientType": "CHEESE",
       "ingredientName": "Parmesan",
-      "urlImage": "cheese/parmesan",
-      "authorImage": "Foto de Samuele Pieretti en Unsplash"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "parmesan"
    },
    {
       "idIngredient": 28,
-      "ingredientType": "CHEESE",
       "ingredientName": "Gouda",
-      "urlImage": "cheese/gouda",
-      "authorImage": "Image By Sketchepedia on Freepik"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "gouda"
    },
    {
       "idIngredient": 29,
-      "ingredientType": "CHEESE",
       "ingredientName": "Feta",
-      "urlImage": "cheese/feta",
-      "authorImage": "Image By Vectonauta on Freepik"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "feta"
    },
    {
       "idIngredient": 30,
-      "ingredientType": "CHEESE",
       "ingredientName": "Blue Cheese",
-      "urlImage": "cheese/blue-cheese",
-      "authorImage": "Foto de Towfiqu barbhuiya en Unsplash"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "blue-cheese"
    },
    {
       "idIngredient": 31,
-      "ingredientType": "CHEESE",
       "ingredientName": "Fontina",
-      "urlImage": "cheese/fontina",
-      "authorImage": "Image by Racool_studio on Freepik"
+      "ingredientType": "CHEESE",
+      "authorImage": "",
+      "fileNameImage": "fontina"
    },
    {
       "idIngredient": 32,
-      "ingredientType": "SAUCES",
       "ingredientName": "BBQ sauce",
-      "urlImage": "sauces/bbq",
-      "authorImage": "Image by KamranAydinov on Freepik"
+      "ingredientType": "SAUCE",
+      "authorImage": "",
+      "fileNameImage": "bbq-sauce"
    },
    {
       "idIngredient": 33,
-      "ingredientType": "SAUCES",
-      "ingredientName": "Pesto sauce",
-      "urlImage": "sauces/pesto",
-      "authorImage": "Foto de Artur Rutkowski en Unsplash"
+      "ingredientName": "Buffalo sauce",
+      "ingredientType": "SAUCE",
+      "authorImage": "",
+      "fileNameImage": "buffalo-sauce"
    },
    {
       "idIngredient": 34,
-      "ingredientType": "SAUCES",
-      "ingredientName": "Buffalo sauce",
-      "urlImage": "sauces/buffalo",
-      "authorImage": "Image by jcomp on Freepik"
-   },
-   {
-      "idIngredient": 35,
-      "ingredientType": "SAUCES",
       "ingredientName": "Tomato sauce",
-      "urlImage": "sauces/tomato",
-      "authorImage": "Foto de D. L. Samuels en Unsplash"
+      "ingredientType": "SAUCE",
+      "authorImage": "",
+      "fileNameImage": "tomato-sauce"
    }
 ]

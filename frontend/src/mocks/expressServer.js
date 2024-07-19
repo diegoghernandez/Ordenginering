@@ -11,6 +11,16 @@ customerApp.get('/customer/32', (_req, res) => {
 
 customerApp.listen(CUSTOMER_PORT)
 
+const ingredientApp = express()
+const INGREDIENT_PORT = 2222
+ingredientApp.use(express.json())
+
+ingredientApp.get('/ingredient', (_req, res) => {
+   res.status(200).json(getJSON('../mocks/fixtures/ingredients.json'))
+})
+
+ingredientApp.listen(INGREDIENT_PORT)
+
 const orderApp = express()
 const ORDER_PORT = 4436
 orderApp.use(express.json())

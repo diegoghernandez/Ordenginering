@@ -34,7 +34,7 @@ export interface IngredientRequest {
    ingredientName: string;
    ingredientType: IngredientTypes;
    authorImage: string;
-   imageFileName: string;
+   fileNameImage: string;
 }
 
 export interface CustomerLogIn {

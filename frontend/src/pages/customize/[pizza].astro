@@ -5,6 +5,7 @@ import { PizzaIngredients } from '@/components/customize/PizzaIngredients'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
+import { getAllIngredients } from '@/services/ingredientsService'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 import { Image } from 'astro:assets'
@@ -22,13 +23,14 @@ const { pizza } = Astro.params as Params
 const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
 
 const getIngredients = pizzaList
-.filter(({ name }) => compareStringsOfNames(pizza, name))
-.flatMap(({ ingredients }) => ingredients)
+	.filter(({ name }) => compareStringsOfNames(pizza, name))
+	.flatMap(({ ingredients }) => ingredients)
 
 const getAuhor = pizza !== 'empty' ? 
 	pizzaList.filter(({ name }) => compareStringsOfNames(name, pizza)).map(({ image }) => image.author)[0]
 	: "Mariusz Słoński's photo on Unsplash"
-//const ingredients = await getAllIngredients()
+
+const ingredients = await getAllIngredients()
 ---
 
 <Layout 
@@ -61,7 +63,7 @@ const getAuhor = pizza !== 'empty' ?
 			/>
 		</div>
 		<div>
-			<PizzaIngredients client:idle prebuildIngredients={getIngredients} />
+			<PizzaIngredients client:idle prebuildIngredients={getIngredients} ingredientList={ingredients} />
 		</div>
 	</main>
 </Layout>

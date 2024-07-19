@@ -59,7 +59,7 @@ export function IngredientForm() {
                <img
                   src={imageUrl}
                   alt='Image to upload as the ingredient image'
-                  /* onLoad={() => {URL.revokeObjectURL(imageUrl)}} */
+                  onLoad={() => {URL.revokeObjectURL(imageUrl)}}
                />
             </ImgContainer>
             : null

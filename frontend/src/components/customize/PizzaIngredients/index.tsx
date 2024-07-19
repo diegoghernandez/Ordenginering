@@ -1,19 +1,21 @@
 import { CardContainer } from '@/components/common/CardContainer'
+import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import ingredientList from '@/mocks/fixtures/ingredients.json'
+import type { IngredientRequest } from '@/types'
+import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
-import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
-import { ImgContainer } from '@/components/common/ImgContainer'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 
-const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLES', 'MEAT', 'CHEESE', 'SAUCES'])
+const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLE', 'MEAT', 'CHEESE', 'SAUCE'])
 
 interface Props {
+   ingredientList: IngredientRequest[]
    prebuildIngredients?: string[]
 }
 
-export function PizzaIngredients({ prebuildIngredients = [] }: Props) {
+export function PizzaIngredients({ ingredientList, prebuildIngredients = [] }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
@@ -45,7 +47,7 @@ export function PizzaIngredients({ prebuildIngredients = [] }: Props) {
                   <>
                      <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
                         <img 
-                           src={`/client/images/${ingredient.urlImage}.jpg`}
+                           src={`${IMAGE_CDN}/ingredients/${ingredient.fileNameImage}.avif`}
                            alt={ingredient.ingredientName}
                            width='130'
                            height='80'
