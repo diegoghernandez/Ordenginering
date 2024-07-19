@@ -85,7 +85,6 @@ export function IngredientForm() {
             <CustomInput
                label={labels.imageAuthor}
                type='text'
-               required={true}
                disable={isLoading}
             />
             <CustomInput
