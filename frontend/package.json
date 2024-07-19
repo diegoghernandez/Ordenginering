@@ -15,10 +15,10 @@
     "e2e:ci": "playwright test"
   },
   "dependencies": {
-    "@astrojs/check": "0.8.1",
+    "@astrojs/check": "0.8.2",
     "@astrojs/node": "8.3.2",
     "@astrojs/react": "3.6.0",
-    "astro": "4.11.5",
+    "astro": "4.12.2",
     "express": "4.19.2",
     "humbleicons": "1.10.0",
     "react": "18.3.1",

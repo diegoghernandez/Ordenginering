@@ -64,7 +64,7 @@ public class ImageToAvif {
          ProcessBuilder builder = new ProcessBuilder();
          builder.command(
                  "avifenc", originalName + ".jpg",
-                 "-j", "all", "-d", "10", "-y", "422", "--min", "28", "--max", "28", "--minalpha", "28", "--maxalpha", "28",
+                 "-j", "all", "-d", "10", "-y", "422", "--min", "12", "--max", "12", "--minalpha", "12", "--maxalpha", "12",
                  originalName + ".avif"
          );
          builder.directory(IMAGE__DIRECTORY.toFile());
