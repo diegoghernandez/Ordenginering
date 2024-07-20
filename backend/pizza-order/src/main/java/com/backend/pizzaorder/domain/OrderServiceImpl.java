@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
                          .idPizza(idPizza)
                          .idOrder(idOrder)
                          .pizzaName(pizzaDto.pizzaName())
-                         .pizzaImageUrl(pizzaDto.pizzaImageUrl())
+                         .pizzaImageName(pizzaDto.pizzaImageName())
                          .pizzaImageAuthor(pizzaDto.pizzaImageAuthor())
                          .size(pizzaDto.size())
                          .quantity(pizzaDto.quantity())

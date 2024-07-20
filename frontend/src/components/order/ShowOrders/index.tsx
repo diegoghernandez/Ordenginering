@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 
 export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
@@ -35,7 +36,7 @@ export function ShowOrder() {
                      <>
                         <ImgContainer figcaptionText={pizzaInOrder.pizzaImageAuthor}>
                            <img 
-                              src={pizzaInOrder.pizzaImageName} 
+                              src={`${IMAGE_CDN}/pizza/${pizzaInOrder.pizzaImageName}.avif`} 
                               alt={`${pizzaInOrder.pizzaName} pizza`} 
                               loading='lazy' 
                               decoding='async'

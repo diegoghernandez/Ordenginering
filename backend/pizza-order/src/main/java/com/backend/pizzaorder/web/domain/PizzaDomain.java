@@ -8,7 +8,7 @@ import java.util.UUID;
 public record PizzaDomain(
         UUID idPizza,
         String pizzaName,
-        String pizzaImageUrl,
+        String pizzaImageName,
         String pizzaImageAuthor,
         Integer price,
         Size size,

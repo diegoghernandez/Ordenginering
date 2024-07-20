@@ -30,8 +30,8 @@ public class PizzaEntity {
     @Column(name = "pizza_name", length = 50, nullable = false)
     private String pizzaName;
 
-    @Column(name = "pizza_image_url", nullable = false)
-    private String pizzaImageUrl;
+    @Column(name = "pizza_image_name", nullable = false)
+    private String pizzaImageName;
 
     @Column(name = "pizza_image_author", nullable = false)
     private String pizzaImageAuthor;

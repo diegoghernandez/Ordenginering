@@ -45,7 +45,7 @@ function getUrlImage(specificPath: string) {
 						<div class='buttons-column'>
 							<AddPizza client:idle pizza={{
 								pizzaName: pizza.name,
-								pizzaImageName: getUrlImage(pizza.image.name + '--small'),
+								pizzaImageName: pizza.image.name + '--small',
 								pizzaImageAuthor: pizza.image.author,
 								size: Size.MEDIUM,
 								quantity: 1,

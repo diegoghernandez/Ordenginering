@@ -93,7 +93,7 @@ class OrderServiceImplTest implements MysqlTestContainer, CustomerClientWireMock
       var pizzaString = List.of(
               PizzaEntity.builder()
                       .pizzaName("Pepperoni")
-                      .pizzaImageUrl("url")
+                      .pizzaImageName("url")
                       .pizzaImageAuthor("author")
                       .price(140)
                       .size(Size.MEDIUM)
@@ -102,7 +102,7 @@ class OrderServiceImplTest implements MysqlTestContainer, CustomerClientWireMock
                       .build(),
               PizzaEntity.builder()
                       .pizzaName("Hawaiana")
-                      .pizzaImageUrl("url")
+                      .pizzaImageName("url")
                       .pizzaImageAuthor("author")
                       .price(320)
                       .size(Size.MEDIUM)

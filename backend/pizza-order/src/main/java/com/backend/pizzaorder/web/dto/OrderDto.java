@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public record OrderDto(
         @NotBlank String city,
         @NotBlank String street,
         @Min(1) @NotNull int houseNumber,
-        @Min(1) Integer apartment,
-        @Min(1) Integer floor,
-        @NotEmpty List<PizzaDto> pizzaList
+        Integer apartment,
+        Integer floor,
+        @NotEmpty @Validated List<PizzaDto> pizzaList
 ) {}

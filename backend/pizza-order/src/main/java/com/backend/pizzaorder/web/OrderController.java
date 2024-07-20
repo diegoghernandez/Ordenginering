@@ -64,7 +64,7 @@ public class OrderController {
                       .map((pizzaEntity) -> new PizzaDomain(
                               pizzaEntity.getIdPizza(),
                               pizzaEntity.getPizzaName(),
-                              pizzaEntity.getPizzaImageUrl(),
+                              pizzaEntity.getPizzaImageName(),
                               pizzaEntity.getPizzaImageAuthor(),
                               pizzaEntity.getPrice(),
                               pizzaEntity.getSize(),

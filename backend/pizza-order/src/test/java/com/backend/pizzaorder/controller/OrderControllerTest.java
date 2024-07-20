@@ -96,7 +96,7 @@ class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock
                       .stream().map((pizzaEntity) -> new PizzaDomain(
                               pizzaEntity.getIdPizza(),
                               pizzaEntity.getPizzaName(),
-                              pizzaEntity.getPizzaImageUrl(),
+                              pizzaEntity.getPizzaImageName(),
                               pizzaEntity.getPizzaImageAuthor(),
                               pizzaEntity.getPrice(),
                               pizzaEntity.getSize(),
