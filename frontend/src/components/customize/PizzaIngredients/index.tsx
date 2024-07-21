@@ -1,12 +1,12 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import type { IngredientRequest } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
-import { IMAGE_CDN } from '@/constants/imageCDN'
 
 const ingredientTypeList = Object.freeze(['ALL', 'VEGETABLE', 'MEAT', 'CHEESE', 'SAUCE'])
 

@@ -9,7 +9,7 @@
    scrollbar-color: var(--background) var(--secondary-interaction);
    scrollbar-width: thin;
 }
-   
+
 body {
    background-color: var(--background);
 }

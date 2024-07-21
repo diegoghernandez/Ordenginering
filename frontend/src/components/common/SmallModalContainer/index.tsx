@@ -1,6 +1,6 @@
 import { forwardRef, type ReactElement } from 'react'
+import { CardContainer } from '@/components/common/CardContainer'
 import Styles from './SmallModalContainer.module.css'
-import { CardContainer } from '../CardContainer'
 
 interface Props {
    children: ReactElement

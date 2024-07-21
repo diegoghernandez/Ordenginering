@@ -1,7 +1,8 @@
 ---
+import AccountButton from '@/components/common/AccountButton.astro'
+import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
-import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import type { ActiveLink } from '@/types'
 
 const pages = [
@@ -48,34 +49,25 @@ const { activeLink } = Astro.props
       </ul>
    </div>
    <div class='nav--interaction--buttons'>
-      <a href='/client/customer/' class={activeLink === 'Account' ? 'active' : '' }>
-         Account
-         <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
-            <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
-         </svg>
-      </a>
+      <AccountButton activeLink={activeLink} />
       <ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
+      <LargeModalContainer client:load description='Your order' position='right'>
+         <ShowOrder client:idle />
+      </LargeModalContainer>
    </div>
-   <LargeModalContainer client:load description='Your order' position='right'>
-      <ShowOrder client:idle />
-   </LargeModalContainer>
 </nav>
 
 <script>
-	const anchor = document.querySelectorAll('.nav--interaction--buttons > a')[0]
-	if (anchor instanceof HTMLAnchorElement) {
-		anchor.pathname += localStorage.getItem('id') ?? '0'
-	}
-
-	const openMovilMenuButton = document.querySelector('.menu--movil button')
+	const openMovilMenuButton = document.querySelector("button[aria-label='Open menu']")
 	const movilMenuModal = document.querySelector('.menu--movil dialog')
 
 	if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
 		openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
 	}
 
-	const openCartButton = document.querySelector('.nav--interaction--buttons button')
-	const cartModal = document.querySelectorAll('dialog')[1]
+	const openCartButton = document.querySelector("button[aria-label='Shopping cart']")
+	const cartModalList = document.querySelectorAll('.nav--interaction--buttons dialog')
+   const cartModal = cartModalList[cartModalList.length - 1]
 
 	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
 		openCartButton.addEventListener('click', () => cartModal.showModal())
@@ -183,10 +175,5 @@ const { activeLink } = Astro.props
 		font-size: 1rem;
 		font-weight: 500;
 		color: var(--text-color);
-		& a {
-			display: flex;
-			justify-content: center;
-			gap: 4px;
-		}
 	}
 </style>

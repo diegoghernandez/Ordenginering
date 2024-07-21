@@ -1,0 +1,151 @@
+---
+import type { ActiveLink } from '@/types'
+import { CardContainer } from './CardContainer'
+
+interface Props {
+   activeLink: ActiveLink
+}
+
+const { activeLink } = Astro.props
+---
+
+<div class:list={['account-button', activeLink === 'Account' ? 'active' : '' ]}>
+   <button>
+      Account
+      <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
+         <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
+      </svg>
+   </button>
+   <dialog>
+      <CardContainer styleClass='account-button-card'>
+         <>
+            <a href='/client/customer/'>Customer</a>
+            <button>Dark mode</button>
+         </>
+      </CardContainer>
+   </dialog>
+</div>
+
+<script>
+   import { setTheme } from '@/utils/setTheme'
+
+   const accountButton = document.querySelector('.account-button button')
+   const accountDialog = document.querySelector('.account-button dialog')
+
+   if (accountButton instanceof HTMLButtonElement) {
+      accountButton.addEventListener('click', () => {
+         if (accountDialog instanceof HTMLDialogElement) {
+            if (accountDialog.checkVisibility()) accountDialog.close()
+            else accountDialog.show()
+         }
+      })
+   }
+
+   const darkModeButtonList = document.querySelectorAll(".account-button button")
+   const darkModeButton = darkModeButtonList[darkModeButtonList.length - 1]
+   darkModeButton.addEventListener('click', setTheme)
+
+   const anchor = document.querySelectorAll('.account-button dialog > a')[0]
+	if (anchor instanceof HTMLAnchorElement) anchor.pathname += localStorage.getItem('id') ?? ''
+</script>
+
+<style is:global>
+   .account-button-card {
+      display: grid;
+      gap: 16px;
+      height: 100%;
+      background-color: var(--background);
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+      dialog {
+         --slide-duration: 480ms;
+         animation: slide-up var(--slide-duration);
+         
+         & .account-button-card {
+            overflow-y: hidden;
+            animation: animate-padding-reverse var(--slide-duration);
+         }
+         
+         &[open] {   
+            animation: slide-down var(--slide-duration);
+            
+            & .account-button-card {
+               animation: animate-padding var(--slide-duration);
+            }
+         }
+      }
+   }
+
+   @keyframes animate-padding {
+      from { padding-block: 0; }
+
+      to { padding-block: 24px; }
+   }
+
+   @keyframes animate-padding-reverse {
+      from { padding-block: 24px; } 
+
+      to { padding-block: 0; }
+   }
+
+   @keyframes slide-down {
+      0% { height: 0; }
+      
+      100% { height: 112px; }
+   }
+
+   @keyframes slide-up {
+      0% {
+         display: block;
+         height: 112px;
+      }
+      
+      100% {
+         display: none;
+         height: 0;
+      }
+   }
+</style>
+
+<style>
+   .account-button {
+      position: relative;
+
+      & button:first-of-type {
+         display: flex;
+         justify-content: center;
+         gap: 4px;
+         color: currentColor;
+         &.active {
+            color: var(--primary-interaction);
+         }
+         &:hover,
+         &:focus-within {
+            color: var(--primary-interaction);
+         }
+         &:focus-within {
+            outline: 1px solid var(--outline);
+         }
+      }
+
+      & dialog {
+         top: 32px;
+         left: -102px;
+         width: 240px;
+         border: none;
+         background-color: transparent;
+         
+         & a {
+            height: auto
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 500;
+         }
+
+         & button {
+            justify-content: start;
+         }
+      }
+   }
+</style>

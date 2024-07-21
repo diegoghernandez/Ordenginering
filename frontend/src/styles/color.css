@@ -16,10 +16,8 @@
    --shadow-error: #fb361f 0 0 0 3px;
    --shadow-primary-button: #FFBE83 0 0 0 3px;
    --shadow-secondary-button: #8e6d20 0 0 0 3px;
-}
 
-@media (prefers-color-scheme: dark) {
-   :root {
+   @media (prefers-color-scheme: dark) {
       --background: #1C0C02;
       --divider: #381E11;
       --surface: #C2ADA0;
@@ -37,5 +35,48 @@
       --shadow-error: #d3605a 0 0 0 3px;
       --shadow-primary-button: #BF6531 0 0 0 3px;
       --shadow-secondary-button: #766A61 0 0 0 3px;
+   }
+}
+
+
+html {
+   &.dark {
+      --background: #1C0C02;
+      --divider: #381E11;
+      --surface: #C2ADA0;
+      --surface-40: #C2ADA040;
+      --primary-interaction: #FF9D68;
+      --secondary-interaction: #B99E8F;
+      --text-color: #F1E2DB;
+      --text-light-color: #E3CCC1;
+      --outline: #CA896A;
+      --outline-light: #403D3C;
+      --error: #ff756d;
+      --error-light: #320101;
+      --state-layer-color: #9c6340;
+      --shadow-input: #E79D7A 0 0 0 3px;
+      --shadow-error: #d3605a 0 0 0 3px;
+      --shadow-primary-button: #BF6531 0 0 0 3px;
+      --shadow-secondary-button: #766A61 0 0 0 3px;
+   }
+
+   &.no-dark {
+      --background: #FFF;
+      --divider: #EDE5E0;
+      --surface: #332E2B;
+      --surface-40: #2b242040;
+      --primary-interaction: #F55700;
+      --secondary-interaction: #4d2700;
+      --text-color: #4C3B33;
+      --text-light-color: #7B6358;
+      --outline: #855A45;
+      --outline-light: #F3EBE6;
+      --error: #a91313;
+      --error-light: #FEF6F6;
+      --state-layer-color: #ffc7a6;
+      --shadow-input: #BA9484 0 0 0 3px;
+      --shadow-error: #fb361f 0 0 0 3px;
+      --shadow-primary-button: #FFBE83 0 0 0 3px;
+      --shadow-secondary-button: #8e6d20 0 0 0 3px;
    }
 }

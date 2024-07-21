@@ -35,6 +35,11 @@ const { title, description, activeLink } = Astro.props
 		<meta name='twitter:title' content={title}>
 		<meta name='twitter:description' content={description}>
 		<meta name='twitter:image' content='https://cdn.ordeninginering.com/image/menu-page.jpg'>
+
+		<script is:inline>
+			const htmlElement = document.querySelector('html')
+			if (htmlElement instanceof HTMLElement) htmlElement.classList.add(localStorage.getItem('theme') ?? '')
+		</script>
 		{/*<ViewTransitions fallback='animate' /> */}
 	</head>
 	<body>
