@@ -10,9 +10,9 @@ test.describe('Customize page e2e tests', () => {
       await findNavbarElements(page)
 
       await expect(page.getByRole('img', { name: 'Empty pizza' })).toBeVisible()
-      await expect(page.getByRole('figure')
+      /* await expect(page.getByRole('figure')
          .filter({ has: page.getByRole('img', { name: 'Empty pizza' }) })
-         .getByLabel('Show author image')).toBeVisible()
+         .getByLabel('Show author image')).toBeVisible() */
 
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 

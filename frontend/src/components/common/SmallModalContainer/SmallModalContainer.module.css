@@ -1,3 +1,7 @@
+body:has(.information-dialog[open]) {
+   overflow-y: hidden;
+}
+
 .information-dialog {
    width: 100vh;
    height: 100%;

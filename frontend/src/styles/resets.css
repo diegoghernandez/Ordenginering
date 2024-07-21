@@ -90,7 +90,3 @@ textarea:not([rows]) {
 :target {
    scroll-margin-block: 5ex;
 }
-
-body:has(dialog[open]) {
-   overflow: hidden;
-}
