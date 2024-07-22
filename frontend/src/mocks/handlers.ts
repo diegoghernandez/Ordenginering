@@ -1,12 +1,14 @@
-import { changeCustomerHandler } from './domains/changeCustomerHandler'
-import { customerHandler } from './domains/customerHandler'
-import { ingredientHandler } from './domains/ingredientHandler'
-import { jwtHandler } from './domains/jwtHandler'
-import { orderHandler } from './domains/orderHandler'
-import { pizzaHandler } from './domains/pizzaHandler'
+import { changeCustomerHandler } from '@/mocks/domains/changeCustomerHandler'
+import { authHandler } from '@/mocks/domains/authHandler'
+import { ingredientHandler } from '@/mocks/domains/ingredientHandler'
+import { jwtHandler } from '@/mocks/domains/jwtHandler'
+import { orderHandler } from '@/mocks/domains/orderHandler'
+import { pizzaHandler } from '@/mocks/domains/pizzaHandler'
+import { customerHandler } from '@/mocks/domains/customerHandler'
 
 export const handlers = [
    ...customerHandler,
+   ...authHandler,
    ...changeCustomerHandler,
    ...ingredientHandler,
    ...pizzaHandler,

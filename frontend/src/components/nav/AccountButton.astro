@@ -1,6 +1,8 @@
 ---
+import { CardContainer } from '@/components/common/CardContainer'
+import { SmallModalContainer } from '@/components/common/SmallModalContainer'
+import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import type { ActiveLink } from '@/types'
-import { CardContainer } from './CardContainer'
 
 interface Props {
    activeLink: ActiveLink
@@ -21,16 +23,25 @@ const { activeLink } = Astro.props
          <>
             <a href='/client/customer/'>Customer</a>
             <button>Dark mode</button>
+            <button>Logout</button>
          </>
       </CardContainer>
    </dialog>
+   <SmallModalContainer>
+      <>
+         <h3>Do you want to close your session?</h3>
+         <button class={PRIMARY__BUTTON}>Accept</button>
+         <button class={SECONDARY__BUTTON}>Cancel</button>
+      </>
+   </SmallModalContainer>
 </div>
 
 <script>
+   import { logOut } from '@/services/authService'
    import { setTheme } from '@/utils/setTheme'
 
    const accountButton = document.querySelector('.account-button button')
-   const accountDialog = document.querySelector('.account-button dialog')
+   const accountDialog = document.querySelector('.account-dialog')
 
    if (accountButton instanceof HTMLButtonElement) {
       accountButton.addEventListener('click', () => {
@@ -41,17 +52,32 @@ const { activeLink } = Astro.props
       })
    }
 
-   const darkModeButtonList = document.querySelectorAll(".account-button button")
-   const darkModeButton = darkModeButtonList[darkModeButtonList.length - 1]
+   const accountLink = document.querySelector('.account-dialog a')
+	if (accountLink instanceof HTMLAnchorElement) accountLink.pathname += localStorage.getItem('id') ?? ''
+
+   const dialogButtonList = document.querySelectorAll('.account-dialog button')
+   const darkModeButton = dialogButtonList[0]
    darkModeButton.addEventListener('click', setTheme)
 
-   const anchor = document.querySelectorAll('.account-button dialog > a')[0]
-	if (anchor instanceof HTMLAnchorElement) anchor.pathname += localStorage.getItem('id') ?? ''
+   const confirmationLogoutDialog = document.querySelectorAll('.account-button dialog')[1]
+   const logoutButton = dialogButtonList[1]
+   logoutButton.addEventListener('click', () => {
+      if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.showModal()
+   })
+
+   const confirmationLogoutButtons = confirmationLogoutDialog.querySelectorAll('button')
+   confirmationLogoutButtons[0].addEventListener('click', () => {
+      logOut().then(() => globalThis.location.reload())
+   })
+   confirmationLogoutButtons[1].addEventListener('click', () => {
+      if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.close()
+   })
 </script>
 
 <style is:global>
    .account-button-card {
       display: grid;
+      place-content: start;
       gap: 16px;
       height: 100%;
       background-color: var(--background);
@@ -92,13 +118,13 @@ const { activeLink } = Astro.props
    @keyframes slide-down {
       0% { height: 0; }
       
-      100% { height: 112px; }
+      100% { height: 156px; }
    }
 
    @keyframes slide-up {
       0% {
          display: block;
-         height: 112px;
+         height: 156px;
       }
       
       100% {
@@ -112,7 +138,7 @@ const { activeLink } = Astro.props
    .account-button {
       position: relative;
 
-      & button:first-of-type {
+      & > button {
          display: flex;
          justify-content: center;
          gap: 4px;
@@ -129,22 +155,37 @@ const { activeLink } = Astro.props
          }
       }
 
-      & dialog {
+      & .account-dialog {
          top: 32px;
          left: -102px;
          width: 240px;
          border: none;
          background-color: transparent;
          
-         & a {
-            height: auto
+         & button, a {
+            height: auto;
             color: var(--text-color);
             font-size: 1rem;
             font-weight: 500;
+
+            &:hover,
+            &:focus-within {
+               color: var(--primary-interaction);
+            }
+            &:focus-within {
+               outline: 1px solid var(--outline);
+            }
          }
 
-         & button {
-            justify-content: start;
+         & button:last-of-type {
+            width: fit-content;
+            margin-top: 4px;
+            color: var(--error);
+
+            &:hover,
+            &:focus-within {
+               color: var(--error-dark);
+            }
          }
       }
    }

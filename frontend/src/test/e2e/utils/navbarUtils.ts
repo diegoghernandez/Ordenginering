@@ -20,7 +20,17 @@ export async function findNavbarElements(page: Page) {
    await page.getByRole('button', { name: 'Account' }).click()
    await expect(page.getByRole('link', { name: 'Customer' })).toBeVisible()
    await expect(page.getByRole('button', { name: 'Dark mode' })).toBeVisible()
+   await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible()
+
+   await page.getByRole('button', { name: 'Logout' }).click()
+
+   await expect(page.getByRole('heading', { name: 'Do you want to close your session' })).toBeVisible()
+   await expect(page.getByRole('button', { name: 'Accept' })).toBeVisible()
+   await expect(page.getByRole('button', { name: 'Cancel' })).toBeVisible()
    
+   await page.getByRole('button', { name: 'Cancel' }).click()
+   await expect(page.getByRole('heading', { name: 'Do you want to close your session' })).not.toBeVisible()
+
    await page.getByRole('button', { name: 'Account' }).click()
    await expect(page.getByRole('link', { name: 'Customer' })).not.toBeVisible()
 

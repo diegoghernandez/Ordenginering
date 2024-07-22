@@ -1,7 +1,7 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
-import { logIn } from '@/services/customerService'
+import { logIn } from '@/services/authService'
 import type { CustomerLogIn } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 import { useEffect } from 'react'
@@ -27,8 +27,10 @@ export function LogInForm() {
       if (response?.status === 200) {
          localStorage.setItem('id', response.message)
          
-         if(history.length <= 2) globalThis.location.pathname = '/client'
-         else history.back()
+         setTimeout(() => {
+            if(history.length <= 2) globalThis.location.pathname = '/client'
+            else history.back()
+         }, 1000)
       }
    }, [response])
    
@@ -36,7 +38,9 @@ export function LogInForm() {
    return (
       <FormContainer
          handleData={handleData}
-         response={response}
+         response={response?.status !== 200 ? 
+            response : { message: 'Log in successful', status: 200 }
+         }
          submitButton={{
             label: 'Sign In',
             isLoading

@@ -1,6 +1,6 @@
 import { test, expect } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from './utils/navbarUtils'
-import { customerHandler } from '@/mocks/domains/customerHandler'
+import { authHandler } from '@/mocks/domains/authHandler'
 
 test.describe('Log In page tests', () => {
    test.beforeEach(async ({ page }) => await page.goto('http://localhost:4321/client/login'))
@@ -23,7 +23,7 @@ test.describe('Log In page tests', () => {
       await page.getByLabel('Email').fill('email@email.com')
       await page.getByLabel('Password').fill('wrong')
 
-      await worker.use(...customerHandler)
+      await worker.use(...authHandler)
 
       await page.getByRole('button', { name: 'Sign In' }).click()
 
@@ -35,7 +35,7 @@ test.describe('Log In page tests', () => {
       await page.getByLabel('Email').fill('email@email.com')
       await page.getByLabel('Password').fill('1234')
 
-      await worker.use(...customerHandler)
+      await worker.use(...authHandler)
 
       await page.getByRole('button', { name: 'Sign In' }).click()
       

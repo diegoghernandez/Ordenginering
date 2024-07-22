@@ -7,16 +7,10 @@ import com.backend.pizzacustomer.web.client.JwtClient;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.LoginDto;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +33,7 @@ public class AuthController {
       this.cookiesProperties = cookiesProperties;
    }
 
-   @PostMapping(value = "/register", consumes = {"application/json"})
+   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
       if (!customerDto.password().equals(customerDto.matchingPassword())) {
          throw new NotAllowedException("Passwords don't match");
@@ -50,7 +44,7 @@ public class AuthController {
       return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
    }
 
-   @PostMapping(value = "/login", consumes = {"application/json"})
+   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
       authenticationManager.authenticate(new
               UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
@@ -71,5 +65,21 @@ public class AuthController {
       var header = new HttpHeaders();
       header.set(HttpHeaders.SET_COOKIE, cookie);
       return new ResponseEntity<>(customer.get().getIdCustomer(), header, HttpStatus.OK);
+   }
+
+   @RequestMapping(value = "/logout", method = RequestMethod.HEAD)
+   public ResponseEntity<Void> logout() {
+      var cookie = ResponseCookie.from("jwt", "")
+              .httpOnly(true)
+              .path("/")
+              .sameSite(cookiesProperties.sameSite())
+              .secure(cookiesProperties.secure())
+              .domain(cookiesProperties.domain())
+              .maxAge(0)
+              .build().toString();
+
+      var header = new HttpHeaders();
+      header.set(HttpHeaders.SET_COOKIE, cookie);
+      return new ResponseEntity<>(header, HttpStatus.OK);
    }
 }

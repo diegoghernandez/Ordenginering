@@ -1,8 +1,8 @@
-import { logIn, registerCustomer } from '@/services/customerService'
+import { logIn, logOut, registerCustomer } from '@/services/authService'
 import { describe, expect, it } from 'vitest'
 
-describe('Customer service tests', () => {
-   describe('registerCustomer tests', () => {
+describe('Auth service tests', () => {
+   describe('login tests', () => {
       it('Should be a function', () => {
          expect(typeof logIn).toBe('function')
       })
@@ -21,6 +21,17 @@ describe('Customer service tests', () => {
          })
 
          expect(response).toBe('4')
+      })
+   })
+
+   describe('logout tests', () => {
+      it('Should be a function', () => {
+         expect(typeof logOut).toBe('function')
+      })
+
+      it('Should return true if the response is ok', async () => {
+         const result = await logOut()
+         expect(result).toBe(true)
       })
    })
 
