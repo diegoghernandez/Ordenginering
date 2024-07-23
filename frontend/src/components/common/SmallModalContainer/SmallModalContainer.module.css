@@ -10,15 +10,16 @@ body:has(.information-dialog[open]) {
    border: none;
    margin: 0 auto;
    background-color: transparent;
-   animation: fade-in var(--animation-properties);
-
+   animation: fade-out 380ms ease-in-out;
+   
    &::backdrop {
       opacity: 0.1;
       background-color: var(--state-layer-color);
    }
-
+   
    &[open] {
       display: flex;
+      animation: fade-in 420ms ease-in;
    }
 }
 
@@ -31,7 +32,16 @@ body:has(.information-dialog[open]) {
 }
 
 @keyframes fade-in {
-   0% {
-      transform: scale(0.3%);
+   0% { transform: scale(0.3%); }
+}
+
+@keyframes fade-out {
+   from {
+      display: flex;
+   }
+
+   to { 
+      display: none;
+      transform: scale(0%);
    }
 }

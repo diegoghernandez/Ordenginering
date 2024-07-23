@@ -15,10 +15,14 @@ body:has(.dialog-container[open]) {
 
    @media (prefers-reduced-motion: no-preference) {
       &.left {
-         animation: slide-vanish-left var(--animation-properties);
+         animation: slide-vanish-left 480ms ease-in-out;
       
          &[open] {
-            animation: slide-in-left var(--animation-properties);
+            animation: slide-in-left 404ms ease-in;
+
+            @media (width < 520px) {
+               animation: slide-in-left 340ms ease-in;
+            }
          }
       }
    }
@@ -29,10 +33,14 @@ body:has(.dialog-container[open]) {
 
    @media (prefers-reduced-motion: no-preference) {
       &.right {
-         animation: slide-vanish-right var(--animation-properties);
+         animation: slide-vanish-right 480ms ease-in-out;
          
          &[open] {
-            animation: slide-in-right var(--animation-properties);
+            animation: slide-in-right 404ms ease-in;
+
+            @media (width < 520px) {
+               animation: slide-in-right 340ms ease-in;
+            }
          }
       }
    }   
