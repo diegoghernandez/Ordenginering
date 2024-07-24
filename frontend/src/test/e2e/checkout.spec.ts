@@ -44,8 +44,8 @@ test.describe('Checkout page tests', () => {
       await expect(page).toHaveTitle('Checkout order')
 
       await page.getByLabel('Country*').selectOption({ index: 1 })
-      await page.getByLabel('State*').selectOption({ index: 1 })
-      await page.getByLabel('City*').selectOption({ index: 1 })
+      await page.getByLabel('State*').fill('Something')
+      await page.getByLabel('City*').fill('Something')
       await page.getByLabel('Street*').fill('street')
       await page.getByLabel('House number*').fill('123')
       await page.getByLabel('Apartment').fill('5643')
@@ -76,8 +76,8 @@ test.describe('Checkout page tests', () => {
       await expect(page).toHaveTitle('Checkout order')
 
       await page.getByLabel('Country*').selectOption('Mexico')
-      await page.getByLabel('State*').selectOption({ index: 1 })
-      await page.getByLabel('City*').selectOption({ index: 1 })
+      await page.getByLabel('State*').fill('Something')
+      await page.getByLabel('City*').fill('Something')
       await page.getByLabel('Street*').fill('street')
       await page.getByLabel('House number*').fill('123')
       await page.getByLabel('Apartment').fill('5643')
