@@ -10,6 +10,7 @@ export function ShoppingCart({ extraClass }: Props) {
    const [isOpen, setIsOpen] = useState(false)
    const pizzaList = useShoppingCart((state) => state.pizza)
    const addPizza = useShoppingCart((state) => state.addPizza)
+   const clearCart = useShoppingCart((state) => state.clearCart)
    
    useEffect(() => {
       const getLocalStorage = localStorage.getItem('allPizza') ?? ''
@@ -20,7 +21,9 @@ export function ShoppingCart({ extraClass }: Props) {
             addPizza(pizzaElement)
          }
       }
-   }, [addPizza])
+
+      return () => clearCart(false)
+   }, [addPizza, clearCart])
    
    return (
       <button className={`${extraClass} ${Styles['cart-button']}`} aria-label='Shopping cart' onClick={() => setIsOpen(!isOpen)}>

@@ -1,6 +1,7 @@
 ---
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import type { ActiveLink } from '@/types'
-import Layout from './Layout.astro'
+import Layout from '@/layouts/Layout.astro'
 
 interface Props {
 	title: string
@@ -13,7 +14,7 @@ const { title, description, h1Text, activeLink } = Astro.props
 ---
 
 <Layout title={title} description={description} activeLink={activeLink ?? ''}>
-   <main>
+   <main transition:name={MAIN__TAG__ANIMATION__NAME}>
       {h1Text ? <h1>{h1Text}</h1> : null}
       <slot />
    </main>

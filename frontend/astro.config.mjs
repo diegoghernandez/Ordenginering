@@ -7,10 +7,9 @@ export default defineConfig({
   output: 'hybrid',
   base: 'client',
   devToolbar: {
-    enabled: false
+    enabled: true
   },
   integrations: [react()],
-  prefetch: true,
   adapter: node({
     mode: 'middleware'
   })

@@ -1,0 +1,1 @@
+export const MAIN__TAG__ANIMATION__NAME = 'main-movement'

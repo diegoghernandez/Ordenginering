@@ -28,7 +28,7 @@ export function ShowOrder() {
          <a className={PRIMARY__BUTTON} href='/client/checkout'>
             Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
          </a>
-         <button onClick={clearCart}>Remove all items</button>
+         <button onClick={() => clearCart()}>Remove all items</button>
          {pizza ? 
             pizza.length !== 0 ? 
                pizza?.map((pizzaInOrder) => (

@@ -3,6 +3,7 @@ import { ImgContainer } from '@/components/common/ImgContainer'
 import { PizzaData } from '@/components/customize/PizzaData'
 import { PizzaIngredients } from '@/components/customize/PizzaIngredients'
 import { IMAGE_CDN } from '@/constants/imageCDN'
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
@@ -38,19 +39,18 @@ const ingredients = await getAllIngredients()
 	description={`Customize your ${pizza.replace('-', ' ')} pizza with a selection quantity of ingredients`}
 	activeLink='Customize'
 >
-	<main>
+	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<div>
 			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
 				<Image 
-						class='pizza-custom' 
-						src={`${IMAGE_CDN}/pizza/${pizza}.avif`}
-						alt={`${getDefaultName(pizza)} pizza`}
-						width='320'
-						height='260'
-						decoding='sync'
-						loading='eager'
-						transition:name={`image-${pizza.replace('-', ' ')}`}
-					/>
+					class='pizza-custom' 
+					src={`${IMAGE_CDN}/pizza/${pizza}.avif`}
+					alt={`${getDefaultName(pizza)} pizza`}
+					width='320'
+					height='260'
+					decoding='sync'
+					loading='eager'
+				/>
 			</ImgContainer>
 			<PizzaData 
 				client:load 
@@ -67,6 +67,7 @@ const ingredients = await getAllIngredients()
 		</div>
 	</main>
 </Layout>
+
 <style is:global>
 	.pizza-image {
 		height: 224px;

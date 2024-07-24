@@ -40,37 +40,39 @@ const { activeLink } = Astro.props
    import { logOut } from '@/services/authService'
    import { setTheme } from '@/utils/setTheme'
 
-   const accountButton = document.querySelector('.account-button button')
-   const accountDialog = document.querySelector('.account-dialog')
-
-   if (accountButton instanceof HTMLButtonElement) {
-      accountButton.addEventListener('click', () => {
-         if (accountDialog instanceof HTMLDialogElement) {
-            if (accountDialog.checkVisibility()) accountDialog.close()
-            else accountDialog.show()
-         }
+   document.addEventListener('astro:page-load', () => {
+      const accountButton = document.querySelector('.account-button button')
+      const accountDialog = document.querySelector('.account-dialog')
+   
+      if (accountButton instanceof HTMLButtonElement) {
+         accountButton.addEventListener('click', () => {
+            if (accountDialog instanceof HTMLDialogElement) {
+               if (accountDialog.checkVisibility()) accountDialog.close()
+               else accountDialog.show()
+            }
+         })
+      }
+   
+      const accountLink = document.querySelector('.account-dialog a')
+      if (accountLink instanceof HTMLAnchorElement) accountLink.pathname += localStorage.getItem('id') ?? ''
+   
+      const dialogButtonList = document.querySelectorAll('.account-dialog button')
+      const darkModeButton = dialogButtonList[0]
+      darkModeButton.addEventListener('click', setTheme)
+   
+      const confirmationLogoutDialog = document.querySelectorAll('.account-button dialog')[1]
+      const logoutButton = dialogButtonList[1]
+      logoutButton.addEventListener('click', () => {
+         if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.showModal()
       })
-   }
-
-   const accountLink = document.querySelector('.account-dialog a')
-	if (accountLink instanceof HTMLAnchorElement) accountLink.pathname += localStorage.getItem('id') ?? ''
-
-   const dialogButtonList = document.querySelectorAll('.account-dialog button')
-   const darkModeButton = dialogButtonList[0]
-   darkModeButton.addEventListener('click', setTheme)
-
-   const confirmationLogoutDialog = document.querySelectorAll('.account-button dialog')[1]
-   const logoutButton = dialogButtonList[1]
-   logoutButton.addEventListener('click', () => {
-      if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.showModal()
-   })
-
-   const confirmationLogoutButtons = confirmationLogoutDialog.querySelectorAll('button')
-   confirmationLogoutButtons[0].addEventListener('click', () => {
-      logOut().then(() => globalThis.location.reload())
-   })
-   confirmationLogoutButtons[1].addEventListener('click', () => {
-      if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.close()
+   
+      const confirmationLogoutButtons = confirmationLogoutDialog.querySelectorAll('button')
+      confirmationLogoutButtons[0].addEventListener('click', () => {
+         logOut().then(() => globalThis.location.reload())
+      })
+      confirmationLogoutButtons[1].addEventListener('click', () => {
+         if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.close()
+      })
    })
 </script>
 

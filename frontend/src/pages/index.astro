@@ -1,4 +1,5 @@
 ---
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '../layouts/Layout.astro'
 ---
 
@@ -7,7 +8,7 @@ import Layout from '../layouts/Layout.astro'
 	description='Presentation page'
 	activeLink='Home'
 >
-	<main>
+	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		
 	</main>
 </Layout>

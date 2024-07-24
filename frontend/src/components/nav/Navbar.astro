@@ -29,7 +29,7 @@ const { activeLink } = Astro.props
          <ul>
             {pages.map((page) => (
                <li>
-                  <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } data-astro-prefetch>
+                  <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } >
                      {page.name}
                   </a>
                </li>
@@ -41,7 +41,7 @@ const { activeLink } = Astro.props
       <ul>
          {pages.map((page) => (
             <li>
-               <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } data-astro-prefetch>
+               <a href={`/client${page.link}`} class={activeLink === page.name ? 'active' : '' } >
                   {page.name}
                </a>
             </li>
@@ -50,7 +50,7 @@ const { activeLink } = Astro.props
    </div>
    <div class='nav--interaction--buttons'>
       <AccountButton activeLink={activeLink} />
-      <ShoppingCart extraClass='interaction--buttons' client:load transition:persist />
+      <ShoppingCart client:load extraClass='interaction--buttons' />
       <LargeModalContainer client:load description='Your order' position='right'>
          <ShowOrder client:idle />
       </LargeModalContainer>
@@ -58,20 +58,22 @@ const { activeLink } = Astro.props
 </nav>
 
 <script>
-	const openMovilMenuButton = document.querySelector("button[aria-label='Open menu']")
-	const movilMenuModal = document.querySelector('.menu--movil dialog')
+   document.addEventListener('astro:page-load', () => {
+      const openMovilMenuButton = document.querySelector("button[aria-label='Open menu']")
+      const movilMenuModal = document.querySelector('.menu--movil dialog')
 
-	if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
-		openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
-	}
+      if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
+         openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
+      }
 
-	const openCartButton = document.querySelector("button[aria-label='Shopping cart']")
-	const cartModalList = document.querySelectorAll('.nav--interaction--buttons dialog')
-   const cartModal = cartModalList[cartModalList.length - 1]
+      const openCartButton = document.querySelector("button[aria-label='Shopping cart']")
+      const cartModalList = document.querySelectorAll('.nav--interaction--buttons dialog')
+      const cartModal = cartModalList[cartModalList.length - 1]
 
-	if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
-		openCartButton.addEventListener('click', () => cartModal.showModal())
-	}
+      if (openCartButton instanceof HTMLButtonElement && cartModal instanceof HTMLDialogElement) {
+         openCartButton.addEventListener('click', () => cartModal.showModal())
+      }
+   })
 </script>
 
 <style>

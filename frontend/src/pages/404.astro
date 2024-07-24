@@ -1,5 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
+import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout 
@@ -7,5 +8,7 @@ import Layout from "@/layouts/Layout.astro";
    description='The desire resource is not found'
    activeLink=''
 >
-   <h1>Not found</h1>
+   <main transition:name={MAIN__TAG__ANIMATION__NAME}>
+      <h1>Not found</h1>
+   </main>
 </Layout>

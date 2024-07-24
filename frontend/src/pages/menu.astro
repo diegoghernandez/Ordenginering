@@ -5,6 +5,7 @@ import { AddPizza } from '@/components/order/AddPizza'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { Size } from '@/constants/size'
 import { SECONDARY__BUTTON } from '@/constants/styles'
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
@@ -21,7 +22,7 @@ function getUrlImage(specificPath: string) {
 	description="Don't want to think? Don't worry, choose one of our premade pizza"
 	activeLink='Menu'
 >
-	<main>
+	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<h1>Menu</h1>
 		<div>
 			{pizzaList.map((pizza, index) => (
@@ -33,8 +34,7 @@ function getUrlImage(specificPath: string) {
 								alt={`${pizza.name} pizza`}
 								width='280'
 								height='220'
-								loading={index < 8 ? 'eager' : 'lazy'}
-								transition:name={`image-${pizza.name.replace(' ', '-').toLowerCase()}`}
+								loading={index < 6 ? 'eager' : 'lazy'}
 							/>
 						</ImgContainer>
 						<div class='pizza-information'>

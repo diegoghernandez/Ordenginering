@@ -6,7 +6,7 @@ interface CartState {
    addPizza: (pizza: Pizza) => void;
    updatePizzaQuantity: (idPizza: string, operation: 'subs' | 'add', desireQuantity?: number) => Pizza[];
    removePizza: (idPizza: string) => void;
-   clearCart: () => void;
+   clearCart: (isLocalStorage?: boolean) => void;
 }
 
 export const useShoppingCart = create<CartState>()((set, get) => ({
@@ -56,9 +56,9 @@ export const useShoppingCart = create<CartState>()((set, get) => ({
          return { pizza: pizzaList }
       })
    },
-   clearCart: () => {
+   clearCart: (isLocalStorage = true) => {
       set(() => {
-         localStorage.setItem('allPizza', '[]')
+         if (isLocalStorage) localStorage.setItem('allPizza', '[]')
          return { pizza: [] }
       })
    },

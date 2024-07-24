@@ -1,6 +1,7 @@
 ---
 import LinksContainer from '@/components/customer/LinksContainer.astro'
 import { ShowPastOrders } from '@/components/pastOrders/ShowPastOrders'
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '@/layouts/Layout.astro'
 import { getRoles } from '@/services/server/jwtServer'
 import { getOrdersByAccount } from '@/services/server/orderServer'
@@ -37,7 +38,7 @@ try {
    description='See what orders you have made'
 	activeLink='Account'
 >
-   <main>
+   <main transition:name={MAIN__TAG__ANIMATION__NAME}>
       <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'ORDER')} />
       {orders !== null ?
          <ShowPastOrders
