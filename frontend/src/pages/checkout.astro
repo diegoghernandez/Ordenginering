@@ -3,8 +3,11 @@ import { CheckoutForm } from '@/components/order/CheckoutForm'
 import { SECONDARY__BUTTON } from '@/constants/styles'
 import CountryList from '@/data/countries.json'
 import FormLayout from '@/layouts/FormLayout.astro'
+import { getIpData } from '@/services/ipService'
 
 export const prerender = false
+
+const ipData = await getIpData()
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 ---
@@ -15,6 +18,6 @@ if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
    h1Text='Choose delivery address'
 >
    <p>* Required field</p>
-   <CheckoutForm countryList={CountryList} client:load />
+   <CheckoutForm countryList={CountryList} ipData={ipData} client:load />
    <a class={SECONDARY__BUTTON} href='/client/menu'>Return to choose</a>
 </FormLayout>

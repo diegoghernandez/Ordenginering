@@ -1,45 +1,45 @@
 interface Page {
    pageable: {
-      pageNumber: number;
-      pageSize:   number;
-      offset:     number;
-      paged:      boolean;
-      unpaged:    boolean;
+      pageNumber: number
+      pageSize:   number
+      offset:     number
+      paged:      boolean
+      unpaged:    boolean
    },
-   totalPages:       number;
-   totalElements:    number;
-   last:             boolean;
-   first:            boolean;
-   size:             number;
-   number:           number;
-   numberOfElements: number;
-   empty:            boolean;
+   totalPages:       number
+   totalElements:    number
+   last:             boolean
+   first:            boolean
+   size:             number
+   number:           number
+   numberOfElements: number
+   empty:            boolean
 }
 
 export interface Ingredient {
-   id?: number;
-   name: string;
-   quantity: number;
+   id?: number
+   name: string
+   quantity: number
 }
 
 export interface IngredientDto {
    imageFile: FormData
-   ingredientName: string;
-   ingredientType: IngredientTypes;
-   authorImage: string;
+   ingredientName: string
+   ingredientType: IngredientTypes
+   authorImage: string
 }
 
 export interface IngredientRequest {
-   idIngredient: number;
-   ingredientName: string;
-   ingredientType: IngredientTypes;
-   authorImage: string;
-   fileNameImage: string;
+   idIngredient: number
+   ingredientName: string
+   ingredientType: IngredientTypes
+   authorImage: string
+   fileNameImage: string
 }
 
 export interface CustomerLogIn {
-   email: string;
-   password: string;
+   email: string
+   password: string
 }
 
 export interface CustomerRole {
@@ -48,9 +48,9 @@ export interface CustomerRole {
 }
 
 export interface Customer {
-   customerName: string;
-   email: string;
-   birthDate: string;
+   customerName: string
+   email: string
+   birthDate: string
 }
 
 export interface ValuesForChangeDto {
@@ -59,11 +59,11 @@ export interface ValuesForChangeDto {
 }
 
 export interface CustomerDto {
-   customerName: string;
-   email: string;
-   password: string;
-   matchingPassword: string;
-   birthDate: string;
+   customerName: string
+   email: string
+   password: string
+   matchingPassword: string
+   birthDate: string
 }
 
 export interface Pizza {
@@ -100,11 +100,11 @@ export interface PageOrder extends Page {
 }
 
 export interface UserInputProps {
-   label: string;
-   description?: string;
-   required?: boolean;
-   error?: string;
-   disable?: boolean;
+   label: string
+   description?: string
+   required?: boolean
+   error?: string
+   disable?: boolean
 }
 
 export type ActiveLink = 'Home' | 'Menu' | 'Customize' | 'Account' | ''
@@ -113,4 +113,34 @@ export interface ProfileLinks {
    url: string,
    name: string,
    active?: boolean
+}
+
+export interface IPData {
+   ip:                   string
+   network:              string
+   version:              string
+   city:                 string
+   region:               string
+   region_code:          string
+   country:              string
+   country_name:         string
+   country_code:         string
+   country_code_iso3:    string
+   country_capital:      string
+   country_tld:          string
+   continent_code:       string
+   in_eu:                boolean
+   postal:               string
+   latitude:             number
+   longitude:            number
+   timezone:             string
+   utc_offset:           string
+   country_calling_code: string
+   currency:             string
+   currency_name:        string
+   languages:            string
+   country_area:         number
+   country_population:   number
+   asn:                  string
+   org:                  string
 }
