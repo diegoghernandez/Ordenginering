@@ -1,14 +1,14 @@
 import { CardContainer } from '@/components/common/CardContainer'
+import { ImgContainer } from '@/components/common/ImgContainer'
+import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import type { Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
-import { ImgContainer } from '@/components/common/ImgContainer'
-import { IngredientsContainer } from '@/components/common/IngredientsContainer'
-import { IMAGE_CDN } from '@/constants/imageCDN'
 
 export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
@@ -25,7 +25,11 @@ export function ShowOrder() {
             getPizzaPrice(pizza.pizzaIngredients?.length, pizza.size, pizza.quantity))
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
-         <a className={PRIMARY__BUTTON} href='/client/checkout'>
+         <a 
+            href='/client/checkout' 
+            tabIndex={pizzaList.length !== 0 ? 0 : -1}
+            className={`${PRIMARY__BUTTON} ${pizzaList.length !== 0 ? '' : Styles['disabled']}`} 
+         >
             Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
          </a>
          <button onClick={() => clearCart()}>Remove all items</button>

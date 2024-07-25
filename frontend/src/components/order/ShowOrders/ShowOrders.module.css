@@ -11,6 +11,13 @@
       color: var(--primary-interaction);
    }
 
+   & .disabled {
+      cursor: not-allowed;
+      color: var(--outline);
+      background-color: var(--divider);
+      pointer-events: none;
+   }
+
    & a ~ button {
       width: fit-content;
       color: var(--text-light-color);
