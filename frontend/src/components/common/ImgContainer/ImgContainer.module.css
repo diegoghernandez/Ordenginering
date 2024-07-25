@@ -18,6 +18,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      color: var(--text-color);
       background-color: var(--background);
       transition: opacity 400ms ease-in-out 160ms;
    }
@@ -41,13 +42,13 @@
          transition: color 300ms ease-in;
 
          &:hover {
-            color: currentcolor;
+            color: var(--text-color);
             transition: color 600ms ease-in;
          }
       }
 
       &:has(p:hover) {
-         background-color: #1C0C0280;
+         background-color: hsl(from var(--background) h s l / 80%);
          transition: background-color 800ms ease-in-out;
 
          & + span {
