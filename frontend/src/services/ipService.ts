@@ -1,7 +1,7 @@
 import { StatusError } from '@/services/exceptions/StatusError'
 import type { IPData } from '@/types'
 
-export async function getIpData(): Promise<IPData> {
+export async function getIpData(ip: string): Promise<IPData> {
    const response = await fetch('https://ipapi.co/json', {
       method: 'GET',
       headers: {
