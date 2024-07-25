@@ -7,7 +7,7 @@ import { getIpData } from '@/services/ipService'
 
 export const prerender = false
 
-const ipData = await getIpData()
+const ipData = await getIpData(Astro.clientAddress)
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
 ---
