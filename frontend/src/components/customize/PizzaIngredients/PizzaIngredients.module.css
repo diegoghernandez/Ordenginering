@@ -10,15 +10,15 @@
    margin-inline: auto;
    place-content: start;
    grid-template-columns: repeat(auto-fill, minmax(320px, auto));
-}
 
-@media (width <= 720px) {
-   .ingredients-container {
+   @media (width <= 720px) {
       display: flex;
       flex-direction: column;
       padding-top: 12px;
+      padding-inline: 4px;
    }
 }
+
 
 .ingredients-image {
    grid-area: figure;
@@ -30,6 +30,7 @@
    display: flex;
    place-content: center;
    gap: 10px;
+   margin-bottom: 8px;
 
    & button {
       color: var(--text-color);
