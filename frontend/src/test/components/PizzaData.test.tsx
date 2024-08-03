@@ -1,15 +1,18 @@
 import { PizzaData } from '@/components/customize/PizzaData'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { en } from '@/i18n/pages/Customize.json'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it } from 'vitest'
+
+const { pizzaData } = en
 
 describe('PizzaData component tests', () => {
    afterEach(() => cleanup())
 
    it('Should render correctly', () => {
       setIngredients()
-      render(<PizzaData pizza={{
+      render(<PizzaData t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -32,7 +35,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly with the desire ingredients', () => {
       useDesireIngredients.setState({ ingredients: [] })
-      render(<PizzaData pizza={{
+      render(<PizzaData t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -50,7 +53,7 @@ describe('PizzaData component tests', () => {
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
-      render(<PizzaData pizza={{
+      render(<PizzaData t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -78,7 +81,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly the added message', async () => {
       setIngredients()
-      render(<PizzaData pizza={{
+      render(<PizzaData t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'

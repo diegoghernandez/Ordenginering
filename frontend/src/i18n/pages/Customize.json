@@ -1,0 +1,30 @@
+{
+   "en": {
+		"pizzaData": {
+			"title": "Customize your pizza",
+			"selectLabel": "Size",
+			"selectOptions": ["Small", "Medium", "Large"],
+			"quantity": "Quantity",
+			"selectedQuantity": {
+				"decrease": "Decrease quantity",
+				"increase": "Increase quantity"
+			},
+			"addCustomizePizzaTraduction": {
+				"label": "Add order",
+				"dialog": {
+					"title": "Added to shopping cart correctly",
+					"keepOrdering": "Keep ordering",
+					"checkout": "Checkout"
+				}
+			}
+		},
+		"pizzaIngredients": {
+			"ingredientTypeList": ["ALL", "VEGETABLE", "MEAT", "CHEESE", "SAUCE"],
+			"quantity": "Quantity",
+			"selectQuantity": {
+				"decrease": "Decrease quantity",
+				"increase": "Increase quantity"
+			}
+		}
+	}
+}

@@ -1,0 +1,24 @@
+{
+   "en": {
+      "seo": {
+         "title": "Customer orders",
+         "description": "See what orders you have made"
+      },
+      "titleError": "No orders",
+      "showPastOrdersTraduction": {
+         "products": "products",
+         "orderModalTraduction": {
+            "dialogTitle": "Your order",
+            "date": "Date",
+            "products": "Products",
+            "country": "Country",
+            "state": "State",
+            "city": "City",
+            "street": "Street",
+            "houseNumber": "House number",
+            "floor": "Floor",
+            "apartment": "Apartment"
+         }
+      }
+   }
+}

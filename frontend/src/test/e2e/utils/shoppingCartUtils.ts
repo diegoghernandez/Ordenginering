@@ -7,8 +7,8 @@ export async function checkIfShoppingCartIsEmpty(page: Page) {
    await expect(page.getByLabel('Shopping cart').getByText('0')).toBeVisible()
 
    await page.getByLabel('Shopping cart').click()
-   await expect(page.getByText('Total $0')).toBeVisible()
-   await expect(page.getByText('Checkout (0 products)')).toBeVisible()
+   await expect(page.getByText('Total: $0')).toBeVisible()
+   await expect(page.getByText('Checkout (0 product(s))')).toBeVisible()
    await expect(page.getByText('No orders')).toBeVisible()
 
    await page.getByRole('button', { name: 'Close menu' }).click()

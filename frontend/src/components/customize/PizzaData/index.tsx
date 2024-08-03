@@ -15,22 +15,35 @@ export type Characteristics = {
    quantity: number
 }
 
+export type PizzaDataTraduction = {
+   title: string
+   selectLabel: string
+   selectOptions: string[]
+   quantity: string
+   selectedQuantity: {
+      decrease: string
+      increase: string
+   },
+   addCustomizePizzaTraduction: AddCustomizePizza
+}
+
 interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    prebuildIngredients?: string[]
+   t: PizzaDataTraduction
 }
 
-export function PizzaData({ pizza, prebuildIngredients = [] }: Props) {   
+export function PizzaData({ pizza, prebuildIngredients = [], t }: Props) {   
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const [characteristics, setCharacteristics] = useState<Characteristics>({
       size: Size.MEDIUM,
       quantity: 1
-   })   
+   })
 
    return (
       <CardContainer styleClass={Styles['customize-description']}>
          <>
-            <h3>Customize your pizza</h3>
+            <h3>{t.title}</h3>
             <p>Total: ${
                getPizzaPrice(
                   ingredients.length === 0 ? prebuildIngredients.length : ingredients.reduce((prev, now) => prev + now.quantity, 0), 
@@ -45,28 +58,28 @@ export function PizzaData({ pizza, prebuildIngredients = [] }: Props) {
                }
             />
             <CustomSelect
-               label='Size'
+               label={t.selectLabel}
                values={['SMALL', 'MEDIUM', 'LARGE']}
-               options={['Small', 'Medium', 'Large']}
+               options={t.selectOptions}
                selectedOption='MEDIUM'
                onChange={(value: string) => setCharacteristics((prev) => ({
                   ...prev,
                   size: Size[value as Size]
                }))}
             />
-            <p>Quantity</p>
+            <p>{t.quantity}</p>
             <SelectQuantity
                valueToShow={characteristics.quantity}
                minValue={1}
                decrease={{
-                  label: 'Decrease quantity',
+                  label: t.selectedQuantity.decrease,
                   fun: () => setCharacteristics((prev) => ({
                      ...prev,
                      quantity: prev.quantity - 1
                   }))
                }}
                increase={{
-                  label: 'Increase quantity',
+                  label: t.selectedQuantity.increase,
                   fun: () => setCharacteristics((prev) => ({
                      ...prev,
                      quantity: prev.quantity + 1
@@ -74,6 +87,7 @@ export function PizzaData({ pizza, prebuildIngredients = [] }: Props) {
                }}
             />
             <AddCustomizePizza
+               t={t.addCustomizePizzaTraduction}
                pizza={{
                   pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),
                   pizzaImageName: pizza.pizzaImageName,

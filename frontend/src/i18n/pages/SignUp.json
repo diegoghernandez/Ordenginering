@@ -1,0 +1,22 @@
+{
+   "en": {
+      "seo": {
+         "title": "Sign Up",
+         "description": "Put the necessary data to create your account",
+         "h1": "Create your account"
+      },
+      "haveAccount": "Have an account?",
+      "login": "Log in now",
+      "signUpFormTraduction": {
+         "submitLabel": "Sign Up",
+         "passwordError": "Passwords don't match",
+         "labels": {
+            "customerName": "Name",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm password",
+            "birthDate": "Birth Date"
+         }
+      }
+   }
+}

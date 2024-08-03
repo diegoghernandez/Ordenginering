@@ -2,34 +2,48 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
+import { IMAGE_CDN } from '@/constants/imageCDN'
 import type { Order } from '@/types'
 import Styles from './OrderModal.module.css'
-import { IMAGE_CDN } from '@/constants/imageCDN'
 
-interface Props {
-   funToSaveDialog: (element: { showModal: () => void }) => void,
-   order: Order
+export type OrderModalTraduction = {
+   dialogTitle: string
+   date: string
+   products: string
+   country: string
+   state: string
+   city: string
+   street: string
+   houseNumber: string
+   floor: string
+   apartment: string
 }
 
-export function OrderModal({ funToSaveDialog, order }: Props) {
+interface Props {
+   funToSaveDialog: (element: { showModal: () => void }) => void
+   order: Order
+   t: OrderModalTraduction
+}
+
+export function OrderModal({ funToSaveDialog, order, t }: Props) {
    return (
-      <LargeModalContainer ref={funToSaveDialog} position='right' description='Your order'>
+      <LargeModalContainer ref={funToSaveDialog} position='right' description={t.dialogTitle}>
          <section className={Styles['order-container']}>
             <CardContainer styleClass={Styles['order-description-container']}>
                <>
-                  <p>Date: <time dateTime={order.orderTimestamp}>
+                  <p>{t.date}: <time dateTime={order.orderTimestamp}>
                      {new Intl.DateTimeFormat('en', { dateStyle: 'short', timeStyle: 'medium' })
-                        .format(new Date(order.orderTimestamp))}   
+                        .format(new Date(order.orderTimestamp))}
                   </time></p>
-                  <p>Products: <span>{order.pizzaList.length}</span></p>
+                  <p>{t.products}: <span>{order.pizzaList.length}</span></p>
                   <p>Total: <span>${order.total}</span></p>
-                  <p>Country: <span>{order.country}</span></p>
-                  <p>State: <span>{order.state}</span></p>
-                  <p>City: <span>{order.city}</span></p>
-                  <p>Street: <span>{order.street}</span></p>
-                  <p>House number: <span>{order.houseNumber}</span></p>
-                  {order.floor ? <p>Floor: <span>{order.floor}</span></p> : null}
-                  {order.apartment ? <p>Apartment: <span>{order.apartment}</span></p> : null}
+                  <p>{t.country}: <span>{order.country}</span></p>
+                  <p>{t.state}: <span>{order.state}</span></p>
+                  <p>{t.city}: <span>{order.city}</span></p>
+                  <p>{t.street}: <span>{order.street}</span></p>
+                  <p>{t.houseNumber}: <span>{order.houseNumber}</span></p>
+                  {order.floor ? <p>{t.floor}: <span>{order.floor}</span></p> : null}
+                  {order.apartment ? <p>{t.apartment}: <span>{order.apartment}</span></p> : null}
                </>
             </CardContainer>
             {order.pizzaList.map((pizza) => (

@@ -1,0 +1,35 @@
+---
+import { CheckoutForm, type CheckoutFormTraduction } from '@/components/order/CheckoutForm'
+import { SECONDARY__BUTTON } from '@/constants/styles'
+import CountryList from '@/data/countries.json'
+import FormLayout from '@/layouts/FormLayout.astro'
+import { getIpData } from '@/services/ipService'
+import type { SeoTraduction } from '@/types'
+
+interface Props {
+   t: {
+      seo: SeoTraduction
+      require: string
+      returnToChoose: string
+      form: CheckoutFormTraduction
+   }
+}
+const { t } = Astro.props
+
+const ipData = await getIpData(Astro.clientAddress.split(',')[0])
+---
+
+<FormLayout 
+   title={t.seo.title}
+   description={t.seo.description}
+   h1Text={t.seo.h1}
+>
+   <p>{t.require}</p>
+   <CheckoutForm 
+      client:load 
+      countryList={CountryList} 
+      ipData={ipData}
+      t={t.form}
+   />
+   <a class={SECONDARY__BUTTON} href='/client/menu'>{t.returnToChoose}</a>
+</FormLayout>

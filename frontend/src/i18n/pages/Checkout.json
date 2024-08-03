@@ -1,0 +1,30 @@
+{
+   "en": {
+      "seo": {
+         "title": "Checkout order",
+         "description": "Put your data to know where send the pizza",
+         "h1": "Choose delivery address"
+      },
+      "require": "* Required field",
+      "returnToChoose": "Return to choose",
+      "form": {
+         "submitLabel": "Checkout",
+         "dialogAccept": "Accept",
+         "selectDefaultText": "--Please choose an option--",
+         "labels": {
+            "country": "Country*",
+            "state": "State*",
+            "city": "City*",
+            "street": "Street*",
+            "houseNumber": "House number*",
+            "floor": "Floor",
+            "apartment": "Apartment"
+         },
+         "placeholder": {
+            "houseNumber": "House number",
+            "floor": "Floor",
+            "apartment": "Apartment"
+         }
+      }
+   }
+}

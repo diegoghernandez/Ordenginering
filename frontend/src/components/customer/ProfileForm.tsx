@@ -5,18 +5,25 @@ import { changeProfile, type ChangeProfileValues } from '@/services/changeCustom
 import { CustomInput } from '@/components/common/CustomInput'
 import { getFormValue } from '@/utils/getFormValue'
 
-interface Props {
-   name: string,
-   birthDate: string
+export type ProfileFormTraduction = {
+   labels: {
+      name: string
+      birthDate: string,
+   }
+   title: string
+   submitLabel: string
 }
 
-export function ProfileForm({ name, birthDate }: Props) {
+interface Props {
+   name: string
+   birthDate: string
+   t: ProfileFormTraduction
+}
+
+export function ProfileForm({ name, birthDate, t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangeProfileValues, string>(changeProfile)
 
-   const labels = {
-      name: 'Name',
-      birthDate: 'Birth Date'
-   }
+   const labels = t.labels
 
    const handleData = (formValues: FormData) => {
       handlePromise({
@@ -33,11 +40,11 @@ export function ProfileForm({ name, birthDate }: Props) {
             response={response}
             handleData={handleData}
             submitButton={{
-               label: 'Save Changes',
+               label: t.submitLabel,
                isLoading,
             }}
             >
-            <h3>Profile</h3>
+            <h3>{t.title}</h3>
             <CustomInput
                label={labels.name}
                defaultValue={name}

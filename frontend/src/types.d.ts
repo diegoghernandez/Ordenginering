@@ -144,3 +144,9 @@ export interface IPData {
    asn:                  string
    org:                  string
 }
+
+export interface SeoTraduction {
+   title: string
+   description: string
+   h1?: string
+}

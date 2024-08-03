@@ -1,0 +1,44 @@
+---
+import LinksContainer from '@/components/customer/LinksContainer.astro'
+import { IngredientForm, type IngredientFormTraduction } from '@/components/ingredient/ingredientForm'
+import FormLayout from '@/layouts/FormLayout.astro'
+import { getRoles } from '@/services/server/jwtServer'
+import type { CustomerRole, SeoTraduction } from '@/types'
+import { getProfileLinks } from '@/utils/getProfileLinks'
+
+interface Props {
+   t: {
+      seo: SeoTraduction
+      title: string
+      ingredientFormTraduction: IngredientFormTraduction
+   }
+}
+
+const { t } = Astro.props
+
+let customerRole: CustomerRole
+
+try {
+   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
+} catch (error) {   
+   console.error(error);
+   return Astro.redirect('/client/404')
+}
+---
+
+<FormLayout 
+   title={t.seo.title}
+   description={t.seo.description}
+   activeLink='Account'
+>
+   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'INGREDIENT')} />
+   <h1>{t.title}</h1>
+   <IngredientForm client:load t={t.ingredientFormTraduction}  />
+</FormLayout>
+
+<style>
+   h1 {
+      width: 100%;
+      text-align: center;
+   }
+</style>

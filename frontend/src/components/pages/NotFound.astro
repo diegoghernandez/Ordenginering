@@ -1,0 +1,22 @@
+---
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
+import Layout from '@/layouts/Layout.astro'
+import type { SeoTraduction } from '@/types'
+
+interface Props {
+   t: SeoTraduction
+}
+
+const { t } = Astro.props
+
+---
+
+<Layout 
+   title={t.title}
+   description={t.description}
+   activeLink=''
+>
+   <main transition:name={MAIN__TAG__ANIMATION__NAME}>
+      <h1>{t.h1}</h1>
+   </main>
+</Layout>

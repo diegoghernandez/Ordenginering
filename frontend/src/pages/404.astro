@@ -1,14 +1,6 @@
 ---
-import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
-import Layout from '@/layouts/Layout.astro'
+import NotFound from '@/components/pages/NotFound.astro'
+import { en } from "@/i18n/pages/NotFound.json"
 ---
 
-<Layout 
-   title='Resource not found'
-   description='The desire resource is not found'
-   activeLink=''
->
-   <main transition:name={MAIN__TAG__ANIMATION__NAME}>
-      <h1>Not found</h1>
-   </main>
-</Layout>
+<NotFound t={en} />

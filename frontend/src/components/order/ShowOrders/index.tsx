@@ -9,6 +9,7 @@ import type { Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
+import { en as t } from '@/i18n/components/showOrder.json'
 
 export function ShowOrder() {
    const [pizza, setPizza] = useState<Pizza[]>()
@@ -21,7 +22,7 @@ export function ShowOrder() {
    
    return (
       <section className={Styles['order-styles']}>
-         <h2>Total <strong>${pizzaList.map((pizza) => 
+         <h2>Total: <strong>${pizzaList.map((pizza) => 
             getPizzaPrice(pizza.pizzaIngredients?.length, pizza.size, pizza.quantity))
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
@@ -30,9 +31,9 @@ export function ShowOrder() {
             tabIndex={pizzaList.length !== 0 ? 0 : -1}
             className={`${PRIMARY__BUTTON} ${pizzaList.length !== 0 ? '' : Styles['disabled']}`} 
          >
-            Checkout ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} products)
+            {t.checkoutLink.name} ({pizzaList.map(({ quantity }) => quantity).reduce((acc, current) => acc + current, 0)} {t.checkoutLink.products})
          </a>
-         <button onClick={() => clearCart()}>Remove all items</button>
+         <button onClick={() => clearCart()}>{t.removeItems}</button>
          {pizza ? 
             pizza.length !== 0 ? 
                pizza?.map((pizzaInOrder) => (
@@ -55,12 +56,8 @@ export function ShowOrder() {
                         <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 
                               valueToShow={pizzaInOrder.quantity}
-                              increase={{
-                                 label: 'Add pizza',
-                                 fun: () => updatePizzaQuantity(pizzaInOrder.idPizza ?? '', 'add')
-                              }}
                               decrease={{
-                                 label: 'Subtract pizza',
+                                 label: t.selectQuantityLabels.subtract,
                                  fun: () => {
                                     updatePizzaQuantity(pizzaInOrder.idPizza ?? '', 'subs')
                                     if (pizzaInOrder.quantity - 1 === 0) {
@@ -68,16 +65,20 @@ export function ShowOrder() {
                                     }
                                  }
                               }}
+                              increase={{
+                                 label: t.selectQuantityLabels.add,
+                                 fun: () => updatePizzaQuantity(pizzaInOrder.idPizza ?? '', 'add')
+                              }}
                            />
                            <button 
                               className={SECONDARY__BUTTON} 
                               type='button' 
                               onClick={() => removePizza(pizzaInOrder.idPizza ?? '')}
-                           >Delete</button>
+                           >{t.deletePizza}</button>
                         </div>
                      </>
                   </CardContainer>
-               )) : <p>No orders</p>
+               )) : <p>{t.noOrders}</p>
             : <div role='progressbar' aria-labelledby='loading content'></div>
          }
       </section>

@@ -179,8 +179,8 @@ test.describe('Customize page e2e tests', () => {
 
       await page.getByLabel('Shopping cart').click()
 
-      await expect(page.getByText('Total $280')).toBeVisible()
-      await expect(page.getByText('Checkout (2 products)')).toBeVisible()
+      await expect(page.getByText('Total: $280')).toBeVisible()
+      await expect(page.getByText('Checkout (2 product(s))')).toBeVisible()
       await expect(page.getByText('No orders')).not.toBeVisible()
       await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
       await expect(page.getByRole('article').getByText('Custom empty')).toBeVisible()

@@ -6,13 +6,25 @@ import type { CustomerLogIn } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 import { useEffect } from 'react'
 
-export function LogInForm() {
+export type LogInFormTraduction = {
+   labels: {
+      email: string,
+      password: string
+   },
+   form: {
+      submitLabel: string
+      response: string
+   }
+}
+
+interface Props {
+   t: LogInFormTraduction
+}
+
+export function LogInForm({ t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<CustomerLogIn, string>(logIn)
 
-   const labels = {
-      email: 'Email',
-      password: 'Password'
-   }
+   const labels = t.labels
 
    const handleData = (formValues: FormData) => {
       const customerLogIn = {
@@ -39,10 +51,10 @@ export function LogInForm() {
       <FormContainer
          handleData={handleData}
          response={response?.status !== 200 ? 
-            response : { message: 'Log in successful', status: 200 }
+            response : { message: t.form.response, status: 200 }
          }
          submitButton={{
-            label: 'Sign In',
+            label: t.form.submitLabel,
             isLoading
          }}
       >

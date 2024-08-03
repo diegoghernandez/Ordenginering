@@ -1,22 +1,6 @@
 ---
-import { LogInForm } from '@/components/security/LogInForm'
-import FormLayout from '@/layouts/FormLayout.astro'
+import LoginPage from '@/components/pages/Login.astro'
+import { en } from '@/i18n/pages/Login.json'
 ---
 
-<FormLayout 
-   title='Login'
-   description='Login in to your account'
-   h1Text='Log in to your account'
->
-   <p>
-      Don't have an account? 
-      <a href='/client/signup'>Sign Up</a>
-   </p>
-   <LogInForm client:load />
-</FormLayout>
-
-<style>
-   a {
-      color: #016BF8;
-   }
-</style>
+<LoginPage t={en} />

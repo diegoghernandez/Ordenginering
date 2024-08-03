@@ -12,5 +12,9 @@ export default defineConfig({
   integrations: [react()],
   adapter: node({
     mode: 'middleware'
-  })
+  }),
+  i18n: {
+    defaultLocale: "en",
+    locales: ["es", "en"]
+  }
 })

@@ -1,12 +1,17 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { DetectEndOfScroll } from '@/components/common/DetectEndOfScroll'
 import { Spin } from '@/components/common/Spin'
-import { OrderModal } from '@/components/pastOrders/OrderModal'
+import { OrderModal, type OrderModalTraduction } from '@/components/pastOrders/OrderModal'
 import { StatusError } from '@/services/exceptions/StatusError'
 import { getOrdersByAccount } from '@/services/orderService'
 import type { Order } from '@/types'
 import { Fragment, useRef, useState } from 'react'
 import Styles from './ShowPastOrders.module.css'
+
+export type ShowPastOrdersTraduction = {
+   products: string
+   orderModalTraduction: OrderModalTraduction
+}
 
 type Data =  { 
    content: Order[][],
@@ -17,11 +22,12 @@ type Data =  {
 interface Props {
    id: number
    initialData: Data
+   t: ShowPastOrdersTraduction
 }
 
 type OrderId = string
 
-export function ShowPastOrders({ id, initialData }: Props) {
+export function ShowPastOrders({ id, initialData, t }: Props) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [error, setError] = useState<string>('')
    const [orders, setOrders] = useState<Data>(initialData)
@@ -70,7 +76,7 @@ export function ShowPastOrders({ id, initialData }: Props) {
                               {new Intl.DateTimeFormat('en', { dateStyle: 'medium' })
                                  .format(new Date(order.orderTimestamp))}
                         </time></p>
-                        <p>{order.pizzaList.length} products</p>
+                        <p>{order.pizzaList.length} {t.products}</p>
                      </div>
                      <div>
                         <p>Total</p>
@@ -79,7 +85,11 @@ export function ShowPastOrders({ id, initialData }: Props) {
                      <button aria-label={`Show order ${order.orderId}`} onClick={() => showModal(order.orderId)}></button>
                   </>
                </CardContainer>
-               <OrderModal funToSaveDialog={(element) => pushDialog(order.orderId, element)} order={order} />
+               <OrderModal 
+                  funToSaveDialog={(element) => pushDialog(order.orderId, element)}
+                  order={order}
+                  t={t.orderModalTraduction}
+               />
             </Fragment>
          )))}
          {error ? <p>{error}</p> : null}

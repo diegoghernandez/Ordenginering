@@ -1,23 +1,10 @@
 ---
-import { CheckoutForm } from '@/components/order/CheckoutForm'
-import { SECONDARY__BUTTON } from '@/constants/styles'
-import CountryList from '@/data/countries.json'
-import FormLayout from '@/layouts/FormLayout.astro'
-import { getIpData } from '@/services/ipService'
+import CheckoutPage from '@/components/pages/Checkout.astro'
+import { en } from '@/i18n/pages/Checkout.json'
 
 export const prerender = false
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
-
-const ipData = await getIpData(Astro.clientAddress.split(',')[0])
 ---
 
-<FormLayout 
-   title='Checkout order'
-   description='Put your data to know where send the pizza'
-   h1Text='Choose delivery address'
->
-   <p>* Required field</p>
-   <CheckoutForm countryList={CountryList} ipData={ipData} client:load />
-   <a class={SECONDARY__BUTTON} href='/client/menu'>Return to choose</a>
-</FormLayout>
+<CheckoutPage t={en} />

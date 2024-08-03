@@ -1,0 +1,133 @@
+---
+import { CardContainer } from '@/components/common/CardContainer'
+import { ImgContainer } from '@/components/common/ImgContainer'
+import { AddPizza } from '@/components/order/AddPizza'
+import { IMAGE_CDN } from '@/constants/imageCDN'
+import { Size } from '@/constants/size'
+import { SECONDARY__BUTTON } from '@/constants/styles'
+import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
+import pizzaList from '@/data/pizza.json'
+import Layout from '@/layouts/Layout.astro'
+import type { SeoTraduction } from '@/types'
+import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import { Image } from 'astro:assets'
+
+interface Props {
+   t: {
+      seo: SeoTraduction
+		addLabel: string
+      customize: string
+   }
+}
+
+function getUrlImage(specificPath: string) {
+	return `${IMAGE_CDN}/pizza/${specificPath}.avif`
+}
+
+const { t } = Astro.props
+
+---
+
+<Layout
+	title={t.seo.title}
+	description={t.seo.description}
+	activeLink='Menu'
+>
+	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
+		<h1>{t.seo.h1}</h1>
+		<div>
+			{pizzaList.map((pizza, index) => (
+				<CardContainer styleClass='pizza-container'>
+					<>
+						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>
+							<Image 
+								src={getUrlImage(pizza.image.name)}
+								alt={`${pizza.name} pizza`}
+								width='280'
+								height='220'
+								loading={index < 6 ? 'eager' : 'lazy'}
+							/>
+						</ImgContainer>
+						<div class='pizza-information'>
+							<h3>{pizza.name}</h3>
+							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
+							<p>{pizza.ingredients.join(', ')}</p>
+						</div>
+						<div class='buttons-column'>
+							<AddPizza 
+								client:idle
+								label={t.addLabel}
+								pizza={{
+									pizzaName: pizza.name,
+									pizzaImageName: pizza.image.name + '--small',
+									pizzaImageAuthor: pizza.image.author,
+									size: Size.MEDIUM,
+									quantity: 1,
+									pizzaIngredients: pizza.ingredients.map(
+										(ingredient) => ({ name: ingredient, quantity: 1 }))
+								}} 
+							/>
+							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>
+								{t.customize} {pizza.name.toLowerCase()}
+							</a>
+						</div>
+					</>
+				</CardContainer>
+			))}
+		</div>
+	</main>
+</Layout>
+
+<style is:global>
+	.pizza-container {
+		display: flex;
+		max-width: 340px;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.pizza-image {
+		height: 140px;
+		border-radius: 16px;
+		overflow: hidden;
+		& img {
+			position: absolute;
+			height: fit-content;
+			/* top: -36px; */
+		}
+	}
+</style>
+
+<style>	
+	main {
+		padding: 16px;
+		& > div {
+			display: grid;
+			max-width: 1500px;
+			column-gap: 16px;
+			row-gap: 12px;
+			margin-top: 12px;
+			margin-inline: auto;
+			place-content: center;
+			grid-template-columns: repeat(auto-fill, minmax(288px, auto));
+		}
+	}
+
+	.pizza-information {
+		display: grid;
+		grid-template-columns: auto auto;
+		justify-content: space-between;
+		row-gap: 4px;
+		& .information-important {
+			font-size: 1.25rem;
+			font-weight: bold;
+		}
+	}
+
+	.buttons-column {
+		display: flex;
+		flex-direction: column;
+		margin-top: auto;
+		gap: 12px;
+	}
+</style>

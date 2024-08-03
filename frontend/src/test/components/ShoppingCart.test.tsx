@@ -8,7 +8,7 @@ describe('ShoppingCart component tests', () => {
    afterEach(() => cleanup())
 
    it('Should render correctly', () => {
-      render(<ShoppingCart />)
+      render(<ShoppingCart label='label' />)
    
       expect(screen.getByRole('button')).toBeDefined()
       expect(screen.getByText('0')).toBeDefined()
@@ -31,7 +31,7 @@ describe('ShoppingCart component tests', () => {
          }]
       })
       
-      render(<ShoppingCart />)
+      render(<ShoppingCart label='label' />)
 
       expect(screen.getByText('2')).toBeDefined()
    })

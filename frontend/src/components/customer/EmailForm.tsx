@@ -1,22 +1,30 @@
 import { CardContainer } from '@/components/common/CardContainer'
-import { FormContainer } from '@/components/common/FormContainer'
 import { CustomInput } from '@/components/common/CustomInput'
+import { FormContainer } from '@/components/common/FormContainer'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeEmail, type ChangeEmailValues } from '@/services/changeCustomerService'
 import { getFormValue } from '@/utils/getFormValue'
 
-interface Props {
-   email: string
+export type EmailFormTraduction = {
+   labels: {
+      currentEmail: string
+      newEmail: string
+      currentPassword: string
+   }
+   title: string
+   submitLabel: string
 }
 
-export function EmailForm({ email }: Props) {
+
+interface Props {
+   email: string
+   t: EmailFormTraduction
+}
+
+export function EmailForm({ email, t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangeEmailValues, string>(changeEmail)
 
-   const labels = {
-      currentEmail: 'Current Email Address',
-      newEmail: 'New Email Address',
-      currentPassword: 'Current Password'
-   }
+   const labels = t.labels
 
    const handleData = (formValues: FormData) => {
       handlePromise({
@@ -32,11 +40,11 @@ export function EmailForm({ email }: Props) {
             response={response}
             handleData={handleData}
             submitButton={{
-               label: 'Save Email',
+               label: t.submitLabel,
                isLoading,
             }}
          >
-            <h3>Email address</h3>
+            <h3>{t.title}</h3>
             <CustomInput 
                label={labels.currentEmail}
                defaultValue={email}

@@ -1,0 +1,21 @@
+{
+   "en": {
+      "seo": {
+         "title": "Login",
+         "description": "Login in to your account",
+         "h1": "Log in to your account"
+      },
+      "accountQuestion": "Don't have an account?",
+      "signUp": "Sign Up",
+      "logInFormTraduction": {
+         "labels": {
+            "email": "Email",
+            "password": "Password"
+         },
+         "form": {
+            "submitLabel": "Sign In",
+            "response": "Log in successful"
+         }
+      }
+   }
+}

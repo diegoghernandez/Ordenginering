@@ -10,27 +10,40 @@ import type { IPData, OrderRequest } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 import { useEffect, useRef } from 'react'
 
+export type CheckoutFormTraduction = {
+   submitLabel: string
+   dialogAccept: string
+   selectDefaultText: string
+   labels: {
+      country: string
+      state: string
+      city: string
+      street: string
+      houseNumber: string
+      floor: string
+      apartment: string
+   }
+   placeholder: {
+      houseNumber: string
+      floor: string
+      apartment: string
+   }
+}
+
 interface Props {
    countryList: { code: string, name: string }[]
    ipData: IPData
+   t: CheckoutFormTraduction
 }
 
-export function CheckoutForm({ countryList, ipData }: Props) {
+export function CheckoutForm({ countryList, ipData, t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest, string>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
    const clearCart = useShoppingCart((state) => state.clearCart)
    const dialogRef = useRef<HTMLDialogElement>(null)
 
-   const labels = {
-      country: 'Country*',
-      state: 'State*',
-      city: 'City*',
-      street: 'Street*',
-      houseNumber: 'House number*',
-      floor: 'Floor',
-      apartment: 'Apartment'
-   }
-   
+   const labels = t.labels
+
    const handleData = (formValues: FormData) => {
       const order: OrderRequest = {
          idCustomer: Number(localStorage.getItem('id')) ?? '0',
@@ -63,14 +76,14 @@ export function CheckoutForm({ countryList, ipData }: Props) {
          handleData={handleData}
          response={response?.status !== 200 ? response : null}
          submitButton={{
-            label: 'Checkout',
+            label: t.submitLabel,
             isLoading: isLoading
          }}
       >
          <SmallModalContainer ref={dialogRef}>
             <>
                <h2>{response?.message}</h2>
-               <a href='/client/menu' className={PRIMARY__BUTTON}>Accept</a>
+               <a href='/client/menu' className={PRIMARY__BUTTON}>{t.dialogAccept}</a>
             </>
          </SmallModalContainer>
          <CustomSelect
@@ -81,7 +94,7 @@ export function CheckoutForm({ countryList, ipData }: Props) {
             selectedOption={ipData.country_code_iso3}
             defaultValue={{
                value: '',
-               text: '--Please choose an option--'
+               text: t.selectDefaultText
             }}
             disable={isLoading}
          />
@@ -111,7 +124,7 @@ export function CheckoutForm({ countryList, ipData }: Props) {
             label={labels.houseNumber}
             required={true}
             type='number'
-            placeholder='House number'
+            placeholder={t.placeholder.houseNumber}
             minValue={1}
             error={error?.houseNumber}
             disable={isLoading}
@@ -119,7 +132,7 @@ export function CheckoutForm({ countryList, ipData }: Props) {
          <CustomInput 
             label={labels.floor}
             type='number'
-            placeholder='Floor'
+            placeholder={t.placeholder.floor}
             minValue={1}
             maxValue={200}
             error={error?.floor}
@@ -128,7 +141,7 @@ export function CheckoutForm({ countryList, ipData }: Props) {
          <CustomInput 
             label={labels.apartment}
             type='number'
-            placeholder='Apartment'
+            placeholder={t.placeholder.apartment}
             minValue={1}
             maxValue={30000}
             error={error?.apartment}

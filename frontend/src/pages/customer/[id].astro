@@ -1,41 +1,10 @@
 ---
-import { EmailForm } from '@/components/customer/EmailForm'
-import LinksContainer from '@/components/customer/LinksContainer.astro'
-import { PasswordForm } from '@/components/customer/PasswordForm'
-import { ProfileForm } from '@/components/customer/ProfileForm'
-import FormLayout from '@/layouts/FormLayout.astro'
-import { getCustomerData } from '@/services/server/customerServer'
-import { getRoles } from '@/services/server/jwtServer'
-import type { Customer, CustomerRole } from '@/types'
-import { getProfileLinks } from '@/utils/getProfileLinks'
+import Customer from '@/components/pages/Customer.astro'
+import { en } from '@/i18n/pages/Customer.json'
 
 export const prerender = false
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
-
-const { id } = Astro.params
-
-if(id === '0') return Astro.redirect('/client/login')
-
-let customer: Customer
-let customerRole: CustomerRole
-
-try {
-   customer = await getCustomerData(Number(id), Astro.cookies.get('jwt')?.value)
-   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
-} catch (error) {   
-   console.error(error);
-   return Astro.redirect('/client/404')
-}
 ---
 
-<FormLayout 
-   title='Customer page'
-   description='Your page to change any value of your account'
-   activeLink='Account'
->
-   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'PROFILE')} />
-   <ProfileForm client:load name={customer.customerName} birthDate={customer.birthDate} />
-   <PasswordForm client:load />
-   <EmailForm client:load email={customer.email} />
-</FormLayout>
+<Customer t={en} />

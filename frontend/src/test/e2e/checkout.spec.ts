@@ -40,7 +40,7 @@ test.describe('Checkout page tests', () => {
 
       await expect(page.getByLabel('Shopping cart').getByText('4')).toBeVisible()
       await page.getByLabel('Shopping cart').click()
-      await page.getByRole('link', { name: 'Checkout (4 products)' }).click()
+      await page.getByRole('link', { name: 'Checkout (4 product(s))' }).click()
       await expect(page).toHaveTitle('Checkout order')
 
       await page.getByLabel('Country*').selectOption({ index: 1 })
@@ -72,7 +72,7 @@ test.describe('Checkout page tests', () => {
 
       await expect(page.getByLabel('Shopping cart').getByText('4')).toBeVisible()
       await page.getByLabel('Shopping cart').click()
-      await page.getByRole('link', { name: 'Checkout (4 products)' }).click()
+      await page.getByRole('link', { name: 'Checkout (4 product(s))' }).click()
       await expect(page).toHaveTitle('Checkout order')
 
       await page.getByLabel('Country*').selectOption('Mexico')

@@ -4,7 +4,7 @@ import { AddPizza } from '../../components/order/AddPizza'
 
 describe('AddPizza component tests ', () => { 
    it('Should render correctly', () => {
-      render(<AddPizza />)
+      render(<AddPizza label='Add' />)
 
       expect(screen.getByText('Add')).toBeDefined()
    })

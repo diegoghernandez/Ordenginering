@@ -1,0 +1,24 @@
+---
+import { SignUpForm, type SignUpFormTraduction } from '@/components/security/SignUpForm'
+import FormLayout from '@/layouts/FormLayout.astro'
+import type { SeoTraduction } from '@/types'
+
+interface Props {
+   t: {
+      seo: SeoTraduction
+      haveAccount: string
+      login: string,
+      signUpFormTraduction: SignUpFormTraduction
+   }
+}
+
+const { t } = Astro.props
+---
+<FormLayout
+   title={t.seo.title}
+   description={t.seo.description}
+   h1Text={t.seo.h1}
+>
+   <p>{t.haveAccount} <a href='/client/login'>{t.login}</a></p>
+   <SignUpForm client:load t={t.signUpFormTraduction} />
+</FormLayout>

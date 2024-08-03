@@ -5,22 +5,32 @@ import { registerCustomer } from '@/services/authService'
 import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 
-export function SignUpForm() {
+export type SignUpFormTraduction = {
+   labels: {
+      customerName: string
+      email: string
+      password: string
+      confirmPassword: string
+      birthDate: string
+   },
+   passwordError: string,
+   submitLabel: string
+}
+
+interface Props {
+   t: SignUpFormTraduction
+}
+
+export function SignUpForm({ t }: Props) {
    const { isLoading, error, setError, response, handlePromise } = useServicePromise<CustomerDto, string>(registerCustomer)
 
-   const labels = {
-      customerName: 'Name',
-      email: 'Email',
-      password: 'Password',
-      confirmPassword: 'Confirm password',
-      birthDate: 'Birth Date'
-   }
+   const labels = t.labels
    
    const handleData = (formValues: FormData) => {
       if (getFormValue(labels.password, formValues) !== getFormValue(labels.confirmPassword, formValues)) {
          setError({
-            password: "Passwords don't match",
-            confirmPassword: "Passwords don't match"
+            password: t.passwordError,
+            confirmPassword:  t.passwordError
          })
       } else {
          const customerData: CustomerDto = {
@@ -41,7 +51,7 @@ export function SignUpForm() {
          handleData={handleData}
          response={response}
          submitButton={{
-            label: 'Sign Up',
+            label: t.submitLabel,
             isLoading
          }}
       >

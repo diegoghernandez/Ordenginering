@@ -33,8 +33,8 @@ test.describe('Menu page e2e tests', () => {
       await addPizzaInMenu(page, 0)
 
       await page.getByLabel('Shopping cart').click()
-      await expect(page.getByText('Total $140')).toBeVisible()
-      await expect(page.getByText('Checkout (1 products)')).toBeVisible()
+      await expect(page.getByText('Total: $140')).toBeVisible()
+      await expect(page.getByText('Checkout (1 product(s))')).toBeVisible()
       await expect(page.getByText('No orders')).not.toBeVisible()
       await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
       await expect(page.getByRole('dialog').getByRole('heading', { name: 'Pepperoni' })).toBeVisible()

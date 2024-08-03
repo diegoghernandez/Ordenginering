@@ -1,14 +1,15 @@
 ---
-import AccountButton from '@/components/nav/AccountButton.astro'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
+import AccountButton from '@/components/nav/AccountButton.astro'
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
+import { en as t } from '@/i18n/components/navbar.json'
 import type { ActiveLink } from '@/types'
 
 const pages = [
-	{ name: 'Home', link: '/'},
-	{ name: 'Menu', link: '/menu'},
-	{ name: 'Customize', link: '/customize/empty'}
+	{ name: t.links.home, link: '/'},
+	{ name: t.links.menu, link: '/menu'},
+	{ name: t.links.customize, link: '/customize/empty'}
 ]
 
 interface Props {
@@ -20,7 +21,7 @@ const { activeLink } = Astro.props
 
 <nav>
    <div class='menu--movil'>
-      <button class='interaction--buttons' aria-label='Open menu'>
+      <button class='interaction--buttons' aria-label={t.menuButton}>
          <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
          </svg>
@@ -50,8 +51,12 @@ const { activeLink } = Astro.props
    </div>
    <div class='nav--interaction--buttons'>
       <AccountButton activeLink={activeLink} />
-      <ShoppingCart client:load extraClass='interaction--buttons' />
-      <LargeModalContainer client:load description='Your order' position='right'>
+      <ShoppingCart client:load extraClass='interaction--buttons' label={t.shoppingCartButton} />
+      <LargeModalContainer
+         client:load
+         description={t.shoppingCartModalDescription}
+         position='right'
+      >
          <ShowOrder client:idle />
       </LargeModalContainer>
    </div>

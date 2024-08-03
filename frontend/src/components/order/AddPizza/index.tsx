@@ -4,9 +4,10 @@ import { PRIMARY__BUTTON } from '@/constants/styles'
 
 interface Props {
    pizza?: Pizza
+   label: string
 }
 
-export function AddPizza({ pizza }: Props) {     
+export function AddPizza({ pizza, label }: Props) {     
    const addPizza = useShoppingCart((state) => state.addPizza)
    
    const handleClick = () => {      
@@ -17,7 +18,7 @@ export function AddPizza({ pizza }: Props) {
 
    return (
       <button className={PRIMARY__BUTTON} onClick={handleClick} >
-         Add
+         {label}
       </button>
    )
 }

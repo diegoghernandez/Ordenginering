@@ -5,14 +5,24 @@ import { useServicePromise } from '@/hooks/useServicePromise'
 import { changePassword, type ChangePasswordValues } from '@/services/changeCustomerService'
 import { getFormValue } from '@/utils/getFormValue'
 
-export function PasswordForm() {
+export type PasswordFormTraduction = {
+   labels: {
+      currentPassword: string
+      newPassword: string
+      repeatPassword: string
+   }
+   title: string
+   submitLabel: string
+}
+
+interface Props {
+   t: PasswordFormTraduction
+}
+
+export function PasswordForm({ t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<ChangePasswordValues, string>(changePassword)
 
-   const labels = {
-      currentPassword: 'Current Password',
-      newPassword: 'New Password',
-      repeatPassword: 'Repeat Password'
-   }
+   const labels = t.labels
 
    const handleData = (formValues: FormData) => {
       handlePromise({
@@ -28,11 +38,11 @@ export function PasswordForm() {
             response={response}
             handleData={handleData}
             submitButton={{
-               label: 'Save Password',
+               label: t.submitLabel,
                isLoading,
             }}
          >
-            <h3>Password</h3>
+            <h3>{t.title}</h3>
             <CustomInput 
                label={labels.currentPassword}
                type='password'

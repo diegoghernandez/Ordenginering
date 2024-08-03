@@ -1,0 +1,34 @@
+{
+   "en": {
+      "seo": {
+         "title": "Customer page",
+         "description": "Your page to change any value of your account"
+      },
+      "profileFormTraduction": {
+         "labels": {
+            "name": "Name",
+            "birthDate": "Birth Date"
+         },
+         "title": "Profile",
+         "submitLabel": "Save Changes"
+      },
+      "passwordFormTraduction": {
+         "labels": {
+            "currentPassword": "Current Password",
+            "newPassword": "New Password",
+            "repeatPassword": "Repeat Password"
+         },
+         "title": "Password",
+         "submitLabel": "Save Password"
+      },
+      "emailFormTraduction": {
+         "labels": {
+            "currentEmail": "Current Email Address",
+            "newEmail": "New Email Address",
+            "currentPassword": "Current Password"
+         },
+         "title": "Email address",
+         "submitLabel": "Save Email"
+      }
+   }
+}

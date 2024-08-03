@@ -9,16 +9,28 @@ import { getFormValue } from '@/utils/getFormValue'
 import { useState, type ChangeEvent } from 'react'
 import Styles from './IngredientForm.module.css'
 
-export function IngredientForm() {
+export type IngredientFormTraduction = {
+   labels: {
+      uploadImage: string
+      imageAuthor: string
+      ingredientName: string
+      ingredientType: string
+   }
+   errorImage: string
+   altImage: string
+   submitLabel: string
+   selectDefaultValue: string
+}
+
+interface Props {
+   t: IngredientFormTraduction
+}
+
+export function IngredientForm({ t }: Props) {
    const { response, isLoading, error, setError, handlePromise } = useServicePromise<FormData, string>(saveIngredient)
    const [imageUrl, setImageUrl] = useState('')
 
-   const labels = {
-      uploadImage: 'Upload ingredient image',
-      imageAuthor: 'Image author',
-      ingredientName: 'Ingredient name',
-      ingredientType: 'Ingredient type'
-   }
+   const labels = t.labels
 
    const onChangeImageInput = (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target instanceof HTMLInputElement) {
@@ -26,7 +38,7 @@ export function IngredientForm() {
 
          if (imageFile instanceof File) {
             if (imageFile?.size > 1000 * 2000) {
-               setError({ uploadImage: 'Image need to be smaller (2MB or less)' })
+               setError({ uploadImage: t.errorImage })
             } else {
                setImageUrl(URL.createObjectURL(imageFile))
             }
@@ -58,7 +70,7 @@ export function IngredientForm() {
             <ImgContainer styleClass={Styles['image-container']}>
                <img
                   src={imageUrl}
-                  alt='Image to upload as the ingredient image'
+                  alt={t.altImage}
                   onLoad={() => {URL.revokeObjectURL(imageUrl)}}
                />
             </ImgContainer>
@@ -68,7 +80,7 @@ export function IngredientForm() {
             response={response}
             handleData={handleData}
             submitButton={{
-               label: 'Save ingredient',
+               label: t.submitLabel,
                isLoading: isLoading
             }}
          >
@@ -97,7 +109,7 @@ export function IngredientForm() {
                label={labels.ingredientType}
                values={Object.keys(IngredientTypes)}
                options={Object.values(IngredientTypes)}
-               defaultValue={{ text: 'Choose a type', value: '' }}
+               defaultValue={{ text: t.selectDefaultValue, value: '' }}
                required={true}
                disable={isLoading}
             />

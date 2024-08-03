@@ -1,0 +1,12 @@
+{
+   "en": {
+      "menuButton": "Open menu",
+      "links": {
+         "home": "Home",
+         "menu": "Menu",
+         "customize": "Customize"
+      },
+      "shoppingCartButton": "Shopping cart",
+      "shoppingCartModalDescription": "Your order"
+   }
+}

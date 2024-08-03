@@ -1,38 +1,29 @@
 ---
-import LinksContainer from '@/components/customer/LinksContainer.astro'
-import { IngredientForm } from '@/components/ingredient/ingredientForm'
-import FormLayout from '@/layouts/FormLayout.astro'
-import { getRoles } from '@/services/server/jwtServer'
-import type { CustomerRole } from '@/types'
-import { getProfileLinks } from '@/utils/getProfileLinks'
+import IngredientPage from '@/components/pages/Ingredient.astro'
 
 export const prerender = false
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
-
-let customerRole: CustomerRole
-
-try {
-   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
-} catch (error) {   
-   console.error(error);
-   return Astro.redirect('/client/404')
-}
 ---
 
-<FormLayout 
-   title='Create a new ingredient'
-   description='Necessary data to create a new ingredient'
-   activeLink='Account'
->
-   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'INGREDIENT')} />
-   <h1>Create a new ingredient</h1>
-   <IngredientForm client:load  />
-</FormLayout>
-
-<style>
-   h1 {
-      width: 100%;
-      text-align: center;
-   }
-</style>
+<IngredientPage 
+   t={{
+      seo: {
+         title: 'Create a new ingredient',
+         description: 'Necessary data to create a new ingredient'
+      },
+      title: 'Create a new ingredient',
+      ingredientFormTraduction: {
+         labels: {
+            uploadImage: 'Upload ingredient image',
+            imageAuthor: 'Image author',
+            ingredientName: 'Ingredient name',
+            ingredientType: 'Ingredient type'
+         },
+         errorImage: 'Image need to be smaller (2MB or less)',
+         altImage: 'Image to upload as the ingredient image',
+         submitLabel: 'Save ingredient',
+         selectDefaultValue: 'Choose a type'
+      }
+   }}
+/>

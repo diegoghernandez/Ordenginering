@@ -1,12 +1,6 @@
 ---
-import { SignUpForm } from '@/components/security/SignUpForm'
-import FormLayout from '@/layouts/FormLayout.astro'
+import SignUp from '@/components/pages/SignUp.astro'
+import { en } from '@/i18n/pages/SignUp.json'
 ---
-<FormLayout
-   title='Sign Up'
-   description='Put the necessary data to create your account'
-   h1Text='Create your account'
->
-   <p>Have an account? <a href='/client/login'>Log in now</a></p>
-   <SignUpForm client:load />
-</FormLayout>
+
+<SignUp t={en} />

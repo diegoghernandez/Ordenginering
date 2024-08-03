@@ -5,13 +5,23 @@ import type { Ingredient, Pizza } from '@/types'
 import { useRef, useState } from 'react'
 import type { Characteristics } from './PizzaData'
 
+export type AddCustomizePizza = {
+   label: string,
+   dialog: {
+      title: string
+      keepOrdering: string
+      checkout: string
+   }
+}
+
 interface Props {
+   t: AddCustomizePizza
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    characteristics: Characteristics,
    ingredients: Ingredient[]
 }
 
-export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props) {
+export function AddCustomizePizza({ t, pizza, characteristics, ingredients }: Props) {
    const addPizza = useShoppingCart((state) => state.addPizza)
    const [isLoading, setIsLoading] = useState(false)
    const dialogRef = useRef<HTMLDialogElement>(null)
@@ -45,13 +55,13 @@ export function AddCustomizePizza({ pizza, characteristics, ingredients }: Props
             disabled={ingredients.length === 0 || isLoading}
             onClick={addOrder}
          >
-            Add order
+            {t.label}
          </button>
          <SmallModalContainer ref={dialogRef}>
             <>
-               <h2>Added to shopping cart correctly</h2>
-               <a className={PRIMARY__BUTTON} href='/client/menu'>Keep ordering</a>
-               <a className={SECONDARY__BUTTON} href='/client/checkout'>Checkout</a>
+               <h2>{t.dialog.title}</h2>
+               <a className={PRIMARY__BUTTON} href='/client/menu'>{t.dialog.keepOrdering}</a>
+               <a className={SECONDARY__BUTTON} href='/client/checkout'>{t.dialog.checkout}</a>
             </>
          </SmallModalContainer>
       </>
