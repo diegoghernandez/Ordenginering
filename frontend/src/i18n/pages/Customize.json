@@ -1,5 +1,9 @@
 {
    "en": {
+		"seo": {
+			"title": "Customize pizza",
+			"description": "Customize your pizza with a selection quantity of ingredients"
+		},
 		"pizzaData": {
 			"title": "Customize your pizza",
 			"selectLabel": "Size",

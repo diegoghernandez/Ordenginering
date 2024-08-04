@@ -11,6 +11,7 @@ import Layout from '@/layouts/Layout.astro'
 import type { SeoTraduction } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    t: {
@@ -22,6 +23,13 @@ interface Props {
 
 function getUrlImage(specificPath: string) {
 	return `${IMAGE_CDN}/pizza/${specificPath}.avif`
+}
+
+function getCustomizeUrl(pizzaName: string) {
+	return getRelativeLocaleUrl(
+		Astro.currentLocale ?? 'en', 
+		`customize/${pizzaName.replace(' ', '-').toLowerCase()}`
+	)
 }
 
 const { t } = Astro.props
@@ -67,7 +75,7 @@ const { t } = Astro.props
 										(ingredient) => ({ name: ingredient, quantity: 1 }))
 								}} 
 							/>
-							<a class={SECONDARY__BUTTON} href={`/client/customize/${pizza.name.replace(' ', '-').toLowerCase()}`}>
+							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizza.name)}>
 								{t.customize} {pizza.name.toLowerCase()}
 							</a>
 						</div>

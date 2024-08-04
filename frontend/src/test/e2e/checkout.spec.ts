@@ -7,7 +7,7 @@ import { checkIfShoppingCartIsEmpty } from '@/test/e2e/utils/shoppingCartUtils'
 test.describe('Checkout page tests', () => {
    test('Should render the checkout page correctly after login and get the cookie', async ({ page, context }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-      await page.goto('http://localhost:4321/client/checkout')
+      await page.goto('/client/en/checkout')
 
       await expect(page).toHaveTitle('Checkout order')
 
@@ -29,7 +29,7 @@ test.describe('Checkout page tests', () => {
    test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an error', 
    async ({ page, context, worker }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-      await page.goto('http://localhost:4321/client/menu')
+      await page.goto('/client/en/menu')
 
       await checkIfShoppingCartIsEmpty(page)
 
@@ -61,7 +61,7 @@ test.describe('Checkout page tests', () => {
    test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an successful message', 
    async ({ page, context, worker }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-      await page.goto('http://localhost:4321/client/menu')
+      await page.goto('/client/en/menu')
 
       await checkIfShoppingCartIsEmpty(page)
 

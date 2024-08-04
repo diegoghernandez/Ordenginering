@@ -30,10 +30,11 @@ export type PizzaDataTraduction = {
 interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    prebuildIngredients?: string[]
+   localForModalLinks: string
    t: PizzaDataTraduction
 }
 
-export function PizzaData({ pizza, prebuildIngredients = [], t }: Props) {   
+export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks, t }: Props) {   
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const [characteristics, setCharacteristics] = useState<Characteristics>({
       size: Size.MEDIUM,
@@ -88,6 +89,7 @@ export function PizzaData({ pizza, prebuildIngredients = [], t }: Props) {
             />
             <AddCustomizePizza
                t={t.addCustomizePizzaTraduction}
+               localForModalLinks={localForModalLinks}
                pizza={{
                   pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),
                   pizzaImageName: pizza.pizzaImageName,

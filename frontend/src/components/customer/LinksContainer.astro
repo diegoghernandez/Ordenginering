@@ -1,5 +1,6 @@
 ---
 import type { ProfileLinks } from '@/types'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 
 interface Props{
@@ -11,7 +12,12 @@ const { links } = Astro.props
 
 <div>
    {links.map((link) => (
-      <a class={link?.active ? 'active' : ''} href={link.url}>{link.name}</a>
+      <a 
+         href={getRelativeLocaleUrl(Astro.currentLocale ?? 'en', link.url)}
+         class={link?.active ? 'active' : ''} 
+      >
+         {link.name}
+      </a>
    ))}
 </div>
 

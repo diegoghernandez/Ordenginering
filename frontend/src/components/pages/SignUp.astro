@@ -1,5 +1,6 @@
 ---
 import { SignUpForm, type SignUpFormTraduction } from '@/components/security/SignUpForm'
+import { getLoginUrl } from '@/constants/loginUrl'
 import FormLayout from '@/layouts/FormLayout.astro'
 import type { SeoTraduction } from '@/types'
 
@@ -19,6 +20,6 @@ const { t } = Astro.props
    description={t.seo.description}
    h1Text={t.seo.h1}
 >
-   <p>{t.haveAccount} <a href='/client/login'>{t.login}</a></p>
+   <p>{t.haveAccount} <a href={getLoginUrl(Astro.currentLocale ?? 'en')}>{t.login}</a></p>
    <SignUpForm client:load t={t.signUpFormTraduction} />
 </FormLayout>

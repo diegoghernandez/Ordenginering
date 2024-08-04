@@ -7,7 +7,7 @@ test.describe('Customer page e2e tests', () => {
    test.beforeEach(async ({ page, context, worker }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
 
-      await page.goto('/client/customer/32')
+      await page.goto('/client/en/customer/32')
       await page.waitForLoadState('load')
       await worker.use(...changeCustomerHandler)
    })

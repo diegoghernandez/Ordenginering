@@ -7,12 +7,14 @@ import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
+import type { SeoTraduction } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { Image } from 'astro:assets'
 
 interface Props {
    pizza: string
    t: {
+		seo: SeoTraduction
       pizzaData: PizzaDataTraduction
 		pizzaIngredients: PizzaIngredientTraduction
    }
@@ -34,8 +36,8 @@ const ingredients = await getAllIngredients()
 ---
 
 <Layout 
-	title='Customize pizza'
-	description={`Customize your ${pizza.replace('-', ' ')} pizza with a selection quantity of ingredients`}
+	title={t.seo.title}
+	description={t.seo.description}
 	activeLink='Customize'
 >
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
@@ -52,7 +54,7 @@ const ingredients = await getAllIngredients()
 				/>
 			</ImgContainer>
 			<PizzaData 
-				client:load 
+				client:load
 				pizza={{
                pizzaName: pizza,
 					pizzaImageName: pizza + '--small',
@@ -60,6 +62,7 @@ const ingredients = await getAllIngredients()
 				}}
             prebuildIngredients={getIngredients}
             t={t.pizzaData}
+				localForModalLinks={Astro.currentLocale ?? 'en'}
 			/>
 		</div>
 		<div>

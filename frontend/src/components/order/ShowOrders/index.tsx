@@ -5,13 +5,18 @@ import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { en as t } from '@/i18n/components/showOrder.json'
 import type { Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
-import { en as t } from '@/i18n/components/showOrder.json'
 
-export function ShowOrder() {
+interface Props {
+   currentLocal: string
+}
+
+export function ShowOrder({ currentLocal }: Props) {
    const [pizza, setPizza] = useState<Pizza[]>()
    const pizzaList = useShoppingCart((state) => state.pizza)
    const removePizza = useShoppingCart((state) => state.removePizza)
@@ -27,7 +32,7 @@ export function ShowOrder() {
                .reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</strong>
          </h2>
          <a 
-            href='/client/checkout' 
+            href={getRelativeLocaleUrl(currentLocal, 'checkout')}
             tabIndex={pizzaList.length !== 0 ? 0 : -1}
             className={`${PRIMARY__BUTTON} ${pizzaList.length !== 0 ? '' : Styles['disabled']}`} 
          >

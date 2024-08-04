@@ -6,7 +6,7 @@ const app = express()
 const base = '/client'
 app.use(base, express.static('dist/client/'))
 app.use(ssrHandler)
-app.use(base + '/*', (_, res) => res.sendFile(new URL('./dist/client/404.html', import.meta.url).pathname))
+app.use(base + '/*', (_, res) => res.sendFile(new URL('./dist/client/en/404/', import.meta.url).pathname))
 
 app.use(base + '/health', (_, res) => {
    res.status(200).send({

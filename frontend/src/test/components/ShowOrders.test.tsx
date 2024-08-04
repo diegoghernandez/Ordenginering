@@ -8,13 +8,13 @@ describe('ShowOrders component tests', () => {
    afterEach(() => cleanup())
 
    it('Should show a message if there is no pizza' , () => {
-      render(<ShowOrder />)
+      render(<ShowOrder currentLocal='en' />)
       expect(screen.getByText('No orders')).toBeInTheDocument()
    })
 
    it('Should render correctly', async () => {
       setPizza()
-      render(<ShowOrder />)
+      render(<ShowOrder currentLocal='en' />)
       const pizzaContainers = screen.getAllByRole('article')
 
       expect(pizzaContainers).toHaveLength(2)
@@ -33,7 +33,7 @@ describe('ShowOrders component tests', () => {
 
    it('Should update the price and products correctly when you interact with the select quantity component', async () => {
       setPizza()
-      render(<ShowOrder />)
+      render(<ShowOrder currentLocal='en' />)
       const pizzaContainers = screen.getAllByRole('article')
 
       expect(screen.getByRole('heading', { name: 'Total: $1180' })).toBeInTheDocument()
@@ -54,7 +54,7 @@ describe('ShowOrders component tests', () => {
 
    it('Should delete one card and update the price and products correctly', async () => {
       setPizza()
-      render(<ShowOrder />)
+      render(<ShowOrder currentLocal='en' />)
 
       expect(screen.getByRole('heading', { name: 'Total: $1180' })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
@@ -69,7 +69,7 @@ describe('ShowOrders component tests', () => {
 
    it('Should delete all cards and update the price and products correctly', async () => {
       setPizza()
-      render(<ShowOrder />)
+      render(<ShowOrder currentLocal='en' />)
 
       expect(screen.getByRole('heading', { name: 'Total: $1180', hidden: true })).toBeInTheDocument()
       expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()

@@ -3,7 +3,7 @@ import { findNavbarElements } from './utils/navbarUtils'
 import { authHandler } from '@/mocks/domains/authHandler'
 
 test.describe('Sign Up page tests', () => {
-   test.beforeEach(async ({ page }) => await page.goto('http://localhost:4321/client/signup'))
+   test.beforeEach(async ({ page }) => await page.goto('/client/en/signup'))
 
    test('Should render the sign up page correctly', async ({ page }) => {
       await expect(page).toHaveTitle('Sign Up')

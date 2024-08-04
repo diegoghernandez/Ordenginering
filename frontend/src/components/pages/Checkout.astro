@@ -5,6 +5,7 @@ import CountryList from '@/data/countries.json'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getIpData } from '@/services/ipService'
 import type { SeoTraduction } from '@/types'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    t: {
@@ -14,9 +15,10 @@ interface Props {
       form: CheckoutFormTraduction
    }
 }
-const { t } = Astro.props
-
 const ipData = await getIpData(Astro.clientAddress.split(',')[0])
+const currentLocale = Astro.currentLocale ?? 'en'
+
+const { t } = Astro.props
 ---
 
 <FormLayout 
@@ -29,7 +31,8 @@ const ipData = await getIpData(Astro.clientAddress.split(',')[0])
       client:load 
       countryList={CountryList} 
       ipData={ipData}
+      currentLocale={currentLocale}
       t={t.form}
    />
-   <a class={SECONDARY__BUTTON} href='/client/menu'>{t.returnToChoose}</a>
+   <a class={SECONDARY__BUTTON} href={getRelativeLocaleUrl(currentLocale, 'menu')}>{t.returnToChoose}</a>
 </FormLayout>

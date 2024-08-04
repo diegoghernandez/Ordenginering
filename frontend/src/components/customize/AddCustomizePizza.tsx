@@ -4,6 +4,7 @@ import { useShoppingCart } from '@/hooks/useShoppingCart'
 import type { Ingredient, Pizza } from '@/types'
 import { useRef, useState } from 'react'
 import type { Characteristics } from './PizzaData'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 export type AddCustomizePizza = {
    label: string,
@@ -16,12 +17,13 @@ export type AddCustomizePizza = {
 
 interface Props {
    t: AddCustomizePizza
+   localForModalLinks: string
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    characteristics: Characteristics,
    ingredients: Ingredient[]
 }
 
-export function AddCustomizePizza({ t, pizza, characteristics, ingredients }: Props) {
+export function AddCustomizePizza({ t, localForModalLinks, pizza, characteristics, ingredients }: Props) {
    const addPizza = useShoppingCart((state) => state.addPizza)
    const [isLoading, setIsLoading] = useState(false)
    const dialogRef = useRef<HTMLDialogElement>(null)
@@ -60,8 +62,8 @@ export function AddCustomizePizza({ t, pizza, characteristics, ingredients }: Pr
          <SmallModalContainer ref={dialogRef}>
             <>
                <h2>{t.dialog.title}</h2>
-               <a className={PRIMARY__BUTTON} href='/client/menu'>{t.dialog.keepOrdering}</a>
-               <a className={SECONDARY__BUTTON} href='/client/checkout'>{t.dialog.checkout}</a>
+               <a className={PRIMARY__BUTTON} href={getRelativeLocaleUrl(localForModalLinks, 'menu')}>{t.dialog.keepOrdering}</a>
+               <a className={SECONDARY__BUTTON} href={getRelativeLocaleUrl(localForModalLinks, 'checkout')}>{t.dialog.checkout}</a>
             </>
          </SmallModalContainer>
       </>

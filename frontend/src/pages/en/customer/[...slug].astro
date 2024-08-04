@@ -1,10 +1,10 @@
 ---
 import Orders from '@/components/pages/Orders.astro'
+import { getLoginUrl } from '@/constants/loginUrl'
 import { en } from '@/i18n/pages/Orders.json'
-
 export const prerender = false
 
-if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+if(!Astro.cookies.has('jwt')) return Astro.redirect(getLoginUrl(Astro.currentLocale ?? 'en'))
 ---
 
 <Orders t={en} />

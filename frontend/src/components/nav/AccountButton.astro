@@ -3,10 +3,13 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import type { ActiveLink } from '@/types'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    activeLink: ActiveLink
 }
+
+const accountLink = getRelativeLocaleUrl(Astro.currentLocale ?? 'en', 'customer')
 
 const { activeLink } = Astro.props
 ---
@@ -21,7 +24,7 @@ const { activeLink } = Astro.props
    <dialog class='account-dialog'>
       <CardContainer styleClass='account-button-card'>
          <>
-            <a href='/client/customer/'>Customer</a>
+            <a href={accountLink}>Customer</a>
             <button>Dark mode</button>
             <button>Logout</button>
          </>

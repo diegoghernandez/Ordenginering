@@ -12,7 +12,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly', () => {
       setIngredients()
-      render(<PizzaData t={pizzaData} pizza={{
+      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -35,7 +35,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly with the desire ingredients', () => {
       useDesireIngredients.setState({ ingredients: [] })
-      render(<PizzaData t={pizzaData} pizza={{
+      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -53,7 +53,7 @@ describe('PizzaData component tests', () => {
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
-      render(<PizzaData t={pizzaData} pizza={{
+      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'
@@ -81,7 +81,7 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly the added message', async () => {
       setIngredients()
-      render(<PizzaData t={pizzaData} pizza={{
+      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
          pizzaName: 'Pizza',
          pizzaImageName: 'url',
          pizzaImageAuthor: 'author'

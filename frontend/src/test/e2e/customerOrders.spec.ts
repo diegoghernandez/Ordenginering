@@ -6,7 +6,7 @@ test.describe('Customer orders page tests', () => {
    test.beforeEach(async ({ page, context }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
 
-      await page.goto('/client/customer/32/orders')
+      await page.goto('/client/en/customer/32/orders')
    })
 
    test('Should render correctly', async ({ page }) => {

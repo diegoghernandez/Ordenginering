@@ -8,6 +8,7 @@ import { useShoppingCart } from '@/hooks/useShoppingCart'
 import { saveOrder } from '@/services/orderService'
 import type { IPData, OrderRequest } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useEffect, useRef } from 'react'
 
 export type CheckoutFormTraduction = {
@@ -33,10 +34,11 @@ export type CheckoutFormTraduction = {
 interface Props {
    countryList: { code: string, name: string }[]
    ipData: IPData
+   currentLocale: string
    t: CheckoutFormTraduction
 }
 
-export function CheckoutForm({ countryList, ipData, t }: Props) {
+export function CheckoutForm({ countryList, ipData, currentLocale, t }: Props) {
    const { isLoading, error, response, handlePromise } = useServicePromise<OrderRequest, string>(saveOrder)
    const pizzaList = useShoppingCart((state) => state.pizza)
    const clearCart = useShoppingCart((state) => state.clearCart)
@@ -83,7 +85,7 @@ export function CheckoutForm({ countryList, ipData, t }: Props) {
          <SmallModalContainer ref={dialogRef}>
             <>
                <h2>{response?.message}</h2>
-               <a href='/client/menu' className={PRIMARY__BUTTON}>{t.dialogAccept}</a>
+               <a href={getRelativeLocaleUrl(currentLocale, 'menu')} className={PRIMARY__BUTTON}>{t.dialogAccept}</a>
             </>
          </SmallModalContainer>
          <CustomSelect

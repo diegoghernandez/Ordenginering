@@ -5,7 +5,7 @@ import { getProfileLinks } from '@/utils/getProfileLinks'
 test.describe('Ingredient page tests', () => {
    test.beforeEach(async ({ page, context }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-      await page.goto('http://localhost:4321/client/customer/ingredient')
+      await page.goto('client/en/customer/ingredient')
    })
 
    test('Should render ingredient page correctly', async ({ page }) => {

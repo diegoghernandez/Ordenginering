@@ -4,7 +4,7 @@ import { findNavbarElements } from './utils/navbarUtils'
 test.describe('Customize page e2e tests', () => {
    test('Should render correctly', async ({ page }) => {
       test.setTimeout(1000 * 50)
-      await page.goto('/client/customize/empty')
+      await page.goto('/client/en/customize/empty')
       await expect(page).toHaveTitle('Customize pizza')
 
       await findNavbarElements(page)
@@ -49,7 +49,7 @@ test.describe('Customize page e2e tests', () => {
    })
 
    test('Should render correctly if you choose click in the personalize link in the prebuild pizza in the menu page', async ({ page }) => {
-      await page.goto('/client/menu')
+      await page.goto('/client/en/menu')
 
       await page.getByRole('article').filter({ hasText: 'Supreme' }).getByRole('link').click()
 
@@ -76,7 +76,7 @@ test.describe('Customize page e2e tests', () => {
    })
 
    test('Should change the total value, the quantity and the desire ingredients when you interact with the page', async ({ page }) => {
-      await page.goto('/client/customize/empty')
+      await page.goto('/client/en/customize/empty')
       const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Customize your pizza' }) })
 
       await expect(page.getByText('Total: $100')).toBeVisible()
@@ -155,7 +155,7 @@ test.describe('Customize page e2e tests', () => {
    })
 
    test('Should interact with the ingredients and save the order correctly', async ({ page }) => {
-      await page.goto('/client/customize/empty')
+      await page.goto('/client/en/customize/empty')
 
       await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) })
          .getByLabel('Increase quantity').click({ delay: 1000 * 2 })
