@@ -6,7 +6,8 @@ import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 
 
 export const getStaticPaths = (() => {
-	return pizzaList.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
+	return pizzaList.en
+		.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
 		.concat({ params: { pizza: 'empty' }})
 }) satisfies GetStaticPaths
 

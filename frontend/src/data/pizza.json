@@ -1,74 +1,150 @@
-[
-   {
-      "name": "Pepperoni",
-      "image": {
-         "name": "pepperoni",
-         "author": "Fernando Andrade's photo on Unsplash"
+{
+   "en": [
+      {
+         "name": "Pepperoni",
+         "image": {
+            "name": "pepperoni",
+            "author": "Fernando Andrade's photo on Unsplash"
+         },
+         "ingredients": ["Pepperoni", "Mozzarella"]
       },
-      "ingredients": ["Pepperoni", "Mozzarella"]
-   },
-   {
-      "name": "Hawaiana",
-      "image": {
-         "name": "hawaiana",
-         "author": "bckfwd's photo on Unsplash"
+      {
+         "name": "Hawaiana",
+         "image": {
+            "name": "hawaiana",
+            "author": "bckfwd's photo on Unsplash"
+         },
+         "ingredients": ["Ham", "Pineapple", "Mozzarella"]
       },
-      "ingredients": ["Ham", "Pineapple", "Mozzarella"]
-   },
-   {
-      "name": "Margherita",
-      "image": {
-         "name": "margherita",
-         "author": "Aurélien Lemasson-Théobald's photo on Unsplash"
+      {
+         "name": "Margherita",
+         "image": {
+            "name": "margherita",
+            "author": "Aurélien Lemasson-Théobald's photo on Unsplash"
+         },
+         "ingredients": ["Tomato", "Mozzarella", "Basil"]
       },
-      "ingredients": ["Tomato", "Mozzarella", "Basil"]
-   },
-   {
-      "name": "Four Cheese",
-      "image": {
-         "name": "four-cheese",
-         "author": "Getúlio Moraes's photo on Unsplash"
+      {
+         "name": "Four Cheese",
+         "image": {
+            "name": "four-cheese",
+            "author": "Getúlio Moraes's photo on Unsplash"
+         },
+         "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
       },
-      "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
-   },
-   {
-      "name": "Vegetarian",
-      "image": {
-         "name": "vegetarian",
-         "author": "LUM3N's photo on Unsplash"
+      {
+         "name": "Vegetarian",
+         "image": {
+            "name": "vegetarian",
+            "author": "LUM3N's photo on Unsplash"
+         },
+         "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
       },
-      "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
-   },
-   {
-      "name": "BBQ Chicken",
-      "image": {
-         "name": "bbq-chicken",
-         "author": "Erik Mclean's photo on Unsplash"
+      {
+         "name": "BBQ Chicken",
+         "image": {
+            "name": "bbq-chicken",
+            "author": "Erik Mclean's photo on Unsplash"
+         },
+         "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
       },
-      "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
-   },
-   {
-      "name": "Supreme",
-      "image": {
-         "name": "supreme",
-         "author": "Drake Whitney's photo on Unsplash"
+      {
+         "name": "Supreme",
+         "image": {
+            "name": "supreme",
+            "author": "Drake Whitney's photo on Unsplash"
+         },
+         "ingredients": ["Pepperoni", "Tomato sauce", "Bell Peppers", "Onions", "Black olives", "Mozzarella"]
       },
-      "ingredients": ["Pepperoni", "Tomato sauce", "Bell Peppers", "Onions", "Black Olives", "Mozzarella"]
-   },
-   {
-      "name": "Mushroom",
-      "image": {
-         "name": "mushroom",
-         "author": "Lavi Perchik's photo on Unsplash"
+      {
+         "name": "Mushroom",
+         "image": {
+            "name": "mushroom",
+            "author": "Lavi Perchik's photo on Unsplash"
+         },
+         "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
       },
-      "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
-   },
-   {
-      "name": "Seafood",
-      "image": {
-         "name": "seafood",
-         "author": "serjan midili's photo on Unsplash"
+      {
+         "name": "Seafood",
+         "image": {
+            "name": "seafood",
+            "author": "serjan midili's photo on Unsplash"
+         },
+         "ingredients": ["Shrimp", "Calamar", "Mussels", "Garlic", "Mozzarella"]
+      }
+   ],
+   "es": [
+      {
+         "name": "Pepperoni",
+         "image": {
+            "name": "pepperoni",
+            "author": "Foto de Fernando Andrade en Unsplash"
+         },
+         "ingredients": ["Pepperoni", "Mozzarella"]
       },
-      "ingredients": ["Shrimp", "Calamar", "Mussels", "Garlic", "Mozzarella"]
-   }
-]
+      {
+         "name": "Hawaiana",
+         "image": {
+            "name": "hawaiana",
+            "author": "Foto de bckfwd en Unsplash"
+         },
+         "ingredients": ["Jamón", "Piña", "Mozzarella"]
+      },
+      {
+         "name": "Margarita",
+         "image": {
+            "name": "margherita",
+            "author": "Foto de Aurélien Lemasson-Théobald en Unsplash"
+         },
+         "ingredients": ["Tomate", "Mozzarella", "Albahaca"]
+      },
+      {
+         "name": "Cuatro quesos",
+         "image": {
+            "name": "four-cheese",
+            "author": "Foto de Getúlio Moraes en Unsplash"
+         },
+         "ingredients": ["Mozzarella", "Cheddar", "Parmesano", "Gouda"]
+      },
+      {
+         "name": "Vegetariana",
+         "image": {
+            "name": "vegetarian",
+            "author": "Foto de LUM3N en Unsplash"
+         },
+         "ingredients": ["Pimientos", "Cebolla", "Hongos", "Olivas", "Mozzarella"]
+      },
+      {
+         "name": "Pollo BBQ",
+         "image": {
+            "name": "bbq-chicken",
+            "author": "Foto de Erik Mclean en Unsplash"
+         },
+         "ingredients": ["Salsa BBQ", "Pollo a la parrilla", "Cebollas rojas", "Mozzarella"]
+      },
+      {
+         "name": "Suprema",
+         "image": {
+            "name": "supreme",
+            "author": "Foto de Drake Whitney en Unsplash"
+         },
+         "ingredients": ["Pepperoni", "Salsa de tomate", "Pimientos", "Cebolla", "Olivos negros", "Mozzarella"]
+      },
+      {
+         "name": "Hongos",
+         "image": {
+            "name": "mushroom",
+            "author": "Foto de Lavi Perchik en Unsplash"
+         },
+         "ingredients": ["Hongos", "Mozzarella", "Ajo", "Orégano"]
+      },
+      {
+         "name": "Mariscos",
+         "image": {
+            "name": "seafood",
+            "author": "Foto de serjan midili en Unsplash"
+         },
+         "ingredients": ["Camarones", "Calamar", "Mejillones", "Ajo", "Mozzarella"]
+      }
+   ]   
+}

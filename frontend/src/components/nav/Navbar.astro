@@ -13,7 +13,7 @@ const t = navbarTranslation[currentLocale as 'en' | 'es']
 const pages = [
 	{ name: t.links.home, link: getRelativeLocaleUrl(currentLocale, '')},
 	{ name: t.links.menu, link: getRelativeLocaleUrl(currentLocale, 'menu')},
-	{ name: t.links.customize, link: getRelativeLocaleUrl(currentLocale, 'customize/empty')}
+	{ name: t.links.customize, link: getRelativeLocaleUrl(currentLocale, `customize/${t.empty}`)}
 ]
 
 interface Props {

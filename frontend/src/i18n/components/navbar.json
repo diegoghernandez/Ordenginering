@@ -6,6 +6,7 @@
          "menu": "Menu",
          "customize": "Customize"
       },
+      "empty": "empty",
       "shoppingCartButton": "Shopping cart",
       "shoppingCartModalDescription": "Your order"
    },
@@ -16,6 +17,7 @@
          "menu": "Menu",
          "customize": "Personalizar"
       },
+      "empty": "vacia",
       "shoppingCartButton": "Carrito de compras",
       "shoppingCartModalDescription": "Tu orden"
    }

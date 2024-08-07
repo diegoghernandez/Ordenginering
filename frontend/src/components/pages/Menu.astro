@@ -44,7 +44,7 @@ const { t } = Astro.props
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<h1>{t.seo.h1}</h1>
 		<div>
-			{pizzaList.map((pizza, index) => (
+			{pizzaList[Astro.currentLocale as 'en' | 'es' ?? 'en'].map((pizza, index) => (
 				<CardContainer styleClass='pizza-container'>
 					<>
 						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>

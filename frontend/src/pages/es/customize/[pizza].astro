@@ -4,10 +4,10 @@ import pizzaList from '@/data/pizza.json'
 import { es } from '@/i18n/pages/Customize.json'
 import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 
-
 export const getStaticPaths = (() => {
-	return pizzaList.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
-		.concat({ params: { pizza: 'empty' }})
+	return pizzaList.es
+		.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
+		.concat({ params: { pizza: 'vacia' }})
 }) satisfies GetStaticPaths
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>

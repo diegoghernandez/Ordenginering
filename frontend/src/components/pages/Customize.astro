@@ -24,13 +24,28 @@ const { pizza, t } = Astro.props
 
 const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
 
-const getIngredients = pizzaList
+const currentLocale = Astro.currentLocale as 'en' | 'es' ?? 'en'
+const emptyAuthor = currentLocale === 'en'
+	? "Mariusz Słoński's photo on Unsplash"
+	: 'Foto de Mariusz Słoński en Unsplash'
+
+const currentPizzaList = pizzaList[currentLocale]
+const getIngredients = currentPizzaList
 	.filter(({ name }) => compareStringsOfNames(pizza, name))
 	.flatMap(({ ingredients }) => ingredients)
 
-const getAuhor = pizza !== 'empty' ? 
-	pizzaList.filter(({ name }) => compareStringsOfNames(name, pizza)).map(({ image }) => image.author)[0]
-	: "Mariusz Słoński's photo on Unsplash"
+
+const isEmpty = pizza !== 'empty' && pizza !== 'vacia'
+	
+const getImage = isEmpty
+	? pizzaList
+		.en[currentPizzaList.findIndex(({ name }) => compareStringsOfNames(name, pizza))]
+		.image.name
+	: 'empty'
+
+const getAuhor = isEmpty
+	? currentPizzaList.filter(({ name }) => compareStringsOfNames(name, pizza)).map(({ image }) => image.author)[0]
+	: emptyAuthor
 
 const ingredients = await getAllIngredients()
 ---
@@ -45,7 +60,7 @@ const ingredients = await getAllIngredients()
 			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
 				<Image 
 					class='pizza-custom' 
-					src={`${IMAGE_CDN}/pizza/${pizza}.avif`}
+					src={`${IMAGE_CDN}/pizza/${getImage}.avif`}
 					alt={`${getDefaultName(pizza)} pizza`}
 					width='320'
 					height='260'
