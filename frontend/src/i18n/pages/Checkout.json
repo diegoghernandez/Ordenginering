@@ -26,5 +26,33 @@
             "apartment": "Apartment"
          }
       }
+   },
+   "es": {
+      "seo": {
+         "title": "Paga tu orden",
+         "description": "Pon tus datos para saber dónde enviar la pizza",
+         "h1": "Elija la dirección de entrega"
+      },
+      "require": "* Campo requerido",
+      "returnToChoose": "Regresar a elegir",
+      "form": {
+         "submitLabel": "Pagar",
+         "dialogAccept": "Aceptar",
+         "selectDefaultText": "--Por favor, elija una opción--",
+         "labels": {
+            "country": "País*",
+            "state": "Estado*",
+            "city": "Ciudad*",
+            "street": "Calle*",
+            "houseNumber": "Número de casa*",
+            "floor": "Piso",
+            "apartment": "Apartamento"
+         },
+         "placeholder": {
+            "houseNumber": "Número de casa",
+            "floor": "Piso",
+            "apartment": "Apartamento"
+         }
+      }
    }
 }

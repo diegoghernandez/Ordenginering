@@ -31,7 +31,12 @@ try {
    description={t.seo.description}
    activeLink='Account'
 >
-   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'INGREDIENT')} />
+   <LinksContainer links={getProfileLinks({
+      customerId: customerRole.id,
+      desireTranslation: Astro.currentLocale,
+      role: customerRole.role, 
+      active: 'INGREDIENT'
+   })} />
    <h1>{t.title}</h1>
    <IngredientForm client:load t={t.ingredientFormTraduction}  />
 </FormLayout>

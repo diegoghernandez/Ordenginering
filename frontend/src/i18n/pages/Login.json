@@ -17,5 +17,24 @@
             "response": "Log in successful"
          }
       }
+   },
+   "es": {
+      "seo": {
+         "title": "Iniciar sesión",
+         "description": "Iniciar sesión en tu cuenta",
+         "h1": "Iniciar sesión en tu cuenta"
+      },
+      "accountQuestion": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "logInFormTraduction": {
+         "labels": {
+            "email": "Email",
+            "password": "Contraseña"
+         },
+         "form": {
+            "submitLabel": "Inicia sesión",
+            "response": "Inicio de sesión exitoso"
+         }
+      }
    }
 }

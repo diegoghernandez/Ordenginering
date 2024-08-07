@@ -20,5 +20,27 @@
             "apartment": "Apartment"
          }
       }
+   },
+   "es": {
+      "seo": {
+         "title": "Ordenes del cliente",
+         "description": "Ver que ordenes has hecho"
+      },
+      "titleError": "Sin ordenes",
+      "showPastOrdersTraduction": {
+         "products": "productos",
+         "orderModalTraduction": {
+            "dialogTitle": "Tu orden",
+            "date": "Fecha",
+            "products": "Productos",
+            "country": "País",
+            "state": "Estado",
+            "city": "Ciudad",
+            "street": "Calle",
+            "houseNumber": "Número de casa",
+            "floor": "Piso",
+            "apartment": "Departamento"
+         }
+      }
    }
 }

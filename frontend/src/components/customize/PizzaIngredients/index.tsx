@@ -7,6 +7,7 @@ import type { IngredientRequest } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
+import { en } from '@/i18n/pages/Customize.json'
 
 export type PizzaIngredientTraduction = {
    ingredientTypeList: string[]
@@ -23,13 +24,14 @@ interface Props {
    t: PizzaIngredientTraduction
 }
 
+const ingredientTypeList = en.pizzaIngredients.ingredientTypeList
+
 export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
-   const [desiredType, setDesiredType] = useState(t.ingredientTypeList[0])
-
-const ingredientTypeList = Object.freeze(t.ingredientTypeList)
+   const [desiredType, setDesiredType] = useState(ingredientTypeList[0])
+   const ingredientTypeListTranslate = t.ingredientTypeList
 
    useEffect(() => {
       for (const prebuildIngredient of prebuildIngredients) {
@@ -40,13 +42,13 @@ const ingredientTypeList = Object.freeze(t.ingredientTypeList)
    return (
       <>
          <div className={Styles['ingredient-buttons']}>
-            {ingredientTypeList.map((type) => (
+            {ingredientTypeList.map((type, index) => (
                <button 
                   key={type}
                   className={type === desiredType ? Styles['active'] : ''}
                   onClick={() => setDesiredType(type)}
                >
-                  {type[0] + type.substring(1).toLowerCase()}
+                  {ingredientTypeListTranslate[index][0] + ingredientTypeListTranslate[index].substring(1).toLowerCase()}
                </button>
             ))}
          </div>

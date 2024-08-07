@@ -1,17 +1,33 @@
-export function getProfileLinks(customerId: number, role: '' | 'USER' | 'ADMIN', active: 'PROFILE' | 'ORDER' | 'INGREDIENT') {
+import profileLinksTranslation from '@/i18n/components/profileLinks.json'
+
+interface Props {
+   customerId: number,
+   desireTranslation?: string,
+   role: '' | 'USER' | 'ADMIN',
+   active: 'PROFILE' | 'ORDER' | 'INGREDIENT'
+}
+
+export function getProfileLinks({
+   customerId,
+   desireTranslation,
+   role,
+   active
+}: Props) {
+   const t = profileLinksTranslation[desireTranslation as 'en' | 'es' ?? 'en']
+
    const profileLinks = [{
       url: 'customer/' + customerId,
-      name: 'Profile',
+      name: t.Profile,
       active: active === 'PROFILE'
    }, {
       url: `customer/${customerId}/orders`,
-      name: 'Orders',
+      name: t.Orders,
       active: active === 'ORDER'
    }]
 
    if (role === 'ADMIN') profileLinks.push({
       url: 'customer/ingredient',
-      name: 'Ingredient',
+      name: t.Ingredient,
       active: active === 'INGREDIENT'
    })
 

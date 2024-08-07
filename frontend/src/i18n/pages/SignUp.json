@@ -18,5 +18,25 @@
             "birthDate": "Birth Date"
          }
       }
+   },
+   "es": {
+      "seo": {
+         "title": "Regístrate",
+         "description": "Pon los datos necesarios para crear tu cuenta",
+         "h1": "Crea tu cuenta"
+      },
+      "haveAccount": "¿Tienes una cuenta?",
+      "login": "Inicia sesión",
+      "signUpFormTraduction": {
+         "submitLabel": "Regístrate",
+         "passwordError": "Las contraseñas no coinciden",
+         "labels": {
+            "customerName": "Nombre",
+            "email": "Email",
+            "password": "Contraseña",
+            "confirmPassword": "Confirmar contraseña",
+            "birthDate": "Cumpleaños"
+         }
+      }
    }
 }

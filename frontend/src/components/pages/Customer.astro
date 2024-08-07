@@ -3,15 +3,13 @@ import { EmailForm, type EmailFormTraduction } from '@/components/customer/Email
 import LinksContainer from '@/components/customer/LinksContainer.astro'
 import { PasswordForm, type PasswordFormTraduction } from '@/components/customer/PasswordForm'
 import { ProfileForm, type ProfileFormTraduction } from '@/components/customer/ProfileForm'
-import { getLoginUrl } from '@/constants/loginUrl'
 import FormLayout from '@/layouts/FormLayout.astro'
-import { getCustomerData } from '@/services/server/customerServer'
-import { getRoles } from '@/services/server/jwtServer'
 import type { Customer, CustomerRole, SeoTraduction } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
-import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
+   customer: Customer
+   customerRole: CustomerRole
    t: {
       seo: SeoTraduction
       profileFormTraduction: ProfileFormTraduction
@@ -20,24 +18,7 @@ interface Props {
    }
 }
 
-const { id } = Astro.params
-
-const currentLocale = Astro.currentLocale ?? 'en'
-
-if(id === '0') return Astro.redirect(getLoginUrl(currentLocale))
-
-let customer: Customer
-let customerRole: CustomerRole
-
-try {
-   customer = await getCustomerData(Number(id), Astro.cookies.get('jwt')?.value)
-   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
-} catch (error) {   
-   console.error(error);
-   return Astro.redirect(getRelativeLocaleUrl(currentLocale, '404'))
-}
-
-const { t } = Astro.props
+const { customer, customerRole, t } = Astro.props
 ---
 
 <FormLayout 
@@ -45,7 +26,12 @@ const { t } = Astro.props
    description={t.seo.description}
    activeLink='Account'
 >
-   <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'PROFILE')} />
+   <LinksContainer links={getProfileLinks({
+      customerId: customerRole.id,
+      desireTranslation: Astro.currentLocale,
+      role: customerRole.role, 
+      active: 'PROFILE'
+   })} />
    <ProfileForm 
       client:load
       name={customer.customerName}

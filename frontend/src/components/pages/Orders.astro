@@ -9,6 +9,7 @@ import type { CustomerRole, PageOrder, SeoTraduction } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 interface Props {
+   customerRole: CustomerRole
    t: {
       seo: SeoTraduction
       titleError: string
@@ -16,24 +17,13 @@ interface Props {
    }
 }
 
-const { t } = Astro.props
-
+const { customerRole, t } = Astro.props
 const { slug } = Astro.params
 
-if(!slug?.match('[0-9]+\/orders')) return Astro.redirect('/404')
-
 let orders: PageOrder | null
-let customerRole: CustomerRole
 
 try {
-   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
-} catch (error) {
-   console.error(error);
-   return Astro.redirect('/client/404')
-}
-
-try {
-   orders = await getOrdersByAccount(Number(slug.split('/')[0]), Astro.cookies.get('jwt')?.value, 0)
+   orders = await getOrdersByAccount(Number(slug?.split('/')[0]), Astro.cookies.get('jwt')?.value, 0)
 } catch (error) {   
    console.error(error);
    orders = null
@@ -46,11 +36,16 @@ try {
 	activeLink='Account'
 >
    <main transition:name={MAIN__TAG__ANIMATION__NAME}>
-      <LinksContainer links={getProfileLinks(customerRole.id, customerRole.role, 'ORDER')} />
+      <LinksContainer links={getProfileLinks({
+         customerId: customerRole.id,
+         desireTranslation: Astro.currentLocale,
+         role: customerRole.role, 
+         active: 'ORDER'
+      })} />
       {orders !== null ?
          <ShowPastOrders
             client:load
-            id={Number(slug.split('/')[0])}
+            id={Number(slug?.split('/')[0])}
             initialData={{
                content: [orders?.content],
                pageNumber: orders?.pageable.pageNumber,

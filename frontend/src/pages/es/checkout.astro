@@ -1,0 +1,11 @@
+---
+import CheckoutPage from '@/components/pages/Checkout.astro'
+import { getLoginUrl } from '@/constants/loginUrl'
+import { es } from '@/i18n/pages/Checkout.json'
+
+export const prerender = false
+
+if(!Astro.cookies.has('jwt')) return Astro.redirect(getLoginUrl(Astro.currentLocale ?? 'en'))
+---
+
+<CheckoutPage t={es} />

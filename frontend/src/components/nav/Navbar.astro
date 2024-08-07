@@ -3,11 +3,12 @@ import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import AccountButton from '@/components/nav/AccountButton.astro'
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
-import { en as t } from '@/i18n/components/navbar.json'
+import navbarTranslation from '@/i18n/components/navbar.json'
 import type { ActiveLink } from '@/types'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 const currentLocale = Astro.currentLocale ?? 'en'
+const t = navbarTranslation[currentLocale as 'en' | 'es']
 
 const pages = [
 	{ name: t.links.home, link: getRelativeLocaleUrl(currentLocale, '')},
@@ -24,7 +25,7 @@ const { activeLink } = Astro.props
 
 <nav>
    <div class='menu--movil'>
-      <button class='interaction--buttons' aria-label={t.menuButton}>
+      <button id='menu-button' class='interaction--buttons' aria-label={t.menuButton}>
          <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
          </svg>
@@ -67,14 +68,14 @@ const { activeLink } = Astro.props
 
 <script>
    document.addEventListener('astro:page-load', () => {
-      const openMovilMenuButton = document.querySelector("button[aria-label='Open menu']")
+      const openMovilMenuButton = document.querySelector('#menu-button')
       const movilMenuModal = document.querySelector('.menu--movil dialog')
 
       if (openMovilMenuButton instanceof HTMLButtonElement && movilMenuModal instanceof HTMLDialogElement) {
          openMovilMenuButton.addEventListener('click', () => movilMenuModal.showModal())
       }
 
-      const openCartButton = document.querySelector("button[aria-label='Shopping cart']")
+      const openCartButton = document.querySelector('#shopping-cart')
       const cartModalList = document.querySelectorAll('.nav--interaction--buttons dialog')
       const cartModal = cartModalList[cartModalList.length - 1]
 

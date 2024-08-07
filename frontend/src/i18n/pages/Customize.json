@@ -1,7 +1,7 @@
 {
    "en": {
 		"seo": {
-			"title": "Customize pizza",
+			"title": "Customize your pizza",
 			"description": "Customize your pizza with a selection quantity of ingredients"
 		},
 		"pizzaData": {
@@ -28,6 +28,38 @@
 			"selectQuantity": {
 				"decrease": "Decrease quantity",
 				"increase": "Increase quantity"
+			}
+		}
+	},
+   "es": {
+		"seo": {
+			"title": "Personaliza tu pizza",
+			"description": "Personaliza tu pizza con una selecta cantidad de ingredientes"
+		},
+		"pizzaData": {
+			"title": "Personaliza tu pizza",
+			"selectLabel": "Tamaño",
+			"selectOptions": ["Pequeña", "Media", "Larga"],
+			"quantity": "Cantidad",
+			"selectedQuantity": {
+				"decrease": "Disminuir cantidad",
+				"increase": "Incrementar cantidad"
+			},
+			"addCustomizePizzaTraduction": {
+				"label": "Agregar orden",
+				"dialog": {
+					"title": "Agregado al carrito de compras correctamente",
+					"keepOrdering": "Seguir ordenando",
+					"checkout": "Pagar"
+				}
+			}
+		},
+		"pizzaIngredients": {
+			"ingredientTypeList": ["TODOS", "VEGETAL", "CARNE", "QUESO", "SALSA"],
+			"quantity": "Cantidad",
+			"selectQuantity": {
+				"decrease": "Disminuir cantidad",
+				"increase": "Incrementar cantidad"
 			}
 		}
 	}

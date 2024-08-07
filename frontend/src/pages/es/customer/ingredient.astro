@@ -1,0 +1,29 @@
+---
+import IngredientPage from '@/components/pages/Ingredient.astro'
+
+export const prerender = false
+
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+---
+
+<IngredientPage 
+   t={{
+      seo: {
+         title: 'Create a new ingredient',
+         description: 'Necessary data to create a new ingredient'
+      },
+      title: 'Create a new ingredient',
+      ingredientFormTraduction: {
+         labels: {
+            uploadImage: 'Upload ingredient image',
+            imageAuthor: 'Image author',
+            ingredientName: 'Ingredient name',
+            ingredientType: 'Ingredient type'
+         },
+         errorImage: 'Image need to be smaller (2MB or less)',
+         altImage: 'Image to upload as the ingredient image',
+         submitLabel: 'Save ingredient',
+         selectDefaultValue: 'Choose a type'
+      }
+   }}
+/>

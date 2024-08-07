@@ -1,0 +1,12 @@
+{
+   "en": {
+      "Profile": "Profile",
+      "Orders": "Orders",
+      "Ingredient": "Ingredient"
+   },
+   "es": {
+      "Profile": "Perfil",
+      "Orders": "Ordenes",
+      "Ingredient": "Ingrediente"
+   }
+}

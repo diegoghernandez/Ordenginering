@@ -4,10 +4,14 @@ import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import type { ActiveLink } from '@/types'
 import { getRelativeLocaleUrl } from 'astro:i18n'
+import accountTranslation from '@/i18n/components/accountButton.json'
 
 interface Props {
    activeLink: ActiveLink
 }
+
+const currentLocale = Astro.currentLocale ?? 'en'
+const t = accountTranslation[currentLocale as 'en' | 'es']
 
 const accountLink = getRelativeLocaleUrl(Astro.currentLocale ?? 'en', 'customer')
 
@@ -16,7 +20,7 @@ const { activeLink } = Astro.props
 
 <div class:list={['account-button', activeLink === 'Account' ? 'active' : '' ]}>
    <button>
-      Account
+      {t.accountButton}
       <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-user'>
          <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z'/>
       </svg>
@@ -24,17 +28,17 @@ const { activeLink } = Astro.props
    <dialog class='account-dialog'>
       <CardContainer styleClass='account-button-card'>
          <>
-            <a href={accountLink}>Customer</a>
-            <button>Dark mode</button>
-            <button>Logout</button>
+            <a href={accountLink}>{t.accountDialog.customer} </a>
+            <button>{t.accountDialog.darkMode}</button>
+            <button>{t.accountDialog.logout}</button>
          </>
       </CardContainer>
    </dialog>
    <SmallModalContainer>
       <>
-         <h3>Do you want to close your session?</h3>
-         <button class={PRIMARY__BUTTON}>Accept</button>
-         <button class={SECONDARY__BUTTON}>Cancel</button>
+         <h3>{t.logoutModal.closeQuestion}</h3>
+         <button class={PRIMARY__BUTTON}>{t.logoutModal.accept}</button>
+         <button class={SECONDARY__BUTTON}>{t.logoutModal.cancel}</button>
       </>
    </SmallModalContainer>
 </div>

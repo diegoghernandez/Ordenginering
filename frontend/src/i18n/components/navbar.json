@@ -8,5 +8,15 @@
       },
       "shoppingCartButton": "Shopping cart",
       "shoppingCartModalDescription": "Your order"
+   },
+   "es": {
+      "menuButton": "Abrir menu",
+      "links": {
+         "home": "Inicio",
+         "menu": "Menu",
+         "customize": "Personalizar"
+      },
+      "shoppingCartButton": "Carrito de compras",
+      "shoppingCartModalDescription": "Tu orden"
    }
 }

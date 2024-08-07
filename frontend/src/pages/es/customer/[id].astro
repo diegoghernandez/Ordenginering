@@ -1,7 +1,7 @@
 ---
 import CustomerPage from '@/components/pages/Customer.astro'
 import { getLoginUrl } from '@/constants/loginUrl'
-import { en } from '@/i18n/pages/Customer.json'
+import { es } from '@/i18n/pages/Customer.json'
 import { getCustomerData } from '@/services/server/customerServer'
 import { getRoles } from '@/services/server/jwtServer'
 import type { Customer, CustomerRole } from '@/types'
@@ -13,7 +13,7 @@ if(!Astro.cookies.has('jwt')) return Astro.redirect(getLoginUrl(Astro.currentLoc
 
 const { id } = Astro.params
 
-if(id === '0') return Astro.redirect(getLoginUrl( Astro.currentLocale ?? 'en'))
+if(id === '0') return Astro.redirect(getLoginUrl(Astro.currentLocale ?? 'en'))
 
 let customer: Customer
 let customerRole: CustomerRole
@@ -27,8 +27,4 @@ try {
 }
 ---
 
-<CustomerPage
-   customer={customer}
-   customerRole={customerRole}
-   t={en}  
-/>
+<CustomerPage customer={customer} customerRole={customerRole}  t={es} />

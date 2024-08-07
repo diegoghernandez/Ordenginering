@@ -1,0 +1,28 @@
+{
+   "en": {
+      "accountButton": "Customer",
+      "accountDialog": {
+         "customer": "Account",
+         "darkMode": "Dark mode",
+         "logout": "Logout"
+      },
+      "logoutModal": {
+         "closeQuestion": "Do you want to close your session?",
+         "accept": "Accept",
+         "cancel": "Cancel"
+      }
+   },
+   "es": {
+      "accountButton": "Cliente",
+      "accountDialog": {
+         "customer": "Cuenta",
+         "darkMode": "Modo oscuro",
+         "logout": "Cerrar sesión"
+      },
+      "logoutModal": {
+         "closeQuestion": "¿Quieres cerrar tu sesión?",
+         "accept": "Aceptar",
+         "cancel": "Cancelar"
+      }
+   }
+}

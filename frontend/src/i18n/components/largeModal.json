@@ -1,5 +1,8 @@
 {
    "en": {
       "closeLargeModalButton": "Close menu"
+   },
+   "es": {
+      "closeLargeModalButton": "Cerrar menu"
    }
 }

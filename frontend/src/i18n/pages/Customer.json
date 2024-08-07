@@ -1,7 +1,7 @@
 {
    "en": {
       "seo": {
-         "title": "Customer page",
+         "title": "Customer",
          "description": "Your page to change any value of your account"
       },
       "profileFormTraduction": {
@@ -29,6 +29,38 @@
          },
          "title": "Email address",
          "submitLabel": "Save Email"
+      }
+   },
+   "es": {
+      "seo": {
+         "title": "Cuenta",
+         "description": "Your page to change any value of your account"
+      },
+      "profileFormTraduction": {
+         "labels": {
+            "name": "Nombre",
+            "birthDate": "Cumpleaños"
+         },
+         "title": "Perfil",
+         "submitLabel": "Guardar Cambios"
+      },
+      "passwordFormTraduction": {
+         "labels": {
+            "currentPassword": "Contraseña Actual",
+            "newPassword": "Contraseña Nueva",
+            "repeatPassword": "Repite la Contraseña"
+         },
+         "title": "Contraseña",
+         "submitLabel": "Guardar Contraseña"
+      },
+      "emailFormTraduction": {
+         "labels": {
+            "currentEmail": "Dirección actual de Email",
+            "newEmail": "Nueva dirección de Email",
+            "currentPassword": "Contraseña Actual"
+         },
+         "title": "Dirección de Email",
+         "submitLabel": "Guardar Email"
       }
    }
 }
