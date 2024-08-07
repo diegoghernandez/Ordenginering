@@ -52,6 +52,7 @@ try {
                last: orders?.last
             }}
             t={t.showPastOrdersTraduction}
+            timeFormat={Astro.currentLocale ?? 'en'}
          /> :
          <h1>{t.titleError}</h1>
       }

@@ -23,18 +23,21 @@ interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void
    order: Order
    t: OrderModalTraduction
+   timeFormat: string
 }
 
-export function OrderModal({ funToSaveDialog, order, t }: Props) {
+export function OrderModal({ funToSaveDialog, order, t, timeFormat }: Props) {
    return (
       <LargeModalContainer ref={funToSaveDialog} position='right' description={t.dialogTitle}>
          <section className={Styles['order-container']}>
             <CardContainer styleClass={Styles['order-description-container']}>
                <>
-                  <p>{t.date}: <time dateTime={order.orderTimestamp}>
-                     {new Intl.DateTimeFormat('en', { dateStyle: 'short', timeStyle: 'medium' })
-                        .format(new Date(order.orderTimestamp))}
-                  </time></p>
+                  <p>{t.date}: 
+                     <time dateTime={order.orderTimestamp}>
+                        {new Intl.DateTimeFormat(timeFormat, { dateStyle: 'short', timeStyle: 'medium' })
+                           .format(new Date(order.orderTimestamp))}
+                     </time>
+                  </p>
                   <p>{t.products}: <span>{order.pizzaList.length}</span></p>
                   <p>Total: <span>${order.total}</span></p>
                   <p>{t.country}: <span>{order.country}</span></p>

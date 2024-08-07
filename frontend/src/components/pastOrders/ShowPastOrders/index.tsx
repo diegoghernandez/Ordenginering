@@ -23,11 +23,12 @@ interface Props {
    id: number
    initialData: Data
    t: ShowPastOrdersTraduction
+   timeFormat: string
 }
 
 type OrderId = string
 
-export function ShowPastOrders({ id, initialData, t }: Props) {
+export function ShowPastOrders({ id, initialData, t, timeFormat }: Props) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [error, setError] = useState<string>('')
    const [orders, setOrders] = useState<Data>(initialData)
@@ -72,10 +73,12 @@ export function ShowPastOrders({ id, initialData, t }: Props) {
                <CardContainer styleClass={Styles['orders-card']}>
                   <>
                      <div>
-                        <p><time dateTime={order.orderTimestamp}>
-                              {new Intl.DateTimeFormat('en', { dateStyle: 'medium' })
+                        <p>
+                           <time dateTime={order.orderTimestamp}>
+                              {new Intl.DateTimeFormat(timeFormat, { dateStyle: 'medium' })
                                  .format(new Date(order.orderTimestamp))}
-                        </time></p>
+                           </time>
+                        </p>
                         <p>{order.pizzaList.length} {t.products}</p>
                      </div>
                      <div>
@@ -89,6 +92,7 @@ export function ShowPastOrders({ id, initialData, t }: Props) {
                   funToSaveDialog={(element) => pushDialog(order.orderId, element)}
                   order={order}
                   t={t.orderModalTraduction}
+                  timeFormat={timeFormat}
                />
             </Fragment>
          )))}
