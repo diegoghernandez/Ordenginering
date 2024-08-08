@@ -1,6 +1,7 @@
 ---
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import AccountButton from '@/components/nav/AccountButton.astro'
+import SelectLanguage from '@/components/nav/SelectLanguage.astro'
 import { ShoppingCart } from '@/components/order/ShoppingCart'
 import { ShowOrder } from '@/components/order/ShowOrders'
 import navbarTranslation from '@/i18n/components/navbar.json'
@@ -54,6 +55,7 @@ const { activeLink } = Astro.props
       </ul>
    </div>
    <div class='nav--interaction--buttons'>
+      <SelectLanguage />
       <AccountButton activeLink={activeLink} />
       <ShoppingCart client:load extraClass='interaction--buttons' label={t.shoppingCartButton} />
       <LargeModalContainer

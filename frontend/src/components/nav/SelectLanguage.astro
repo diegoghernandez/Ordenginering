@@ -1,0 +1,39 @@
+---
+const currentLocal = Astro.currentLocale
+---
+
+<select id='language-selector'>
+   <option value='en' selected={currentLocal === 'en'}>English</option>
+   <option value='es' selected={currentLocal === 'es'}>Español</option>
+</select>
+
+<script>
+   import { redirectToDesireLanguage } from "@/utils/redirectToDesireLanguage"
+
+   document.addEventListener('astro:page-load', () => {
+      const languageSelector = document.querySelector('#language-selector')
+      languageSelector?.addEventListener('change', (event) => {
+         if (event.target instanceof HTMLSelectElement) {
+            const language = event.target.value
+            localStorage.setItem('language', language)
+            redirectToDesireLanguage(language)
+         } 
+      })
+   })
+</script>
+
+<style>
+   select {
+      border: none;
+      padding-inline: 4px;
+      padding-block: 4px;
+      background-color: var(--background);
+      color: var(--text-color);
+      font-size: 1rem;
+		font-weight: 500;
+
+      &:focus {
+         outline: 1px solid var(--outline);
+      }
+   }
+</style>

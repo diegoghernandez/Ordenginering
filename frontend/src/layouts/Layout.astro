@@ -38,6 +38,14 @@ const { title, description, activeLink } = Astro.props
 		<meta name='twitter:image' content='https://cdn.ordeninginering.com/image/menu-page.jpg'>
 
 		<script is:inline>
+			const desireLanguage = localStorage.getItem('language')
+			if (!globalThis.location.pathname.includes('/' + desireLanguage) && desireLanguage) {
+				const newPath = globalThis.location.pathname.replace(/\/e[n,s]/, '/' + desireLanguage)         
+   			globalThis.location.assign(newPath)
+			}	
+		</script>
+
+		<script is:inline>
 			function applyTheme() {
 				const htmlElement = document.querySelector('html')
 				if (htmlElement instanceof HTMLElement) htmlElement.classList.add(localStorage.getItem('theme') ?? '')

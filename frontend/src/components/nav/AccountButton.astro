@@ -67,8 +67,8 @@ const { activeLink } = Astro.props
       const darkModeButton = dialogButtonList[0]
       darkModeButton.addEventListener('click', setTheme)
    
+      const logoutButton = dialogButtonList[dialogButtonList.length - 1]
       const confirmationLogoutDialog = document.querySelectorAll('.account-button dialog')[1]
-      const logoutButton = dialogButtonList[1]
       logoutButton.addEventListener('click', () => {
          if (confirmationLogoutDialog instanceof HTMLDialogElement) confirmationLogoutDialog.showModal()
       })
