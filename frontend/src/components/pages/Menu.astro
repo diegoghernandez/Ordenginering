@@ -75,7 +75,7 @@ const { t } = Astro.props
 										(ingredient) => ({ name: ingredient, quantity: 1 }))
 								}} 
 							/>
-							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizza.name)}>
+							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizzaList.en[index].name)}>
 								{t.customize} {pizza.name.toLowerCase()}
 							</a>
 						</div>

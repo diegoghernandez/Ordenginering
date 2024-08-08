@@ -5,9 +5,9 @@ import { es } from '@/i18n/pages/Customize.json'
 import type { GetStaticPaths, InferGetStaticParamsType } from 'astro'
 
 export const getStaticPaths = (() => {
-	return pizzaList.es
+	return pizzaList.en
 		.map((element) => ({ params: { pizza: element.name.replace(' ', '-').toLowerCase() }}))
-		.concat({ params: { pizza: 'vacia' }})
+		.concat({ params: { pizza: 'empty' }})
 }) satisfies GetStaticPaths
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>

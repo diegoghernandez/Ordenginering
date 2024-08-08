@@ -35,16 +35,17 @@ const getIngredients = currentPizzaList
 	.flatMap(({ ingredients }) => ingredients)
 
 
-const isEmpty = pizza !== 'empty' && pizza !== 'vacia'
+const isEmpty = pizza !== 'empty'
 	
-const getImage = isEmpty
-	? pizzaList
-		.en[currentPizzaList.findIndex(({ name }) => compareStringsOfNames(name, pizza))]
-		.image.name
+const pizzaImageName = isEmpty
+	? pizzaList.en
+		.filter(({ name }) => compareStringsOfNames(name, pizza))
+		.map(({ image }) => image.name)
 	: 'empty'
 
 const getAuhor = isEmpty
-	? currentPizzaList.filter(({ name }) => compareStringsOfNames(name, pizza)).map(({ image }) => image.author)[0]
+	? currentPizzaList[pizzaList.en.findIndex(({ name }) => compareStringsOfNames(name, pizza))]
+		.image.author
 	: emptyAuthor
 
 const ingredients = await getAllIngredients()
@@ -60,7 +61,7 @@ const ingredients = await getAllIngredients()
 			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
 				<Image 
 					class='pizza-custom' 
-					src={`${IMAGE_CDN}/pizza/${getImage}.avif`}
+					src={`${IMAGE_CDN}/pizza/${pizzaImageName}.avif`}
 					alt={`${getDefaultName(pizza)} pizza`}
 					width='320'
 					height='260'
