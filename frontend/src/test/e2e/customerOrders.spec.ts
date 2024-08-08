@@ -12,7 +12,11 @@ test.describe('Customer orders page tests', () => {
    test('Should render correctly', async ({ page }) => {
       await findNavbarElements(page)
 
-      getProfileLinks(32, 'ADMIN', 'ORDER').forEach(async ({ name }) => {
+      getProfileLinks({
+         customerId: 32, 
+         role: 'ADMIN', 
+         active: 'INGREDIENT'
+      }).forEach(async ({ name }) => {
          await expect(page.getByRole('link', { name })).toBeVisible()
       })
       await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')

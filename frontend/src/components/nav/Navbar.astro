@@ -7,8 +7,8 @@ import navbarTranslation from '@/i18n/components/navbar.json'
 import type { ActiveLink } from '@/types'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
-const currentLocale = Astro.currentLocale ?? 'en'
-const t = navbarTranslation[currentLocale as 'en' | 'es']
+const currentLocale: 'en' | 'es' = Astro.currentLocale as 'en' | 'es' ?? 'en'
+const t = navbarTranslation[currentLocale]
 
 const pages = [
 	{ name: t.links.home, link: getRelativeLocaleUrl(currentLocale, '')},
@@ -30,7 +30,7 @@ const { activeLink } = Astro.props
             <path xmlns='http://www.w3.org/2000/svg' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 10h16M4 14h16M4 18h16'/>
          </svg>
       </button>
-      <LargeModalContainer client:load position='left'>
+      <LargeModalContainer client:load position='left' currentLocale={currentLocale} >
          <ul>
             {pages.map((page) => (
                <li>
@@ -60,6 +60,7 @@ const { activeLink } = Astro.props
          client:load
          description={t.shoppingCartModalDescription}
          position='right'
+         currentLocale={currentLocale}
       >
          <ShowOrder client:idle currentLocal={currentLocale} />
       </LargeModalContainer>

@@ -16,9 +16,9 @@ export async function findNavbarElements(page: Page) {
    await expect(page.getByRole('link', { name: 'Menu' })).toBeVisible()
    await expect(page.getByRole('link', { name: 'Customize', exact: true })).toBeVisible()
    
-   await expect(page.getByRole('button', { name: 'Account' })).toBeVisible()
-   await page.getByRole('button', { name: 'Account' }).click()
-   await expect(page.getByRole('link', { name: 'Customer' })).toBeVisible()
+   await expect(page.getByRole('button', { name: 'Customer' })).toBeVisible()
+   await page.getByRole('button', { name: 'Customer' }).click()
+   await expect(page.getByRole('link', { name: 'Account' })).toBeVisible()
    await expect(page.getByRole('button', { name: 'Dark mode' })).toBeVisible()
    await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible()
 
@@ -31,8 +31,8 @@ export async function findNavbarElements(page: Page) {
    await page.getByRole('button', { name: 'Cancel' }).click()
    await expect(page.getByRole('heading', { name: 'Do you want to close your session' })).not.toBeVisible()
 
-   await page.getByRole('button', { name: 'Account' }).click()
-   await expect(page.getByRole('link', { name: 'Customer' })).not.toBeVisible()
+   await page.getByRole('button', { name: 'Customer' }).click()
+   await expect(page.getByRole('link', { name: 'Account' })).not.toBeVisible()
 
    await expect(page.getByLabel('Shopping cart')).toBeVisible()
    await expect(page.getByLabel('Shopping cart').getByText('0')).toBeVisible()

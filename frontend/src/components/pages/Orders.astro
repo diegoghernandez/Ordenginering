@@ -3,7 +3,6 @@ import LinksContainer from '@/components/customer/LinksContainer.astro'
 import { ShowPastOrders, type ShowPastOrdersTraduction } from '@/components/pastOrders/ShowPastOrders'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '@/layouts/Layout.astro'
-import { getRoles } from '@/services/server/jwtServer'
 import { getOrdersByAccount } from '@/services/server/orderServer'
 import type { CustomerRole, PageOrder, SeoTraduction } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
@@ -52,7 +51,7 @@ try {
                last: orders?.last
             }}
             t={t.showPastOrdersTraduction}
-            timeFormat={Astro.currentLocale ?? 'en'}
+            currentLocale={Astro.currentLocale as 'en' | 'es' ?? 'en'}
          /> :
          <h1>{t.titleError}</h1>
       }

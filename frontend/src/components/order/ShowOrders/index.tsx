@@ -5,7 +5,7 @@ import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
-import { en as t } from '@/i18n/components/showOrder.json'
+import showOrderTranslation from '@/i18n/components/showOrder.json'
 import type { Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { getRelativeLocaleUrl } from 'astro:i18n'
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 
 interface Props {
-   currentLocal: string
+   currentLocal: 'en' | 'es'
 }
 
 export function ShowOrder({ currentLocal }: Props) {
@@ -22,6 +22,8 @@ export function ShowOrder({ currentLocal }: Props) {
    const removePizza = useShoppingCart((state) => state.removePizza)
    const updatePizzaQuantity  = useShoppingCart((state) => state.updatePizzaQuantity)
    const clearCart = useShoppingCart((state) => state.clearCart)
+
+   const t = showOrderTranslation[currentLocal]
 
    useEffect(() => setPizza(pizzaList), [pizzaList])
    

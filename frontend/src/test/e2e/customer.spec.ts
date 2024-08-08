@@ -1,7 +1,7 @@
 import { changeCustomerHandler } from '@/mocks/domains/changeCustomerHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
-import { findNavbarElements } from './utils/navbarUtils'
 import { getProfileLinks } from '@/utils/getProfileLinks'
+import { findNavbarElements } from './utils/navbarUtils'
 
 test.describe('Customer page e2e tests', () => {
    test.beforeEach(async ({ page, context, worker }) => {
@@ -14,9 +14,13 @@ test.describe('Customer page e2e tests', () => {
 
    test('Should render correctly', async ({ page }) => {
       await findNavbarElements(page)
-      await expect(page).toHaveTitle('Customer page')
+      await expect(page).toHaveTitle('Customer')
 
-      getProfileLinks(32, 'ADMIN', 'PROFILE').forEach(async ({ name }) => {
+      getProfileLinks({
+         customerId: 32, 
+         role: 'ADMIN', 
+         active: 'INGREDIENT'
+      }).forEach(async ({ name }) => {
          await expect(page.getByRole('link', { name })).toBeVisible()
       })
       await expect(page.getByRole('link', { name: 'Profile' })).toHaveClass('active')

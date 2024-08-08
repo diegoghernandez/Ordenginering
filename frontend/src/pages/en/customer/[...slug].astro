@@ -2,9 +2,24 @@
 import Orders from '@/components/pages/Orders.astro'
 import { getLoginUrl } from '@/constants/loginUrl'
 import { en } from '@/i18n/pages/Orders.json'
+import { getRoles } from '@/services/server/jwtServer'
+import type { CustomerRole } from '@/types'
 export const prerender = false
 
 if(!Astro.cookies.has('jwt')) return Astro.redirect(getLoginUrl(Astro.currentLocale ?? 'en'))
+
+const { slug } = Astro.params
+
+if(!slug?.match('[0-9]+\/orders')) return Astro.redirect('/404')
+
+let customerRole: CustomerRole
+
+try {
+   customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
+} catch (error) {
+   console.error(error);
+   return Astro.redirect('/client/404')
+}
 ---
 
-<Orders t={en} />
+<Orders customerRole={customerRole} t={en} />

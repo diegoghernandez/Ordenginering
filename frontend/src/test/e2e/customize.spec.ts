@@ -5,7 +5,7 @@ test.describe('Customize page e2e tests', () => {
    test('Should render correctly', async ({ page }) => {
       test.setTimeout(1000 * 50)
       await page.goto('/client/en/customize/empty')
-      await expect(page).toHaveTitle('Customize pizza')
+      await expect(page).toHaveTitle('Customize your pizza')
 
       await findNavbarElements(page)
 
@@ -175,7 +175,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('link', { name: 'Checkout' })).toBeVisible()
 
       await page.getByRole('link', { name: 'Keep ordering' }).click()
-      await expect(page).toHaveTitle('Menu page')
+      await expect(page).toHaveTitle('Menu')
 
       await page.getByLabel('Shopping cart').click()
 

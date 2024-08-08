@@ -23,18 +23,23 @@ interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void
    order: Order
    t: OrderModalTraduction
-   timeFormat: string
+   currentLocale: 'en' | 'es'
 }
 
-export function OrderModal({ funToSaveDialog, order, t, timeFormat }: Props) {
+export function OrderModal({ funToSaveDialog, order, t, currentLocale }: Props) {
    return (
-      <LargeModalContainer ref={funToSaveDialog} position='right' description={t.dialogTitle}>
+      <LargeModalContainer 
+         ref={funToSaveDialog} 
+         position='right' 
+         description={t.dialogTitle}
+         currentLocale={currentLocale}
+      >
          <section className={Styles['order-container']}>
             <CardContainer styleClass={Styles['order-description-container']}>
                <>
-                  <p>{t.date}: 
+                  <p>{t.date.concat(': ')}
                      <time dateTime={order.orderTimestamp}>
-                        {new Intl.DateTimeFormat(timeFormat, { dateStyle: 'short', timeStyle: 'medium' })
+                        {new Intl.DateTimeFormat(currentLocale, { dateStyle: 'short', timeStyle: 'medium' })
                            .format(new Date(order.orderTimestamp))}
                      </time>
                   </p>

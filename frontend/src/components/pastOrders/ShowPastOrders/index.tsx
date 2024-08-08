@@ -22,13 +22,13 @@ type Data =  {
 interface Props {
    id: number
    initialData: Data
+   currentLocale: 'en' | 'es'
    t: ShowPastOrdersTraduction
-   timeFormat: string
 }
 
 type OrderId = string
 
-export function ShowPastOrders({ id, initialData, t, timeFormat }: Props) {
+export function ShowPastOrders({ id, initialData, currentLocale, t }: Props) {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [error, setError] = useState<string>('')
    const [orders, setOrders] = useState<Data>(initialData)
@@ -75,7 +75,7 @@ export function ShowPastOrders({ id, initialData, t, timeFormat }: Props) {
                      <div>
                         <p>
                            <time dateTime={order.orderTimestamp}>
-                              {new Intl.DateTimeFormat(timeFormat, { dateStyle: 'medium' })
+                              {new Intl.DateTimeFormat(currentLocale, { dateStyle: 'medium' })
                                  .format(new Date(order.orderTimestamp))}
                            </time>
                         </p>
@@ -92,7 +92,7 @@ export function ShowPastOrders({ id, initialData, t, timeFormat }: Props) {
                   funToSaveDialog={(element) => pushDialog(order.orderId, element)}
                   order={order}
                   t={t.orderModalTraduction}
-                  timeFormat={timeFormat}
+                  currentLocale={currentLocale}
                />
             </Fragment>
          )))}

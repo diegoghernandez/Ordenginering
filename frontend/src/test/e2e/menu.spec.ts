@@ -7,7 +7,7 @@ test.describe('Menu page e2e tests', () => {
    test.beforeEach(async ({ page }) => await page.goto('/client/en/menu'))
 
    test('Should render the menu page correctly', async ({ page }) => {
-      await expect(page).toHaveTitle('Menu page')
+      await expect(page).toHaveTitle('Menu')
    
       await findNavbarElements(page)
       

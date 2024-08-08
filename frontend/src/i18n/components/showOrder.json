@@ -1,6 +1,19 @@
 {
    "en": {
       "checkoutLink": {
+         "name": "Checkout",
+         "products": "product(s)" 
+      },
+      "removeItems": "Remove all items",
+      "selectQuantityLabels": {
+         "subtract": "Subtract pizza",
+         "add": "Add pizza"
+      },
+      "deletePizza": "Delete",
+      "noOrders": "No orders"
+   },
+   "es": {
+      "checkoutLink": {
          "name": "Pagar",
          "products": "producto(s)" 
       },

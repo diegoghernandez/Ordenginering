@@ -1,4 +1,4 @@
-import { en as t } from '@/i18n/components/largeModal.json'
+import largeModalTranslation from '@/i18n/components/largeModal.json'
 import { forwardRef, useImperativeHandle, useRef, type ReactElement } from 'react'
 import Styles from './LargeModalContainer.module.css'
 
@@ -6,14 +6,17 @@ interface Props {
    description?: string
    children: ReactElement
    position: 'left' | 'right'
+   currentLocale: 'en' | 'es'
 }
 
 export const LargeModalContainer = forwardRef<{ showModal: () => void }, Props>(function LargeModalContainer({
    description, 
    children, 
-   position 
+   position,
+   currentLocale
 }, ref) {
    const dialogRef = useRef<HTMLDialogElement>(null)
+   const t = largeModalTranslation[currentLocale]
 
    const closeModal = () => {
       if (dialogRef.current instanceof HTMLDialogElement) {
