@@ -3,10 +3,6 @@ import { shoppingCartTranslation } from './translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
 
 export async function checkIfShoppingCartIsEmpty(locale: string, page: Page) {
-   await page.waitForFunction((value) => {
-      return JSON.stringify(localStorage) === value
-   }, '{}')
-
    const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
    const { noOrders } = getJSON('../i18n/components/showOrder.json')[locale]
    const { closeLargeModalButton } = getJSON('../i18n/components/largeModal.json')[locale]

@@ -1,0 +1,14 @@
+{
+   "en": {
+      "seo": {
+         "title": "Home page",
+			"description": "Presentation page"
+      }
+   },
+   "es": {
+      "seo": {
+         "title": "Página inicial",
+			"description": "Página de presentación"
+      }
+   }
+}

@@ -1,11 +1,12 @@
 ---
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '@/layouts/Layout.astro'
+import homeJSON from '@/i18n/pages/Home.json'
 ---
 
 <Layout 
-	title='Home page'
-	description='Presentation page'
+	title={homeJSON.en.seo.title}
+	description={homeJSON.en.seo.description}
 	activeLink='Home'
 >
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>

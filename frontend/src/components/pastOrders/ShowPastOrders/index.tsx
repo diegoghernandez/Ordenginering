@@ -88,7 +88,7 @@ export function ShowPastOrders({ id, initialData, currentLocale, t }: Props) {
                      <button aria-label={`Show order ${order.orderId}`} onClick={() => showModal(order.orderId)}></button>
                   </>
                </CardContainer>
-               <OrderModal 
+               <OrderModal
                   funToSaveDialog={(element) => pushDialog(order.orderId, element)}
                   order={order}
                   t={t.orderModalTranslation}

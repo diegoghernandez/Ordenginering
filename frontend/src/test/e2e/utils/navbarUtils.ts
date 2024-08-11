@@ -2,6 +2,10 @@ import { getJSON } from '@/utils/getJSON.mjs'
 import {expect, type Page } from '@playwright/test'
 import { shoppingCartTranslation } from './translationUtils'
 
+export async function changeLanguage(locale: string, page: Page) {
+   await page.getByRole('navigation').getByRole('combobox').selectOption(locale)
+}
+
 export async function findNavbarElements(locale: string, page: Page) {
    const navbarTranslation = getJSON('../i18n/components/navbar.json')[locale]
    const { closeLargeModalButton } = getJSON('../i18n/components/largeModal.json')[locale]
@@ -28,7 +32,7 @@ export async function findNavbarElements(locale: string, page: Page) {
    await expect(page.getByRole('button', { name: accountButtonTranslation.accountDialog.darkMode })).toBeVisible()
    await expect(page.getByRole('button', { name: accountButtonTranslation.accountDialog.logout })).toBeVisible()
 
-   await page.getByRole('button', { name: 'Logout' }).click()
+   await page.getByRole('button', { name: accountButtonTranslation.accountDialog.logout }).click()
 
    await expect(page.getByRole('heading', { name: accountButtonTranslation.logoutModal.closeQuestion })).toBeVisible()
    await expect(page.getByRole('button', { name: accountButtonTranslation.logoutModal.accept })).toBeVisible()

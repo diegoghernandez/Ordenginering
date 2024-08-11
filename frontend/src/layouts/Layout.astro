@@ -48,7 +48,8 @@ const { title, description, activeLink } = Astro.props
 		<script is:inline>
 			function applyTheme() {
 				const htmlElement = document.querySelector('html')
-				if (htmlElement instanceof HTMLElement) htmlElement.classList.add(localStorage.getItem('theme') ?? '')
+				const theme = localStorage.getItem('theme') ?? ''
+				if (htmlElement instanceof HTMLElement && theme) htmlElement.classList.add(theme)
 			}
 			document.addEventListener('astro:after-swap', applyTheme);
 			applyTheme()

@@ -17,9 +17,6 @@ export function shoppingCartTranslation(locale: string) {
 export function getLocalizedIngredientsButtonsFromCustomizePage(locale: string) {
    const { ingredientTypeList } = getJSON('../i18n/pages/Customize.json')[locale]
 
-   console.log(ingredientTypeList);
-   
-
    const ingredientList = ingredientTypeList.map((ingredient: string) => ingredient.at(0) + ingredient.substring(1).toLocaleLowerCase())
 
    return {
@@ -29,4 +26,19 @@ export function getLocalizedIngredientsButtonsFromCustomizePage(locale: string) 
       cheese: ingredientList[3],
       sauce: ingredientList[4],
    }
+}
+
+type PizzaJSON = {
+   name: string,
+   image: {
+      name: string
+      author: string
+   },
+   ingredients: string[]
+}
+
+export function getLocalizePizza(locale: string, imageName: string) {
+   const pizza: PizzaJSON[] = getJSON('../data/pizza.json')[locale]
+
+   return pizza.filter(({ image }) => image.name === imageName)[0]
 }
