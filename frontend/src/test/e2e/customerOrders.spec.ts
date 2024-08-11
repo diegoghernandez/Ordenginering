@@ -39,7 +39,7 @@ test.describe('Customer orders page tests', () => {
       await expect(page.getByRole('article')).toHaveCount(12)
       await expect(page.getByRole('alert')).not.toBeVisible()
 
-      const regexProducts = new RegExp(`[3,6] ${t.showPastOrdersTraduction.products}`)
+      const regexProducts = new RegExp(`[3,6] ${t.showPastOrdersTranslation.products}`)
 
       for (const element of await page.getByRole('article').all()) {
          await element.screenshot()
@@ -55,18 +55,18 @@ test.describe('Customer orders page tests', () => {
    test('Should show correctly one order when you click in one of the cards', async ({ page }) => {
       await page.getByRole('article').nth(3).click()
 
-      const { orderModalTraduction } = t.showPastOrdersTraduction
+      const { orderModalTranslation } = t.showPastOrdersTranslation
 
       const dialogElement = page.getByRole('dialog')
-      await expect(dialogElement.getByText(orderModalTraduction.dialogTitle)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.date}: 4/16/24, 1:55:09 PM`)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.products}: 6`)).toBeVisible()
+      await expect(dialogElement.getByText(orderModalTranslation.dialogTitle)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.date}: 4/16/24, 1:55:09 PM`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.products}: 6`)).toBeVisible()
       await expect(dialogElement.getByText('Total: $940')).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.country}: México`)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.state}: Bamyan`)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.city}: Ashkāsham`)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.street}: Street`)).toBeVisible()
-      await expect(dialogElement.getByText(`${orderModalTraduction.houseNumber}: 111`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.country}: México`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.state}: Bamyan`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.city}: Ashkāsham`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.street}: Street`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTranslation.houseNumber}: 111`)).toBeVisible()
 
       await expect(page.getByRole('dialog').getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(6)
 

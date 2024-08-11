@@ -6,7 +6,7 @@ import { IMAGE_CDN } from '@/constants/imageCDN'
 import type { Order } from '@/types'
 import Styles from './OrderModal.module.css'
 
-export type OrderModalTraduction = {
+export type OrderModalTranslation = {
    dialogTitle: string
    date: string
    products: string
@@ -22,7 +22,7 @@ export type OrderModalTraduction = {
 interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void
    order: Order
-   t: OrderModalTraduction
+   t: OrderModalTranslation
    currentLocale: 'en' | 'es'
 }
 

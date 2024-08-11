@@ -1,15 +1,15 @@
 ---
-import { SignUpForm, type SignUpFormTraduction } from '@/components/security/SignUpForm'
+import { SignUpForm, type SignUpFormTranslation } from '@/components/security/SignUpForm'
 import { getLoginUrl } from '@/constants/loginUrl'
 import FormLayout from '@/layouts/FormLayout.astro'
-import type { SeoTraduction } from '@/types'
+import type { SeoTranslation } from '@/types'
 
 interface Props {
    t: {
-      seo: SeoTraduction
+      seo: SeoTranslation
       haveAccount: string
       login: string,
-      signUpFormTraduction: SignUpFormTraduction
+      signUpFormTranslation: SignUpFormTranslation
    }
 }
 
@@ -21,5 +21,5 @@ const { t } = Astro.props
    h1Text={t.seo.h1}
 >
    <p>{t.haveAccount} <a href={getLoginUrl(Astro.currentLocale ?? 'en')}>{t.login}</a></p>
-   <SignUpForm client:load t={t.signUpFormTraduction} />
+   <SignUpForm client:load t={t.signUpFormTranslation} />
 </FormLayout>

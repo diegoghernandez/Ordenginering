@@ -7,7 +7,7 @@
       },
       "haveAccount": "Have an account?",
       "login": "Log in now",
-      "signUpFormTraduction": {
+      "signUpFormTranslation": {
          "submitLabel": "Sign Up",
          "passwordError": "Passwords don't match",
          "labels": {
@@ -27,7 +27,7 @@
       },
       "haveAccount": "¿Tienes una cuenta?",
       "login": "Inicia sesión",
-      "signUpFormTraduction": {
+      "signUpFormTranslation": {
          "submitLabel": "Regístrate",
          "passwordError": "Las contraseñas no coinciden",
          "labels": {

@@ -1,16 +1,16 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { DetectEndOfScroll } from '@/components/common/DetectEndOfScroll'
 import { Spin } from '@/components/common/Spin'
-import { OrderModal, type OrderModalTraduction } from '@/components/pastOrders/OrderModal'
+import { OrderModal, type OrderModalTranslation } from '@/components/pastOrders/OrderModal'
 import { StatusError } from '@/services/exceptions/StatusError'
 import { getOrdersByAccount } from '@/services/orderService'
 import type { Order } from '@/types'
 import { Fragment, useRef, useState } from 'react'
 import Styles from './ShowPastOrders.module.css'
 
-export type ShowPastOrdersTraduction = {
+export type ShowPastOrdersTranslation = {
    products: string
-   orderModalTraduction: OrderModalTraduction
+   orderModalTranslation: OrderModalTranslation
 }
 
 type Data =  { 
@@ -23,7 +23,7 @@ interface Props {
    id: number
    initialData: Data
    currentLocale: 'en' | 'es'
-   t: ShowPastOrdersTraduction
+   t: ShowPastOrdersTranslation
 }
 
 type OrderId = string
@@ -91,7 +91,7 @@ export function ShowPastOrders({ id, initialData, currentLocale, t }: Props) {
                <OrderModal 
                   funToSaveDialog={(element) => pushDialog(order.orderId, element)}
                   order={order}
-                  t={t.orderModalTraduction}
+                  t={t.orderModalTranslation}
                   currentLocale={currentLocale}
                />
             </Fragment>

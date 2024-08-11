@@ -8,14 +8,14 @@ import { SECONDARY__BUTTON } from '@/constants/styles'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
-import type { SeoTraduction } from '@/types'
+import type { SeoTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    t: {
-      seo: SeoTraduction
+      seo: SeoTranslation
 		addLabel: string
       customize: string
    }

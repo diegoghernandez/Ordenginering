@@ -7,7 +7,7 @@ const locale = 'en'
 
 const signupTranslation = getJSON('../i18n/pages/SignUp.json')
 const t = signupTranslation[locale]
-const { labels, submitLabel } = t.signUpFormTraduction
+const { labels, submitLabel } = t.signUpFormTranslation
 
 test.describe('Sign Up page tests', () => {
    test.beforeEach(async ({ page }) => await page.goto('/client/en/signup'))
@@ -38,8 +38,8 @@ test.describe('Sign Up page tests', () => {
 
       await page.getByRole('button', { name: submitLabel }).click()
       
-      await expect(page.getByLabel(labels.password, { exact: true })).toHaveAccessibleDescription(t.signUpFormTraduction.passwordError)
-      await expect(page.getByLabel(labels.confirmPassword, { exact: true })).toHaveAccessibleDescription(t.signUpFormTraduction.passwordError)
+      await expect(page.getByLabel(labels.password, { exact: true })).toHaveAccessibleDescription(t.signUpFormTranslation.passwordError)
+      await expect(page.getByLabel(labels.confirmPassword, { exact: true })).toHaveAccessibleDescription(t.signUpFormTranslation.passwordError)
    })
 
    test('Should show an alert with an error after put a repeat email', async ({ page, worker }) => {

@@ -1,18 +1,18 @@
 ---
 import LinksContainer from '@/components/customer/LinksContainer.astro'
-import { ShowPastOrders, type ShowPastOrdersTraduction } from '@/components/pastOrders/ShowPastOrders'
+import { ShowPastOrders, type ShowPastOrdersTranslation } from '@/components/pastOrders/ShowPastOrders'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '@/layouts/Layout.astro'
 import { getOrdersByAccount } from '@/services/server/orderServer'
-import type { CustomerRole, PageOrder, SeoTraduction } from '@/types'
+import type { CustomerRole, PageOrder, SeoTranslation } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 interface Props {
    customerRole: CustomerRole
    t: {
-      seo: SeoTraduction
+      seo: SeoTranslation
       titleError: string
-      showPastOrdersTraduction: ShowPastOrdersTraduction
+      showPastOrdersTranslation: ShowPastOrdersTranslation
    }
 }
 
@@ -50,7 +50,7 @@ try {
                pageNumber: orders?.pageable.pageNumber,
                last: orders?.last
             }}
-            t={t.showPastOrdersTraduction}
+            t={t.showPastOrdersTranslation}
             currentLocale={Astro.currentLocale as 'en' | 'es' ?? 'en'}
          /> :
          <h1>{t.titleError}</h1>

@@ -5,7 +5,7 @@ import { changeProfile, type ChangeProfileValues } from '@/services/changeCustom
 import { CustomInput } from '@/components/common/CustomInput'
 import { getFormValue } from '@/utils/getFormValue'
 
-export type ProfileFormTraduction = {
+export type ProfileFormTranslation = {
    labels: {
       name: string
       birthDate: string,
@@ -17,7 +17,7 @@ export type ProfileFormTraduction = {
 interface Props {
    name: string
    birthDate: string
-   t: ProfileFormTraduction
+   t: ProfileFormTranslation
 }
 
 export function ProfileForm({ name, birthDate, t }: Props) {

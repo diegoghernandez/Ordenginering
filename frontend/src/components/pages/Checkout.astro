@@ -1,18 +1,18 @@
 ---
-import { CheckoutForm, type CheckoutFormTraduction } from '@/components/order/CheckoutForm'
+import { CheckoutForm, type CheckoutFormTranslation } from '@/components/order/CheckoutForm'
 import { SECONDARY__BUTTON } from '@/constants/styles'
 import CountryList from '@/data/countries.json'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getIpData } from '@/services/ipService'
-import type { SeoTraduction } from '@/types'
+import type { SeoTranslation } from '@/types'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    t: {
-      seo: SeoTraduction
+      seo: SeoTranslation
       require: string
       returnToChoose: string
-      form: CheckoutFormTraduction
+      form: CheckoutFormTranslation
    }
 }
 const ipData = await getIpData(Astro.clientAddress.split(',')[0])

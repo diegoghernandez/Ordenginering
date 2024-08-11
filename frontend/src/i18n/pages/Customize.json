@@ -13,7 +13,7 @@
 				"decrease": "Decrease quantity",
 				"increase": "Increase quantity"
 			},
-			"addCustomizePizzaTraduction": {
+			"addCustomizePizzaTranslation": {
 				"label": "Add order",
 				"dialog": {
 					"title": "Added to shopping cart correctly",
@@ -45,7 +45,7 @@
 				"decrease": "Disminuir cantidad",
 				"increase": "Incrementar cantidad"
 			},
-			"addCustomizePizzaTraduction": {
+			"addCustomizePizzaTranslation": {
 				"label": "Agregar orden",
 				"dialog": {
 					"title": "Agregado al carrito de compras correctamente",

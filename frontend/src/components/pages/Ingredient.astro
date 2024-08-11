@@ -1,16 +1,16 @@
 ---
 import LinksContainer from '@/components/customer/LinksContainer.astro'
-import { IngredientForm, type IngredientFormTraduction } from '@/components/ingredient/ingredientForm'
+import { IngredientForm, type IngredientFormTranslation } from '@/components/ingredient/ingredientForm'
 import FormLayout from '@/layouts/FormLayout.astro'
 import { getRoles } from '@/services/server/jwtServer'
-import type { CustomerRole, SeoTraduction } from '@/types'
+import type { CustomerRole, SeoTranslation } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 interface Props {
    t: {
-      seo: SeoTraduction
+      seo: SeoTranslation
       title: string
-      ingredientFormTraduction: IngredientFormTraduction
+      ingredientFormTranslation: IngredientFormTranslation
    }
 }
 
@@ -38,7 +38,7 @@ try {
       active: 'INGREDIENT'
    })} />
    <h1>{t.title}</h1>
-   <IngredientForm client:load t={t.ingredientFormTraduction}  />
+   <IngredientForm client:load t={t.ingredientFormTranslation}  />
 </FormLayout>
 
 <style>

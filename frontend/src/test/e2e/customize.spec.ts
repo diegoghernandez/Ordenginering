@@ -34,7 +34,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.decrease)).toBeDisabled()
       await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
       await expect(pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.increase)).toBeVisible()
-      await expect(pizzaDataArticle.getByRole('button', { name: pizzaData.addCustomizePizzaTraduction.label })).toBeVisible()
+      await expect(pizzaDataArticle.getByRole('button', { name: pizzaData.addCustomizePizzaTranslation.label })).toBeVisible()
 
       pizzaIngredients.ingredientTypeList.forEach(async (type: string) =>
          await expect(page.getByRole('button', { name: type })).toBeVisible()
@@ -177,16 +177,16 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByText('Mozzarella X1')).toBeVisible()
       await expect(page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByText('2', { exact: true })).toBeVisible()
 
-      const { addCustomizePizzaTraduction } = pizzaData
+      const { addCustomizePizzaTranslation } = pizzaData
       
-      await expect(page.getByRole('button', { name: addCustomizePizzaTraduction.label })).not.toBeDisabled()
-      await page.getByRole('button', { name: addCustomizePizzaTraduction.label }).click()
+      await expect(page.getByRole('button', { name: addCustomizePizzaTranslation.label })).not.toBeDisabled()
+      await page.getByRole('button', { name: addCustomizePizzaTranslation.label }).click()
       
-      await expect(page.getByText(addCustomizePizzaTraduction.dialog.title)).toBeVisible()
-      await expect(page.getByRole('link', { name: addCustomizePizzaTraduction.dialog.keepOrdering })).toBeVisible()
-      await expect(page.getByRole('link', { name: addCustomizePizzaTraduction.dialog.checkout })).toBeVisible()
+      await expect(page.getByText(addCustomizePizzaTranslation.dialog.title)).toBeVisible()
+      await expect(page.getByRole('link', { name: addCustomizePizzaTranslation.dialog.keepOrdering })).toBeVisible()
+      await expect(page.getByRole('link', { name: addCustomizePizzaTranslation.dialog.checkout })).toBeVisible()
 
-      await page.getByRole('link', { name: addCustomizePizzaTraduction.dialog.keepOrdering }).click()
+      await page.getByRole('link', { name: addCustomizePizzaTranslation.dialog.keepOrdering }).click()
       await expect(page).toHaveTitle('Menu')
 
       await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()

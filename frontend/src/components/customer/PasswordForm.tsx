@@ -5,7 +5,7 @@ import { useServicePromise } from '@/hooks/useServicePromise'
 import { changePassword, type ChangePasswordValues } from '@/services/changeCustomerService'
 import { getFormValue } from '@/utils/getFormValue'
 
-export type PasswordFormTraduction = {
+export type PasswordFormTranslation = {
    labels: {
       currentPassword: string
       newPassword: string
@@ -16,7 +16,7 @@ export type PasswordFormTraduction = {
 }
 
 interface Props {
-   t: PasswordFormTraduction
+   t: PasswordFormTranslation
 }
 
 export function PasswordForm({ t }: Props) {

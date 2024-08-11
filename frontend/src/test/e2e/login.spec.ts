@@ -7,7 +7,7 @@ const locale = 'en'
 
 const loginTranslation = getJSON('../i18n/pages/Login.json')
 const t = loginTranslation[locale]
-const { labels, form } = t.logInFormTraduction
+const { labels, form } = t.logInFormTranslation
 
 test.describe('Log In page tests', () => {
    test.beforeEach(async ({ page }) => await page.goto('/client/en/login'))

@@ -5,7 +5,7 @@ import { registerCustomer } from '@/services/authService'
 import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 
-export type SignUpFormTraduction = {
+export type SignUpFormTranslation = {
    labels: {
       customerName: string
       email: string
@@ -18,7 +18,7 @@ export type SignUpFormTraduction = {
 }
 
 interface Props {
-   t: SignUpFormTraduction
+   t: SignUpFormTranslation
 }
 
 export function SignUpForm({ t }: Props) {

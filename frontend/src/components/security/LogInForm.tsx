@@ -6,7 +6,7 @@ import type { CustomerLogIn } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
 import { useEffect } from 'react'
 
-export type LogInFormTraduction = {
+export type LogInFormTranslation = {
    labels: {
       email: string,
       password: string
@@ -18,7 +18,7 @@ export type LogInFormTraduction = {
 }
 
 interface Props {
-   t: LogInFormTraduction
+   t: LogInFormTranslation
 }
 
 export function LogInForm({ t }: Props) {

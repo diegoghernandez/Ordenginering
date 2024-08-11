@@ -7,7 +7,7 @@
       },
       "accountQuestion": "Don't have an account?",
       "signUp": "Sign Up",
-      "logInFormTraduction": {
+      "logInFormTranslation": {
          "labels": {
             "email": "Email",
             "password": "Password"
@@ -26,7 +26,7 @@
       },
       "accountQuestion": "¿No tienes una cuenta?",
       "signUp": "Regístrate",
-      "logInFormTraduction": {
+      "logInFormTranslation": {
          "labels": {
             "email": "Email",
             "password": "Contraseña"

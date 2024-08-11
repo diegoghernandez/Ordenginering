@@ -9,7 +9,7 @@ import { getFormValue } from '@/utils/getFormValue'
 import { useState, type ChangeEvent } from 'react'
 import Styles from './IngredientForm.module.css'
 
-export type IngredientFormTraduction = {
+export type IngredientFormTranslation = {
    labels: {
       uploadImage: string
       imageAuthor: string
@@ -23,7 +23,7 @@ export type IngredientFormTraduction = {
 }
 
 interface Props {
-   t: IngredientFormTraduction
+   t: IngredientFormTranslation
 }
 
 export function IngredientForm({ t }: Props) {

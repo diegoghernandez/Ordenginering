@@ -1,22 +1,22 @@
 ---
 import { ImgContainer } from '@/components/common/ImgContainer'
-import { PizzaData, type PizzaDataTraduction } from '@/components/customize/PizzaData'
-import { PizzaIngredients, type PizzaIngredientTraduction } from '@/components/customize/PizzaIngredients'
+import { PizzaData, type PizzaDataTranslation } from '@/components/customize/PizzaData'
+import { PizzaIngredients, type PizzaIngredientTranslation } from '@/components/customize/PizzaIngredients'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
-import type { SeoTraduction } from '@/types'
+import type { SeoTranslation } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { Image } from 'astro:assets'
 
 interface Props {
    pizza: string
    t: {
-		seo: SeoTraduction
-      pizzaData: PizzaDataTraduction
-		pizzaIngredients: PizzaIngredientTraduction
+		seo: SeoTranslation
+      pizzaData: PizzaDataTranslation
+		pizzaIngredients: PizzaIngredientTranslation
    }
 }
 

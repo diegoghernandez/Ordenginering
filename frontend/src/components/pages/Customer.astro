@@ -1,20 +1,20 @@
 ---
-import { EmailForm, type EmailFormTraduction } from '@/components/customer/EmailForm'
+import { EmailForm, type EmailFormTranslation } from '@/components/customer/EmailForm'
 import LinksContainer from '@/components/customer/LinksContainer.astro'
-import { PasswordForm, type PasswordFormTraduction } from '@/components/customer/PasswordForm'
-import { ProfileForm, type ProfileFormTraduction } from '@/components/customer/ProfileForm'
+import { PasswordForm, type PasswordFormTranslation } from '@/components/customer/PasswordForm'
+import { ProfileForm, type ProfileFormTranslation } from '@/components/customer/ProfileForm'
 import FormLayout from '@/layouts/FormLayout.astro'
-import type { Customer, CustomerRole, SeoTraduction } from '@/types'
+import type { Customer, CustomerRole, SeoTranslation } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 interface Props {
    customer: Customer
    customerRole: CustomerRole
    t: {
-      seo: SeoTraduction
-      profileFormTraduction: ProfileFormTraduction
-      passwordFormTraduction: PasswordFormTraduction
-      emailFormTraduction: EmailFormTraduction
+      seo: SeoTranslation
+      profileFormTranslation: ProfileFormTranslation
+      passwordFormTranslation: PasswordFormTranslation
+      emailFormTranslation: EmailFormTranslation
    }
 }
 
@@ -36,8 +36,8 @@ const { customer, customerRole, t } = Astro.props
       client:load
       name={customer.customerName}
       birthDate={customer.birthDate}
-      t={t.profileFormTraduction}
+      t={t.profileFormTranslation}
    />
-   <PasswordForm client:load t={t.passwordFormTraduction} />
-   <EmailForm client:load email={customer.email} t={t.emailFormTraduction} />
+   <PasswordForm client:load t={t.passwordFormTranslation} />
+   <EmailForm client:load email={customer.email} t={t.emailFormTranslation} />
 </FormLayout>

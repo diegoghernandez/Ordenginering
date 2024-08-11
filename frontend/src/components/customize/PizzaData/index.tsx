@@ -15,7 +15,7 @@ export type Characteristics = {
    quantity: number
 }
 
-export type PizzaDataTraduction = {
+export type PizzaDataTranslation = {
    title: string
    selectLabel: string
    selectOptions: string[]
@@ -24,14 +24,14 @@ export type PizzaDataTraduction = {
       decrease: string
       increase: string
    },
-   addCustomizePizzaTraduction: AddCustomizePizza
+   addCustomizePizzaTranslation: AddCustomizePizza
 }
 
 interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    prebuildIngredients?: string[]
    localForModalLinks: string
-   t: PizzaDataTraduction
+   t: PizzaDataTranslation
 }
 
 export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks, t }: Props) {   
@@ -88,7 +88,7 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
                }}
             />
             <AddCustomizePizza
-               t={t.addCustomizePizzaTraduction}
+               t={t.addCustomizePizzaTranslation}
                localForModalLinks={localForModalLinks}
                pizza={{
                   pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),

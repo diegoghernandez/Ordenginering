@@ -145,7 +145,7 @@ export interface IPData {
    org:                  string
 }
 
-export interface SeoTraduction {
+export interface SeoTranslation {
    title: string
    description: string
    h1?: string

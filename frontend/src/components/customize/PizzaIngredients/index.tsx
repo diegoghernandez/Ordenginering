@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
 import { en } from '@/i18n/pages/Customize.json'
 
-export type PizzaIngredientTraduction = {
+export type PizzaIngredientTranslation = {
    ingredientTypeList: string[]
    quantity: string
    selectQuantity : {
@@ -21,7 +21,7 @@ export type PizzaIngredientTraduction = {
 interface Props {
    ingredientList: IngredientRequest[]
    prebuildIngredients?: string[]
-   t: PizzaIngredientTraduction
+   t: PizzaIngredientTranslation
 }
 
 const ingredientTypeList = en.pizzaIngredients.ingredientTypeList

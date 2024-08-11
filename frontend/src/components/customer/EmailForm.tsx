@@ -5,7 +5,7 @@ import { useServicePromise } from '@/hooks/useServicePromise'
 import { changeEmail, type ChangeEmailValues } from '@/services/changeCustomerService'
 import { getFormValue } from '@/utils/getFormValue'
 
-export type EmailFormTraduction = {
+export type EmailFormTranslation = {
    labels: {
       currentEmail: string
       newEmail: string
@@ -18,7 +18,7 @@ export type EmailFormTraduction = {
 
 interface Props {
    email: string
-   t: EmailFormTraduction
+   t: EmailFormTranslation
 }
 
 export function EmailForm({ email, t }: Props) {

@@ -11,7 +11,7 @@ import { getFormValue } from '@/utils/getFormValue'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useEffect, useRef } from 'react'
 
-export type CheckoutFormTraduction = {
+export type CheckoutFormTranslation = {
    submitLabel: string
    dialogAccept: string
    selectDefaultText: string
@@ -35,7 +35,7 @@ interface Props {
    countryList: { code: string, name: string }[]
    ipData: IPData
    currentLocale: string
-   t: CheckoutFormTraduction
+   t: CheckoutFormTranslation
 }
 
 export function CheckoutForm({ countryList, ipData, currentLocale, t }: Props) {

@@ -5,9 +5,9 @@
          "description": "See what orders you have made"
       },
       "titleError": "No orders",
-      "showPastOrdersTraduction": {
+      "showPastOrdersTranslation": {
          "products": "products",
-         "orderModalTraduction": {
+         "orderModalTranslation": {
             "dialogTitle": "Your order",
             "date": "Date",
             "products": "Products",
@@ -27,9 +27,9 @@
          "description": "Ver que ordenes has hecho"
       },
       "titleError": "Sin ordenes",
-      "showPastOrdersTraduction": {
+      "showPastOrdersTranslation": {
          "products": "productos",
-         "orderModalTraduction": {
+         "orderModalTranslation": {
             "dialogTitle": "Tu orden",
             "date": "Fecha",
             "products": "Productos",
