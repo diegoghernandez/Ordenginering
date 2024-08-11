@@ -17,17 +17,17 @@ export function getProfileLinks({
 
    const profileLinks = [{
       url: 'customer/' + customerId,
-      name: t.Profile,
+      name: t.profile,
       active: active === 'PROFILE'
    }, {
       url: `customer/${customerId}/orders`,
-      name: t.Orders,
+      name: t.orders,
       active: active === 'ORDER'
    }]
 
    if (role === 'ADMIN') profileLinks.push({
       url: 'customer/ingredient',
-      name: t.Ingredient,
+      name: t.ingredient,
       active: active === 'INGREDIENT'
    })
 

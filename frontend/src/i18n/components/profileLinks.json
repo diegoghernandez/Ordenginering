@@ -1,12 +1,12 @@
 {
    "en": {
-      "Profile": "Profile",
-      "Orders": "Orders",
-      "Ingredient": "Ingredient"
+      "profile": "Profile",
+      "orders": "Orders",
+      "ingredient": "Ingredient"
    },
    "es": {
-      "Profile": "Perfil",
-      "Orders": "Ordenes",
-      "Ingredient": "Ingrediente"
+      "profile": "Perfil",
+      "orders": "Ordenes",
+      "ingredient": "Ingrediente"
    }
 }

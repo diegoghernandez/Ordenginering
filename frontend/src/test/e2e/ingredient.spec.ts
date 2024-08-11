@@ -2,6 +2,8 @@ import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
+const locale = 'en'
+
 test.describe('Ingredient page tests', () => {
    test.beforeEach(async ({ page, context }) => {
       await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
@@ -11,7 +13,7 @@ test.describe('Ingredient page tests', () => {
    test('Should render ingredient page correctly', async ({ page }) => {
       await expect(page).toHaveTitle('Create a new ingredient')
 
-      await findNavbarElements(page)
+      await findNavbarElements(locale, page)
 
       getProfileLinks({
          customerId: 32, 

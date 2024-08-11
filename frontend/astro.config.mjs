@@ -7,7 +7,7 @@ export default defineConfig({
   output: 'hybrid',
   base: 'client',
   devToolbar: {
-    enabled: true
+    enabled: false
   },
   integrations: [react()],
   adapter: node({

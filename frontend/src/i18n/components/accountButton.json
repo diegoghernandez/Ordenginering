@@ -2,7 +2,7 @@
    "en": {
       "accountButton": "Customer",
       "accountDialog": {
-         "customer": "Account",
+         "account": "Account",
          "darkMode": "Dark mode",
          "logout": "Logout"
       },
@@ -15,7 +15,7 @@
    "es": {
       "accountButton": "Cliente",
       "accountDialog": {
-         "customer": "Cuenta",
+         "account": "Cuenta",
          "darkMode": "Modo oscuro",
          "logout": "Cerrar sesión"
       },

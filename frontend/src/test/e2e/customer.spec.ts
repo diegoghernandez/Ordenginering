@@ -1,7 +1,13 @@
 import { changeCustomerHandler } from '@/mocks/domains/changeCustomerHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
+import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
+import { getJSON } from '@/utils/getJSON.mjs'
 import { getProfileLinks } from '@/utils/getProfileLinks'
-import { findNavbarElements } from './utils/navbarUtils'
+
+const locale = 'en'
+
+const customerTranslation = getJSON('../i18n/pages/Customer.json')
+const t = customerTranslation[locale]
 
 test.describe('Customer page e2e tests', () => {
    test.beforeEach(async ({ page, context, worker }) => {
@@ -13,8 +19,8 @@ test.describe('Customer page e2e tests', () => {
    })
 
    test('Should render correctly', async ({ page }) => {
-      await findNavbarElements(page)
-      await expect(page).toHaveTitle('Customer')
+      await findNavbarElements(locale, page)
+      await expect(page).toHaveTitle(t.seo.title)
 
       getProfileLinks({
          customerId: 32, 
@@ -23,51 +29,59 @@ test.describe('Customer page e2e tests', () => {
       }).forEach(async ({ name }) => {
          await expect(page.getByRole('link', { name })).toBeVisible()
       })
-      await expect(page.getByRole('link', { name: 'Profile' })).toHaveClass('active')
 
-      await expect(page.getByRole('heading', { name: 'Profile' })).toBeVisible()
-      const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })
-      await expect(profileArticle.getByLabel('Name')).toBeVisible()
-      await expect(profileArticle.getByLabel('Birth Date')).toBeVisible()
-      await expect(profileArticle.getByRole('button', { name: 'Save Changes' })).toBeVisible()
       
-      await expect(page.getByRole('heading', { name: 'Password' })).toBeVisible()
-      const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Password' }) })
-      await expect(passwordArticle.getByLabel('Current password')).toBeVisible()
-      await expect(passwordArticle.getByLabel('New password')).toBeVisible()
-      await expect(passwordArticle.getByLabel('Repeat password')).toBeVisible()
-      await expect(passwordArticle.getByRole('button', { name: 'Save Password' })).toBeVisible()
+      const { profile } = getJSON('../i18n/components/profileLinks.json')[locale]
+      await expect(page.getByRole('link', { name: profile })).toHaveClass('active')
 
-      await expect(page.getByRole('heading', { name: 'Email Address' })).toBeVisible()
-      const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Email Address' }) })
-      await expect(emailArticle.getByLabel('Current Email Address')).toBeVisible()
-      await expect(emailArticle.getByLabel('Current Email Address')).toBeDisabled()
-      await expect(emailArticle.getByLabel('Current Password')).toBeVisible()
-      await expect(emailArticle.getByLabel('New Email Address')).toBeVisible()
-      await expect(emailArticle.getByRole('button', { name: 'Save Email' })).toBeVisible()
+      const { profileFormTraduction, passwordFormTraduction, emailFormTraduction } = t
+
+      await expect(page.getByRole('heading', { name: profileFormTraduction.title })).toBeVisible()
+      const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: profileFormTraduction.title }) })
+      await expect(profileArticle.getByLabel(profileFormTraduction.labels.name)).toBeVisible()
+      await expect(profileArticle.getByLabel(profileFormTraduction.labels.birthDate)).toBeVisible()
+      await expect(profileArticle.getByRole('button', { name: profileFormTraduction.submitLabel })).toBeVisible()
+      
+      await expect(page.getByRole('heading', { name: passwordFormTraduction.title })).toBeVisible()
+      const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: passwordFormTraduction.title }) })
+      await expect(passwordArticle.getByLabel(passwordFormTraduction.labels.currentPassword)).toBeVisible()
+      await expect(passwordArticle.getByLabel(passwordFormTraduction.labels.newPassword)).toBeVisible()
+      await expect(passwordArticle.getByLabel(passwordFormTraduction.labels.repeatPassword)).toBeVisible()
+      await expect(passwordArticle.getByRole('button', { name: passwordFormTraduction.submitLabel })).toBeVisible()
+
+      await expect(page.getByRole('heading', { name: emailFormTraduction.title })).toBeVisible()
+      const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: emailFormTraduction.title }) })
+      await expect(emailArticle.getByLabel(emailFormTraduction.labels.currentEmail)).toBeVisible()
+      await expect(emailArticle.getByLabel(emailFormTraduction.labels.currentEmail)).toBeDisabled()
+      await expect(emailArticle.getByLabel(emailFormTraduction.labels.newEmail)).toBeVisible()
+      await expect(emailArticle.getByLabel(emailFormTraduction.labels.currentPassword)).toBeVisible()
+      await expect(emailArticle.getByRole('button', { name: emailFormTraduction.submitLabel })).toBeVisible()
    })
 
    test.describe('Profile form tests', () => {
-      test('Should full the formulary and get a error message', async ({ page }) => {         
-         const profileArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })
+      const { profileFormTraduction } = t
 
-         await profileArticle.getByLabel('Name').fill('New name')
-         await profileArticle.getByLabel('Birth Date').fill('2020-02-02')
+      test('Should full the formulary and get a error message', async ({ page }) => {
+
+         const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: profileFormTraduction.title }) })
+
+         await profileArticle.getByLabel(profileFormTraduction.labels.name).fill('New name')
+         await profileArticle.getByLabel(profileFormTraduction.labels.birthDate).fill('2020-02-02')
       
 
-         await profileArticle.getByRole('button', { name: 'Save changes' }).click()
+         await profileArticle.getByRole('button', { name: profileFormTraduction.submitLabel }).click()
 
          await expect(profileArticle.getByText('Warning')).toBeVisible()
          await expect(profileArticle.getByText('No older enough')).toBeVisible()
       })
 
       test('Should full the formulary and change the profile information correctly', async ({ page }) => {
-         const profileArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Profile' }) })
+         const profileArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: profileFormTraduction.title }) })
 
-         await profileArticle.getByLabel('Name').fill('New name')
-         await profileArticle.getByLabel('Birth Date').fill('1990-02-02')
+         await profileArticle.getByLabel(profileFormTraduction.labels.name).fill('New name')
+         await profileArticle.getByLabel(profileFormTraduction.labels.birthDate).fill('1990-02-02')
 
-         await profileArticle.getByRole('button', { name: 'Save changes' }).click()
+         await profileArticle.getByRole('button', { name: profileFormTraduction.submitLabel }).click()
 
          await expect(profileArticle.getByText('Success')).toBeVisible()
          await expect(profileArticle.getByText('Change profile correctly')).toBeVisible()
@@ -75,28 +89,30 @@ test.describe('Customer page e2e tests', () => {
    })
 
    test.describe('Password form tests', () => {
-      test('Should full the formulary and get a error message', async ({ page }) => {         
-         const passwordArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Password' }) })
+      const { passwordFormTraduction } = t
 
-         await passwordArticle.getByLabel('Current password').fill('wrong')
-         await passwordArticle.getByLabel('New password').fill('1234')
-         await passwordArticle.getByLabel('Repeat password').fill('1234')
+      test('Should full the formulary and get a error message', async ({ page }) => {         
+         const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: passwordFormTraduction.title }) })
+
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.currentPassword).fill('wrong')
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.newPassword).fill('1234')
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.repeatPassword).fill('1234')
       
 
-         await passwordArticle.getByRole('button', { name: 'Save password' }).click()
+         await passwordArticle.getByRole('button', { name: passwordFormTraduction.submitLabel }).click()
 
          await expect(passwordArticle.getByText('Warning')).toBeVisible()
          await expect(passwordArticle.getByText('Incorrect password')).toBeVisible()
       })
 
       test('Should full the formulary and change the password correctly', async ({ page }) => {
-         const passwordArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Password' }) })
+         const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: passwordFormTraduction.title }) })
 
-         await passwordArticle.getByLabel('Current password').fill('correct')
-         await passwordArticle.getByLabel('New password').fill('1234')
-         await passwordArticle.getByLabel('Repeat password').fill('1234')
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.currentPassword).fill('correct')
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.newPassword).fill('1234')
+         await passwordArticle.getByLabel(passwordFormTraduction.labels.repeatPassword).fill('1234')
 
-         await passwordArticle.getByRole('button', { name: 'Save password' }).click()
+         await passwordArticle.getByRole('button', { name: passwordFormTraduction.submitLabel }).click()
 
          await expect(passwordArticle.getByText('Success')).toBeVisible()
          await expect(passwordArticle.getByText('Change password correctly')).toBeVisible()
@@ -104,27 +120,29 @@ test.describe('Customer page e2e tests', () => {
    })
 
    test.describe('Email form tests', () => {
-      test('Should full the formulary and get a error message', async ({ page }) => {         
-         const emailArticle =  page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Email Address' }) })
+      const { emailFormTraduction } = t
 
-         await emailArticle.getByLabel('Current Password').fill('wrong')
-         await emailArticle.getByLabel('New Email Address').fill('newemail@new.com')
+      test('Should full the formulary and get a error message', async ({ page }) => {         
+         const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: emailFormTraduction.title }) })
+
+         await emailArticle.getByLabel(emailFormTraduction.labels.currentPassword).fill('wrong')
+         await emailArticle.getByLabel(emailFormTraduction.labels.newEmail).fill('newemail@new.com')
       
 
-         await emailArticle.getByRole('button', { name: 'Save email' }).click()
+         await emailArticle.getByRole('button', { name: emailFormTraduction.submitLabel }).click()
 
          await expect(emailArticle.getByText('Warning')).toBeVisible()
          await expect(emailArticle.getByText('Incorrect password')).toBeVisible()
       })
       
       test('Should full the formulary and change the email correctly', async ({ page }) => {         
-         const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Email Address' }) })
+         const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: emailFormTraduction.title }) })
 
-         await emailArticle.getByLabel('Current Password').fill('correct')
-         await emailArticle.getByLabel('New Email Address').fill('newemail@new.com')
+         await emailArticle.getByLabel(emailFormTraduction.labels.currentPassword).fill('correct')
+         await emailArticle.getByLabel(emailFormTraduction.labels.newEmail).fill('newemail@new.com')
       
 
-         await emailArticle.getByRole('button', { name: 'Save email' }).click()
+         await emailArticle.getByRole('button', { name: emailFormTraduction.submitLabel }).click()
 
          await expect(emailArticle.getByText('Success')).toBeVisible()
          await expect(emailArticle.getByText('Change email correctly')).toBeVisible()

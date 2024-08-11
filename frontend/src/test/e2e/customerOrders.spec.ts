@@ -1,6 +1,12 @@
 import { expect, test } from '@/test/e2e/utils/fixture'
-import { findNavbarElements } from './utils/navbarUtils'
+import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
+import { getJSON } from '@/utils/getJSON.mjs'
 import { getProfileLinks } from '@/utils/getProfileLinks'
+
+const locale = 'en'
+
+const ordersTranslation = getJSON('../i18n/pages/Orders.json')
+const t = ordersTranslation[locale]
 
 test.describe('Customer orders page tests', () => {
    test.beforeEach(async ({ page, context }) => {
@@ -10,7 +16,8 @@ test.describe('Customer orders page tests', () => {
    })
 
    test('Should render correctly', async ({ page }) => {
-      await findNavbarElements(page)
+      await findNavbarElements(locale, page)
+      await expect(page).toHaveTitle(t.seo.title)
 
       getProfileLinks({
          customerId: 32, 
@@ -19,7 +26,9 @@ test.describe('Customer orders page tests', () => {
       }).forEach(async ({ name }) => {
          await expect(page.getByRole('link', { name })).toBeVisible()
       })
-      await expect(page.getByRole('link', { name: 'Orders' })).toHaveClass('active')
+
+      const { orders } = getJSON('../i18n/components/profileLinks.json')[locale]
+      await expect(page.getByRole('link', { name: orders })).toHaveClass('active')
       
       await expect(page.getByRole('article')).toHaveCount(9)
       await expect(page.getByRole('alert')).not.toBeVisible()
@@ -30,10 +39,12 @@ test.describe('Customer orders page tests', () => {
       await expect(page.getByRole('article')).toHaveCount(12)
       await expect(page.getByRole('alert')).not.toBeVisible()
 
+      const regexProducts = new RegExp(`[3,6] ${t.showPastOrdersTraduction.products}`)
+
       for (const element of await page.getByRole('article').all()) {
          await element.screenshot()
          await expect(element.getByText('Apr 16, 2024')).toBeVisible()
-         await expect(element.getByText(/[3,6] products/)).toBeVisible()
+         await expect(element.getByText(regexProducts)).toBeVisible()
          await expect(element.getByText('Total')).toBeVisible()
          await expect(element.getByText('$940')).toBeVisible()
          await expect(element.getByRole('button')).toBeVisible()
@@ -44,16 +55,18 @@ test.describe('Customer orders page tests', () => {
    test('Should show correctly one order when you click in one of the cards', async ({ page }) => {
       await page.getByRole('article').nth(3).click()
 
+      const { orderModalTraduction } = t.showPastOrdersTraduction
+
       const dialogElement = page.getByRole('dialog')
-      await expect(dialogElement.getByText('Your order')).toBeVisible()
-      await expect(dialogElement.getByText('Date: 4/16/24, 1:55:09 PM')).toBeVisible()
-      await expect(dialogElement.getByText('Products: 6')).toBeVisible()
+      await expect(dialogElement.getByText(orderModalTraduction.dialogTitle)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.date}: 4/16/24, 1:55:09 PM`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.products}: 6`)).toBeVisible()
       await expect(dialogElement.getByText('Total: $940')).toBeVisible()
-      await expect(dialogElement.getByText('Country: México')).toBeVisible()
-      await expect(dialogElement.getByText('State: Bamyan')).toBeVisible()
-      await expect(dialogElement.getByText('City: Ashkāsham')).toBeVisible()
-      await expect(dialogElement.getByText('Street: Street')).toBeVisible()
-      await expect(dialogElement.getByText('House number: 111')).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.country}: México`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.state}: Bamyan`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.city}: Ashkāsham`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.street}: Street`)).toBeVisible()
+      await expect(dialogElement.getByText(`${orderModalTraduction.houseNumber}: 111`)).toBeVisible()
 
       await expect(page.getByRole('dialog').getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(6)
 
