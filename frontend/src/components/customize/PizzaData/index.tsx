@@ -5,7 +5,7 @@ import { AddCustomizePizza } from '@/components/customize/AddCustomizePizza'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { Size } from '@/constants/size'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import type { Pizza } from '@/types'
+import type { Pizza, QuantityTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useState } from 'react'
 import Styles from './PizzaData.module.css'
@@ -19,11 +19,6 @@ export type PizzaDataTranslation = {
    title: string
    selectLabel: string
    selectOptions: string[]
-   quantity: string
-   selectedQuantity: {
-      decrease: string
-      increase: string
-   },
    addCustomizePizzaTranslation: AddCustomizePizza
 }
 
@@ -31,7 +26,10 @@ interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
    prebuildIngredients?: string[]
    localForModalLinks: string
-   t: PizzaDataTranslation
+   t: {
+      quantity: QuantityTranslation
+      pizzaDataTranslation: PizzaDataTranslation
+   }
 }
 
 export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks, t }: Props) {   
@@ -41,10 +39,12 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
       quantity: 1
    })
 
+   const { quantity, pizzaDataTranslation } = t
+
    return (
       <CardContainer styleClass={Styles['customize-description']}>
          <>
-            <h3>{t.title}</h3>
+            <h3>{pizzaDataTranslation.title}</h3>
             <p>Total: ${
                getPizzaPrice(
                   ingredients.length === 0 ? prebuildIngredients.length : ingredients.reduce((prev, now) => prev + now.quantity, 0), 
@@ -59,28 +59,28 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
                }
             />
             <CustomSelect
-               label={t.selectLabel}
+               label={pizzaDataTranslation.selectLabel}
                values={['SMALL', 'MEDIUM', 'LARGE']}
-               options={t.selectOptions}
+               options={pizzaDataTranslation.selectOptions}
                selectedOption='MEDIUM'
                onChange={(value: string) => setCharacteristics((prev) => ({
                   ...prev,
                   size: Size[value as Size]
                }))}
             />
-            <p>{t.quantity}</p>
+            <p>{quantity.name}</p>
             <SelectQuantity
                valueToShow={characteristics.quantity}
                minValue={1}
                decrease={{
-                  label: t.selectedQuantity.decrease,
+                  label: quantity.decrease,
                   fun: () => setCharacteristics((prev) => ({
                      ...prev,
                      quantity: prev.quantity - 1
                   }))
                }}
                increase={{
-                  label: t.selectedQuantity.increase,
+                  label: quantity.increase,
                   fun: () => setCharacteristics((prev) => ({
                      ...prev,
                      quantity: prev.quantity + 1
@@ -88,7 +88,7 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
                }}
             />
             <AddCustomizePizza
-               t={t.addCustomizePizzaTranslation}
+               t={pizzaDataTranslation.addCustomizePizzaTranslation}
                localForModalLinks={localForModalLinks}
                pizza={{
                   pizzaName: 'Custom ' + pizza.pizzaName.replace('-', ' '),

@@ -15,9 +15,12 @@ export function shoppingCartTranslation(locale: string) {
 }
 
 export function getLocalizedIngredientsButtonsFromCustomizePage(locale: string) {
-   const { pizzaIngredients } = getJSON('../i18n/pages/Customize.json')[locale]
+   const { ingredientTypeList } = getJSON('../i18n/pages/Customize.json')[locale]
 
-   const ingredientList = pizzaIngredients.ingredientTypeList.map((ingredient: string) => ingredient.at(0) + ingredient.substring(1).toLocaleLowerCase())
+   console.log(ingredientTypeList);
+   
+
+   const ingredientList = ingredientTypeList.map((ingredient: string) => ingredient.at(0) + ingredient.substring(1).toLocaleLowerCase())
 
    return {
       all: ingredientList[0],

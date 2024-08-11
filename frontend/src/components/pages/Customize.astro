@@ -1,13 +1,13 @@
 ---
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { PizzaData, type PizzaDataTranslation } from '@/components/customize/PizzaData'
-import { PizzaIngredients, type PizzaIngredientTranslation } from '@/components/customize/PizzaIngredients'
+import { PizzaIngredients, type IngredientTypeTranslation } from '@/components/customize/PizzaIngredients'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
-import type { SeoTranslation } from '@/types'
+import type { QuantityTranslation, SeoTranslation } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { Image } from 'astro:assets'
 
@@ -15,8 +15,9 @@ interface Props {
    pizza: string
    t: {
 		seo: SeoTranslation
+		quantity: QuantityTranslation
       pizzaData: PizzaDataTranslation
-		pizzaIngredients: PizzaIngredientTranslation
+		ingredientTypeList: IngredientTypeTranslation
    }
 }
 
@@ -77,7 +78,10 @@ const ingredients = await getAllIngredients()
 					pizzaImageAuthor: getAuhor
 				}}
             prebuildIngredients={getIngredients}
-            t={t.pizzaData}
+            t={{
+					quantity: t.quantity,
+					pizzaDataTranslation: t.pizzaData
+				}}
 				localForModalLinks={Astro.currentLocale ?? 'en'}
 			/>
 		</div>
@@ -86,7 +90,10 @@ const ingredients = await getAllIngredients()
             client:idle 
             prebuildIngredients={getIngredients} 
             ingredientList={ingredients} 
-            t={t.pizzaIngredients}
+            t={{
+					quantity: t.quantity,
+					ingredientTypeList: t.ingredientTypeList
+				}}
          />
 		</div>
 	</main>

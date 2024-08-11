@@ -3,28 +3,24 @@ import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import type { IngredientRequest } from '@/types'
+import type { IngredientRequest, QuantityTranslation } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
 import { en } from '@/i18n/pages/Customize.json'
 
-export type PizzaIngredientTranslation = {
-   ingredientTypeList: string[]
-   quantity: string
-   selectQuantity : {
-      decrease: string
-      increase: string
-   }
-}
+export type IngredientTypeTranslation = string[]
 
 interface Props {
    ingredientList: IngredientRequest[]
    prebuildIngredients?: string[]
-   t: PizzaIngredientTranslation
+   t: {
+      quantity: QuantityTranslation
+      ingredientTypeList: IngredientTypeTranslation
+   }
 }
 
-const ingredientTypeList = en.pizzaIngredients.ingredientTypeList
+const ingredientTypeList = en.ingredientTypeList
 
 export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
@@ -68,7 +64,7 @@ export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }
                         />
                      </ImgContainer>
                      <h3>{ingredient.ingredientName}</h3>
-                     <p>{t.quantity}</p>
+                     <p>{t.quantity.name}</p>
                      <SelectQuantity 
                         valueToShow={ingredients.length === 0 ? 
                            prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
@@ -77,11 +73,11 @@ export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }
                         minValue={0}
                         maxValue={2}
                         decrease={{
-                           label: t.selectQuantity.decrease,
+                           label: t.quantity.decrease,
                            fun: () => removeIngredient(ingredient.ingredientName)
                         }}
                         increase={{
-                           label: t.selectQuantity.increase,
+                           label: t.quantity.increase,
                            fun: () => addIngredient(ingredient.ingredientName)
                         }}
                      />

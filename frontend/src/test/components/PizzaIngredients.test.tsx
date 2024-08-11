@@ -4,13 +4,13 @@ import ingredientList from '@/mocks/fixtures/ingredients.json'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
-const { pizzaIngredients } = en
+const { quantity, ingredientTypeList } = en
 
 describe('PizzaIngredients component tests', () => {
    afterEach(() => cleanup())
 
    it('Should render correctly', () => {
-      render(<PizzaIngredients t={pizzaIngredients}  ingredientList={ingredientList} />);
+      render(<PizzaIngredients t={{ quantity, ingredientTypeList }}  ingredientList={ingredientList} />);
 
       ['All', 'Vegetable', 'Meat', 'Cheese', 'Sauce'].forEach((type) =>
          expect(screen.getByRole('button', { name: type })).toBeInTheDocument()
@@ -31,7 +31,7 @@ describe('PizzaIngredients component tests', () => {
    })
 
    it('Should disable the increase quantity button once you get the maximum quantity', () => {
-      render(<PizzaIngredients t={pizzaIngredients} ingredientList={ingredientList} />)
+      render(<PizzaIngredients t={{ quantity, ingredientTypeList }} ingredientList={ingredientList} />)
 
       const firstArticle  = screen.getAllByRole('article')[0]
       expect(within(firstArticle).getByText('0')).toBeInTheDocument()
@@ -47,7 +47,7 @@ describe('PizzaIngredients component tests', () => {
    })
 
    it('Should change the quantity of cards according to the selected type', () => {
-      render(<PizzaIngredients t={pizzaIngredients} ingredientList={ingredientList} />)
+      render(<PizzaIngredients t={{ quantity, ingredientTypeList }} ingredientList={ingredientList} />)
 
       expect(screen.getByRole('button', { name: 'All' })).toHaveClass(/active/)
       expect(screen.getAllByRole('article')).length(34)

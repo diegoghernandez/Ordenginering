@@ -7,7 +7,7 @@ const locale = 'en'
 
 const customizeTranslation = getJSON('../i18n/pages/Customize.json')
 const t = customizeTranslation[locale]
-const { pizzaData, pizzaIngredients } = t
+const { quantity, pizzaData } = t
 const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
 
 test.describe('Customize page e2e tests', () => {
@@ -29,14 +29,14 @@ test.describe('Customize page e2e tests', () => {
       await expect(pizzaDataArticle.getByText('Total: $100')).toBeVisible()
       await expect(pizzaDataArticle.getByLabel(pizzaData.selectLabel)).toBeVisible()
       await expect(pizzaDataArticle.getByLabel(pizzaData.selectLabel)).toHaveValue('MEDIUM')
-      await expect(pizzaDataArticle.getByText(pizzaData.quantity)).toBeVisible()
-      await expect(pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.decrease)).toBeVisible()
-      await expect(pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.decrease)).toBeDisabled()
+      await expect(pizzaDataArticle.getByText(quantity.name)).toBeVisible()
+      await expect(pizzaDataArticle.getByLabel(quantity.decrease)).toBeVisible()
+      await expect(pizzaDataArticle.getByLabel(quantity.decrease)).toBeDisabled()
       await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
-      await expect(pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.increase)).toBeVisible()
+      await expect(pizzaDataArticle.getByLabel(quantity.increase)).toBeVisible()
       await expect(pizzaDataArticle.getByRole('button', { name: pizzaData.addCustomizePizzaTranslation.label })).toBeVisible()
 
-      pizzaIngredients.ingredientTypeList.forEach(async (type: string) =>
+      t.ingredientTypeList.forEach(async (type: string) =>
          await expect(page.getByRole('button', { name: type })).toBeVisible()
       )
       await expect(page.getByRole('button', { name: 'All' })).toHaveClass(/active/)
@@ -49,11 +49,11 @@ test.describe('Customize page e2e tests', () => {
          await expect(element.getByRole('figure')).toBeVisible()
          // await expect(element.getByLabel('Show author image')).toBeVisible()
          await expect(element.getByRole('heading')).toBeVisible()
-         await expect(element.getByText(pizzaData.quantity)).toBeVisible()
-         await expect(element.getByLabel(pizzaData.selectedQuantity.decrease)).toBeVisible()
-         await expect(element.getByLabel(pizzaData.selectedQuantity.decrease)).toBeDisabled()
+         await expect(element.getByText(quantity.name)).toBeVisible()
+         await expect(element.getByLabel(quantity.decrease)).toBeVisible()
+         await expect(element.getByLabel(quantity.decrease)).toBeDisabled()
          await expect(element.getByText('0')).toBeVisible()
-         await expect(element.getByLabel(pizzaData.selectedQuantity.increase)).toBeVisible()
+         await expect(element.getByLabel(quantity.increase)).toBeVisible()
       }
    })
 
@@ -93,7 +93,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(34)
       
-      await pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.increase).click()
+      await pizzaDataArticle.getByLabel(quantity.increase).click()
       await expect(pizzaDataArticle.getByText('2', { exact: true })).toBeVisible()
       await expect(page.getByText('Total: $200')).toBeVisible()
       
@@ -101,16 +101,16 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByText('Total: $300')).toBeVisible()
       
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByLabel(quantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Basil' }) }).getByText('2')).toBeVisible()
 
       await expect(page.getByText('Total: $380')).toBeVisible()
       await expect(page.getByText('Basil X2')).toBeVisible()
 
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByLabel(quantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Red Onions' }) }).getByText('2')).toBeVisible()
 
       await expect(page.getByText('Total: $460')).toBeVisible()
@@ -120,7 +120,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(3)
       
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'BBQ sauce' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'BBQ sauce' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'BBQ sauce' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'BBQ sauce' }) }).getByText('1')).toBeVisible()
 
       await expect(page.getByText('Total: $500')).toBeVisible()
@@ -130,7 +130,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(7)
       
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByText('1')).toBeVisible()
 
       await expect(page.getByText('Total: $540')).toBeVisible()
@@ -140,7 +140,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(10)
 
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) }).getByText('1')).toBeVisible()
 
       await expect(page.getByText('Total: $580')).toBeVisible()
@@ -150,7 +150,7 @@ test.describe('Customize page e2e tests', () => {
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(14)
       
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Pineapple' }) }).getByText('0')).toBeVisible()
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Pineapple' }) }).getByLabel(pizzaIngredients.selectQuantity.increase).click()
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Pineapple' }) }).getByLabel(quantity.increase).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Pineapple' }) }).getByText('1')).toBeVisible()
       
       await expect(page.getByText('Total: $620')).toBeVisible()
@@ -159,7 +159,7 @@ test.describe('Customize page e2e tests', () => {
       await page.getByRole('button', { name: ingredientTypeList.all }).click()
       await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(34)
 
-      await pizzaDataArticle.getByLabel(pizzaData.selectedQuantity.decrease).click()
+      await pizzaDataArticle.getByLabel(quantity.decrease).click()
       await expect(pizzaDataArticle.locator('div').filter({ hasText: '+' }).getByText('1')).toBeVisible()
       await expect(page.getByText('Total: $310', { exact: true })).toBeVisible()
    })
@@ -168,9 +168,9 @@ test.describe('Customize page e2e tests', () => {
       await page.goto('/client/en/customize/empty')
 
       await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Grilled Chicken' }) })
-         .getByLabel(pizzaData.selectedQuantity.increase).click({ delay: 1000 * 2 })
-      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel(pizzaData.selectedQuantity.increase).click()
-      await page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByLabel(pizzaData.selectedQuantity.increase).click()
+         .getByLabel(quantity.increase).click({ delay: 1000 * 2 })
+      await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Mozzarella' }) }).getByLabel(quantity.increase).click()
+      await page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByLabel(quantity.increase).click()
       
       await expect(page.getByText('Total: $280')).toBeVisible()
       await expect(page.getByText('Grilled Chicken X1')).toBeVisible()

@@ -150,3 +150,9 @@ export interface SeoTranslation {
    description: string
    h1?: string
 }
+
+export interface QuantityTranslation {
+   name: string
+   decrease: string
+   increase: string
+}

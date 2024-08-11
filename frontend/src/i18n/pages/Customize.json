@@ -4,15 +4,15 @@
 			"title": "Customize your pizza",
 			"description": "Customize your pizza with a selection quantity of ingredients"
 		},
+		"quantity": {
+			"name": "Quantity",
+			"decrease": "Decrease quantity",
+			"increase": "Increase quantity"
+		},
 		"pizzaData": {
 			"title": "Customize your pizza",
 			"selectLabel": "Size",
 			"selectOptions": ["Small", "Medium", "Large"],
-			"quantity": "Quantity",
-			"selectedQuantity": {
-				"decrease": "Decrease quantity",
-				"increase": "Increase quantity"
-			},
 			"addCustomizePizzaTranslation": {
 				"label": "Add order",
 				"dialog": {
@@ -22,29 +22,22 @@
 				}
 			}
 		},
-		"pizzaIngredients": {
-			"ingredientTypeList": ["ALL", "VEGETABLE", "MEAT", "CHEESE", "SAUCE"],
-			"quantity": "Quantity",
-			"selectQuantity": {
-				"decrease": "Decrease quantity",
-				"increase": "Increase quantity"
-			}
-		}
+		"ingredientTypeList": ["ALL", "VEGETABLE", "MEAT", "CHEESE", "SAUCE"]
 	},
    "es": {
 		"seo": {
 			"title": "Personaliza tu pizza",
 			"description": "Personaliza tu pizza con una selecta cantidad de ingredientes"
 		},
+		"quantity": {
+			"name": "Cantidad",
+			"decrease": "Disminuir cantidad",
+			"increase": "Incrementar cantidad"
+		},
 		"pizzaData": {
 			"title": "Personaliza tu pizza",
 			"selectLabel": "Tamaño",
 			"selectOptions": ["Pequeña", "Media", "Larga"],
-			"quantity": "Cantidad",
-			"selectedQuantity": {
-				"decrease": "Disminuir cantidad",
-				"increase": "Incrementar cantidad"
-			},
 			"addCustomizePizzaTranslation": {
 				"label": "Agregar orden",
 				"dialog": {
@@ -54,13 +47,6 @@
 				}
 			}
 		},
-		"pizzaIngredients": {
-			"ingredientTypeList": ["TODOS", "VEGETAL", "CARNE", "QUESO", "SALSA"],
-			"quantity": "Cantidad",
-			"selectQuantity": {
-				"decrease": "Disminuir cantidad",
-				"increase": "Incrementar cantidad"
-			}
-		}
+		"ingredientTypeList": ["TODOS", "VEGETAL", "CARNE", "QUESO", "SALSA"]
 	}
 }

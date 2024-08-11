@@ -5,18 +5,25 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it } from 'vitest'
 
-const { pizzaData } = en
+const { quantity, pizzaData } = en
 
 describe('PizzaData component tests', () => {
    afterEach(() => cleanup())
 
    it('Should render correctly', () => {
       setIngredients()
-      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
-         pizzaName: 'Pizza',
-         pizzaImageName: 'url',
-         pizzaImageAuthor: 'author'
-      }} />)
+      render(<PizzaData 
+         localForModalLinks='en' 
+         t={{
+            quantity,
+            pizzaDataTranslation: pizzaData
+         }} 
+         pizza={{
+            pizzaName: 'Pizza',
+            pizzaImageName: 'url',
+            pizzaImageAuthor: 'author'
+         }}
+      />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -35,11 +42,19 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly with the desire ingredients', () => {
       useDesireIngredients.setState({ ingredients: [] })
-      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
-         pizzaName: 'Pizza',
-         pizzaImageName: 'url',
-         pizzaImageAuthor: 'author'
-      }} prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} />)
+      render(<PizzaData 
+         localForModalLinks='en' 
+         t={{
+            quantity,
+            pizzaDataTranslation: pizzaData
+         }} 
+         pizza={{
+            pizzaName: 'Pizza',
+            pizzaImageName: 'url',
+            pizzaImageAuthor: 'author'
+         }} 
+         prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} 
+      />)
 
       expect(screen.getByText('Total: $180')).toBeInTheDocument()
       expect(screen.getByText('BBQ Sauce')).toBeInTheDocument()
@@ -53,11 +68,19 @@ describe('PizzaData component tests', () => {
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
       setIngredients()
-      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
-         pizzaName: 'Pizza',
-         pizzaImageName: 'url',
-         pizzaImageAuthor: 'author'
-      }}/>)
+      render(<PizzaData 
+         localForModalLinks='en' 
+         t={{
+            quantity,
+            pizzaDataTranslation: pizzaData
+         }} 
+         pizza={{
+            pizzaName: 'Pizza',
+            pizzaImageName: 'url',
+            pizzaImageAuthor: 'author'
+         }}
+      />)
+
       const user = userEvent.setup()
 
       expect(screen.getByText('Total: $140')).toBeInTheDocument()
@@ -81,11 +104,18 @@ describe('PizzaData component tests', () => {
 
    it('Should render correctly the added message', async () => {
       setIngredients()
-      render(<PizzaData localForModalLinks='en' t={pizzaData} pizza={{
-         pizzaName: 'Pizza',
-         pizzaImageName: 'url',
-         pizzaImageAuthor: 'author'
-      }}/>)
+      render(<PizzaData 
+         localForModalLinks='en' 
+         t={{
+            quantity,
+            pizzaDataTranslation: pizzaData
+         }} 
+         pizza={{
+            pizzaName: 'Pizza',
+            pizzaImageName: 'url',
+            pizzaImageAuthor: 'author'
+         }}
+      />)
 
       fireEvent.click(screen.getByRole('button', { name: 'Add order' }))
 
