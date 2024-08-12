@@ -5,7 +5,7 @@ import { AddCustomizePizza } from '@/components/customize/AddCustomizePizza'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { Size } from '@/constants/size'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import type { Pizza, QuantityTranslation } from '@/types'
+import type { IngredientRequest, Pizza, QuantityTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { useState } from 'react'
 import Styles from './PizzaData.module.css'
@@ -24,7 +24,7 @@ export type PizzaDataTranslation = {
 
 interface Props {
    pizza: Pick<Pizza, 'pizzaName' | 'pizzaImageName' | 'pizzaImageAuthor'>
-   prebuildIngredients?: string[]
+   prebuildIngredients?: IngredientRequest[]
    localForModalLinks: string
    t: {
       quantity: QuantityTranslation
@@ -53,9 +53,9 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
                )
             }</p>
             <IngredientsContainer 
-               ingredients={ingredients.length === 0 ? 
-                  prebuildIngredients.map((element) => ({ name: element, quantity: 1 })) : 
-                  ingredients
+               ingredients={ingredients.length === 0 
+                  ? prebuildIngredients.map((ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 })) 
+                  : ingredients
                }
             />
             <CustomSelect

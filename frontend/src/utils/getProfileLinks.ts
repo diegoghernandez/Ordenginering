@@ -1,5 +1,4 @@
 import profileLinksTranslation from '@/i18n/components/profileLinks.json' with { type: 'json' }
-
 interface Props {
    customerId: number,
    desireTranslation?: string,

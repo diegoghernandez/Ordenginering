@@ -31,10 +31,6 @@ const emptyAuthor = currentLocale === 'en'
 	: 'Foto de Mariusz Słoński en Unsplash'
 
 const currentPizzaList = pizzaList[currentLocale]
-const getIngredients = currentPizzaList
-	.filter(({ name }) => compareStringsOfNames(pizza, name))
-	.flatMap(({ ingredients }) => ingredients)
-
 
 const isEmpty = pizza !== 'empty'
 	
@@ -50,6 +46,12 @@ const getAuhor = isEmpty
 	: emptyAuthor
 
 const ingredients = await getAllIngredients()
+
+const getIngredients = () => {
+	return pizzaList.en
+		.filter(({ name }) => compareStringsOfNames(pizza, name))
+		.flatMap(({ ingredients }) => ingredients)
+}
 ---
 
 <Layout 
@@ -77,7 +79,9 @@ const ingredients = await getAllIngredients()
 					pizzaImageName: pizza + '--small',
 					pizzaImageAuthor: getAuhor
 				}}
-            prebuildIngredients={getIngredients}
+				prebuildIngredients={
+					getIngredients().map((id) => ingredients.filter(({ idIngredient }) => id === idIngredient)[0])
+				}
             t={{
 					quantity: t.quantity,
 					pizzaDataTranslation: t.pizzaData
@@ -88,7 +92,7 @@ const ingredients = await getAllIngredients()
 		<div>
 			<PizzaIngredients 
             client:idle 
-            prebuildIngredients={getIngredients} 
+            prebuildIngredientIDs={getIngredients()} 
             ingredientList={ingredients} 
             t={{
 					quantity: t.quantity,

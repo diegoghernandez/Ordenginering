@@ -19,7 +19,9 @@ LOCALES.forEach((locale) => {
 
       test('Should render the checkout page correctly after login and get the cookie', async ({ page, context }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-         await page.goto('/client/en/checkout')
+         await page.goto('/client/en/checkout', {
+            timeout: 1000
+         })
    
          await expect(page).toHaveTitle(t.seo.title)
    
@@ -40,7 +42,6 @@ LOCALES.forEach((locale) => {
       test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an error', 
       async ({ page, context, worker }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-         await page.waitForLoadState('load')
          await page.goto('/client/en/menu')
    
          await checkIfShoppingCartIsEmpty(locale, page)

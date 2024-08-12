@@ -4,24 +4,24 @@ import { create } from 'zustand'
 
 interface IngredientCart {
    ingredients: Ingredient[],
-   addIngredient: (ingredient: string) => void
-   removeIngredient: (ingredient: string) => void
+   addIngredient: (ingredientID: number, name: string) => void
+   removeIngredient: (ingredientID: number) => void
 }
 
 export const useDesireIngredients = create<IngredientCart>()((set) => ({
    ingredients: [],
-   addIngredient: (ingredient) => {
+   addIngredient: (ingredientID, name) => {
       set((prev) => {
-         const desireIngredients = prev.ingredients.filter(({ name }) => name === ingredient)
+         const desireIngredients = prev.ingredients.filter(({ id }) => id === ingredientID)
          if (desireIngredients.length === 0) {
             return {
                ...prev,
-               ingredients: [...prev.ingredients, { name: ingredient, quantity: 1 }]
+               ingredients: [...prev.ingredients, { id: ingredientID, name, quantity: 1 }]
             }
          }
 
          const newIngredients = [
-            ...prev.ingredients.filter(({ name }) => name !== ingredient), 
+            ...prev.ingredients.filter(({ id }) => id !== ingredientID), 
             { ...desireIngredients[0], quantity: desireIngredients[0].quantity + 1 }
          ]
 
@@ -31,18 +31,18 @@ export const useDesireIngredients = create<IngredientCart>()((set) => ({
          }
       })
    },
-   removeIngredient: (ingredient) => {
+   removeIngredient: (ingredientID) => {
       set((prev) => {
-         const desireIngredients = prev.ingredients.filter(({ name }) => name === ingredient)
+         const desireIngredients = prev.ingredients.filter(({ id }) => id === ingredientID)
          if (desireIngredients.length === 0) return prev
          else if (desireIngredients[0].quantity - 1 === 0) return {
             ...prev,
-            ingredients: [...prev.ingredients.filter(({ name }) => name !== ingredient)]
+            ingredients: [...prev.ingredients.filter(({ id }) => id !== ingredientID)]
          }
 
          const newIngredients = prev.ingredients.map((element) => {
-            if (element.name === ingredient) {
-               return { name: element.name, quantity: element.quantity - 1 }
+            if (element.id === ingredientID) {
+               return { id: element.id, name: element.name, quantity: element.quantity - 1 }
             }
 
             return element

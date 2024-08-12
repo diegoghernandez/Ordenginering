@@ -8,6 +8,7 @@ import { SECONDARY__BUTTON } from '@/constants/styles'
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
+import { getAllIngredients } from '@/services/ingredientsService'
 import type { SeoTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
@@ -34,6 +35,11 @@ function getCustomizeUrl(pizzaName: string) {
 
 const { t } = Astro.props
 
+const ingredients = await getAllIngredients()
+
+const getIngredients = (idsList: number[]) => {
+	return idsList.map((id) => ingredients.filter(({ idIngredient }) => id === idIngredient)[0])
+}
 ---
 
 <Layout
@@ -59,7 +65,7 @@ const { t } = Astro.props
 						<div class='pizza-information'>
 							<h3>{pizza.name}</h3>
 							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
-							<p>{pizza.ingredients.join(', ')}</p>
+							<p>{getIngredients(pizza.ingredients).map(({ ingredientName }) => ingredientName).join(', ')}</p>
 						</div>
 						<div class='buttons-column'>
 							<AddPizza 
@@ -71,8 +77,8 @@ const { t } = Astro.props
 									pizzaImageAuthor: pizza.image.author,
 									size: Size.MEDIUM,
 									quantity: 1,
-									pizzaIngredients: pizza.ingredients.map(
-										(ingredient) => ({ name: ingredient, quantity: 1 }))
+									pizzaIngredients: getIngredients(pizza.ingredients).map(
+										(ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 }))
 								}} 
 							/>
 							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizzaList.en[index].name)}>

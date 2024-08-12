@@ -45,7 +45,7 @@ export function AddCustomizePizza({ t, localForModalLinks, pizza, characteristic
             pizzaImageAuthor: pizza.pizzaImageAuthor,
             size: characteristics.size,
             quantity: characteristics.quantity,
-            pizzaIngredients: ingredients.map((element) => ({ name: element.name, quantity: element.quantity }))
+            pizzaIngredients: ingredients
          })
       }, 1000)
    }

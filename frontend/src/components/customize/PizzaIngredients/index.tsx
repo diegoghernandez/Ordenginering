@@ -3,17 +3,16 @@ import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { en } from '@/i18n/pages/Customize.json'
 import type { IngredientRequest, QuantityTranslation } from '@/types'
-import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
-import { en } from '@/i18n/pages/Customize.json'
 
 export type IngredientTypeTranslation = string[]
 
 interface Props {
    ingredientList: IngredientRequest[]
-   prebuildIngredients?: string[]
+   prebuildIngredientIDs?: number[]
    t: {
       quantity: QuantityTranslation
       ingredientTypeList: IngredientTypeTranslation
@@ -22,18 +21,24 @@ interface Props {
 
 const ingredientTypeList = en.ingredientTypeList
 
-export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }: Props) {
+export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
    const [desiredType, setDesiredType] = useState(ingredientTypeList[0])
    const ingredientTypeListTranslate = t.ingredientTypeList
 
+   
+   
    useEffect(() => {
-      for (const prebuildIngredient of prebuildIngredients) {
-         addIngredient(prebuildIngredient)
+      for (const prebuildIngredientID of prebuildIngredientIDs) {
+         const ingredientName = ingredientList
+            .filter(({ idIngredient }) => idIngredient === prebuildIngredientID)
+            .map(({ ingredientName }) => ingredientName)[0]
+
+         addIngredient(prebuildIngredientID, ingredientName)
       }
-   }, [prebuildIngredients, addIngredient])
+   }, [prebuildIngredientIDs, addIngredient, ingredientList])
 
    return (
       <>
@@ -67,18 +72,18 @@ export function PizzaIngredients({ ingredientList, prebuildIngredients = [], t }
                      <p>{t.quantity.name}</p>
                      <SelectQuantity 
                         valueToShow={ingredients.length === 0 ? 
-                           prebuildIngredients?.includes(ingredient.ingredientName) ? 1 : 0 
-                           : ingredients.filter((element) => compareStringsOfNames(element?.name, ingredient.ingredientName))[0]?.quantity ?? 0
+                           prebuildIngredientIDs?.includes(ingredient.idIngredient) ? 1 : 0 
+                           : ingredients.filter((element) => element.id === ingredient.idIngredient)[0]?.quantity ?? 0
                         }
                         minValue={0}
                         maxValue={2}
                         decrease={{
                            label: t.quantity.decrease,
-                           fun: () => removeIngredient(ingredient.ingredientName)
+                           fun: () => removeIngredient(ingredient.idIngredient)
                         }}
                         increase={{
                            label: t.quantity.increase,
-                           fun: () => addIngredient(ingredient.ingredientName)
+                           fun: () => addIngredient(ingredient.idIngredient, ingredient.ingredientName)
                         }}
                      />
                   </>

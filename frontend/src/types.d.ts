@@ -17,8 +17,8 @@ interface Page {
 }
 
 export interface Ingredient {
-   id?: number
-   name: string
+   id: number
+   name?: string
    quantity: number
 }
 

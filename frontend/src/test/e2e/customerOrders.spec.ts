@@ -17,7 +17,6 @@ LOCALES.forEach((locale) => {
       })
    
       test('Should render correctly', async ({ page }) => {
-         await page.waitForLoadState('load')
          await expect(page).toHaveTitle(t.seo.title)
 
          await findNavbarElements(locale, page)

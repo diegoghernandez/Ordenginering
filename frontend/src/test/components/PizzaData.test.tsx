@@ -52,8 +52,37 @@ describe('PizzaData component tests', () => {
             pizzaName: 'Pizza',
             pizzaImageName: 'url',
             pizzaImageAuthor: 'author'
-         }} 
-         prebuildIngredients={['BBQ Sauce', 'Grilled Chicken', 'Red Onions', 'Mozzarella']} 
+         }}
+         prebuildIngredients={[
+            {
+               'idIngredient': 32,
+               'ingredientName': 'BBQ Sauce',
+               'ingredientType': 'SAUCE',
+               'authorImage': '',
+               'fileNameImage': 'bbq-sauce'
+            },
+            {
+               'idIngredient': 15,
+               'ingredientName': 'Grilled Chicken',
+               'ingredientType': 'MEAT',
+               'authorImage': "Denis Agati's photo on Unsplash",
+               'fileNameImage': 'grilled-chicken'
+            },
+            {
+               'idIngredient': 9,
+               'ingredientName': 'Red Onions',
+               'ingredientType': 'VEGETABLE',
+               'authorImage': "Eric Prouzet's photo on Unsplash",
+               'fileNameImage': 'red-onions'
+            },
+            {
+               'idIngredient': 25,
+               'ingredientName': 'Mozzarella',
+               'ingredientType': 'CHEESE',
+               'authorImage': '',
+               'fileNameImage': 'mozzarella'
+            },
+         ]}
       />)
 
       expect(screen.getByText('Total: $180')).toBeInTheDocument()
@@ -132,6 +161,7 @@ describe('PizzaData component tests', () => {
 function setIngredients() {
    useDesireIngredients.setState({
       ingredients: [{
+         id: 1,
          name: 'Pepperoni',
          quantity: 2
       }]

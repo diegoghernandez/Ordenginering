@@ -13,9 +13,7 @@ LOCALES.forEach((locale) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
    
          await page.goto('/client/en/customer/32')
-         await page.waitForLoadState('load')
          await worker.use(...changeCustomerHandler)
-
          await changeLanguage(locale, page)
       })
    
@@ -96,7 +94,9 @@ LOCALES.forEach((locale) => {
          test('Should full the formulary and get a error message', async ({ page }) => {         
             const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: passwordFormTranslation.title }) })
    
-            await passwordArticle.getByLabel(passwordFormTranslation.labels.currentPassword).fill('wrong')
+            const currentPasswordLabel = passwordArticle.getByLabel(passwordFormTranslation.labels.currentPassword)
+            await currentPasswordLabel.waitFor()
+            await currentPasswordLabel.fill('wrong')
             await passwordArticle.getByLabel(passwordFormTranslation.labels.newPassword).fill('1234')
             await passwordArticle.getByLabel(passwordFormTranslation.labels.repeatPassword).fill('1234')
          
@@ -110,7 +110,9 @@ LOCALES.forEach((locale) => {
          test('Should full the formulary and change the password correctly', async ({ page }) => {
             const passwordArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: passwordFormTranslation.title }) })
    
-            await passwordArticle.getByLabel(passwordFormTranslation.labels.currentPassword).fill('correct')
+            const currentPasswordLabel = passwordArticle.getByLabel(passwordFormTranslation.labels.currentPassword)
+            await currentPasswordLabel.waitFor()
+            await currentPasswordLabel.fill('correct')
             await passwordArticle.getByLabel(passwordFormTranslation.labels.newPassword).fill('1234')
             await passwordArticle.getByLabel(passwordFormTranslation.labels.repeatPassword).fill('1234')
    
@@ -127,9 +129,10 @@ LOCALES.forEach((locale) => {
          test('Should full the formulary and get a error message', async ({ page }) => {         
             const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: emailFormTranslation.title }) })
    
-            await emailArticle.getByLabel(emailFormTranslation.labels.currentPassword).fill('wrong')
+            const currentPasswordLabel = emailArticle.getByLabel(emailFormTranslation.labels.currentPassword)
+            await currentPasswordLabel.waitFor()
+            await currentPasswordLabel.fill('wrong')
             await emailArticle.getByLabel(emailFormTranslation.labels.newEmail).fill('newemail@new.com')
-         
    
             await emailArticle.getByRole('button', { name: emailFormTranslation.submitLabel }).click()
    
@@ -140,12 +143,13 @@ LOCALES.forEach((locale) => {
          test('Should full the formulary and change the email correctly', async ({ page }) => {         
             const emailArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: emailFormTranslation.title }) })
    
-            await emailArticle.getByLabel(emailFormTranslation.labels.currentPassword).fill('correct')
+            const currentPasswordLabel = emailArticle.getByLabel(emailFormTranslation.labels.currentPassword)
+            await currentPasswordLabel.waitFor()
+            await currentPasswordLabel.fill('correct')
             await emailArticle.getByLabel(emailFormTranslation.labels.newEmail).fill('newemail@new.com')
-         
    
-            await emailArticle.getByRole('button', { name: emailFormTranslation.submitLabel }).click()
-   
+            await emailArticle.getByRole('button', { name: emailFormTranslation.submitLabel }).click()   
+            
             await expect(emailArticle.getByText('Success')).toBeVisible()
             await expect(emailArticle.getByText('Change email correctly')).toBeVisible()
          })

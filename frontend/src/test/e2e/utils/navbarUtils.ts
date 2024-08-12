@@ -4,15 +4,20 @@ import { shoppingCartTranslation } from './translationUtils'
 
 export async function changeLanguage(locale: string, page: Page) {
    await page.getByRole('navigation').getByRole('combobox').selectOption(locale)
+   await page.waitForLoadState('domcontentloaded')
 }
 
 export async function findNavbarElements(locale: string, page: Page) {
    const navbarTranslation = getJSON('../i18n/components/navbar.json')[locale]
    const { closeLargeModalButton } = getJSON('../i18n/components/largeModal.json')[locale]
    const accountButtonTranslation = getJSON('../i18n/components/accountButton.json')[locale]   
-
+   
    await page.setViewportSize({ width: 320, height: 900 })
-   await page.getByLabel(navbarTranslation.menuButton).click()
+   const mobileMenu = page.getByLabel(navbarTranslation.menuButton)
+   await expect(mobileMenu).toBeVisible()
+   await mobileMenu.click({
+      delay: 1000
+   })
    
    await expect(page.getByRole('link', { name: navbarTranslation.links.home })).toBeVisible()
    await expect(page.getByRole('link', { name: navbarTranslation.links.menu })).toBeVisible()

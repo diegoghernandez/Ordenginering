@@ -26,7 +26,7 @@ export function ShowOrder({ currentLocal }: Props) {
    const t = showOrderTranslation[currentLocal]
 
    useEffect(() => setPizza(pizzaList), [pizzaList])
-   
+
    return (
       <section className={Styles['order-styles']}>
          <h2>Total: <strong>${pizzaList.map((pizza) => 

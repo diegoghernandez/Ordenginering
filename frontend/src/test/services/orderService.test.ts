@@ -42,9 +42,11 @@ describe('Order service tests', () => {
                size: 'LARGE',
                quantity: 2,
                pizzaIngredients: [{
+                  id: 1,
                   name: 'Pepperoni',
                   quantity: 1
                }, {
+                  id: 2,
                   name: 'Mozzarella',
                   quantity: 2
                }]
@@ -70,9 +72,11 @@ describe('Order service tests', () => {
                pizzaImageAuthor: 'Author',
                size: 'LARGE',
                pizzaIngredients: [{
+                  id: 1,
                   name: 'Pepperoni',
                   quantity: 1
                }, {
+                  id: 2,
                   name: 'Mozzarella',
                   quantity: 2
                }]

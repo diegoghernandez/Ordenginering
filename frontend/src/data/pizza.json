@@ -6,7 +6,7 @@
             "name": "pepperoni",
             "author": "Fernando Andrade's photo on Unsplash"
          },
-         "ingredients": ["Pepperoni", "Mozzarella"]
+         "ingredients": [17, 25]
       },
       {
          "name": "Hawaiana",
@@ -14,7 +14,7 @@
             "name": "hawaiana",
             "author": "bckfwd's photo on Unsplash"
          },
-         "ingredients": ["Ham", "Pineapple", "Mozzarella"]
+         "ingredients": [16, 1, 25]
       },
       {
          "name": "Margherita",
@@ -22,7 +22,7 @@
             "name": "margherita",
             "author": "Aurélien Lemasson-Théobald's photo on Unsplash"
          },
-         "ingredients": ["Tomato", "Mozzarella", "Basil"]
+         "ingredients": [2, 25, 3]
       },
       {
          "name": "Four Cheese",
@@ -30,7 +30,7 @@
             "name": "four-cheese",
             "author": "Getúlio Moraes's photo on Unsplash"
          },
-         "ingredients": ["Mozzarella", "Cheddar", "Parmesan", "Gouda"]
+         "ingredients": [25, 26, 27, 28]
       },
       {
          "name": "Vegetarian",
@@ -38,7 +38,7 @@
             "name": "vegetarian",
             "author": "LUM3N's photo on Unsplash"
          },
-         "ingredients": ["Bell Peppers", "Onions", "Mushrooms", "Olives", "Mozzarella"]
+         "ingredients": [4, 5, 6, 7, 25]
       },
       {
          "name": "BBQ Chicken",
@@ -46,7 +46,7 @@
             "name": "bbq-chicken",
             "author": "Erik Mclean's photo on Unsplash"
          },
-         "ingredients": ["BBQ Sauce", "Grilled Chicken", "Red Onions", "Mozzarella"]
+         "ingredients": [32, 15, 9, 25]
       },
       {
          "name": "Supreme",
@@ -54,7 +54,7 @@
             "name": "supreme",
             "author": "Drake Whitney's photo on Unsplash"
          },
-         "ingredients": ["Pepperoni", "Tomato sauce", "Bell Peppers", "Onions", "Black olives", "Mozzarella"]
+         "ingredients": [17, 34, 4, 5, 8, 25]
       },
       {
          "name": "Mushroom",
@@ -62,7 +62,7 @@
             "name": "mushroom",
             "author": "Lavi Perchik's photo on Unsplash"
          },
-         "ingredients": ["Mushrooms", "Mozzarella", "Garlic", "Oregano"]
+         "ingredients": [6, 25, 10, 11]
       },
       {
          "name": "Seafood",
@@ -70,7 +70,7 @@
             "name": "seafood",
             "author": "serjan midili's photo on Unsplash"
          },
-         "ingredients": ["Shrimp", "Calamar", "Mussels", "Garlic", "Mozzarella"]
+         "ingredients": [22, 23, 24, 10, 25]
       }
    ],
    "es": [
@@ -80,7 +80,7 @@
             "name": "pepperoni",
             "author": "Foto de Fernando Andrade en Unsplash"
          },
-         "ingredients": ["Pepperoni", "Mozzarella"]
+         "ingredients": [17, 25]
       },
       {
          "name": "Hawaiana",
@@ -88,7 +88,7 @@
             "name": "hawaiana",
             "author": "Foto de bckfwd en Unsplash"
          },
-         "ingredients": ["Jamón", "Piña", "Mozzarella"]
+         "ingredients": [16, 1, 25]
       },
       {
          "name": "Margarita",
@@ -96,7 +96,7 @@
             "name": "margherita",
             "author": "Foto de Aurélien Lemasson-Théobald en Unsplash"
          },
-         "ingredients": ["Tomate", "Mozzarella", "Albahaca"]
+         "ingredients": [2, 25, 3]
       },
       {
          "name": "Cuatro quesos",
@@ -104,7 +104,7 @@
             "name": "four-cheese",
             "author": "Foto de Getúlio Moraes en Unsplash"
          },
-         "ingredients": ["Mozzarella", "Cheddar", "Parmesano", "Gouda"]
+         "ingredients": [25, 26, 27, 28]
       },
       {
          "name": "Vegetariana",
@@ -112,7 +112,7 @@
             "name": "vegetarian",
             "author": "Foto de LUM3N en Unsplash"
          },
-         "ingredients": ["Pimientos", "Cebolla", "Hongos", "Olivas", "Mozzarella"]
+         "ingredients": [4, 5, 6, 7, 25]
       },
       {
          "name": "Pollo BBQ",
@@ -120,7 +120,7 @@
             "name": "bbq-chicken",
             "author": "Foto de Erik Mclean en Unsplash"
          },
-         "ingredients": ["Salsa BBQ", "Pollo a la parrilla", "Cebollas rojas", "Mozzarella"]
+         "ingredients": [32, 15, 9, 25]
       },
       {
          "name": "Suprema",
@@ -128,7 +128,7 @@
             "name": "supreme",
             "author": "Foto de Drake Whitney en Unsplash"
          },
-         "ingredients": ["Pepperoni", "Salsa de tomate", "Pimientos", "Cebolla", "Olivos negros", "Mozzarella"]
+         "ingredients": [17, 34, 4, 5, 8, 25]
       },
       {
          "name": "Hongos",
@@ -136,7 +136,7 @@
             "name": "mushroom",
             "author": "Foto de Lavi Perchik en Unsplash"
          },
-         "ingredients": ["Hongos", "Mozzarella", "Ajo", "Orégano"]
+         "ingredients": [6, 25, 10, 11]
       },
       {
          "name": "Mariscos",
@@ -144,7 +144,7 @@
             "name": "seafood",
             "author": "Foto de serjan midili en Unsplash"
          },
-         "ingredients": ["Camarones", "Calamar", "Mejillones", "Ajo", "Mozzarella"]
+         "ingredients": [22, 23, 24, 10, 25]
       }
    ]   
 }
