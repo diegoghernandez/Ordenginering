@@ -40,8 +40,8 @@ public class IngredientServiceImpl implements IngredientService {
    }
 
    @Override
-   public Optional<Integer> getIdByIngredientName(String name) {
-      return ingredientRepository.findByNameIfExist(name);
+   public boolean existIngredientId(int id) {
+      return ingredientRepository.findByIdIngredient(id).isPresent();
    }
 
    @Override

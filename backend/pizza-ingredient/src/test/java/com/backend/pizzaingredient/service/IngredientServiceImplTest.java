@@ -40,23 +40,22 @@ class IngredientServiceImplTest implements MysqlTestContainer {
    }
 
    @Test
-   @DisplayName("Should return the desire id with the name using the repository if exist")
-   void getIdByIngredientName() {
-      var ingredientId = ingredientRepository.findByNameIfExist("Pineapple");
-      var ingredientId404 = ingredientRepository.findByNameIfExist("fsadfsa");
+   @DisplayName("Should check if the id exist in the repository")
+   void existIngredientId() {
+      var ingredientIdExist = ingredientService.existIngredientId(3);
+      var ingredientIdNotExist = ingredientService.existIngredientId(423423);
 
       assertAll(
-              () -> assertTrue(ingredientId.isPresent()),
-              () -> assertEquals(3, ingredientId.get()),
-              () -> assertTrue(ingredientId404.isEmpty())
+              () -> assertTrue(ingredientIdExist),
+              () -> assertFalse(ingredientIdNotExist)
       );
    }
 
    @Test
    @DisplayName("Should return the desire name with the id using the repository if exist")
    void getIngredientNameById() {
-      var ingredientId = ingredientRepository.findByIdIngredient(3);
-      var ingredientId404 = ingredientRepository.findByIdIngredient(423423);
+      var ingredientId = ingredientService.getIngredientNameById(3);
+      var ingredientId404 = ingredientService.getIngredientNameById(423423);
 
       var ingredientName = IngredientName.builder()
               .en("Pineapple")

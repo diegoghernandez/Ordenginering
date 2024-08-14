@@ -14,7 +14,7 @@ public interface IngredientService {
 
    List<IngredientEntity> getAllIngredients();
 
-   Optional<Integer> getIdByIngredientName(String name);
+   boolean existIngredientId(int id);
 
    Optional<IngredientName> getIngredientNameById(int id);
 

@@ -35,13 +35,11 @@ public class IngredientController {
               new ResponseEntity<>(ingredientList, HttpStatus.OK);
    }
 
-   @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<Integer> getIdByIngredientName(@PathVariable String name) {
-      var ingredientId = ingredientService.getIdByIngredientName(name);
+   @RequestMapping(value = "/id/{id}", method = RequestMethod.HEAD)
+   public ResponseEntity<Void> existIngredientId(@PathVariable int id) {
+      if (ingredientService.existIngredientId(id)) return new ResponseEntity<>(HttpStatus.OK);
 
-      return ingredientId
-              .map((id) -> new ResponseEntity<>(id, HttpStatus.OK))
-              .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
    }
 
    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

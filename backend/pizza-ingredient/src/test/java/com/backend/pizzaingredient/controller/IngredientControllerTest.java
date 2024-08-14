@@ -76,56 +76,29 @@ class IngredientControllerTest {
    }
 
    @Test
-   @DisplayName("Should return one IngredientDomain using the repository if the id exist")
-   void getNameById() {
-      Mockito.when(ingredientService.getIdByIngredientName("not-found"))
-              .thenReturn(Optional.empty());
+   @DisplayName("Should check if the id exist using the service and return a head response")
+   void existIngredientId() {
+      var validId = 1;
+      var invalidId = 4423432;
 
-      Mockito.when(ingredientService.getIdByIngredientName("Pepperoni"))
-              .thenReturn(Optional.of(33));
+      Mockito.when(ingredientService.existIngredientId(validId))
+              .thenReturn(true);
+
+      Mockito.when(ingredientService.existIngredientId(invalidId))
+              .thenReturn(false);
 
       assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/name/not-found")
-                              .contentType(MediaType.APPLICATION_JSON_VALUE))
+              () -> mockMvc.perform(MockMvcRequestBuilders.head("/id/" + invalidId))
                       .andExpect(MockMvcResultMatchers.status().isNotFound()),
 
               () -> Mockito.verify(ingredientService, Mockito.times(1))
-                      .getIdByIngredientName("not-found"),
+                      .existIngredientId(invalidId),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/name/Pepperoni")
-                              .contentType(MediaType.APPLICATION_JSON_VALUE))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("33")),
+              () -> mockMvc.perform(MockMvcRequestBuilders.head("/id/" + validId))
+                      .andExpect(MockMvcResultMatchers.status().isOk()),
 
               () -> Mockito.verify(ingredientService, Mockito.times(1))
-                      .getIdByIngredientName("Pepperoni")
-      );
-   }
-
-   @Test
-   @DisplayName("Should return the desire id with the name using the service if exist")
-   void getIdByIngredientName() {
-      Mockito.when(ingredientService.getIdByIngredientName("not-found"))
-              .thenReturn(Optional.empty());
-
-      Mockito.when(ingredientService.getIdByIngredientName("Pepperoni"))
-              .thenReturn(Optional.of(33));
-
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/name/not-found")
-                              .contentType(MediaType.APPLICATION_JSON_VALUE))
-                      .andExpect(MockMvcResultMatchers.status().isNotFound()),
-
-              () -> Mockito.verify(ingredientService, Mockito.times(1))
-                      .getIdByIngredientName("not-found"),
-
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/name/Pepperoni")
-                              .contentType(MediaType.APPLICATION_JSON_VALUE))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("33")),
-
-              () -> Mockito.verify(ingredientService, Mockito.times(1))
-                      .getIdByIngredientName("Pepperoni")
+                      .existIngredientId(validId)
       );
    }
 
