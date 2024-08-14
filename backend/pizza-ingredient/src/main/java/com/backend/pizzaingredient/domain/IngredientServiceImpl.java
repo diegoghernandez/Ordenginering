@@ -4,6 +4,7 @@ import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.helper.imageConverter.ImageToAvif;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.persistence.entity.IngredientName;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.env.BucketProperties;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
@@ -40,18 +41,22 @@ public class IngredientServiceImpl implements IngredientService {
 
    @Override
    public Optional<Integer> getIdByIngredientName(String name) {
-      return ingredientRepository.findByIngredientName(name);
+      return ingredientRepository.findByNameIfExist(name);
    }
 
    @Override
-   public Optional<String> getIngredientNameById(int id) {
+   public Optional<IngredientName> getIngredientNameById(int id) {
       return ingredientRepository.findByIdIngredient(id);
    }
 
    @Override
    public void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException {
-      if (ingredientRepository.existsByIngredientName(ingredientDto.ingredientName()))
+      if (
+              ingredientRepository.findByNameIfExist(ingredientDto.ingredientName().getEn()).isPresent() ||
+              ingredientRepository.findByNameIfExist(ingredientDto.ingredientName().getEs()).isPresent()
+      ) {
          throw new NotAllowedException("Repeat names are not allowed");
+      }
 
       var imageBytes = ImageToAvif.converter(image);
       var imageNameWithoutExtension = Objects.requireNonNull(image.getOriginalFilename()).split("\\.")[0];

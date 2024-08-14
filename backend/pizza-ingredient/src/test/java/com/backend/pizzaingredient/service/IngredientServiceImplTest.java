@@ -5,6 +5,7 @@ import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.persistence.entity.IngredientName;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.setup.containers.MysqlTestContainer;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
@@ -12,6 +13,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -20,6 +22,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = "com.backend.pizzaingredient.domain")
 class IngredientServiceImplTest implements MysqlTestContainer {
 
@@ -39,8 +42,8 @@ class IngredientServiceImplTest implements MysqlTestContainer {
    @Test
    @DisplayName("Should return the desire id with the name using the repository if exist")
    void getIdByIngredientName() {
-      var ingredientId = ingredientRepository.findByIngredientName("Pineapple");
-      var ingredientId404 = ingredientRepository.findByIngredientName("fsadfsa");
+      var ingredientId = ingredientRepository.findByNameIfExist("Pineapple");
+      var ingredientId404 = ingredientRepository.findByNameIfExist("fsadfsa");
 
       assertAll(
               () -> assertTrue(ingredientId.isPresent()),
@@ -55,9 +58,14 @@ class IngredientServiceImplTest implements MysqlTestContainer {
       var ingredientId = ingredientRepository.findByIdIngredient(3);
       var ingredientId404 = ingredientRepository.findByIdIngredient(423423);
 
+      var ingredientName = IngredientName.builder()
+              .en("Pineapple")
+              .es("Piña")
+              .build();
+
       assertAll(
               () -> assertTrue(ingredientId.isPresent()),
-              () -> assertEquals("Pineapple", ingredientId.get()),
+              () -> assertEquals(ingredientName, ingredientId.get()),
               () -> assertTrue(ingredientId404.isEmpty())
       );
    }
@@ -67,20 +75,29 @@ class IngredientServiceImplTest implements MysqlTestContainer {
    void saveIngredient() throws NotAllowedException, IOException {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
-                      "Pepperoni",
+                      IngredientName.builder()
+                              .en("Pepperoni")
+                              .es("Nuevo")
+                              .build(),
                       IngredientType.VEGETABLE,
                       "Author"
               ), TestIngredientUtil.getImageFile()));
 
       ingredientService.saveIngredient(new IngredientDto(
-              "Good",
+              IngredientName.builder()
+                      .en("Good")
+                      .es("Bueno")
+                      .build(),
               IngredientType.VEGETABLE,
               "Author"
       ), TestIngredientUtil.getImageFile());
 
       var ingredientEntity = IngredientEntity.builder()
               .idIngredient(5)
-              .ingredientName("Good")
+              .ingredientName(IngredientName.builder()
+                      .en("Good")
+                      .es("Bueno")
+                      .build())
               .ingredientType(IngredientType.VEGETABLE)
               .authorImage("Author")
               .fileNameImage("image")

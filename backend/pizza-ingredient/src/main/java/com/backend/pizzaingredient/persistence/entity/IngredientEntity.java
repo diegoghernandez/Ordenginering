@@ -1,8 +1,10 @@
 package com.backend.pizzaingredient.persistence.entity;
 
 import com.backend.pizzaingredient.constants.IngredientType;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 @Getter
 @Builder
@@ -18,8 +20,9 @@ public class IngredientEntity {
    @Column(name = "id_ingredient")
    private Integer idIngredient;
 
-   @Column(name = "ingredient_name", length = 50, nullable = false, unique = true)
-   private String ingredientName;
+   @Type(JsonType.class)
+   @Column(name = "ingredient_name", columnDefinition = "json", nullable = false)
+   private IngredientName ingredientName;
 
    @Enumerated(EnumType.STRING)
    @Column(name = "ingredient_type", nullable = false)

@@ -5,6 +5,7 @@ import com.backend.pizzaingredient.advice.PizzaDataExceptionHandler;
 import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
+import com.backend.pizzaingredient.persistence.entity.IngredientName;
 import com.backend.pizzaingredient.web.IngredientController;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -131,11 +132,18 @@ class IngredientControllerTest {
    @Test
    @DisplayName("Should return the desire name with the id using the service if exist")
    void getIngredientNameById() {
+      var ingredientName = IngredientName.builder()
+              .en("Pineapple")
+              .es("Piña")
+              .build();
+
       Mockito.when(ingredientService.getIngredientNameById(45325))
               .thenReturn(Optional.empty());
 
       Mockito.when(ingredientService.getIngredientNameById(1))
-              .thenReturn(Optional.of("Pepperoni"));
+              .thenReturn(Optional.of(ingredientName));
+
+      var objectMapper = new ObjectMapper();
 
       assertAll(
               () -> mockMvc.perform(MockMvcRequestBuilders.get("/id/45325")
@@ -148,7 +156,7 @@ class IngredientControllerTest {
               () -> mockMvc.perform(MockMvcRequestBuilders.get("/id/1")
                               .contentType(MediaType.APPLICATION_JSON_VALUE))
                       .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string("Pepperoni")),
+                      .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(ingredientName))),
 
               () -> Mockito.verify(ingredientService, Mockito.times(1))
                       .getIngredientNameById(1)
@@ -159,13 +167,19 @@ class IngredientControllerTest {
    @DisplayName("Should save one ingredientDto using the service or catch an error with a bad message")
    void saveIngredient() throws Exception {
       var ingredientDtoError = new IngredientDto(
-              "Repeat name",
+              IngredientName.builder()
+                      .en("Repeat name")
+                      .es("Nombre repetido")
+                      .build(),
               IngredientType.VEGETABLE,
               "Author"
       );
 
       var ingredientDto = new IngredientDto(
-              "Good",
+              IngredientName.builder()
+                      .en("Good")
+                      .es("Bueno")
+                      .build(),
               IngredientType.VEGETABLE,
               "Author"
       );

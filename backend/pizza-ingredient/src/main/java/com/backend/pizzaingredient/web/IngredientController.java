@@ -3,9 +3,9 @@ package com.backend.pizzaingredient.web;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
+import com.backend.pizzaingredient.persistence.entity.IngredientName;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +45,7 @@ public class IngredientController {
    }
 
    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> getIngredientNameById(@PathVariable int id) {
+   public ResponseEntity<IngredientName> getIngredientNameById(@PathVariable int id) {
       var ingredientName = ingredientService.getIngredientNameById(id);
 
       return ingredientName
