@@ -69,7 +69,7 @@ class OrderServiceImplTest implements MysqlTestContainer, CustomerClientWireMock
       var ingredientException = assertThrows(NotAllowedException.class, () -> orderService.saveOrder(
               new OrderDto(2L, null, null, null, null, 32, null, null, List.of(
                       new PizzaDto(null, null, null, Size.MEDIUM, 32, List.of(
-                              new IngredientNameDto("Error", 1)
+                              new IngredientNameDto(3213, 1)
                       ))
               )),
               TestDataUtil.getCookie())

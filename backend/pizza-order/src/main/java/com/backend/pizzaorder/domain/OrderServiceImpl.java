@@ -86,9 +86,9 @@ public class OrderServiceImpl implements OrderService {
          var pizzaIngredients = new HashSet<PizzaIngredients>();
          try {
             for(var ingredientNameDto : pizzaDto.pizzaIngredients()) {
-               var idIngredient = ingredientClient.getIdByIngredientName(ingredientNameDto.name(), newCookie);
+               ingredientClient.existIngredientId(ingredientNameDto.id(), newCookie);
                pizzaIngredients.add(PizzaIngredients.builder()
-                       .idIngredient(idIngredient)
+                       .idIngredient(ingredientNameDto.id())
                        .idPizza(idPizza)
                        .ingredientQuantity(ingredientNameDto.quantity())
                        .build());

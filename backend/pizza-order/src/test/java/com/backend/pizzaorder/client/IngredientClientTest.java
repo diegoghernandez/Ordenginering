@@ -20,21 +20,22 @@ public class IngredientClientTest implements IngredientClientWireMock {
    @Autowired
    private IngredientClient ingredientClient;
 
+
    @Test
-   @DisplayName("Should return the id of the desire ingredient if is found")
-   void getIdByIngredientName() {
+   @DisplayName("Should return a status code of 200 if the is found")
+   void existIngredientId() {
       var cookie = ResponseCookie.from(TestDataUtil.getCookie().getName(), TestDataUtil.getCookie().getValue()).build();
-      var exception = assertThrows(FeignException.class, () -> ingredientClient.getIdByIngredientName("not-found", cookie));
+      var exception = assertThrows(FeignException.class, () -> ingredientClient.existIngredientId(321, cookie));
 
       assertAll(
-              () -> assertEquals(1, ingredientClient.getIdByIngredientName("Pepperoni", cookie)),
-              () -> assertEquals(3, ingredientClient.getIdByIngredientName("Pineapple", cookie)),
+              () -> assertDoesNotThrow(() -> ingredientClient.existIngredientId(1, cookie)),
+              () -> assertDoesNotThrow(() -> ingredientClient.existIngredientId(3, cookie)),
               () -> assertEquals(404, exception.status())
       );
    }
 
    @Test
-   @DisplayName("Should return the name of the desire ingredient if is found")
+   @DisplayName("Should return the id of the desire ingredient if is found")
    void getIngredientNameById() {
       var cookie = ResponseCookie.from(TestDataUtil.getCookie().getName(), TestDataUtil.getCookie().getValue()).build();
       var exception = assertThrows(FeignException.class, () -> ingredientClient.getIngredientNameById(8765, cookie));

@@ -16,17 +16,10 @@ public interface IngredientClientWireMock {
    static void setupMockCustomerResponse() {
       mockService.start();
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Pepperoni"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("1").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Mozzarella"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("2").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Pineapple"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("3").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
-
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/ingredient/name/Ham"))
-              .willReturn(WireMock.aResponse().withStatus(200).withBody("4").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/ingredient/id/1")).willReturn(WireMock.aResponse().withStatus(200)));
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/ingredient/id/2")).willReturn(WireMock.aResponse().withStatus(200)));
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/ingredient/id/3")).willReturn(WireMock.aResponse().withStatus(200)));
+      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/ingredient/id/4")).willReturn(WireMock.aResponse().withStatus(200)));
 
       mockService.stubFor(WireMock.get(WireMock.urlPathEqualTo("/ingredient/id/1"))
               .willReturn(WireMock.aResponse().withStatus(200).withBody("Pepperoni").withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));

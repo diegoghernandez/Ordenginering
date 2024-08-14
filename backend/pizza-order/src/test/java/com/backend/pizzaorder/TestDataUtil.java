@@ -91,8 +91,8 @@ public final class TestDataUtil {
                               Size.MEDIUM,
                               1,
                               List.of(
-                                    new IngredientNameDto("Pepperoni", 1),
-                                    new IngredientNameDto("Mozzarella",1)
+                                    new IngredientNameDto(1, 1),
+                                    new IngredientNameDto(2,1)
                               )
                       ),
                       new PizzaDto(
@@ -102,9 +102,9 @@ public final class TestDataUtil {
                               Size.MEDIUM,
                               2,
                               List.of(
-                                     new IngredientNameDto("Mozzarella", 1),
-                                     new IngredientNameDto( "Pineapple", 1),
-                                     new IngredientNameDto( "Ham", 1)
+                                     new IngredientNameDto(2, 1),
+                                     new IngredientNameDto( 3, 1),
+                                     new IngredientNameDto( 4, 1)
                               )
                       )
               )

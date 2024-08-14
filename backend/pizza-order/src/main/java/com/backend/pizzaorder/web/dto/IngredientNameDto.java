@@ -6,6 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record IngredientNameDto(
-        @NotBlank String name,
+        @NotBlank int id,
         @Min(1) @Max(2) @NotNull int quantity
 ) {}
