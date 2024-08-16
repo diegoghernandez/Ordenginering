@@ -21,15 +21,16 @@ public class IngredientEntity {
    private Integer idIngredient;
 
    @Type(JsonType.class)
-   @Column(name = "ingredient_name", columnDefinition = "json", nullable = false)
-   private IngredientName ingredientName;
+   @Column(name = "ingredient_name", columnDefinition = "json", nullable = false, unique = true)
+   private Languages ingredientName;
 
    @Enumerated(EnumType.STRING)
    @Column(name = "ingredient_type", nullable = false)
    private IngredientType ingredientType;
 
-   @Column(name = "author_image", length = 50, nullable = false)
-   private String authorImage;
+   @Type(JsonType.class)
+   @Column(name = "author_image", columnDefinition = "json")
+   private Languages authorImage;
 
    @Column(name = "file_name_image", length = 50, nullable = false)
    private String fileNameImage;

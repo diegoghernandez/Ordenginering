@@ -1,6 +1,6 @@
 package com.backend.pizzaingredient.persistence.entity;
 
-import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
 public class Languages {
 
+   @NotBlank
    private String en;
+
+   @NotBlank
    private String es;
 }

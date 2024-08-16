@@ -4,7 +4,7 @@ import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.helper.imageConverter.ImageToAvif;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.env.BucketProperties;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
@@ -45,7 +45,7 @@ public class IngredientServiceImpl implements IngredientService {
    }
 
    @Override
-   public Optional<IngredientName> getIngredientNameById(int id) {
+   public Optional<Languages> getIngredientNameById(int id) {
       return ingredientRepository.findByIdIngredient(id);
    }
 

@@ -5,7 +5,7 @@ import com.backend.pizzaingredient.advice.PizzaDataExceptionHandler;
 import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.web.IngredientController;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -105,7 +105,7 @@ class IngredientControllerTest {
    @Test
    @DisplayName("Should return the desire name with the id using the service if exist")
    void getIngredientNameById() {
-      var ingredientName = IngredientName.builder()
+      var ingredientName = Languages.builder()
               .en("Pineapple")
               .es("Piña")
               .build();
@@ -140,21 +140,27 @@ class IngredientControllerTest {
    @DisplayName("Should save one ingredientDto using the service or catch an error with a bad message")
    void saveIngredient() throws Exception {
       var ingredientDtoError = new IngredientDto(
-              IngredientName.builder()
+              Languages.builder()
                       .en("Repeat name")
                       .es("Nombre repetido")
                       .build(),
               IngredientType.VEGETABLE,
-              "Author"
+              Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build()
       );
 
       var ingredientDto = new IngredientDto(
-              IngredientName.builder()
+              Languages.builder()
                       .en("Good")
                       .es("Bueno")
                       .build(),
               IngredientType.VEGETABLE,
-              "Author"
+              Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build()
       );
 
       Mockito.doThrow(new NotAllowedException("No repeat name")).when(ingredientService)

@@ -2,7 +2,7 @@ package com.backend.pizzaingredient;
 
 import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,45 +22,57 @@ public final class TestIngredientUtil {
       return List.of(
               IngredientEntity.builder()
                       .idIngredient(1)
-                      .ingredientName(IngredientName.builder()
+                      .ingredientName(Languages.builder()
                               .en("Pepperoni")
                               .es("Pepperoni")
                               .build())
                       .ingredientType(IngredientType.MEAT)
-                      .authorImage("Author")
+                      .authorImage(Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build())
                       .fileNameImage("peperoni")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(2)
-                      .ingredientName(IngredientName.builder()
+                      .ingredientName(Languages.builder()
                               .en("Mozzarella")
                               .es("Mozzarella")
                               .build())
                       .ingredientType(IngredientType.CHEESE)
-                      .authorImage("Author")
+                      .authorImage(Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build())
                       .fileNameImage("mozzarella")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(3)
-                      .ingredientName(IngredientName.builder()
+                      .ingredientName(Languages.builder()
                               .en("Pineapple")
                               .es("Piña")
                               .build())
                       .ingredientType(IngredientType.VEGETABLE)
-                      .authorImage("Author")
+                      .authorImage(Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build())
                       .fileNameImage("pineapple")
                       .build(),
 
               IngredientEntity.builder()
                       .idIngredient(4)
-                      .ingredientName(IngredientName.builder()
+                      .ingredientName(Languages.builder()
                               .en("Ham")
                               .es("Jamón")
                               .build())
                       .ingredientType(IngredientType.MEAT)
-                      .authorImage("Author")
+                      .authorImage(Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build())
                       .fileNameImage("ham")
                       .build()
       );

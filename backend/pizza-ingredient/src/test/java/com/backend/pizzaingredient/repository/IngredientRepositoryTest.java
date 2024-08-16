@@ -1,6 +1,6 @@
 package com.backend.pizzaingredient.repository;
 
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.setup.containers.MysqlTestContainer;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +41,7 @@ class IngredientRepositoryTest implements MysqlTestContainer {
       var ingredientName = ingredientRepository.findByIdIngredient(4);
       var ingredientName404 = ingredientRepository.findByIdIngredient(453252);
 
-      var expectedIngredientName = IngredientName.builder()
+      var expectedIngredientName = Languages.builder()
               .en("Ham")
               .es("Jamón")
               .build();

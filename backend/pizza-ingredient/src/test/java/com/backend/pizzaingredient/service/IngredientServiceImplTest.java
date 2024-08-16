@@ -5,7 +5,7 @@ import com.backend.pizzaingredient.constants.IngredientType;
 import com.backend.pizzaingredient.domain.service.IngredientService;
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.persistence.repository.IngredientRepository;
 import com.backend.pizzaingredient.setup.containers.MysqlTestContainer;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
@@ -57,7 +57,7 @@ class IngredientServiceImplTest implements MysqlTestContainer {
       var ingredientId = ingredientService.getIngredientNameById(3);
       var ingredientId404 = ingredientService.getIngredientNameById(423423);
 
-      var ingredientName = IngredientName.builder()
+      var ingredientName = Languages.builder()
               .en("Pineapple")
               .es("Piña")
               .build();
@@ -74,31 +74,40 @@ class IngredientServiceImplTest implements MysqlTestContainer {
    void saveIngredient() throws NotAllowedException, IOException {
       Exception exception = assertThrows(NotAllowedException.class,
               () -> ingredientService.saveIngredient(new IngredientDto(
-                      IngredientName.builder()
+                      Languages.builder()
                               .en("Pepperoni")
                               .es("Nuevo")
                               .build(),
                       IngredientType.VEGETABLE,
-                      "Author"
+                      Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build()
               ), TestIngredientUtil.getImageFile()));
 
       ingredientService.saveIngredient(new IngredientDto(
-              IngredientName.builder()
+              Languages.builder()
                       .en("Good")
                       .es("Bueno")
                       .build(),
               IngredientType.VEGETABLE,
-              "Author"
+              Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build()
       ), TestIngredientUtil.getImageFile());
 
       var ingredientEntity = IngredientEntity.builder()
               .idIngredient(5)
-              .ingredientName(IngredientName.builder()
+              .ingredientName(Languages.builder()
                       .en("Good")
                       .es("Bueno")
                       .build())
               .ingredientType(IngredientType.VEGETABLE)
-              .authorImage("Author")
+              .authorImage(Languages.builder()
+                      .en("Author")
+                      .es("Autor")
+                      .build())
               .fileNameImage("image")
               .build();
 

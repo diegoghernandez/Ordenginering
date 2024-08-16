@@ -2,7 +2,7 @@ package com.backend.pizzaingredient.domain.service;
 
 import com.backend.pizzaingredient.exceptions.NotAllowedException;
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import com.backend.pizzaingredient.web.dto.IngredientDto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +16,7 @@ public interface IngredientService {
 
    boolean existIngredientId(int id);
 
-   Optional<IngredientName> getIngredientNameById(int id);
+   Optional<Languages> getIngredientNameById(int id);
 
    void saveIngredient(IngredientDto ingredientDto, MultipartFile image) throws NotAllowedException, IOException;
 }

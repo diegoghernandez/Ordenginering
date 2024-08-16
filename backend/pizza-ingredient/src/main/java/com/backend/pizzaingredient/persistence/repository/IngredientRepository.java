@@ -1,7 +1,7 @@
 package com.backend.pizzaingredient.persistence.repository;
 
 import com.backend.pizzaingredient.persistence.entity.IngredientEntity;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -19,5 +19,5 @@ public interface IngredientRepository extends ListCrudRepository<IngredientEntit
    Optional<Integer> findByNameIfExist(String name);
 
    @Query("SELECT ingredientName FROM IngredientEntity WHERE idIngredient = :id")
-   Optional<IngredientName> findByIdIngredient(int id);
+   Optional<Languages> findByIdIngredient(int id);
 }

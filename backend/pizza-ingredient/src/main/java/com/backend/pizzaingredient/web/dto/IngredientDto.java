@@ -1,14 +1,14 @@
 package com.backend.pizzaingredient.web.dto;
 
 import com.backend.pizzaingredient.constants.IngredientType;
-import com.backend.pizzaingredient.persistence.entity.IngredientName;
+import com.backend.pizzaingredient.persistence.entity.Languages;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public record IngredientDto(
-        @Valid IngredientName ingredientName,
+        @Valid Languages ingredientName,
         @NotNull IngredientType ingredientType,
-        @Nullable String authorImage
+        @Nullable Languages authorImage
 ) {
 }
