@@ -40,7 +40,7 @@ export interface IngredientRequest {
    idIngredient: number
    ingredientName: LocalesObject
    ingredientType: IngredientTypes
-   authorImage: string
+   authorImage: LocalesObject | null
    fileNameImage: string
 }
 

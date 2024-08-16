@@ -59,7 +59,7 @@ export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t
                .map((ingredient) => (
                <CardContainer key={ingredient.idIngredient} styleClass={Styles['ingredients-card']}>
                   <>
-                     <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
+                     <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient?.authorImage?.[local]}>
                         <img 
                            src={`${IMAGE_CDN}/ingredients/${ingredient.fileNameImage}.avif`}
                            alt={ingredient.ingredientName[local]}

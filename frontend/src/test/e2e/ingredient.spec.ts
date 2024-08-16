@@ -18,7 +18,8 @@ test.describe('Ingredient page tests', () => {
       getProfileLinks({
          customerId: 32, 
          role: 'ADMIN', 
-         active: 'INGREDIENT'
+         active: 'INGREDIENT',
+         desireTranslation: locale
       }).forEach(async ({ name }) => {
          await expect(page.getByRole('link', { name })).toBeVisible()
       })

@@ -52,5 +52,5 @@ export function getLocalizedIngredient(locale: string, ingredient: string) {
       .map((ingredientName) => ingredientName.en)
       .findIndex((element) => element.toLocaleLowerCase() === ingredient.toLocaleLowerCase())
 
-   return ingredients.map((element) => element[locale]).at(desireIngredientIndex)
+   return ingredients.map((element) => element[locale as LocalesString]).at(desireIngredientIndex)
 }

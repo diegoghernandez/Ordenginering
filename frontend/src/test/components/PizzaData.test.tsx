@@ -61,7 +61,7 @@ describe('PizzaData component tests', () => {
                   es: 'Salsa BBQ'
                },
                ingredientType: 'SAUCE',
-               authorImage: '',
+               authorImage: null,
                fileNameImage: 'bbq-sauce'
             },
             {
@@ -71,7 +71,10 @@ describe('PizzaData component tests', () => {
                   es: 'Pollo a la parilla'
                },
                ingredientType: 'MEAT',
-               authorImage: "Denis Agati's photo on Unsplash",
+               authorImage: {
+                  en: "Denis Agati's photo on Unsplash",
+                  es: 'Foto de Denis Agati'
+               },
                fileNameImage: 'grilled-chicken'
             },
             {
@@ -81,7 +84,10 @@ describe('PizzaData component tests', () => {
                   es: 'Cebollas rojas'
                },
                ingredientType: 'VEGETABLE',
-               authorImage: "Eric Prouzet's photo on Unsplash",
+               authorImage: {
+                  en: "Eric Prouzet's photo on Unsplash",
+                  es: 'Foto de Eric Prouzet'
+               },
                fileNameImage: 'red-onions'
             },
             {
@@ -91,7 +97,7 @@ describe('PizzaData component tests', () => {
                   es: 'Mozzarella'
                },
                ingredientType: 'CHEESE',
-               authorImage: '',
+               authorImage: null,
                fileNameImage: 'mozzarella'
             },
          ]}
