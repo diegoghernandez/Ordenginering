@@ -9,7 +9,7 @@ import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
-import type { SeoTranslation } from '@/types'
+import type { LocalesString, SeoTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { Image } from 'astro:assets'
 import { getRelativeLocaleUrl } from 'astro:i18n'
@@ -37,7 +37,7 @@ const { t } = Astro.props
 
 const ingredients = await getAllIngredients()
 
-const getIngredients = (idsList: number[]) => {
+const getIngredients = (idsList: number[]) => {	
 	return idsList.map((id) => ingredients.filter(({ idIngredient }) => id === idIngredient)[0])
 }
 ---
@@ -50,7 +50,7 @@ const getIngredients = (idsList: number[]) => {
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<h1>{t.seo.h1}</h1>
 		<div>
-			{pizzaList[Astro.currentLocale as 'en' | 'es' ?? 'en'].map((pizza, index) => (
+			{pizzaList[Astro.currentLocale as LocalesString].map((pizza, index) => (
 				<CardContainer styleClass='pizza-container'>
 					<>
 						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>
@@ -65,7 +65,9 @@ const getIngredients = (idsList: number[]) => {
 						<div class='pizza-information'>
 							<h3>{pizza.name}</h3>
 							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
-							<p>{getIngredients(pizza.ingredients).map(({ ingredientName }) => ingredientName).join(', ')}</p>
+							<p>{getIngredients(pizza.ingredients)
+								.map(({ ingredientName }) => ingredientName[Astro.currentLocale as LocalesString]).join(', ')
+							}</p>
 						</div>
 						<div class='buttons-column'>
 							<AddPizza 

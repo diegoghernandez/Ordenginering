@@ -6,14 +6,14 @@ import { IMAGE_CDN } from '@/constants/imageCDN'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import showOrderTranslation from '@/i18n/components/showOrder.json'
-import type { Pizza } from '@/types'
+import type { LocalesString, Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 
 interface Props {
-   currentLocal: 'en' | 'es'
+   currentLocal: LocalesString
 }
 
 export function ShowOrder({ currentLocal }: Props) {
@@ -59,7 +59,7 @@ export function ShowOrder({ currentLocal }: Props) {
                         <h3>{pizzaInOrder.pizzaName}</h3>
                         <p>${getPizzaPrice(pizzaInOrder.pizzaIngredients.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
                         <p>{pizzaInOrder.size.at(0) + pizzaInOrder.size.substring(1).toLocaleLowerCase()}</p>
-                        <IngredientsContainer ingredients={pizzaInOrder.pizzaIngredients} />
+                        <IngredientsContainer ingredients={pizzaInOrder.pizzaIngredients} local={currentLocal} />
                         <div className={Styles['quantity-buttons']}>
                            <SelectQuantity 
                               valueToShow={pizzaInOrder.quantity}

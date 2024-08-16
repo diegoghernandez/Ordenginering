@@ -43,11 +43,17 @@ describe('Order service tests', () => {
                quantity: 2,
                pizzaIngredients: [{
                   id: 1,
-                  name: 'Pepperoni',
+                  name: {
+                     en: 'Pepperoni',
+                     es: 'Pepperoni'
+                  },
                   quantity: 1
                }, {
                   id: 2,
-                  name: 'Mozzarella',
+                  name: {
+                     en: 'Mozzarella',
+                     es: 'Mozzarella'
+                  },
                   quantity: 2
                }]
             }]
@@ -73,11 +79,17 @@ describe('Order service tests', () => {
                size: 'LARGE',
                pizzaIngredients: [{
                   id: 1,
-                  name: 'Pepperoni',
+                  name: {
+                     en: 'Pepperoni',
+                     es: 'Pepperoni'
+                  },
                   quantity: 1
                }, {
                   id: 2,
-                  name: 'Mozzarella',
+                  name: {
+                     en: 'Mozzarella',
+                     es: 'Mozzarella'
+                  },
                   quantity: 2
                }]
             }]

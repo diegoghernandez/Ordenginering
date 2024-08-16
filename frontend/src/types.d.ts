@@ -16,9 +16,16 @@ interface Page {
    empty:            boolean
 }
 
+export interface LocalesObject {
+   en: string
+   es: string
+}
+
+export type LocalesString = 'en' | 'es'
+
 export interface Ingredient {
    id: number
-   name?: string
+   name?: LocalesObject
    quantity: number
 }
 
@@ -31,7 +38,7 @@ export interface IngredientDto {
 
 export interface IngredientRequest {
    idIngredient: number
-   ingredientName: string
+   ingredientName: LocalesObject
    ingredientType: IngredientTypes
    authorImage: string
    fileNameImage: string

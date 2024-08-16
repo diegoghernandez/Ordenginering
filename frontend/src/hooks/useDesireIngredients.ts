@@ -1,10 +1,10 @@
-import type { Ingredient } from '@/types'
+import type { Ingredient, LocalesObject } from '@/types'
 import { create } from 'zustand'
 
 
 interface IngredientCart {
    ingredients: Ingredient[],
-   addIngredient: (ingredientID: number, name: string) => void
+   addIngredient: (ingredientID: number, name: LocalesObject) => void
    removeIngredient: (ingredientID: number) => void
 }
 

@@ -55,32 +55,44 @@ describe('PizzaData component tests', () => {
          }}
          prebuildIngredients={[
             {
-               'idIngredient': 32,
-               'ingredientName': 'BBQ Sauce',
-               'ingredientType': 'SAUCE',
-               'authorImage': '',
-               'fileNameImage': 'bbq-sauce'
+               idIngredient: 32,
+               ingredientName: {
+                  en: 'BBQ Sauce',
+                  es: 'Salsa BBQ'
+               },
+               ingredientType: 'SAUCE',
+               authorImage: '',
+               fileNameImage: 'bbq-sauce'
             },
             {
-               'idIngredient': 15,
-               'ingredientName': 'Grilled Chicken',
-               'ingredientType': 'MEAT',
-               'authorImage': "Denis Agati's photo on Unsplash",
-               'fileNameImage': 'grilled-chicken'
+               idIngredient: 15,
+               ingredientName: {
+                  en: 'Grilled Chicken',
+                  es: 'Pollo a la parilla'
+               },
+               ingredientType: 'MEAT',
+               authorImage: "Denis Agati's photo on Unsplash",
+               fileNameImage: 'grilled-chicken'
             },
             {
-               'idIngredient': 9,
-               'ingredientName': 'Red Onions',
-               'ingredientType': 'VEGETABLE',
-               'authorImage': "Eric Prouzet's photo on Unsplash",
-               'fileNameImage': 'red-onions'
+               idIngredient: 9,
+               ingredientName: {
+                  en: 'Red Onions',
+                  es: 'Cebollas rojas'
+               },
+               ingredientType: 'VEGETABLE',
+               authorImage: "Eric Prouzet's photo on Unsplash",
+               fileNameImage: 'red-onions'
             },
             {
-               'idIngredient': 25,
-               'ingredientName': 'Mozzarella',
-               'ingredientType': 'CHEESE',
-               'authorImage': '',
-               'fileNameImage': 'mozzarella'
+               idIngredient: 25,
+               ingredientName: {
+                  en: 'Mozzarella',
+                  es: 'Mozzarella'
+               },
+               ingredientType: 'CHEESE',
+               authorImage: '',
+               fileNameImage: 'mozzarella'
             },
          ]}
       />)
@@ -162,7 +174,10 @@ function setIngredients() {
    useDesireIngredients.setState({
       ingredients: [{
          id: 1,
-         name: 'Pepperoni',
+         name: {
+            en: 'Pepperoni',
+            es: 'Pepperoni'
+         },
          quantity: 2
       }]
    })

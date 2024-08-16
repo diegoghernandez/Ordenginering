@@ -4,7 +4,7 @@ import { ShowPastOrders, type ShowPastOrdersTranslation } from '@/components/pas
 import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import Layout from '@/layouts/Layout.astro'
 import { getOrdersByAccount } from '@/services/server/orderServer'
-import type { CustomerRole, PageOrder, SeoTranslation } from '@/types'
+import type { CustomerRole, LocalesString, PageOrder, SeoTranslation } from '@/types'
 import { getProfileLinks } from '@/utils/getProfileLinks'
 
 interface Props {
@@ -51,7 +51,7 @@ try {
                last: orders?.last
             }}
             t={t.showPastOrdersTranslation}
-            currentLocale={Astro.currentLocale as 'en' | 'es' ?? 'en'}
+            currentLocale={Astro.currentLocale as LocalesString}
          /> :
          <h1>{t.titleError}</h1>
       }

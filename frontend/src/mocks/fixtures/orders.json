@@ -20,10 +20,16 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Pepperoni",
+               "name": {
+                  "en": "Pepperoni",
+                  "es": "Pepperoni"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -36,13 +42,22 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Ham",
+               "name": {
+                  "en": "Ham",
+                  "es": "Jamón"
+               },
                "quantity": 1
             }, {
-               "name": "Pineapple",
+               "name": {
+                  "en": "Pineapple",
+                  "es": "Piña"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -55,13 +70,22 @@
             "size": "MEDIUM",
             "quantity": 4,
             "pizzaIngredients": [{
-               "name": "Tomato",
+               "name": {
+                  "en": "Tomato",
+                  "es": "Tomate"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }, {
-               "name": "Basil",
+               "name": {
+                  "en": "Basil",
+                  "es": "Albahaca"
+               },
                "quantity": 1
             }]
          }, {
@@ -73,10 +97,16 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Pepperoni",
+               "name": {
+                  "en": "Pepperoni",
+                  "es": "Pepperoni"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -89,13 +119,22 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Ham",
+               "name": {
+                  "en": "Ham",
+                  "es": "Jamón"
+               },
                "quantity": 1
             }, {
-               "name": "Pineapple",               
+               "name": {
+                  "en": "Pineapple",
+                  "es": "Piña"
+               },               
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -108,13 +147,22 @@
             "size": "MEDIUM",
             "quantity": 4,
             "pizzaIngredients": [{
-               "name": "Tomato",
+               "name": {
+                  "en": "Tomato",
+                  "es": "Tomate"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }, {
-               "name": "Basil",
+               "name": {
+                  "en": "Basil",
+                  "es": "Albahaca"
+               },
                "quantity": 1
             }]
          }]
@@ -138,10 +186,16 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Pepperoni",
+               "name": {
+                  "en": "Pepperoni",
+                  "es": "Pepperoni"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -154,13 +208,22 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Ham",
+               "name": {
+                  "en": "Ham",
+                  "es": "Jamón"
+               },
                "quantity": 1
             }, {
-               "name": "Pineapple",
+               "name": {
+                  "en": "Pineapple",
+                  "es": "Piña"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -173,13 +236,22 @@
             "size": "MEDIUM",
             "quantity": 4,
             "pizzaIngredients": [{
-               "name": "Tomato",
+               "name": {
+                  "en": "Tomato",
+                  "es": "Tomate"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }, {
-               "name": "Basil",
+               "name": {
+                  "en": "Basil",
+                  "es": "Albahaca"
+               },
                "quantity": 1
             }]
          }]
@@ -203,10 +275,16 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Pepperoni",
+               "name": {
+                  "en": "Pepperoni",
+                  "es": "Pepperoni"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -219,13 +297,22 @@
             "size": "MEDIUM",
             "quantity": 1,
             "pizzaIngredients": [{
-               "name": "Ham",
+               "name": {
+                  "en": "Ham",
+                  "es": "Jamón"
+               },
                "quantity": 1
             }, {
-               "name": "Pineapple",
+               "name": {
+                  "en": "Pineapple",
+                  "es": "Piña"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }]
          },
@@ -238,13 +325,22 @@
             "size": "MEDIUM",
             "quantity": 4,
             "pizzaIngredients": [{
-               "name": "Tomato",
+               "name": {
+                  "en": "Tomato",
+                  "es": "Tomate"
+               },
                "quantity": 1
             }, {
-               "name": "Mozzarella",
+               "name": {
+                  "en": "Mozzarella",
+                  "es": "Mozzarella"
+               },
                "quantity": 1
             }, {
-               "name": "Basil",
+               "name": {
+                  "en": "Basil",
+                  "es": "Albahaca"
+               },
                "quantity": 1
             }]
          }]

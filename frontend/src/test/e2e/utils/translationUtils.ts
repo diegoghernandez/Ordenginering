@@ -1,3 +1,4 @@
+import type { IngredientRequest, LocalesObject, LocalesString } from '@/types'
 import { getJSON } from '@/utils/getJSON.mjs'
 
 export function shoppingCartTranslation(locale: string) {
@@ -37,8 +38,19 @@ type PizzaJSON = {
    ingredients: string[]
 }
 
-export function getLocalizePizza(locale: string, imageName: string) {
+export function getLocalizedPizza(locale: string, imageName: string) {
    const pizza: PizzaJSON[] = getJSON('../data/pizza.json')[locale]
 
    return pizza.filter(({ image }) => image.name === imageName)[0]
+}
+
+export function getLocalizedIngredient(locale: string, ingredient: string) {
+   const ingredients: LocalesObject[] = getJSON('../mocks/fixtures/ingredients.json')
+      .map((element: IngredientRequest) => element.ingredientName)
+
+   const desireIngredientIndex = ingredients
+      .map((ingredientName) => ingredientName.en)
+      .findIndex((element) => element.toLocaleLowerCase() === ingredient.toLocaleLowerCase())
+
+   return ingredients.map((element) => element[locale]).at(desireIngredientIndex)
 }

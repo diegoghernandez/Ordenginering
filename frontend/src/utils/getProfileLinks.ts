@@ -1,4 +1,5 @@
 import profileLinksTranslation from '@/i18n/components/profileLinks.json' with { type: 'json' }
+import type { LocalesString } from '@/types'
 interface Props {
    customerId: number,
    desireTranslation?: string,
@@ -12,7 +13,7 @@ export function getProfileLinks({
    role,
    active
 }: Props) {
-   const t = profileLinksTranslation[desireTranslation as 'en' | 'es' ?? 'en']
+   const t = profileLinksTranslation[desireTranslation as LocalesString]
 
    const profileLinks = [{
       url: 'customer/' + customerId,

@@ -2,18 +2,18 @@
 import { CardContainer } from '@/components/common/CardContainer'
 import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
-import type { ActiveLink } from '@/types'
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import accountTranslation from '@/i18n/components/accountButton.json'
+import type { ActiveLink, LocalesString } from '@/types'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
    activeLink: ActiveLink
 }
 
-const currentLocale = Astro.currentLocale ?? 'en'
-const t = accountTranslation[currentLocale as 'en' | 'es']
+const currentLocale = Astro.currentLocale as LocalesString
+const t = accountTranslation[currentLocale]
 
-const accountLink = getRelativeLocaleUrl(Astro.currentLocale ?? 'en', 'customer')
+const accountLink = getRelativeLocaleUrl(currentLocale, 'customer')
 
 const { activeLink } = Astro.props
 ---

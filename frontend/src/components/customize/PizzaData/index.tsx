@@ -56,7 +56,7 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
                ingredients={ingredients.length === 0 
                   ? prebuildIngredients.map((ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 })) 
                   : ingredients
-               }
+               } local={localForModalLinks}
             />
             <CustomSelect
                label={pizzaDataTranslation.selectLabel}

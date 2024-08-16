@@ -25,7 +25,10 @@ describe('ShoppingCart component tests', () => {
             quantity: 2,
             pizzaIngredients: [{
                id: 1,
-               name: 'Pepperoni',
+               name: {
+                  en: 'Pepperoni',
+                  es: 'Pepperoni'
+               },
                quantity: 2
             }]
          }]

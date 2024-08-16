@@ -4,7 +4,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "target": "ESNext",
+    "target": "ES2023",
     "lib": ["es5", "dom", "DOM.Iterable"],
     "types": ["@testing-library/jest-dom", "astro/client"],
     "baseUrl": ".",

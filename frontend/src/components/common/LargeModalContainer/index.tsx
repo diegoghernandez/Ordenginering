@@ -1,4 +1,5 @@
 import largeModalTranslation from '@/i18n/components/largeModal.json'
+import type { LocalesString } from '@/types'
 import { forwardRef, useImperativeHandle, useRef, type ReactElement } from 'react'
 import Styles from './LargeModalContainer.module.css'
 
@@ -6,7 +7,7 @@ interface Props {
    description?: string
    children: ReactElement
    position: 'left' | 'right'
-   currentLocale: 'en' | 'es'
+   currentLocale: LocalesString
 }
 
 export const LargeModalContainer = forwardRef<{ showModal: () => void }, Props>(function LargeModalContainer({

@@ -4,7 +4,7 @@ import { Spin } from '@/components/common/Spin'
 import { OrderModal, type OrderModalTranslation } from '@/components/pastOrders/OrderModal'
 import { StatusError } from '@/services/exceptions/StatusError'
 import { getOrdersByAccount } from '@/services/orderService'
-import type { Order } from '@/types'
+import type { LocalesString, Order } from '@/types'
 import { Fragment, useRef, useState } from 'react'
 import Styles from './ShowPastOrders.module.css'
 
@@ -22,7 +22,7 @@ type Data =  {
 interface Props {
    id: number
    initialData: Data
-   currentLocale: 'en' | 'es'
+   currentLocale: LocalesString
    t: ShowPastOrdersTranslation
 }
 

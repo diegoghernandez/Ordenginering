@@ -94,11 +94,17 @@ const setPizza = () => {
          quantity: 2,
          pizzaIngredients: [{
             id: 1,
-            name: 'Pepperoni',
+            name: {
+               en: 'Pepperoni',
+               es: 'Pepperoni'
+            },
             quantity: 1
          }, {
             id: 2,
-            name: 'Mozzarella',
+            name: {
+               en: 'Mozzarella',
+               es: 'Mozzarella'
+            },
             quantity: 1
          }]
       }, {
@@ -110,19 +116,31 @@ const setPizza = () => {
          quantity: 5,
          pizzaIngredients: [{
             id: 5,
-            name: 'BBQ Sauce',
+            name: {
+               en: 'BBQ Sauce',
+               es: 'Salsa BBQ'
+            },
             quantity: 1
          }, {
             id: 7,
-            name: 'Grilled Chicken',
+            name: {
+               en: 'Grilled Chicken',
+               es: 'Pollo a la parilla'
+            },
             quantity: 1
          }, {
             id: 8,
-            name: 'Red Onions',
+            name: {
+               en: 'Red Onions',
+               es: 'Cebollas rojas'
+            },
             quantity: 1
          }, {
             id: 9,
-            name: 'Mozzarella',
+            name: {
+               en: 'Mozzarella',
+               es: 'Mozzarella'
+            },
             quantity: 1
          }]
       }]

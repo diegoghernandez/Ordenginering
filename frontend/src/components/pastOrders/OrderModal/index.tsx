@@ -3,7 +3,7 @@ import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
 import { IMAGE_CDN } from '@/constants/imageCDN'
-import type { Order } from '@/types'
+import type { LocalesString, Order } from '@/types'
 import Styles from './OrderModal.module.css'
 
 export type OrderModalTranslation = {
@@ -23,7 +23,7 @@ interface Props {
    funToSaveDialog: (element: { showModal: () => void }) => void
    order: Order
    t: OrderModalTranslation
-   currentLocale: 'en' | 'es'
+   currentLocale: LocalesString
 }
 
 export function OrderModal({ funToSaveDialog, order, t, currentLocale }: Props) {
@@ -63,7 +63,7 @@ export function OrderModal({ funToSaveDialog, order, t, currentLocale }: Props) 
                      <h2>{pizza.pizzaName}</h2>
                      <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>
                      <p>${pizza.price}</p>
-                     <IngredientsContainer ingredients={pizza.pizzaIngredients} />
+                     <IngredientsContainer ingredients={pizza.pizzaIngredients} local={currentLocale} />
                      <p>X{pizza.quantity}</p>
                   </>
                </CardContainer>

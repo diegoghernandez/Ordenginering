@@ -4,7 +4,7 @@ import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import { en } from '@/i18n/pages/Customize.json'
-import type { IngredientRequest, QuantityTranslation } from '@/types'
+import type { IngredientRequest, LocalesString, QuantityTranslation } from '@/types'
 import { useEffect, useState } from 'react'
 import Styles from './PizzaIngredients.module.css'
 
@@ -17,11 +17,12 @@ interface Props {
       quantity: QuantityTranslation
       ingredientTypeList: IngredientTypeTranslation
    }
+   local: LocalesString
 }
 
 const ingredientTypeList = en.ingredientTypeList
 
-export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t }: Props) {
+export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t, local }: Props) {
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
@@ -61,14 +62,14 @@ export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t
                      <ImgContainer styleClass={Styles['ingredients-image']} figcaptionText={ingredient.authorImage}>
                         <img 
                            src={`${IMAGE_CDN}/ingredients/${ingredient.fileNameImage}.avif`}
-                           alt={ingredient.ingredientName}
+                           alt={ingredient.ingredientName[local]}
                            width='130'
                            height='80'
                            loading='lazy'
                            decoding='async'
                         />
                      </ImgContainer>
-                     <h3>{ingredient.ingredientName}</h3>
+                     <h3>{ingredient.ingredientName[local]}</h3>
                      <p>{t.quantity.name}</p>
                      <SelectQuantity 
                         valueToShow={ingredients.length === 0 ? 
