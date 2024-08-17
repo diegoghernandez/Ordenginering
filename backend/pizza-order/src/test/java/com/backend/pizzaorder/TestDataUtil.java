@@ -1,6 +1,7 @@
 package com.backend.pizzaorder;
 
 import com.backend.pizzaorder.constants.Size;
+import com.backend.pizzaorder.persistence.entity.Languages;
 import com.backend.pizzaorder.persistence.entity.OrderEntity;
 import com.backend.pizzaorder.persistence.entity.PizzaEntity;
 import com.backend.pizzaorder.persistence.entity.PizzaIngredients;
@@ -26,9 +27,15 @@ public final class TestDataUtil {
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
                  .idOrder(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
-                 .pizzaName("Custom something 1")
+                 .pizzaName(Languages.builder()
+                         .en("Custom something 1")
+                         .es("Personalizada de algo 1")
+                         .build())
                  .pizzaImageName("url")
-                 .pizzaImageAuthor("author")
+                 .pizzaImageAuthor(Languages.builder()
+                         .en("author")
+                         .es("autor")
+                         .build())
                  .price(534)
                  .quantity(2)
                  .size(Size.LARGE)
@@ -41,9 +48,15 @@ public final class TestDataUtil {
          PizzaEntity.builder()
                  .idPizza(UUID.fromString("93fa6a20-cf6d-4443-9056-4614567b39b8"))
                  .idOrder(UUID.fromString("357f77a9-fe2a-4492-a85f-50612355c6ad"))
-                 .pizzaName("Custom something 2")
+                 .pizzaName(Languages.builder()
+                         .en("Custom something 2")
+                         .es("Personalizada de algo 2")
+                         .build())
                  .pizzaImageName("url")
-                 .pizzaImageAuthor("author")
+                 .pizzaImageAuthor(Languages.builder()
+                         .en("author")
+                         .es("autor")
+                         .build())
                  .price(534)
                  .quantity(2)
                  .size(Size.LARGE)
@@ -85,9 +98,15 @@ public final class TestDataUtil {
               null,
               List.of(
                       new PizzaDto(
-                              "Pepperoni",
+                              Languages.builder()
+                                      .en("Pepperoni")
+                                      .es("Pepperoni")
+                                      .build(),
                               "url",
-                              "author",
+                              Languages.builder()
+                                      .en("author")
+                                      .es("autor")
+                                      .build(),
                               Size.MEDIUM,
                               1,
                               List.of(
@@ -96,9 +115,15 @@ public final class TestDataUtil {
                               )
                       ),
                       new PizzaDto(
-                              "Hawaiana",
+                              Languages.builder()
+                                      .en("Hawaiana")
+                                      .es("Hawaiana")
+                                      .build(),
                               "url",
-                              "author",
+                              Languages.builder()
+                                      .en("author")
+                                      .es("autor")
+                                      .build(),
                               Size.MEDIUM,
                               2,
                               List.of(

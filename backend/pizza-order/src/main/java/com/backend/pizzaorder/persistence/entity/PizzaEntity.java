@@ -1,9 +1,11 @@
 package com.backend.pizzaorder.persistence.entity;
 
 import com.backend.pizzaorder.constants.Size;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,14 +29,16 @@ public class PizzaEntity {
     @ToString.Exclude
     private UUID idOrder;
 
-    @Column(name = "pizza_name", length = 50, nullable = false)
-    private String pizzaName;
+    @Type(JsonType.class)
+    @Column(name = "pizza_name", columnDefinition = "json", nullable = false)
+    private Languages pizzaName;
 
     @Column(name = "pizza_image_name", nullable = false)
     private String pizzaImageName;
 
-    @Column(name = "pizza_image_author", nullable = false)
-    private String pizzaImageAuthor;
+    @Type(JsonType.class)
+    @Column(name = "pizza_image_author", columnDefinition = "json", nullable = false)
+    private Languages pizzaImageAuthor;
 
     @NotNull
     private Integer price;

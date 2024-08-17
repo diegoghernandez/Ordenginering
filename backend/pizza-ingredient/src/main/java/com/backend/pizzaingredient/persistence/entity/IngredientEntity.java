@@ -21,7 +21,7 @@ public class IngredientEntity {
    private Integer idIngredient;
 
    @Type(JsonType.class)
-   @Column(name = "ingredient_name", columnDefinition = "json", nullable = false, unique = true)
+   @Column(name = "ingredient_name", columnDefinition = "json", nullable = false)
    private Languages ingredientName;
 
    @Enumerated(EnumType.STRING)

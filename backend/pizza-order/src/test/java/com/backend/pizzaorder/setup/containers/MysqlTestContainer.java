@@ -16,11 +16,16 @@ public interface MysqlTestContainer {
            .withPassword("verysecret");
 
    @DynamicPropertySource
-   static void configureTestProperties(DynamicPropertyRegistry registry){
+   static void configureProperties(DynamicPropertyRegistry registry) {
       registry.add("spring.datasource.url", mysqlContainer::getJdbcUrl);
       registry.add("spring.datasource.username", mysqlContainer::getUsername);
       registry.add("spring.datasource.password", mysqlContainer::getPassword);
-
+      registry.add("spring.sql.init.platform", () -> "mysql");
+      registry.add("spring.sql.init.mode", () -> "always");
+      registry.add("spring.datasource.driver-class-name", () -> "com.mysql.cj.jdbc.Driver");
+      registry.add("spring.jpa.database", () -> "mysql");
+      registry.add("spring.jpa.hibernate.ddl-auto", () -> "create");
+      registry.add("spring.jpa.properties.hibernate.dialect", () -> "");
    }
 
    @BeforeAll

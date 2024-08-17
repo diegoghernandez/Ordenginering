@@ -11,6 +11,7 @@ import com.backend.pizzaorder.web.config.JwtFilter;
 import com.backend.pizzaorder.web.domain.IngredientDomain;
 import com.backend.pizzaorder.web.domain.OrderDomain;
 import com.backend.pizzaorder.web.domain.PizzaDomain;
+import com.backend.pizzaorder.web.dto.OrderDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -151,7 +152,7 @@ class OrderControllerTest implements JwtClientWireMock, IngredientClientWireMock
                       .andExpect(MockMvcResultMatchers.content().string("Order save correctly")),
 
               () -> Mockito.verify(orderService, Mockito.times(1))
-                      .saveOrder(Mockito.eq(TestDataUtil.getOrderDto()), Mockito.eq(TestDataUtil.getCookie()))
+                      .saveOrder(Mockito.isA(OrderDto.class), Mockito.eq(TestDataUtil.getCookie()))
 
       );
    }

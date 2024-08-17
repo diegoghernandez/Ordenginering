@@ -1,10 +1,11 @@
-package com.backend.pizzaingredient.persistence.entity;
+package com.backend.pizzaorder.persistence.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Data
+@Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Languages {

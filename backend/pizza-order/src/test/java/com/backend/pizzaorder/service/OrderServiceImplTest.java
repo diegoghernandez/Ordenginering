@@ -4,6 +4,7 @@ import com.backend.pizzaorder.TestDataUtil;
 import com.backend.pizzaorder.constants.Size;
 import com.backend.pizzaorder.domain.service.OrderService;
 import com.backend.pizzaorder.exceptions.NotAllowedException;
+import com.backend.pizzaorder.persistence.entity.Languages;
 import com.backend.pizzaorder.persistence.entity.OrderEntity;
 import com.backend.pizzaorder.persistence.entity.PizzaEntity;
 import com.backend.pizzaorder.persistence.entity.PizzaIngredients;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
@@ -33,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @EnableFeignClients
 @ComponentScan(basePackages = "com.backend.pizzaorder.domain")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ImportAutoConfiguration({ FeignAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class })
 class OrderServiceImplTest implements MysqlTestContainer, CustomerClientWireMock, IngredientClientWireMock {
 
@@ -92,18 +95,30 @@ class OrderServiceImplTest implements MysqlTestContainer, CustomerClientWireMock
 
       var pizzaString = List.of(
               PizzaEntity.builder()
-                      .pizzaName("Pepperoni")
+                      .pizzaName(Languages.builder()
+                              .en("Pepperoni")
+                              .es("Pepperoni")
+                              .build())
                       .pizzaImageName("url")
-                      .pizzaImageAuthor("author")
+                      .pizzaImageAuthor(Languages.builder()
+                                      .en("author")
+                                      .es("autor")
+                                      .build())
                       .price(140)
                       .size(Size.MEDIUM)
                       .quantity(1)
                       .pizzaIngredients(Set.of(PizzaIngredients.builder().idIngredient(1).build()))
                       .build(),
               PizzaEntity.builder()
-                      .pizzaName("Hawaiana")
+                      .pizzaName(Languages.builder()
+                              .en("Hawaiana")
+                              .es("Hawaiana")
+                              .build())
                       .pizzaImageName("url")
-                      .pizzaImageAuthor("author")
+                      .pizzaImageAuthor(Languages.builder()
+                                      .en("author")
+                                      .es("autor")
+                                      .build())
                       .price(320)
                       .size(Size.MEDIUM)
                       .quantity(2)

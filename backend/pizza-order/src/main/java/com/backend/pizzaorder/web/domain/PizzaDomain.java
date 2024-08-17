@@ -1,15 +1,17 @@
 package com.backend.pizzaorder.web.domain;
 
 import com.backend.pizzaorder.constants.Size;
+import com.backend.pizzaorder.persistence.entity.Languages;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.UUID;
 
 public record PizzaDomain(
         UUID idPizza,
-        String pizzaName,
+        @Valid Languages pizzaName,
         String pizzaImageName,
-        String pizzaImageAuthor,
+        @Valid Languages pizzaImageAuthor,
         Integer price,
         Size size,
         Integer quantity,
