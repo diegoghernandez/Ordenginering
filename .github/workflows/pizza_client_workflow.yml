@@ -11,29 +11,29 @@ concurrency:
    cancel-in-progress: true
 
 jobs:
-   test:
-      runs-on: ubuntu-22.04
-      defaults:
-         run:
-            working-directory: frontend
-      steps:
-         - uses: actions/checkout@v4
-           with:
+  test:
+    runs-on: ubuntu-22.04
+    defaults:
+        run:
+          working-directory: frontend
+    steps:
+        - uses: actions/checkout@v4
+          with:
             sparse-checkout: frontend
             fetch-depth: 0
-         - uses: pnpm/action-setup@v3
-           with:
+        - uses: pnpm/action-setup@v3
+          with:
             version: 9
-         - uses: actions/setup-node@v4
-           with:
+        - uses: actions/setup-node@v4
+          with:
             node-version: 20
             cache: 'pnpm'
             cache-dependency-path: frontend/pnpm-lock.yaml
-         - name: Install dependencies
-           run: pnpm install --frozen-lockfile
-         - name: Test project
-           run: pnpm run test
-   
+        - name: Install dependencies
+          run: pnpm install --frozen-lockfile
+        - name: Test project
+          run: pnpm run test
+
 #   e2e-playwright-chromium:
 #      runs-on: ubuntu-22.04
 #      defaults:
@@ -139,55 +139,63 @@ jobs:
 #             path: playwright-report/
 #             retention-days: 30
 
-   e2e-playwright:
-      runs-on: ubuntu-22.04
-      defaults:
-         run:
-            working-directory: frontend
-      strategy:
-        fail-fast: false
-        matrix:
-          shardIndex: [1, 2, 3, 4, 5, 6]
-          shardTotal: [6]
-      steps:
-         - uses: actions/checkout@v4
-           with:
+  e2e-playwright:
+    runs-on: ubuntu-22.04
+    defaults:
+        run:
+          working-directory: frontend
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4, 5, 6]
+        shardTotal: [6]
+    steps:
+        - uses: actions/checkout@v4
+          with:
             sparse-checkout: frontend
             fetch-depth: 0
-         - uses: pnpm/action-setup@v3
-           with:
+        - uses: pnpm/action-setup@v3
+          with:
             version: 9
-         - uses: actions/setup-node@v4
-           with:
+        - uses: actions/setup-node@v4
+          with:
             node-version: 20
             cache: 'pnpm'
             cache-dependency-path: frontend/pnpm-lock.yaml
-         - name: Install dependencies
-           run: pnpm install --frozen-lockfile
-         - name: Install Playwright Browsers
-           run: pnpm exec playwright install
-         - name: Initialize express server
-           run: pnpm run e2e-express &
-         - name: Build application
-           run: pnpm run build
-         - name: Initialize e2e tests
-           run: (pnpm run start &) && pnpm run e2e:ci --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-         - name: Upload blob report to GitHub Actions Artifacts
-           if: ${{ !cancelled() }}
-           uses: actions/upload-artifact@v4
-           with:
+        - name: Install dependencies
+          run: pnpm install --frozen-lockfile
+        - name: Install Playwright Browsers
+          run: pnpm exec playwright install chromium firefox webkit
+        - name: Initialize express server
+          run: pnpm run e2e-express &
+        - name: Build application
+          run: pnpm run build
+        - name: Initialize e2e tests
+          run: (pnpm run start &) && pnpm run e2e:ci --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        - name: Upload blob report to GitHub Actions Artifacts
+          if: ${{ !cancelled() }}
+          uses: actions/upload-artifact@v4
+          with:
             name: blob-report-${{ matrix.shardIndex }}
             path: blob-report
             retention-days: 1
 
-   merge-reports:
+  merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ !cancelled() }}
     needs: [e2e-playwright]
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: frontend
     steps:
     - uses: actions/checkout@v4
+      with:
+        sparse-checkout: frontend
+        fetch-depth: 0
+    - uses: pnpm/action-setup@v3
+      with:
+        version: 9
     - uses: actions/setup-node@v4
       with:
         node-version: 20
@@ -213,30 +221,30 @@ jobs:
         path: playwright-report
         retention-days: 14
 
-   build__and__deploy:
-      needs: [test, e2e-playwright]
-      runs-on: ubuntu-22.04
-      defaults:
-         run:
-            working-directory: frontend
-      steps:
-         - uses: actions/checkout@v4
-           with:
+  build__and__deploy:
+    needs: [test, e2e-playwright]
+    runs-on: ubuntu-22.04
+    defaults:
+        run:
+          working-directory: frontend
+    steps:
+        - uses: actions/checkout@v4
+          with:
             sparse-checkout: frontend
             fetch-depth: 0
-         - name: Build image
-           run: docker build -t diegoj4v/pizza-client .
-         - name: Login to Docker Hub
-           uses: docker/login-action@v3
-           with:
+        - name: Build image
+          run: docker build -t diegoj4v/pizza-client .
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
             username: diegoj4v
             password: ${{ secrets.DOCKERHUB_TOKEN }}
-         - name: Push image to docker hub
-           run: |
+        - name: Push image to docker hub
+          run: |
             docker tag diegoj4v/pizza-client diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
             docker push diegoj4v/pizza-client:$(git rev-parse --short ${{ github.sha }})
 
-   login__and__update__deployment: 
+  login__and__update__deployment: 
       needs: [build__and__deploy]
       runs-on: ubuntu-22.04
       permissions:
