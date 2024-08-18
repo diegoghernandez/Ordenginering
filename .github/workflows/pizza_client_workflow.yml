@@ -43,8 +43,8 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        shardIndex: [1, 2]
-        shardTotal: [2]
+        #shardIndex: [1, 2]
+        #shardTotal: [2]
     steps:
         - uses: actions/checkout@v4
           with:
@@ -67,7 +67,8 @@ jobs:
         - name: Build application
           run: pnpm run build
         - name: Initialize e2e tests
-          run: (pnpm run start &) && pnpm run e2e:ci --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --project=${{ matrix.browser }}
+          run: (pnpm run start &) && pnpm run e2e:ci --project=${{ matrix.browser }}
+          #--shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
   build__and__deploy:
     needs: [test, e2e-playwright]
