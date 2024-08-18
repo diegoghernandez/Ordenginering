@@ -8,7 +8,7 @@
          "name": "pepperoni",
          "author": {
             "en": "Fernando Andrade's photo on Unsplash",
-            "es": "Foto de Fernando Andrade"
+            "es": "Foto de Fernando Andrade en Unsplash"
          }
       },
       "ingredients": [17, 25]
@@ -22,7 +22,7 @@
          "name": "hawaiana",
          "author": {
             "en": "bckfwd's photo on Unsplash",
-            "es": "Foto de bckfwd"
+            "es": "Foto de bckfwd en Unsplash"
          }
       },
       "ingredients": [16, 1, 25]
@@ -36,7 +36,7 @@
          "name": "margherita",
          "author": {
             "en": "Aurélien Lemasson-Théobald's photo on Unsplash",
-            "es": "Foto de Aurélien Lemasson-Théobald"
+            "es": "Foto de Aurélien Lemasson-Théobald en Unsplash"
          }
       },
       "ingredients": [2, 25, 3]
@@ -50,7 +50,7 @@
          "name": "four-cheese",
          "author": {
             "en": "Getúlio Moraes's photo on Unsplash",
-            "es": "Foto de Getúlio Moraes"
+            "es": "Foto de Getúlio Moraes en Unsplash"
          }
       },
       "ingredients": [25, 26, 27, 28]
@@ -64,7 +64,7 @@
          "name": "vegetarian",
          "author": {
             "en": "LUM3N's photo on Unsplash",
-            "es": "Foto de LUM3N"
+            "es": "Foto de LUM3N en Unsplash"
          }
       },
       "ingredients": [4, 5, 6, 7, 25]
@@ -78,7 +78,7 @@
          "name": "bbq-chicken",
          "author": {
             "en": "Erik Mclean's photo on Unsplash",
-            "es": "Foto de Erik Mclean"
+            "es": "Foto de Erik Mclean en Unsplash"
          }
       },
       "ingredients": [32, 15, 9, 25]
@@ -92,7 +92,7 @@
          "name": "supreme",
          "author": {
             "en": "Drake Whitney's photo on Unsplash",
-            "es": "Foto de Drake Whitney"
+            "es": "Foto de Drake Whitney en Unsplash"
          }
       },
       "ingredients": [17, 34, 4, 5, 8, 25]
@@ -106,7 +106,7 @@
          "name": "mushroom",
          "author": {
             "en": "Lavi Perchik's photo on Unsplash",
-            "es": "Foto de Lavi Perchik"
+            "es": "Foto de Lavi Perchik en Unsplash"
          }
       },
       "ingredients": [6, 25, 10, 11]
@@ -120,7 +120,7 @@
          "name": "seafood",
          "author": {
             "en": "serjan midili's photo on Unsplash",
-            "es": "Foto de serjan midili"
+            "es": "Foto de serjan midili en Unsplash"
          }
       },
       "ingredients": [22, 23, 24, 10, 25]
