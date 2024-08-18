@@ -35,6 +35,8 @@ function getCustomizeUrl(pizzaName: string) {
 
 const { t } = Astro.props
 
+const currentLocal = Astro.currentLocale as LocalesString
+
 const ingredients = await getAllIngredients()
 
 const getIngredients = (idsList: number[]) => {	
@@ -50,10 +52,10 @@ const getIngredients = (idsList: number[]) => {
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<h1>{t.seo.h1}</h1>
 		<div>
-			{pizzaList[Astro.currentLocale as LocalesString].map((pizza, index) => (
+			{pizzaList.map((pizza, index) => (
 				<CardContainer styleClass='pizza-container'>
 					<>
-						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author}>
+						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author[currentLocal]}>
 							<Image 
 								src={getUrlImage(pizza.image.name)}
 								alt={`${pizza.name} pizza`}
@@ -63,10 +65,10 @@ const getIngredients = (idsList: number[]) => {
 							/>
 						</ImgContainer>
 						<div class='pizza-information'>
-							<h3>{pizza.name}</h3>
+							<h3>{pizza.name[currentLocal]}</h3>
 							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
 							<p>{getIngredients(pizza.ingredients)
-								.map(({ ingredientName }) => ingredientName[Astro.currentLocale as LocalesString]).join(', ')
+								.map(({ ingredientName }) => ingredientName[currentLocal]).join(', ')
 							}</p>
 						</div>
 						<div class='buttons-column'>
@@ -83,8 +85,8 @@ const getIngredients = (idsList: number[]) => {
 										(ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 }))
 								}} 
 							/>
-							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizzaList.en[index].name)}>
-								{t.customize} {pizza.name.toLowerCase()}
+							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizzaList[index].name.en)}>
+								{t.customize} {pizza.name[currentLocal].toLowerCase()}
 							</a>
 						</div>
 					</>

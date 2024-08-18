@@ -18,9 +18,15 @@ describe('ShoppingCart component tests', () => {
       useShoppingCart.setState({
          pizza: [{
             idPizza: '9398812b-8ba2-4a20-8613-339c13df14ca',
-            pizzaName: 'Pepperoni',
+            pizzaName: {
+               en: 'Pepperoni',
+               es: 'Pepperoni'
+            },
             pizzaImageName: '/client/images/pizza/pepperoni.jpg',
-            pizzaImageAuthor: 'Author',
+            pizzaImageAuthor: {
+               en: 'Author',
+               es: 'Autor'
+            },
             size: Size.MEDIUM,
             quantity: 2,
             pizzaIngredients: [{

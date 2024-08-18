@@ -7,7 +7,7 @@ import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
 import pizzaList from '@/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
-import type { LocalesString, QuantityTranslation, SeoTranslation } from '@/types'
+import type { LocalesObject, LocalesString, QuantityTranslation, SeoTranslation } from '@/types'
 import { compareStringsOfNames } from '@/utils/compareStringsOfNames'
 import { Image } from 'astro:assets'
 
@@ -23,33 +23,42 @@ interface Props {
 
 const { pizza, t } = Astro.props
 
-const getDefaultName = (name: String) => name.charAt(0).toUpperCase() + name.slice(1).replace('-', ' ')
-
 const currentLocale = Astro.currentLocale as LocalesString
-const emptyAuthor = currentLocale === 'en'
-	? "Mariusz Słoński's photo on Unsplash"
-	: 'Foto de Mariusz Słoński en Unsplash'
 
-const currentPizzaList = pizzaList[currentLocale]
+type CustomizePizza = {
+	name: LocalesObject
+   image: {
+		name: string,
+		author: LocalesObject
+	},
+	ingredients: number[]
+}
 
-const isEmpty = pizza !== 'empty'
-	
-const pizzaImageName = isEmpty
-	? pizzaList.en
-		.filter(({ name }) => compareStringsOfNames(name, pizza))
-		.map(({ image }) => image.name)
-	: 'empty'
-
-const getAuhor = isEmpty
-	? currentPizzaList[pizzaList.en.findIndex(({ name }) => compareStringsOfNames(name, pizza))]
-		.image.author
-	: emptyAuthor
+const getCurrentPizza = ()  => {
+	const emptyPizza: CustomizePizza = { 
+		name: {
+			en: 'Empty pizza',
+			es: 'Pizza vacía'
+		}, 
+		image: { 
+			name: 'empty', 
+			author: {
+				en: "Mariusz Słoński's photo on Unsplash",
+				es: 'Foto de Mariusz Słoński en Unsplash'
+			}
+		}, 
+		ingredients: []  
+	}
+	return pizza !== 'empty' 
+		? pizzaList.filter(({ name }) => compareStringsOfNames(name.en, pizza))[0]
+		: emptyPizza
+}
 
 const ingredients = await getAllIngredients()
 
 const getIngredients = () => {
-	return pizzaList.en
-		.filter(({ name }) => compareStringsOfNames(pizza, name))
+	return pizzaList
+		.filter(({ name }) => compareStringsOfNames(name.en, pizza))
 		.flatMap(({ ingredients }) => ingredients)
 }
 ---
@@ -61,11 +70,11 @@ const getIngredients = () => {
 >
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<div>
-			<ImgContainer styleClass='pizza-image' figcaptionText={getAuhor}>
+			<ImgContainer styleClass='pizza-image' figcaptionText={getCurrentPizza().image.author[currentLocale]}>
 				<Image 
 					class='pizza-custom' 
-					src={`${IMAGE_CDN}/pizza/${pizzaImageName}.avif`}
-					alt={`${getDefaultName(pizza)} pizza`}
+					src={`${IMAGE_CDN}/pizza/${getCurrentPizza().image.name}.avif`}
+					alt={getCurrentPizza().name[currentLocale]}
 					width='320'
 					height='260'
 					decoding='sync'
@@ -75,9 +84,9 @@ const getIngredients = () => {
 			<PizzaData 
 				client:load
 				pizza={{
-               pizzaName: pizza,
-					pizzaImageName: pizza + '--small',
-					pizzaImageAuthor: getAuhor
+               pizzaName: getCurrentPizza().name,
+					pizzaImageName: getCurrentPizza().image.name + '--small',
+					pizzaImageAuthor: getCurrentPizza().image.author
 				}}
 				prebuildIngredients={
 					getIngredients().map((id) => ingredients.filter(({ idIngredient }) => id === idIngredient)[0])
@@ -86,7 +95,7 @@ const getIngredients = () => {
 					quantity: t.quantity,
 					pizzaDataTranslation: t.pizzaData
 				}}
-				localForModalLinks={Astro.currentLocale ?? 'en'}
+				localForModalLinks={Astro.currentLocale as LocalesString}
 			/>
 		</div>
 		<div>

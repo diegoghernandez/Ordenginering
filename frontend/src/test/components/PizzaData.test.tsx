@@ -7,6 +7,18 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 const { quantity, pizzaData } = en
 
+const pizzaObject = {
+   pizzaName: {
+      en: 'Pizza',
+      es: 'Pizza'
+   },
+   pizzaImageName: 'url',
+   pizzaImageAuthor: {
+      en: 'author',
+      es: 'autor'
+   }
+}
+
 describe('PizzaData component tests', () => {
    afterEach(() => cleanup())
 
@@ -18,11 +30,7 @@ describe('PizzaData component tests', () => {
             quantity,
             pizzaDataTranslation: pizzaData
          }} 
-         pizza={{
-            pizzaName: 'Pizza',
-            pizzaImageName: 'url',
-            pizzaImageAuthor: 'author'
-         }}
+         pizza={pizzaObject}
       />)
 
       expect(screen.getByRole('heading')).toBeInTheDocument()
@@ -48,11 +56,7 @@ describe('PizzaData component tests', () => {
             quantity,
             pizzaDataTranslation: pizzaData
          }} 
-         pizza={{
-            pizzaName: 'Pizza',
-            pizzaImageName: 'url',
-            pizzaImageAuthor: 'author'
-         }}
+         pizza={pizzaObject}
          prebuildIngredients={[
             {
                idIngredient: 32,
@@ -121,11 +125,7 @@ describe('PizzaData component tests', () => {
             quantity,
             pizzaDataTranslation: pizzaData
          }} 
-         pizza={{
-            pizzaName: 'Pizza',
-            pizzaImageName: 'url',
-            pizzaImageAuthor: 'author'
-         }}
+         pizza={pizzaObject}
       />)
 
       const user = userEvent.setup()
@@ -157,11 +157,7 @@ describe('PizzaData component tests', () => {
             quantity,
             pizzaDataTranslation: pizzaData
          }} 
-         pizza={{
-            pizzaName: 'Pizza',
-            pizzaImageName: 'url',
-            pizzaImageAuthor: 'author'
-         }}
+         pizza={pizzaObject}
       />)
 
       fireEvent.click(screen.getByRole('button', { name: 'Add order' }))

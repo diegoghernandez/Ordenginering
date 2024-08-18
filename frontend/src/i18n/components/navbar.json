@@ -14,10 +14,10 @@
       "menuButton": "Abrir menu",
       "links": {
          "home": "Inicio",
-         "menu": "Menu",
+         "menu": "Menú",
          "customize": "Personalizar"
       },
-      "empty": "vacia",
+      "empty": "vacía",
       "shoppingCartButton": "Carrito de compras",
       "shoppingCartModalDescription": "Tu orden"
    }

@@ -8,6 +8,7 @@ LOCALES.forEach((locale) => {
    const t = getJSON('../i18n/pages/Customize.json')[locale]
    const { quantity, pizzaData } = t
    const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
+   const pizzaEmptyName = locale === 'en' ? 'Empty pizza' : 'Pizza vacía'
    
    test.describe(`${locale}: Customize page e2e tests`, () => {
       test.beforeEach(async ({ page }) => {
@@ -23,7 +24,7 @@ LOCALES.forEach((locale) => {
    
          await findNavbarElements(locale, page)
    
-         await expect(page.getByRole('img', { name: 'Empty pizza' })).toBeVisible()
+         await expect(page.getByRole('img', { name: pizzaEmptyName })).toBeVisible()
          /* await expect(page.getByRole('figure')
             .filter({ has: page.getByRole('img', { name: 'Empty pizza' }) })
             .getByLabel('Show author image')).toBeVisible() */
@@ -67,9 +68,10 @@ LOCALES.forEach((locale) => {
          await page.goto('/client/en/menu')
 
          const pizza = getLocalizedPizza(locale, 'supreme')
+         
          await page.getByRole('article').filter({ hasText: pizza.name }).getByRole('link').click()
    
-         await expect(page.getByRole('img', { name: pizza.image.name })).toBeVisible()
+         await expect(page.getByRole('img', { name: pizza.name })).toBeVisible()
    
          await expect(page.getByText('Total: $220')).toBeVisible()
          await expect(page.getByText(getLocalizedIngredient(locale, 'Pepperoni') + ' X1')).toBeVisible()
@@ -216,7 +218,7 @@ LOCALES.forEach((locale) => {
          await expect(page.getByText(shoppingCartTranslationUtils.getCheckoutLink(2))).toBeVisible()
          await expect(page.getByText('No orders')).not.toBeVisible()
          await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
-         await expect(page.getByRole('article').getByText('Custom empty')).toBeVisible()
+         await expect(page.getByRole('article').getByText(pizzaEmptyName)).toBeVisible()
          await expect(page.getByRole('article').getByText('$280')).toBeVisible()
          await expect(page.getByRole('article').getByText(getLocalizedIngredient(locale, 'Grilled Chicken') + ' X1')).toBeVisible()
          await expect(page.getByRole('article').getByText(getLocalizedIngredient(locale, 'Mozzarella') + ' X1')).toBeVisible()

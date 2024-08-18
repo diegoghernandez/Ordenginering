@@ -46,17 +46,17 @@ export function ShowOrder({ currentLocal }: Props) {
                pizza?.map((pizzaInOrder) => (
                   <CardContainer key={pizzaInOrder.idPizza} styleClass={String(Styles['card-separation'])}>
                      <>
-                        <ImgContainer figcaptionText={pizzaInOrder.pizzaImageAuthor}>
+                        <ImgContainer figcaptionText={pizzaInOrder.pizzaImageAuthor[currentLocal]}>
                            <img 
                               src={`${IMAGE_CDN}/pizza/${pizzaInOrder.pizzaImageName}.avif`} 
-                              alt={`${pizzaInOrder.pizzaName} pizza`} 
+                              alt={`${pizzaInOrder.pizzaName[currentLocal]} pizza`} 
                               loading='lazy' 
                               decoding='async'
                               width='112'
                               height='112'
                            />
                         </ImgContainer>
-                        <h3>{pizzaInOrder.pizzaName}</h3>
+                        <h3>{pizzaInOrder.pizzaName[currentLocal]}</h3>
                         <p>${getPizzaPrice(pizzaInOrder.pizzaIngredients.length, pizzaInOrder.size, pizzaInOrder.quantity)}</p>
                         <p>{pizzaInOrder.size.at(0) + pizzaInOrder.size.substring(1).toLocaleLowerCase()}</p>
                         <IngredientsContainer ingredients={pizzaInOrder.pizzaIngredients} local={currentLocal} />

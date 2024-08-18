@@ -57,10 +57,10 @@ export function OrderModal({ funToSaveDialog, order, t, currentLocale }: Props) 
             {order.pizzaList.map((pizza) => (
                <CardContainer key={pizza.idPizza} styleClass={Styles['order-pizza-container']}>
                   <>
-                     <ImgContainer figcaptionText={pizza.pizzaImageAuthor}>
+                     <ImgContainer figcaptionText={pizza.pizzaImageAuthor[currentLocale]}>
                         <img src={`${IMAGE_CDN}/pizza/${pizza.pizzaImageName}.avif`} alt={pizza.pizzaName + ' pizza'} />
                      </ImgContainer>
-                     <h2>{pizza.pizzaName}</h2>
+                     <h2>{pizza.pizzaName[currentLocale]}</h2>
                      <p>{pizza.size.at(0) + pizza.size.substring(1).toLocaleLowerCase()}</p>
                      <p>${pizza.price}</p>
                      <IngredientsContainer ingredients={pizza.pizzaIngredients} local={currentLocale} />

@@ -30,18 +30,27 @@ export function getLocalizedIngredientsButtonsFromCustomizePage(locale: string) 
 }
 
 type PizzaJSON = {
-   name: string,
+   name: LocalesObject,
    image: {
       name: string
-      author: string
+      author: LocalesObject
    },
    ingredients: string[]
 }
 
 export function getLocalizedPizza(locale: string, imageName: string) {
-   const pizza: PizzaJSON[] = getJSON('../data/pizza.json')[locale]
+   const pizza: PizzaJSON[] = getJSON('../data/pizza.json')
 
-   return pizza.filter(({ image }) => image.name === imageName)[0]
+   const currentPizza = pizza.filter(({ image }) => image.name === imageName)[0]
+
+   return {
+      name: currentPizza.name[locale  as LocalesString],
+      image: {
+         name: currentPizza.image.name,
+         author: currentPizza.image.author,
+      },
+      ingredients: currentPizza.ingredients
+   }
 }
 
 export function getLocalizedIngredient(locale: string, ingredient: string) {
