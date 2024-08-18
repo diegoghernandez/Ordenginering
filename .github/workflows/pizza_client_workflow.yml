@@ -165,7 +165,7 @@ jobs:
         - name: Install dependencies
           run: pnpm install --frozen-lockfile
         - name: Install Playwright Browsers
-          run: pnpm exec playwright install chromium firefox webkit
+          run: pnpm exec playwright install --with-deps chromium firefox webkit
         - name: Initialize express server
           run: pnpm run e2e-express &
         - name: Build application
@@ -212,7 +212,7 @@ jobs:
         merge-multiple: true
 
     - name: Merge into HTML Report
-      run: pnpm exec playwright merge-reports --reporter html ./all-blob-reports
+      run: pnpm exec playwright merge-reports --reporter html ../all-blob-reports
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
