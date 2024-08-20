@@ -4,6 +4,10 @@
 * {
    scrollbar-color: var(--background) var(--secondary-interaction);
    scrollbar-width: thin;
+
+   @media (width <= 720px) {
+      scrollbar-color: var(--secondary-interaction);
+   }
 }
 
 body {
