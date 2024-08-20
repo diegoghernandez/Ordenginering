@@ -1,0 +1,60 @@
+---
+import footerTranslation from '@/i18n/components/footer.json'
+import type { LocalesString } from '@/types'
+
+const t = footerTranslation[Astro.currentLocale as LocalesString]
+
+const socialLinks = [{
+	name: 'GitHub',
+	link: 'https://github.com/diegoghernandez/Ordeninginering'
+}, {
+	name: 'LinkedIn',
+	link: 'https://www.linkedin.com/in/diegoghernandez/'
+}, {
+	name: t.website,
+	link: 'https://diego-g-hernandez.pages.dev/'
+}]
+
+---
+
+<footer>
+   <h3>{t.title}</h3>
+   <div>
+      {socialLinks.map((socialLink) => (
+         <a href={socialLink.link} target='_blank'>
+            {socialLink.name}
+         </a>
+      ))}			
+   </div>
+</footer>
+
+<style>
+	footer {
+		display: grid;
+		gap: 16px;
+		padding: 16px 12px;
+		place-content: center;
+		border-top: 1px solid var(--divider);
+		color: var(--text-color);
+
+		h3 {
+			text-align: center;
+		}
+
+		& div {
+			display: flex;
+			gap: 16px;
+
+			& a {
+				width: fit-content;
+				font-size: 1rem;
+				font-weight: 500;
+				transition: color 350ms;
+
+				&:hover {
+					color: var(--primary-interaction);
+				}
+			}
+		}
+	}
+</style>

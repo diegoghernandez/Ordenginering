@@ -1,5 +1,6 @@
 ---
-import Navbar from '@/components/nav/Navbar.astro'
+import Navbar from '@/components/layout/nav/Navbar.astro'
+import Footer from '@/components/layout/Footer.astro'
 import '@/styles/index.css'
 import type { ActiveLink } from '@/types'
 import { ViewTransitions } from 'astro:transitions'
@@ -9,7 +10,6 @@ interface Props {
 	description: string
 	activeLink: ActiveLink
 }
-
 
 const { title, description, activeLink } = Astro.props
 ---
@@ -59,13 +59,7 @@ const { title, description, activeLink } = Astro.props
 	<body>
 		<Navbar activeLink={activeLink} />
 		<slot />
-		<!-- <footer>
-			{socialLinks.map((socialLink) => (
-				<a href={socialLink.link}>
-					{socialLink.name}
-				</a>
-			))}			
-		</footer> -->
+		<Footer />
 	</body>
 </html>
 
