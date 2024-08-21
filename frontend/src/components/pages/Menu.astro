@@ -65,7 +65,7 @@ const getIngredients = (idsList: number[]) => {
 							/>
 						</ImgContainer>
 						<div class='pizza-information'>
-							<h3>{pizza.name[currentLocal]}</h3>
+							<h2>{pizza.name[currentLocal]}</h2>
 							<p class='information-important'>${getPizzaPrice(pizza.ingredients.length, Size.MEDIUM, 1)}</p>
 							<p>{getIngredients(pizza.ingredients)
 								.map(({ ingredientName }) => ingredientName[currentLocal]).join(', ')
