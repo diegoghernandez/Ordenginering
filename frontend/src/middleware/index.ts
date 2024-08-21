@@ -1,7 +1,7 @@
 import { middleware } from 'astro:i18n'
 import { defineMiddleware, sequence } from 'astro:middleware'
 
-const userMiddleware = defineMiddleware((ctx, next) => {
+const translationPathMiddleware = defineMiddleware((ctx, next) => {
    const path = ctx.url.pathname
    
    if (!path.includes('/en') && !path.includes('/es')) {
@@ -16,7 +16,7 @@ const userMiddleware = defineMiddleware((ctx, next) => {
 })
 
 export const onRequest = sequence(
-   userMiddleware,
+   translationPathMiddleware,
    middleware({
       redirectToDefaultLocale: false,
       prefixDefaultLocale: true

@@ -37,23 +37,8 @@ const { title, description, activeLink } = Astro.props
 		<meta name='twitter:description' content={description}>
 		<meta name='twitter:image' content='https://cdn.ordeninginering.com/image/menu-page.jpg'>
 
-		<script is:inline>
-			const desireLanguage = localStorage.getItem('language')
-			if (!globalThis.location.pathname.includes('/' + desireLanguage) && desireLanguage) {
-				const newPath = globalThis.location.pathname.replace(/\/e[n,s]/, '/' + desireLanguage)         
-   			globalThis.location.assign(newPath)
-			}	
-		</script>
-
-		<script is:inline>
-			function applyTheme() {
-				const htmlElement = document.querySelector('html')
-				const theme = localStorage.getItem('theme') ?? ''
-				if (htmlElement instanceof HTMLElement && theme) htmlElement.classList.add(theme)
-			}
-			document.addEventListener('astro:after-swap', applyTheme);
-			applyTheme()
-		</script>
+		<script is:inline src='/client/languageRedirect.js'></script>
+		<script is:inline src='/client/applyTheme.js'></script>
 		<ViewTransitions />
 	</head>
 	<body>

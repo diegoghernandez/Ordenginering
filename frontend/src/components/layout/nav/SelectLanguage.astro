@@ -1,8 +1,11 @@
 ---
-const currentLocal = Astro.currentLocale
+import selectLanguageTranslation from '@/i18n/components/SelectLanguage.json'
+import type { LocalesString } from '@/types'
+
+const currentLocal = Astro.currentLocale as LocalesString
 ---
 
-<select id='language-selector'>
+<select id='language-selector' aria-label={selectLanguageTranslation[currentLocal].label}>
    <option value='en' selected={currentLocal === 'en'}>English</option>
    <option value='es' selected={currentLocal === 'es'}>Español</option>
 </select>
