@@ -1,13 +1,13 @@
 import express from 'express'
-import { handler as ssrHandler } from './dist/server/entry.mjs'
 import { styleText } from 'node:util'
+import { handler as ssrHandler } from './dist/server/entry.mjs'
 
 const app = express()
 
 app.use((req, _, next) => {
-   const colorTime = styleText('blue', new Date().toISOString() + ':')
-   const colorPath = styleText('redBright', req.path)
-   console.log(colorTime, colorPath);
+   const colorTime = styleText('gray', new Date().toISOString())
+   const colorPath = styleText('white', req.path)
+   console.log(colorTime, colorPath)
    next()
 })
 
