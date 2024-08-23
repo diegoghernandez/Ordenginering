@@ -1,8 +1,15 @@
 import express from 'express'
 import { handler as ssrHandler } from './dist/server/entry.mjs'
+import { styleText } from 'node:util'
 
 const app = express()
 
+app.use((req, _, next) => {
+   const colorTime = styleText('blue', new Date().toISOString() + ':')
+   const colorPath = styleText('redBright', req.path)
+   console.log(colorTime, colorPath);
+   next()
+})
 
 app.use((_, res, next) => {
    res.setHeader('Content-Security-Policy', "script-src 'self' 'unsafe-inline'; object-src 'none'")
