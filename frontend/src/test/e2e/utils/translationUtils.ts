@@ -1,12 +1,13 @@
 import type { IngredientRequest, LocalesObject, LocalesString } from '@/types'
 import { getJSON } from '@/utils/getJSON.mjs'
+import type { Page } from '@playwright/test'
 
 export function shoppingCartTranslation(locale: string) {
    const { shoppingCartButton } = getJSON('../i18n/components/navbar.json')[locale]
    const { checkoutLink } = getJSON('../i18n/components/showOrder.json')[locale]
 
-   function getCheckoutLink(numberOfProducts: number) {
-      return `${checkoutLink.name} (${numberOfProducts} ${checkoutLink.products})`
+   function getCheckoutLink(page: Page, numberOfProducts: number) {
+      return page.getByRole('link', { name: `${checkoutLink.name} ${numberOfProducts} ${checkoutLink.products}` })
    }
 
    return {

@@ -1,7 +1,7 @@
 import { LOCALES } from '@/constants/locales'
 import { orderHandler } from '@/mocks/domains/orderHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
-import { addPizzaInMenu } from '@/test/e2e/utils/menuUtils'
+import { addPizzaInMenu } from '@/test/e2e/utils/generalUtils'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { checkIfShoppingCartIsEmpty, } from '@/test/e2e/utils/shoppingCartUtils'
 import { shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
@@ -53,7 +53,7 @@ LOCALES.forEach((locale) => {
    
          await expect(page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).getByText('4')).toBeVisible()
          await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()
-         await page.getByRole('link', { name: shoppingCartTranslationUtils.getCheckoutLink(4) }).click()
+         await shoppingCartTranslationUtils.getCheckoutLink(page, 4).click()
          await expect(page).toHaveTitle(t.seo.title)
    
          const labels = t.form.labels
@@ -89,7 +89,7 @@ LOCALES.forEach((locale) => {
    
          await expect(page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).getByText('4')).toBeVisible()
          await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()
-         await page.getByRole('link', { name: shoppingCartTranslationUtils.getCheckoutLink(4) }).click()
+         await shoppingCartTranslationUtils.getCheckoutLink(page, 4).click()
          await expect(page).toHaveTitle(t.seo.title)
    
          const labels = t.form.labels

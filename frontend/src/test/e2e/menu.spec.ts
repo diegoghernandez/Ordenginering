@@ -1,10 +1,10 @@
 import { LOCALES } from '@/constants/locales'
 import { expect, test } from '@/test/e2e/utils/fixture'
-import { addPizzaInMenu } from '@/test/e2e/utils/menuUtils'
+import { addPizzaInMenu, checkIfSelectQuantityHasTheRightQuantity } from '@/test/e2e/utils/generalUtils'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { checkIfShoppingCartIsEmpty } from '@/test/e2e/utils/shoppingCartUtils'
+import { shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
-import { shoppingCartTranslation } from './utils/translationUtils'
 
 LOCALES.forEach((locale) => {
    const t = getJSON('../i18n/pages/Menu.json')[locale]
@@ -44,14 +44,16 @@ LOCALES.forEach((locale) => {
    
          await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()
          await expect(page.getByText('Total: $140')).toBeVisible()
-         await expect(page.getByText(shoppingCartTranslationUtils.getCheckoutLink(1))).toBeVisible()
+
+         const showOrdersDialog = page.getByRole('dialog')
+         await expect(shoppingCartTranslationUtils.getCheckoutLink(page, 1)).toBeVisible()
          await expect(page.getByText('No orders')).not.toBeVisible()
-         await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
-         await expect(page.getByRole('dialog').getByRole('heading', { name: 'Pepperoni' })).toBeVisible()
-         await expect(page.getByRole('dialog').getByRole('article').getByText('$140')).toBeVisible()
-         await expect(page.getByRole('dialog').getByRole('article').getByText('Pepperoni X1')).toBeVisible()
-         await expect(page.getByRole('dialog').getByRole('article').getByText('Mozzarella X1')).toBeVisible()
-         await expect(page.getByRole('article').getByText('1', { exact: true })).toBeVisible()
+         await expect(showOrdersDialog.getByRole('article')).toHaveCount(1)
+         await expect(showOrdersDialog.getByRole('heading', { name: 'Pepperoni' })).toBeVisible()
+         await expect(showOrdersDialog.getByRole('article').getByText('$140')).toBeVisible()
+         await expect(showOrdersDialog.getByRole('article').getByText('Pepperoni X1')).toBeVisible()
+         await expect(showOrdersDialog.getByRole('article').getByText('Mozzarella X1')).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(page.getByRole('dialog').getByRole('article'), 1)
       })
    })
 })

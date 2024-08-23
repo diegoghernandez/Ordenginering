@@ -1,6 +1,6 @@
+import { getJSON } from '@/utils/getJSON.mjs'
 import { expect, type Page } from '@playwright/test'
 import { shoppingCartTranslation } from './translationUtils'
-import { getJSON } from '@/utils/getJSON.mjs'
 
 export async function checkIfShoppingCartIsEmpty(locale: string, page: Page) {
    const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
@@ -11,8 +11,10 @@ export async function checkIfShoppingCartIsEmpty(locale: string, page: Page) {
 
    await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()
    await expect(page.getByText('Total: $0')).toBeVisible()
-   await expect(page.getByText(shoppingCartTranslationUtils.getCheckoutLink(0))).toBeVisible()
+   await expect(shoppingCartTranslationUtils.getCheckoutLink(page, 0)).toBeVisible()
    await expect(page.getByText(noOrders)).toBeVisible()
 
    await page.getByRole('button', { name: closeLargeModalButton }).click()
 }
+
+

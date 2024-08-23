@@ -1,8 +1,9 @@
 import { LOCALES } from '@/constants/locales'
 import { expect, test } from '@/test/e2e/utils/fixture'
+import { checkIfIngredientHasTheRightQuantity, checkIfSelectQuantityHasTheRightQuantity } from '@/test/e2e/utils/generalUtils'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
+import { getLocalizedIngredient, getLocalizedIngredientsButtonsFromCustomizePage, getLocalizedPizza, shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
-import { getLocalizedIngredient, getLocalizedIngredientsButtonsFromCustomizePage, getLocalizedPizza, shoppingCartTranslation } from './utils/translationUtils'
 
 LOCALES.forEach((locale) => {
    const t = getJSON('../i18n/pages/Customize.json')[locale]
@@ -38,7 +39,7 @@ LOCALES.forEach((locale) => {
          await expect(pizzaDataArticle.getByText(quantity.name)).toBeVisible()
          await expect(pizzaDataArticle.getByLabel(quantity.decrease)).toBeVisible()
          await expect(pizzaDataArticle.getByLabel(quantity.decrease)).toBeDisabled()
-         await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle, 1)
          await expect(pizzaDataArticle.getByLabel(quantity.increase)).toBeVisible()
          await expect(pizzaDataArticle.getByRole('button', { name: pizzaData.addCustomizePizzaTranslation.label })).toBeVisible()
    
@@ -59,7 +60,7 @@ LOCALES.forEach((locale) => {
             await expect(element.getByText(quantity.name)).toBeVisible()
             await expect(element.getByLabel(quantity.decrease)).toBeVisible()
             await expect(element.getByLabel(quantity.decrease)).toBeDisabled()
-            await expect(element.getByText('0')).toBeVisible()
+            await checkIfSelectQuantityHasTheRightQuantity(element, 0)
             await expect(element.getByLabel(quantity.increase)).toBeVisible()
          }
       })
@@ -83,20 +84,14 @@ LOCALES.forEach((locale) => {
    
          const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: pizzaData.title }) })
          await expect(pizzaDataArticle.getByLabel(pizzaData.selectLabel)).toHaveValue('MEDIUM')
-         await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle, 1)
    
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Pepperoni') }) }).getByText('1')).toBeVisible()
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Tomato sauce') }) }).getByText('1')).toBeVisible()
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Bell Peppers') }) }).getByText('1')).toBeVisible()
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Onions') }) }).getByText('1')).toBeVisible()
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Black Olives') }) }).getByText('1')).toBeVisible()
-         await expect(page.getByRole('article')
-            .filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Mozzarella') }) }).getByText('1')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Pepperoni'), 1)
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Tomato sauce'), 1)
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Bell Peppers'), 1)
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Onions'), 1)
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Black Olives'), 1)
+         await checkIfIngredientHasTheRightQuantity(page, getLocalizedIngredient(locale, 'Mozzarella'), 1)
       })
    
       test('Should change the total value, the quantity and the desire ingredients when you interact with the page', async ({ page }) => {
@@ -106,30 +101,30 @@ LOCALES.forEach((locale) => {
          const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: pizzaData.title }) })
    
          await expect(page.getByText('Total: $100')).toBeVisible()
-         await expect(pizzaDataArticle.getByText('1', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle, 1)
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(34)
          
          await pizzaDataArticle.getByLabel(quantity.increase).click()
-         await expect(pizzaDataArticle.getByText('2', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle, 2)
          await expect(page.getByText('Total: $200')).toBeVisible()
          
          await page.getByLabel(pizzaData.selectLabel).selectOption('LARGE')
          await expect(page.getByText('Total: $300')).toBeVisible()
          
          const basil = getLocalizedIngredient(locale, 'Basil')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: basil }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, basil, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: basil }) }).getByLabel(quantity.increase).click()
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: basil }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: basil }) }).getByText('2')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, basil, 2)
    
          await expect(page.getByText('Total: $380')).toBeVisible()
          await expect(page.getByText(basil + ' X2')).toBeVisible()
    
          const redOnion = getLocalizedIngredient(locale, 'Red Onions')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: redOnion }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, redOnion, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: redOnion }) }).getByLabel(quantity.increase).click()
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: redOnion }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: redOnion }) }).getByText('2')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, redOnion, 2)
    
          await expect(page.getByText('Total: $460')).toBeVisible()
          await expect(page.getByText(redOnion + ' X2')).toBeVisible()
@@ -138,9 +133,9 @@ LOCALES.forEach((locale) => {
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(3)
          
          const bbqSauce = getLocalizedIngredient(locale, 'BBQ sauce')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: bbqSauce }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, bbqSauce, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: bbqSauce }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: bbqSauce }) }).getByText('1')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, bbqSauce, 1)
    
          await expect(page.getByText('Total: $500')).toBeVisible()
          await expect(page.getByText(bbqSauce + ' X1')).toBeVisible()
@@ -149,9 +144,9 @@ LOCALES.forEach((locale) => {
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(7)
          
          const mozzarella = getLocalizedIngredient(locale, 'Mozzarella')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: mozzarella }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, mozzarella, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: mozzarella }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: mozzarella }) }).getByText('1')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, mozzarella, 1)
    
          await expect(page.getByText('Total: $540')).toBeVisible()
          await expect(page.getByText(mozzarella + '  X1')).toBeVisible()
@@ -160,9 +155,9 @@ LOCALES.forEach((locale) => {
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(10)
    
          const grilledChicken = getLocalizedIngredient(locale, 'Grilled Chicken')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: grilledChicken }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, grilledChicken, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: grilledChicken }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: grilledChicken }) }).getByText('1')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, grilledChicken, 1)
    
          await expect(page.getByText('Total: $580')).toBeVisible()
          await expect(page.getByText(grilledChicken + ' X1')).toBeVisible()
@@ -171,9 +166,9 @@ LOCALES.forEach((locale) => {
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(14)
          
          const pineapple = getLocalizedIngredient(locale, 'Pineapple')
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: pineapple }) }).getByText('0')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, pineapple, 0)
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: pineapple }) }).getByLabel(quantity.increase).click()
-         await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: pineapple }) }).getByText('1')).toBeVisible()
+         await checkIfIngredientHasTheRightQuantity(page, pineapple, 1)
          
          await expect(page.getByText('Total: $620')).toBeVisible()
          await expect(page.getByText(pineapple + ' X1')).toBeVisible()
@@ -182,8 +177,8 @@ LOCALES.forEach((locale) => {
          await expect(page.getByRole('article').filter({ has: page.getByRole('figure') })).toHaveCount(34)
    
          await pizzaDataArticle.getByLabel(quantity.decrease).click()
-         await expect(pizzaDataArticle.locator('div').filter({ hasText: '+' }).getByText('1')).toBeVisible()
-         await expect(page.getByText('Total: $310', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle.locator('div').filter({ hasText: '+' }), 1)
+         await expect(page.getByText(/Total: \$310/, { exact: true })).toBeVisible()
       })
    
       test('Should interact with the ingredients and save the order correctly', async ({ page }) => {
@@ -197,7 +192,7 @@ LOCALES.forEach((locale) => {
          await expect(page.getByText('Total: $280')).toBeVisible()
          await expect(page.getByText(getLocalizedIngredient(locale, 'Grilled Chicken') + ' X1')).toBeVisible()
          await expect(page.getByText(getLocalizedIngredient(locale, 'Mozzarella') + ' X1')).toBeVisible()
-         await expect(page.getByRole('article').filter({ hasNot: page.getByRole('figure') }).getByText('2', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(page.getByRole('article').filter({ hasNot: page.getByRole('figure') }), 2)
    
          const { addCustomizePizzaTranslation } = pizzaData
          
@@ -215,14 +210,14 @@ LOCALES.forEach((locale) => {
          await page.getByLabel(shoppingCartTranslationUtils.shoppingCartText).click()
    
          await expect(page.getByText('Total: $280')).toBeVisible()
-         await expect(page.getByText(shoppingCartTranslationUtils.getCheckoutLink(2))).toBeVisible()
+         await expect(shoppingCartTranslationUtils.getCheckoutLink(page, 2)).toBeVisible()
          await expect(page.getByText('No orders')).not.toBeVisible()
          await expect(page.getByRole('dialog').getByRole('article')).toHaveCount(1)
          await expect(page.getByRole('article').getByText(pizzaEmptyName)).toBeVisible()
          await expect(page.getByRole('article').getByText('$280')).toBeVisible()
          await expect(page.getByRole('article').getByText(getLocalizedIngredient(locale, 'Grilled Chicken') + ' X1')).toBeVisible()
          await expect(page.getByRole('article').getByText(getLocalizedIngredient(locale, 'Mozzarella') + ' X1')).toBeVisible()
-         await expect(page.getByRole('article').getByText('2', { exact: true })).toBeVisible()
+         await checkIfSelectQuantityHasTheRightQuantity(page.getByRole('article'), 2)
       })
    })
 })

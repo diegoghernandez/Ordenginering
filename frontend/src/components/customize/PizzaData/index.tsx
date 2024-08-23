@@ -7,6 +7,7 @@ import { Size } from '@/constants/size'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import type { IngredientRequest, LocalesString, Pizza, QuantityTranslation } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
+import MotionNumber from 'motion-number'
 import { useState } from 'react'
 import Styles from './PizzaData.module.css'
 
@@ -45,13 +46,15 @@ export function PizzaData({ pizza, prebuildIngredients = [], localForModalLinks,
       <CardContainer styleClass={Styles['customize-description']}>
          <>
             <h3>{pizzaDataTranslation.title}</h3>
-            <p>Total: ${
-               getPizzaPrice(
-                  ingredients.length === 0 ? prebuildIngredients.length : ingredients.reduce((prev, now) => prev + now.quantity, 0), 
-                  characteristics.size, 
-                  characteristics.quantity
-               )
-            }</p>
+            <p>Total: $
+               <MotionNumber
+                  value={getPizzaPrice(
+                     ingredients.length === 0 ? prebuildIngredients.length : ingredients.reduce((prev, now) => prev + now.quantity, 0), 
+                     characteristics.size, 
+                     characteristics.quantity
+                  )}
+               />
+            </p>
             <IngredientsContainer 
                ingredients={ingredients.length === 0 
                   ? prebuildIngredients.map((ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 })) 
