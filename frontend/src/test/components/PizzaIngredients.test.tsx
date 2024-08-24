@@ -25,7 +25,7 @@ describe('PizzaIngredients component tests', () => {
          expect(within(element).getByText('Quantity')).toBeInTheDocument()
          expect(within(element).getByLabelText('Decrease quantity')).toBeInTheDocument()
          expect(within(element).getByLabelText('Decrease quantity')).toBeDisabled()
-         expect(within(element).getByText('0')).toBeInTheDocument()
+         expect(within(element).getAllByText('0')[0]).toBeInTheDocument()
          expect(within(element).getByLabelText('Increase quantity')).toBeInTheDocument()
       })
    })
@@ -33,15 +33,15 @@ describe('PizzaIngredients component tests', () => {
    it('Should disable the increase quantity button once you get the maximum quantity', () => {
       render(<PizzaIngredients t={{ quantity, ingredientTypeList }}local='en' ingredientList={ingredientList} />)
 
-      const firstArticle  = screen.getAllByRole('article')[0]
-      expect(within(firstArticle).getByText('0')).toBeInTheDocument()
+      const firstArticle = screen.getAllByRole('article')[0]
+      expect(within(firstArticle).getAllByText('0')[0]).toBeInTheDocument()
       expect(within(firstArticle).getByLabelText('Increase quantity')).not.toBeDisabled()
       expect(within(firstArticle).getByLabelText('Increase quantity')).toBeInTheDocument()
 
       fireEvent.click(within(firstArticle).getByLabelText('Increase quantity'))
       fireEvent.click(within(firstArticle).getByLabelText('Increase quantity'))
 
-      expect(within(firstArticle).getByText('2')).toBeInTheDocument()
+      expect(within(firstArticle).getAllByText('2')[0]).toBeInTheDocument()
       expect(within(firstArticle).getByLabelText('Decrease quantity')).not.toBeDisabled()
       expect(within(firstArticle).getByLabelText('Increase quantity')).toBeDisabled()
    })

@@ -18,17 +18,17 @@ describe('ShowOrders component tests', () => {
       const pizzaContainers = screen.getAllByRole('article')
 
       expect(pizzaContainers).toHaveLength(2)
-      expect(screen.getByRole('heading', { name: 'Total: $1180' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 1,180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 7 product(s)' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Remove all items' })).toBeInTheDocument()
       expect(within(pizzaContainers[0]).getByRole('heading', { name: 'Pepperoni' })).toBeInTheDocument()
       expect(within(pizzaContainers[0]).getByRole('img', { name: 'Pepperoni pizza' })).toBeInTheDocument()
-      expect(within(pizzaContainers[0]).getByText(2)).toBeInTheDocument()
-      expect(within(pizzaContainers[0]).getByText('$280')).toBeInTheDocument()
+      expect(within(pizzaContainers[0]).getAllByText(2)[0]).toBeInTheDocument()
+      expect(within(pizzaContainers[0]).getByText('280')).toBeInTheDocument()
       expect(within(pizzaContainers[1]).getByRole('heading', { name: 'BBQ Chicken' })).toBeInTheDocument()
       expect(within(pizzaContainers[1]).getByRole('img', { name: 'BBQ Chicken pizza' })).toBeInTheDocument()
-      expect(within(pizzaContainers[1]).getByText(5)).toBeInTheDocument()
-      expect(within(pizzaContainers[1]).getByText('$900')).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getAllByText(5)[0]).toBeInTheDocument()
+      expect(within(pizzaContainers[1]).getByText('900')).toBeInTheDocument()
    })
 
    it('Should update the price and products correctly when you interact with the select quantity component', async () => {
@@ -36,34 +36,34 @@ describe('ShowOrders component tests', () => {
       render(<ShowOrder currentLocal='en' />)
       const pizzaContainers = screen.getAllByRole('article')
 
-      expect(screen.getByRole('heading', { name: 'Total: $1180' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 1,180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 7 product(s)' })).toBeInTheDocument()
       
       fireEvent.click(within(pizzaContainers[1]).getByRole('button', { name: 'Subtract pizza' }))
       fireEvent.click(within(pizzaContainers[1]).getByRole('button', { name: 'Subtract pizza' }))
 
-      expect(screen.getByRole('heading', { name: 'Total: $820' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (5 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 820' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 5 product(s)' })).toBeInTheDocument()
 
       fireEvent.click(within(pizzaContainers[0]).getByRole('button', { name: 'Add pizza' }))
       fireEvent.click(within(pizzaContainers[0]).getByRole('button', { name: 'Add pizza' }))
 
-      expect(screen.getByRole('heading', { name: 'Total: $1100' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 1,100' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 7 product(s)' })).toBeInTheDocument()
    })
 
    it('Should delete one card and update the price and products correctly', async () => {
       setPizza()
       render(<ShowOrder currentLocal='en' />)
 
-      expect(screen.getByRole('heading', { name: 'Total: $1180' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 1,180' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 7 product(s)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(2)
       
       fireEvent.click(screen.getAllByText('Delete')[0])
 
-      expect(screen.getByRole('heading', { name: 'Total: $900' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (5 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 900' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 5 product(s)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(1)
    })
 
@@ -71,14 +71,14 @@ describe('ShowOrders component tests', () => {
       setPizza()
       render(<ShowOrder currentLocal='en' />)
 
-      expect(screen.getByRole('heading', { name: 'Total: $1180', hidden: true })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (7 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 1,180', hidden: true })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 7 product(s)' })).toBeInTheDocument()
       expect(screen.getAllByRole('article')).toHaveLength(2)
       
       fireEvent.click(screen.getByText('Remove all items'))
 
-      expect(screen.getByRole('heading', { name: 'Total: $0' })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Checkout (0 product(s))' })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Total: $ 0' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Checkout 0 product(s)' })).toBeInTheDocument()
       expect(screen.getByText('No orders')).toBeInTheDocument()
    })
 })

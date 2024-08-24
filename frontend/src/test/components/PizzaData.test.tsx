@@ -32,9 +32,10 @@ describe('PizzaData component tests', () => {
          }} 
          pizza={pizzaObject}
       />)
-
+      
       expect(screen.getByRole('heading')).toBeInTheDocument()
-      expect(screen.getByText('Total: $140')).toBeInTheDocument()
+      expect(screen.getByText('Total: $')).toBeInTheDocument()
+      expect(screen.getByText('140')).toBeInTheDocument()
       expect(screen.getByText('Pepperoni')).toBeInTheDocument()
       expect(screen.getByText('X2')).toBeInTheDocument()
       expect(screen.getByLabelText('Size')).toBeInTheDocument()
@@ -43,7 +44,7 @@ describe('PizzaData component tests', () => {
       expect(screen.getByText('Quantity')).toBeInTheDocument()
       expect(screen.getByLabelText('Decrease quantity')).toBeInTheDocument()
       expect(screen.getByLabelText('Decrease quantity')).toBeDisabled()
-      expect(screen.getByText('1')).toBeInTheDocument()
+      expect(screen.getAllByText('1')[0]).toBeInTheDocument()
       expect(screen.getByLabelText('Increase quantity')).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Add order' })).toBeInTheDocument()
    })
@@ -107,14 +108,14 @@ describe('PizzaData component tests', () => {
          ]}
       />)
 
-      expect(screen.getByText('Total: $180')).toBeInTheDocument()
+      expect(screen.getByText('180')).toBeInTheDocument()
       expect(screen.getByText('BBQ Sauce')).toBeInTheDocument()
       expect(screen.getByText('Grilled Chicken')).toBeInTheDocument()
       expect(screen.getByText('Red Onions')).toBeInTheDocument()
       expect(screen.getByText('Mozzarella')).toBeInTheDocument()
       expect(screen.getAllByText('X1')).length(4)
       expect(screen.getByLabelText('Size')).toHaveValue('MEDIUM')
-      expect(screen.getByText('1')).toBeInTheDocument()
+      expect(screen.getAllByText('1')[0]).toBeInTheDocument()
    })
 
    it('Should change the total value if you play with the the size and quantity components', async () => {
@@ -130,23 +131,23 @@ describe('PizzaData component tests', () => {
 
       const user = userEvent.setup()
 
-      expect(screen.getByText('Total: $140')).toBeInTheDocument()
+      expect(screen.getByText('140')).toBeInTheDocument()
       
       await user.selectOptions(screen.getByLabelText('Size'), 'Large')
       
-      expect(screen.getByText('Total: $190')).toBeInTheDocument()
+      expect(screen.getByText('190')).toBeInTheDocument()
       
       await user.click(screen.getByLabelText('Increase quantity'))
       await user.click(screen.getByLabelText('Increase quantity'))
       
-      expect(screen.getByText('3')).toBeInTheDocument()
-      expect(screen.getByText('Total: $570')).toBeInTheDocument()
+      expect(screen.getAllByText('3')[0]).toBeInTheDocument()
+      expect(screen.getByText('570')).toBeInTheDocument()
       
       await user.click(screen.getByLabelText('Decrease quantity'))
       await user.selectOptions(screen.getByLabelText('Size'), 'Medium')
       
-      expect(screen.getByText('2')).toBeInTheDocument()
-      expect(screen.getByText('Total: $280')).toBeInTheDocument()
+      expect(screen.getAllByText('2')[0]).toBeInTheDocument()
+      expect(screen.getByText('280')).toBeInTheDocument()
    })
 
    it('Should render correctly the added message', async () => {

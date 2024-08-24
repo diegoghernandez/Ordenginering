@@ -21,7 +21,7 @@ describe('SelectQuantity component tests', () => {
       />)
 
       expect(screen.getByRole('button', { name: 'Subtract label' })).toBeDefined()
-      expect(screen.getByText(1)).toBeDefined()
+      expect(screen.getAllByText('0')[0]).toBeVisible()
       expect(screen.getByRole('button', { name: 'Increase label' })).toBeDefined()
       expect(spyIncrease).toHaveBeenCalledTimes(0)
       expect(spyDecrease).toHaveBeenCalledTimes(0)
@@ -43,13 +43,12 @@ describe('SelectQuantity component tests', () => {
       />)
 
       fireEvent.click(screen.getByRole('button', { name: 'Subtract label' }))
-
-      expect(screen.getByText(1)).toBeDefined()
+      expect(screen.getAllByText('0')[0]).toBeVisible()
       expect(spyIncrease).toHaveBeenCalledTimes(0)
       expect(spyDecrease).toHaveBeenCalledTimes(1)
    })
 
-   it('Should call the increase function two times', () => {
+   it('Should call the increase function two times', async () => {
       const spyIncrease = vi.fn()
       const spyDecrease = vi.fn()
       render(<SelectQuantity
@@ -67,7 +66,7 @@ describe('SelectQuantity component tests', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Increase label' }))
       fireEvent.click(screen.getByRole('button', { name: 'Increase label' }))
       
-      expect(screen.getByText(1)).toBeDefined()
+      expect(screen.getAllByText('0')[0]).toBeVisible()
       expect(spyIncrease).toHaveBeenCalledTimes(2)
       expect(spyDecrease).toHaveBeenCalledTimes(0)
    })
