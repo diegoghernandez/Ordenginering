@@ -129,8 +129,11 @@
 						</exclude>
 					</excludes>
 					<image>
-						<name>diegoj4v/pizza-order:${git-hash}</name>
+						<name>diegoj4v/pizza-order</name>
 						<publish>true</publish>
+						<tags>
+							<tag>diegoj4v/pizza-order:${git-hash}</tag>
+						</tags>
 					</image>
 					<docker>
 						<publishRegistry>
