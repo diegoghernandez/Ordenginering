@@ -24,7 +24,7 @@ spec:
             httpGet:
               port: 80
               path: /jwt/health/readiness
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 15
             timeoutSeconds: 10
             failureThreshold: 4
@@ -32,7 +32,7 @@ spec:
             httpGet:
               port: 80
               path: /jwt/health/liveness
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 15
             timeoutSeconds: 10
             failureThreshold: 4

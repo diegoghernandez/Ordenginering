@@ -11,7 +11,7 @@ spec:
           requestRedirect:
             path:
               type: ReplaceFullPath
-              replaceFullPath: /client
+              replaceFullPath: /client/en
             statusCode: 302
 
 ---
