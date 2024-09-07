@@ -26,12 +26,13 @@ export function PizzaIngredients({ ingredientList, prebuildIngredientIDs = [], t
    const ingredients = useDesireIngredients((state) => state.ingredients)
    const addIngredient = useDesireIngredients((state) => state.addIngredient)
    const removeIngredient = useDesireIngredients((state) => state.removeIngredient)
+   const removeAll = useDesireIngredients((state) => state.removeAll)
    const [desiredType, setDesiredType] = useState(ingredientTypeList[0])
    const ingredientTypeListTranslate = t.ingredientTypeList
 
-   
-   
-   useEffect(() => {
+   useEffect(removeAll, [])
+
+   useEffect(() => {      
       for (const prebuildIngredientID of prebuildIngredientIDs) {
          const ingredientName = ingredientList
             .filter(({ idIngredient }) => idIngredient === prebuildIngredientID)
