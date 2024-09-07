@@ -12,17 +12,19 @@ body:has(.dialog-container[open]) {
    &:not([open]) {
       opacity: 0;
    }
-
+   
    @media (prefers-reduced-motion: no-preference) {
-      &.left {
-         animation: slide-vanish-left 480ms ease-in-out;
-      
-         &[open] {
-            animation: slide-in-left 404ms ease-in;
+      @media (width > 640px) {
+         &.left {
+            animation: slide-vanish-left 480ms ease-in-out;
+         }
+      }
 
-            @media (width < 520px) {
-               animation: slide-in-left 340ms ease-in;
-            }
+      &.left[open] {
+         animation: slide-in-left 404ms ease-in;
+
+         @media (width < 520px) {
+            animation: slide-in-left 340ms ease-in;
          }
       }
    }
@@ -32,15 +34,17 @@ body:has(.dialog-container[open]) {
    }
 
    @media (prefers-reduced-motion: no-preference) {
-      &.right {
-         animation: slide-vanish-right 480ms ease-in-out;
-         
-         &[open] {
-            animation: slide-in-right 404ms ease-in;
+      @media (width > 640px) {
+         &.right {
+            animation: slide-vanish-right 480ms ease-in-out;
+         }
+      }
 
-            @media (width < 520px) {
-               animation: slide-in-right 340ms ease-in;
-            }
+      &.right[open] {
+         animation: slide-in-right 404ms ease-in;
+
+         @media (width < 520px) {
+            animation: slide-in-right 340ms ease-in;
          }
       }
    }   
