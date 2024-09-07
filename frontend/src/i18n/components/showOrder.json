@@ -1,28 +1,38 @@
 {
-   "en": {
-      "checkoutLink": {
-         "name": "Checkout",
-         "products": "product(s)" 
-      },
-      "removeItems": "Remove all items",
-      "selectQuantityLabels": {
-         "subtract": "Subtract pizza",
-         "add": "Add pizza"
-      },
-      "deletePizza": "Delete",
-      "noOrders": "No orders"
-   },
-   "es": {
-      "checkoutLink": {
-         "name": "Pagar",
-         "products": "producto(s)" 
-      },
-      "removeItems": "Quitar todos los elementos",
-      "selectQuantityLabels": {
-         "subtract": "Quitar pizza",
-         "add": "Agregar pizza"
-      },
-      "deletePizza": "Borrar",
-      "noOrders": "Sin ordenes"
-   }
+	"en": {
+		"checkoutLink": {
+			"name": "Checkout",
+			"products": "product(s)"
+		},
+		"removeItems": "Remove all items",
+		"selectQuantityLabels": {
+			"subtract": "Subtract pizza",
+			"add": "Add pizza"
+		},
+		"deletePizza": "Delete",
+		"noOrders": "No orders",
+		"size": {
+			"small": "Small",
+			"medium": "Medium",
+			"large": "Large"
+		}
+	},
+	"es": {
+		"checkoutLink": {
+			"name": "Pagar",
+			"products": "producto(s)"
+		},
+		"removeItems": "Quitar todos los elementos",
+		"selectQuantityLabels": {
+			"subtract": "Quitar pizza",
+			"add": "Agregar pizza"
+		},
+		"deletePizza": "Borrar",
+		"noOrders": "Sin ordenes",
+		"size": {
+			"small": "Pequeña",
+			"medium": "Mediana",
+			"large": "Larga"
+		}
+	}
 }

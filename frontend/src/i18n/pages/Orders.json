@@ -1,46 +1,56 @@
 {
-   "en": {
-      "seo": {
-         "title": "Customer orders",
-         "description": "See what orders you have made"
-      },
-      "titleError": "No orders",
-      "showPastOrdersTranslation": {
-         "products": "products",
-         "orderModalTranslation": {
-            "dialogTitle": "Your order",
-            "date": "Date",
-            "products": "Products",
-            "country": "Country",
-            "state": "State",
-            "city": "City",
-            "street": "Street",
-            "houseNumber": "House number",
-            "floor": "Floor",
-            "apartment": "Apartment"
-         }
-      }
-   },
-   "es": {
-      "seo": {
-         "title": "Ordenes del cliente",
-         "description": "Ver que ordenes has hecho"
-      },
-      "titleError": "Sin ordenes",
-      "showPastOrdersTranslation": {
-         "products": "productos",
-         "orderModalTranslation": {
-            "dialogTitle": "Tu orden",
-            "date": "Fecha",
-            "products": "Productos",
-            "country": "País",
-            "state": "Estado",
-            "city": "Ciudad",
-            "street": "Calle",
-            "houseNumber": "Número de casa",
-            "floor": "Piso",
-            "apartment": "Departamento"
-         }
-      }
-   }
+	"en": {
+		"seo": {
+			"title": "Customer orders",
+			"description": "See what orders you have made"
+		},
+		"titleError": "No orders",
+		"showPastOrdersTranslation": {
+			"products": "products",
+			"orderModalTranslation": {
+				"dialogTitle": "Your order",
+				"date": "Date",
+				"products": "Products",
+				"country": "Country",
+				"state": "State",
+				"city": "City",
+				"street": "Street",
+				"houseNumber": "House number",
+				"floor": "Floor",
+				"apartment": "Apartment",
+				"size": {
+					"small": "Small",
+					"medium": "Medium",
+					"large": "Large"
+				}
+			}
+		}
+	},
+	"es": {
+		"seo": {
+			"title": "Ordenes del cliente",
+			"description": "Ver que ordenes has hecho"
+		},
+		"titleError": "Sin ordenes",
+		"showPastOrdersTranslation": {
+			"products": "productos",
+			"orderModalTranslation": {
+				"dialogTitle": "Tu orden",
+				"date": "Fecha",
+				"products": "Productos",
+				"country": "País",
+				"state": "Estado",
+				"city": "Ciudad",
+				"street": "Calle",
+				"houseNumber": "Número de casa",
+				"floor": "Piso",
+				"apartment": "Departamento",
+				"size": {
+					"small": "Pequeña",
+					"medium": "Mediana",
+					"large": "Larga"
+				}
+			}
+		}
+	}
 }

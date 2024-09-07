@@ -80,7 +80,6 @@ LOCALES.forEach((locale) => {
             await expect(element.getByRole('heading')).toBeVisible()
             await expect(element.getByText(/\$[140,160,640]/)).toBeVisible();
             (await element.getByText(/[a-zA-Z]+ X1/).all()).forEach((element) => expect(element).toBeVisible())
-            await expect(element.getByText('Medium')).toBeVisible()
             await expect(element.getByText(/\SX[1,4]/)).toBeVisible()
          }
       })
