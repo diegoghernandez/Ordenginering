@@ -50,6 +50,10 @@ const { title, description, activeLink } = Astro.props
 
 <style is:global>
 	body {
+		& main {
+			min-height: 100svh;
+		}
+		
 		& nav {
 			display: flex;
 			height: 56px;
