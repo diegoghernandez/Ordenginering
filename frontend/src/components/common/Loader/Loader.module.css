@@ -18,7 +18,7 @@
       border-left: var(--size) solid transparent;
       border-right: var(--size) solid transparent;
       border-bottom: var(--height) solid #FFDB59;
-      animation: 1.25s disapear infinite;
+      animation: disappear 1.25s infinite;
 
       &:first-of-type {
          top: 0;
@@ -62,7 +62,7 @@
    }
 }
 
-@keyframes disapear {
+@keyframes disappear {
    0% {
       opacity: 0;
    }

@@ -1,0 +1,35 @@
+.increase-popover {
+   --size: 32px;
+
+   display: grid;
+   place-items: center;
+   position: absolute;
+   left: 45%;
+   width: var(--size);
+   height: var(--size);
+   color: var(--background);
+   background-color: var(--primary-interaction);
+   border-radius: 100%;
+   will-change: transform;
+   animation: show-popover 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) forwards;
+
+}
+
+@keyframes show-popover {
+   from {
+      opacity: 0;
+      transform: translateY(20px) rotateY(360deg);
+   }
+
+   50% {
+      opacity: 1;
+   }
+   
+   to {
+      transform: translateY(-80px) rotateY(0deg);
+   }
+
+   /* 100% {
+      display: none;
+   } */
+}
