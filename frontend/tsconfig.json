@@ -1,15 +1,15 @@
 {
-  "extends": "astro/tsconfigs/strict", 
-  "include": ["src", "src/test/setup-vitest.ts", "src/types.d.ts"],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "target": "ES2023",
-    "lib": ["es5", "dom", "DOM.Iterable"],
-    "types": ["@testing-library/jest-dom", "astro/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+	"extends": "astro/tsconfigs/strict",
+	"include": ["src", "src/test/setup-vitest.ts", "src/types.d.ts"],
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"target": "ES2023",
+		"lib": ["es5", "dom", "DOM.Iterable"],
+		"types": ["astro/client"],
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
 }
