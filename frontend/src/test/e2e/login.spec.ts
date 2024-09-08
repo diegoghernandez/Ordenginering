@@ -3,6 +3,7 @@ import { authHandler } from '@/mocks/domains/authHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
+import { goToLocalizedLink } from './utils/translationUtils'
 
 LOCALES.forEach((locale) => {
    const t = getJSON('../i18n/pages/Login.json')[locale]
@@ -12,7 +13,7 @@ LOCALES.forEach((locale) => {
       test.beforeEach(async ({ page }) => {
          await page.goto('/client')
          await changeLanguage(locale, page)
-         await page.goto('/client/en/login')
+         await goToLocalizedLink(locale, page, 'account')
       })
    
       test('Should render the login page correctly', async ({ page }) => {

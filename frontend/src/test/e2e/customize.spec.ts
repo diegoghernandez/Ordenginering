@@ -2,7 +2,7 @@ import { LOCALES } from '@/constants/locales'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { checkIfIngredientHasTheRightQuantity, checkIfSelectQuantityHasTheRightQuantity } from '@/test/e2e/utils/generalUtils'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
-import { getLocalizedIngredient, getLocalizedIngredientsButtonsFromCustomizePage, getLocalizedPizza, shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
+import { getLocalizedIngredient, getLocalizedIngredientsButtonsFromCustomizePage, getLocalizedPizza, goToLocalizedLink, shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
 
 LOCALES.forEach((locale) => {
@@ -18,8 +18,8 @@ LOCALES.forEach((locale) => {
       })
 
       test('Should render correctly', async ({ page }) => {
-         test.setTimeout(1000 * 50)
-         await page.goto('/client/en/customize/empty')
+         test.setTimeout(1000 * 40)
+         await goToLocalizedLink(locale, page, 'customize')
 
          await expect(page).toHaveTitle(t.seo.title)
    
@@ -66,7 +66,7 @@ LOCALES.forEach((locale) => {
       })
    
       test('Should render correctly if you choose click in the personalize link in the prebuild pizza in the menu page', async ({ page }) => {
-         await page.goto('/client/en/menu')
+         await goToLocalizedLink(locale, page, 'menu')
 
          const pizza = getLocalizedPizza(locale, 'supreme')
          
@@ -96,7 +96,7 @@ LOCALES.forEach((locale) => {
    
       test('Should change the total value, the quantity and the desire ingredients when you interact with the page', async ({ page }) => {
          const ingredientTypeList = getLocalizedIngredientsButtonsFromCustomizePage(locale)
-         await page.goto('/client/en/customize/empty')
+         await goToLocalizedLink(locale, page, 'customize')
 
          const pizzaDataArticle = page.getByRole('article').filter({ has: page.getByRole('heading', { name: pizzaData.title }) })
    
@@ -182,7 +182,7 @@ LOCALES.forEach((locale) => {
       })
    
       test('Should interact with the ingredients and save the order correctly', async ({ page }) => {
-         await page.goto('/client/en/customize/empty')         
+         await goToLocalizedLink(locale, page, 'customize')
    
          await page.getByRole('article').filter({ has: page.getByRole('heading', { name: getLocalizedIngredient(locale, 'Grilled Chicken') }) })
             .getByLabel(quantity.increase).click({ delay: 1000 * 2 })

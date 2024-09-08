@@ -4,7 +4,7 @@ import { expect, test } from '@/test/e2e/utils/fixture'
 import { addPizzaInMenu } from '@/test/e2e/utils/generalUtils'
 import { changeLanguage, findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { checkIfShoppingCartIsEmpty, } from '@/test/e2e/utils/shoppingCartUtils'
-import { shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
+import { goToLocalizedLink, shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
 
 LOCALES.forEach((locale) => {
@@ -19,7 +19,7 @@ LOCALES.forEach((locale) => {
 
       test('Should render the checkout page correctly after login and get the cookie', async ({ page, context }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-         await page.goto('/client/en/checkout', {
+         await page.goto(`/client/${locale}/checkout`, {
             waitUntil: 'load'
          })
    
@@ -42,7 +42,7 @@ LOCALES.forEach((locale) => {
       test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an error', 
       async ({ page, context, worker }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-         await page.goto('/client/en/menu')
+         await goToLocalizedLink(locale, page, 'menu')
    
          await checkIfShoppingCartIsEmpty(locale, page)
    
@@ -76,9 +76,7 @@ LOCALES.forEach((locale) => {
       test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an successful message', 
       async ({ page, context, worker }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
-         await page.goto('/client/en/menu', {
-            waitUntil: 'load'
-         })
+         await goToLocalizedLink(locale, page, 'menu')
    
          await checkIfShoppingCartIsEmpty(locale, page)
    
