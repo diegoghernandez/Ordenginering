@@ -40,9 +40,10 @@ LOCALES.forEach((locale) => {
       })
    
       test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an error', 
-      async ({ page, context, worker }) => {
+      async ({ page, context, worker, browserName }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
          await goToLocalizedLink(locale, page, 'menu')
+         if(browserName === 'firefox') await page.waitForLoadState('networkidle')
    
          await checkIfShoppingCartIsEmpty(locale, page)
    
@@ -74,9 +75,10 @@ LOCALES.forEach((locale) => {
       })
    
       test('Should save four orders in the menu page, and go to the checkout page with cookie, then make the order and show an alert with an successful message', 
-      async ({ page, context, worker }) => {
+      async ({ page, context, worker, browserName }) => {
          await context.addCookies([{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' }])
          await goToLocalizedLink(locale, page, 'menu')
+         if(browserName === 'firefox') await page.waitForLoadState('networkidle')
    
          await checkIfShoppingCartIsEmpty(locale, page)
    

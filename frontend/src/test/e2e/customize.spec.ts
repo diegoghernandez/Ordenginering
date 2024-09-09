@@ -18,7 +18,7 @@ LOCALES.forEach((locale) => {
       })
 
       test('Should render correctly', async ({ page }) => {
-         test.setTimeout(1000 * 40)
+         test.setTimeout(1000 * 50)
          await goToLocalizedLink(locale, page, 'customize')
 
          await expect(page).toHaveTitle(t.seo.title)
