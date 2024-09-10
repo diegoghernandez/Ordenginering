@@ -1,0 +1,75 @@
+.primary-button,
+.secondary-button {
+   width: 100%;
+   height: 36px;
+   border: none;
+   border-radius: 8px;
+   font-size: 1rem;
+   font-weight: 640;
+   line-height: 1.5rem; 
+   color: var(--background);
+   transition: box-shadow 300ms ease-in-out;
+   position: relative;
+
+   &:is(a) {
+      padding-block: 4px;
+      text-align: center;  
+   }
+
+   &:focus {
+      outline: none;
+   }
+
+   &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      border-radius: 8px;
+      transition: opacity 200ms cubic-bezier(.2,0,0,1);
+      background-color: var(--state-layer-color);
+   }
+
+   &:hover:not(:disabled)::before {
+      opacity: .08;
+   }
+
+   &:focus-within:not(:disabled)::before {
+      opacity: .12;
+   }
+
+   &:disabled {
+      cursor: not-allowed;
+      color: var(--outline);
+      background-color: var(--divider);
+   }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.primary-button {
+   background-color: var(--primary-interaction);
+
+   &:hover, 
+   &:focus,
+   &:has(button:focus-within) {
+      &:not(:disabled) {
+         box-shadow: var(--shadow-primary-button);
+      }
+   }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.secondary-button {
+   background-color: var(--secondary-interaction);
+
+   &:hover, 
+   &:focus,
+   &:has(button:focus-within) {
+      &:not(:disabled) {
+         box-shadow: var(--shadow-secondary-button);
+      }
+   }
+}
