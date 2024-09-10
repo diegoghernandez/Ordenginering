@@ -1,4 +1,4 @@
-import profileLinksTranslation from '@/i18n/components/profileLinks.json' with { type: 'json' }
+import profileLinksTranslation from '@/assets/i18n/components/profileLinks.json' with { type: 'json' }
 import type { LocalesString } from '@/types'
 interface Props {
    customerId: number,
