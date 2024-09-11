@@ -9,12 +9,16 @@ import {
 	findNavbarElements,
 } from '@/test/e2e/utils/navbarUtils'
 import { checkIfShoppingCartIsEmpty } from '@/test/e2e/utils/shoppingCartUtils'
-import { shoppingCartTranslation } from '@/test/e2e/utils/translationUtils'
+import {
+	getShowImageButtonTranslation,
+	shoppingCartTranslation,
+} from '@/test/e2e/utils/translationUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
 
 LOCALES.forEach((locale) => {
 	const t = getJSON('../assets/i18n/pages/Menu.json')[locale]
 	const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
+	const imgButtonTranslation = getShowImageButtonTranslation(locale)
 
 	test.describe(`${locale}: Menu page e2e tests`, () => {
 		test.beforeEach(async ({ page }) => {
@@ -30,18 +34,22 @@ LOCALES.forEach((locale) => {
 			await expect(
 				page.getByRole('heading', { name: t.seo.h1 })
 			).toBeVisible()
-			const pizzaArticles = page
-				.getByRole('article')
-				.filter({ has: page.getByRole('figure') })
+			const pizzaArticles = page.getByRole('article').filter({
+				has: page.getByRole('button', { name: imgButtonTranslation }),
+			})
 			await expect(pizzaArticles).toHaveCount(9)
 
 			for (const element of await pizzaArticles.all()) {
 				await element.screenshot()
-				await expect(element.getByRole('figure')).toBeVisible()
+				await expect(
+					element.getByRole('button', { name: imgButtonTranslation })
+				).toBeVisible()
 				await expect(element.getByRole('heading')).toBeVisible()
 				await expect(element.getByText('$')).toBeVisible()
 				await expect(element.getByText(', ')).toBeVisible()
-				await expect(element.getByRole('button')).toBeVisible()
+				await expect(
+					element.getByRole('button', { name: t.addLabel })
+				).toBeVisible()
 				await expect(element.getByRole('link')).toBeVisible()
 			}
 		})
@@ -49,7 +57,7 @@ LOCALES.forEach((locale) => {
 		test('Should save a pizza to the shopping cart', async ({ page }) => {
 			await checkIfShoppingCartIsEmpty(locale, page)
 
-			await addPizzaInMenu(page, 1)
+			await addPizzaInMenu(page, 1, t.addLabel)
 
 			await page
 				.getByLabel(shoppingCartTranslationUtils.shoppingCartText)

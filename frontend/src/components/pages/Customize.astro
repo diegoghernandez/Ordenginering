@@ -70,7 +70,12 @@ const getIngredients = () => {
 >
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
 		<div>
-			<ImgContainer styleClass='pizza-image' figcaptionText={getCurrentPizza().image.author[currentLocale]}>
+			<ImgContainer
+				client:load
+				locale={currentLocale}
+				styleClass='pizza-image' 
+				authorName={getCurrentPizza().image.author[currentLocale]}
+			>
 				<Image 
 					class='pizza-custom' 
 					src={`${IMAGE_CDN}/pizza/${getCurrentPizza().image.name}.avif`}
@@ -107,7 +112,7 @@ const getIngredients = () => {
 					quantity: t.quantity,
 					ingredientTypeList: t.ingredientTypeList
 				}}
-				local={currentLocale}
+				locale={currentLocale}
          />
 		</div>
 	</main>

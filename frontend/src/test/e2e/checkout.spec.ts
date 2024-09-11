@@ -15,6 +15,9 @@ import { getJSON } from '@/utils/getJSON.mjs'
 
 LOCALES.forEach((locale) => {
 	const t = getJSON('../assets/i18n/pages/Checkout.json')[locale]
+	const { addLabel: addMenuButton } = getJSON(
+		'../assets/i18n/pages/Menu.json'
+	)[locale]
 	const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
 
 	test.describe(`${locale}: Checkout page tests`, () => {
@@ -71,10 +74,10 @@ LOCALES.forEach((locale) => {
 
 			await checkIfShoppingCartIsEmpty(locale, page)
 
-			await addPizzaInMenu(page, 3)
-			await addPizzaInMenu(page, 2)
-			await addPizzaInMenu(page, 1)
-			await addPizzaInMenu(page, 7)
+			await addPizzaInMenu(page, 3, addMenuButton)
+			await addPizzaInMenu(page, 2, addMenuButton)
+			await addPizzaInMenu(page, 1, addMenuButton)
+			await addPizzaInMenu(page, 7, addMenuButton)
 
 			await expect(
 				page
@@ -123,10 +126,10 @@ LOCALES.forEach((locale) => {
 
 			await checkIfShoppingCartIsEmpty(locale, page)
 
-			await addPizzaInMenu(page, 3)
-			await addPizzaInMenu(page, 2)
-			await addPizzaInMenu(page, 1)
-			await addPizzaInMenu(page, 7)
+			await addPizzaInMenu(page, 3, addMenuButton)
+			await addPizzaInMenu(page, 2, addMenuButton)
+			await addPizzaInMenu(page, 1, addMenuButton)
+			await addPizzaInMenu(page, 7, addMenuButton)
 
 			await expect(
 				page

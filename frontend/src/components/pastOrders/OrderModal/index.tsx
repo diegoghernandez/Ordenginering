@@ -92,7 +92,8 @@ export function OrderModal({
 					>
 						<>
 							<ImgContainer
-								figcaptionText={pizza.pizzaImageAuthor[currentLocale]}
+								locale={currentLocale}
+								authorName={pizza.pizzaImageAuthor[currentLocale]}
 							>
 								<img
 									src={`${IMAGE_CDN}/pizza/${pizza.pizzaImageName}.avif`}

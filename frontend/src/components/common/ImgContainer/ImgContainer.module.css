@@ -7,54 +7,101 @@
       border-radius: 16px;
    }
 
-   & span {
+   & > button {
       position: absolute;
       bottom: 8px;
       left: 8px;
-      pointer-events: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 16px;
       color: var(--text-color);
       background-color: var(--background);
       transition: opacity 400ms ease-in-out 160ms;
    }
 
-   & figcaption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      transition: 500ms ease-in-out;
+   & dialog {
+      min-width: 100%;
+      min-height: 100svh;
+      background-color: transparent;
+      border: none;
+      z-index: 30;
+      animation: slide-down 200ms ease-in;
       
-      & p {
-         position: absolute;
-         bottom: 12px;
-         left: 8px;
-         padding-right: 8px;
-         pointer-events: fill;
-         color: transparent;
-         transition: color 300ms ease-in;
-
-         &:hover {
-            color: var(--text-color);
-            transition: color 600ms ease-in;
-         }
+      @media (width > 492px) {
+         left: -8px;
+         bottom: -160px;
+         width: fit-content;
+         min-height: 100%;
+         opacity: 0;
+         transition: opacity 200ms ease-in;
       }
+      
+      &[open] {
+         opacity: 1;
+         animation: slide-up 240ms ease-in backwards;
 
-      &:has(p:hover) {
-         background-color: hsl(from var(--background) h s l / 80%);
-         transition: background-color 800ms ease-in-out;
-
-         & + span {
+         @starting-style {
             opacity: 0;
-            transition: opacity 200ms ease-in;
          }
       }
+      
+      &::backdrop {
+         opacity: 0.1;
+         background-color: var(--state-layer-color);
+      }
+      
+      & article {
+         position: absolute;
+         bottom: 0;
+         display: grid;
+         place-items: start;
+         width: 100%;
+         height: fit-content;
+         padding: 20px;
+         gap: 16px;
+         border-radius: 32px 32px 0 0;
+         background-color: var(--background);
+         box-shadow: var(--surface-40) 0 1px 4px 2px;
+         
+         @media (width > 492px) {
+            width: 320px;
+            border-radius: 16px;
+         }
+         
+         & h2,
+         & p {
+            color: var(--text-color);
+         }
+
+         & h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+         }
+
+         & p {
+            font-size: 1rem;
+            font-weight: normal;
+         }
+      }
+   }
+}
+
+@keyframes slide-up {
+   from {
+      transform: translateY(20%);
+   }
+}
+
+@keyframes slide-down {
+   from {
+      display: block;
+   }
+   
+   to {
+      display: none;
+      transform: translateY(20%);
    }
 }

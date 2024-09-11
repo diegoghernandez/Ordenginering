@@ -40,15 +40,13 @@ LOCALES.forEach((locale) => {
 			await expect(
 				page.getByRole('img', { name: pizzaEmptyName })
 			).toBeVisible()
-			/* await expect(page.getByRole('figure')
+			/* await expect(page.getByRole('img')
             .filter({ has: page.getByRole('img', { name: 'Empty pizza' }) })
             .getByLabel('Show author image')).toBeVisible() */
 
-			const pizzaDataArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', { name: pizzaData.title }),
-				})
+			const pizzaDataArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', { name: pizzaData.title }),
+			})
 
 			await expect(pizzaDataArticle.getByRole('heading')).toBeVisible()
 			await expect(pizzaDataArticle.getByText('Total: $100')).toBeVisible()
@@ -83,21 +81,18 @@ LOCALES.forEach((locale) => {
 			)
 			const ingredientTypeList =
 				getLocalizedIngredientsButtonsFromCustomizePage(locale)
+
 			await expect(
 				page.getByRole('button', { name: ingredientTypeList.all })
 			).toHaveClass(/active/)
 
-			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
-			).toHaveCount(34)
-
 			const ingredientsCards = page
 				.getByRole('article')
-				.filter({ has: page.getByRole('figure') })
+				.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
+
+			await expect(ingredientsCards).toHaveCount(34)
+
 			for (const element of await ingredientsCards.all()) {
-				await element.screenshot()
-				await expect(element.getByRole('figure')).toBeVisible()
-				// await expect(element.getByLabel('Show author image')).toBeVisible()
 				await expect(element.getByRole('heading')).toBeVisible()
 				await expect(element.getByText(quantity.name)).toBeVisible()
 				await expect(element.getByLabel(quantity.decrease)).toBeVisible()
@@ -148,11 +143,9 @@ LOCALES.forEach((locale) => {
 				page.getByText(getLocalizedIngredient(locale, 'Mozzarella') + ' X1')
 			).toBeVisible()
 
-			const pizzaDataArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', { name: pizzaData.title }),
-				})
+			const pizzaDataArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', { name: pizzaData.title }),
+			})
 			await expect(
 				pizzaDataArticle.getByLabel(pizzaData.selectLabel)
 			).toHaveValue('MEDIUM')
@@ -197,16 +190,16 @@ LOCALES.forEach((locale) => {
 				getLocalizedIngredientsButtonsFromCustomizePage(locale)
 			await goToLocalizedLink(locale, page, 'customize')
 
-			const pizzaDataArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', { name: pizzaData.title }),
-				})
+			const pizzaDataArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', { name: pizzaData.title }),
+			})
 
 			await expect(page.getByText('Total: $100')).toBeVisible()
 			await checkIfSelectQuantityHasTheRightQuantity(pizzaDataArticle, 1)
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(34)
 
 			await pizzaDataArticle.getByLabel(quantity.increase).click()
@@ -254,7 +247,9 @@ LOCALES.forEach((locale) => {
 				.getByRole('button', { name: ingredientTypeList.sauce })
 				.click()
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(3)
 
 			const bbqSauce = getLocalizedIngredient(locale, 'BBQ sauce')
@@ -273,7 +268,9 @@ LOCALES.forEach((locale) => {
 				.getByRole('button', { name: ingredientTypeList.cheese })
 				.click()
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(7)
 
 			const mozzarella = getLocalizedIngredient(locale, 'Mozzarella')
@@ -292,7 +289,9 @@ LOCALES.forEach((locale) => {
 				.getByRole('button', { name: ingredientTypeList.meat })
 				.click()
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(10)
 
 			const grilledChicken = getLocalizedIngredient(
@@ -316,7 +315,9 @@ LOCALES.forEach((locale) => {
 				.getByRole('button', { name: ingredientTypeList.vegetable })
 				.click()
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(14)
 
 			const pineapple = getLocalizedIngredient(locale, 'Pineapple')
@@ -335,7 +336,9 @@ LOCALES.forEach((locale) => {
 				.getByRole('button', { name: ingredientTypeList.all })
 				.click()
 			await expect(
-				page.getByRole('article').filter({ has: page.getByRole('figure') })
+				page
+					.getByRole('article')
+					.filter({ hasNot: page.getByLabel(pizzaData.selectLabel) })
 			).toHaveCount(34)
 
 			await pizzaDataArticle.getByLabel(quantity.decrease).click()
@@ -362,6 +365,7 @@ LOCALES.forEach((locale) => {
 				})
 				.getByLabel(quantity.increase)
 				.click({ delay: 1000 * 2 })
+
 			await page
 				.getByRole('article')
 				.filter({
@@ -371,25 +375,29 @@ LOCALES.forEach((locale) => {
 				})
 				.getByLabel(quantity.increase)
 				.click()
+
 			await page
 				.getByRole('article')
-				.filter({ hasNot: page.getByRole('figure') })
+				.filter({ has: page.getByLabel(pizzaData.selectLabel) })
 				.getByLabel(quantity.increase)
 				.click()
 
 			await expect(page.getByText('Total: $280')).toBeVisible()
+
 			await expect(
 				page.getByText(
 					getLocalizedIngredient(locale, 'Grilled Chicken') + ' X1'
 				)
 			).toBeVisible()
+
 			await expect(
 				page.getByText(getLocalizedIngredient(locale, 'Mozzarella') + ' X1')
 			).toBeVisible()
+
 			await checkIfSelectQuantityHasTheRightQuantity(
 				page
 					.getByRole('article')
-					.filter({ hasNot: page.getByRole('figure') }),
+					.filter({ has: page.getByLabel(pizzaData.selectLabel) }),
 				2
 			)
 

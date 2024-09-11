@@ -6,9 +6,11 @@ import {
 } from '@/test/e2e/utils/navbarUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
 import { getProfileLinks } from '@/utils/getProfileLinks'
+import { getShowImageButtonTranslation } from './utils/translationUtils'
 
 LOCALES.forEach((locale) => {
 	const t = getJSON('../assets/i18n/pages/Orders.json')[locale]
+	const imgButtonTranslation = getShowImageButtonTranslation(locale)
 	const DATE = '2024-04-16T13:55:09'
 
 	test.describe(`${locale}: Customer orders page tests`, () => {
@@ -115,7 +117,9 @@ LOCALES.forEach((locale) => {
 				page
 					.getByRole('dialog')
 					.getByRole('article')
-					.filter({ has: page.getByRole('figure') })
+					.filter({
+						has: page.getByRole('button', { name: imgButtonTranslation }),
+					})
 			).toHaveCount(6)
 
 			for (const element of await page

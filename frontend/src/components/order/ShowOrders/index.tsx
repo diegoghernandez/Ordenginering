@@ -80,7 +80,8 @@ export function ShowOrder({ currentLocal }: Props) {
 						>
 							<>
 								<ImgContainer
-									figcaptionText={
+									locale={currentLocal}
+									authorName={
 										pizzaInOrder.pizzaImageAuthor[currentLocal]
 									}
 								>

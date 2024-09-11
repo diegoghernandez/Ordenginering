@@ -19,11 +19,10 @@ describe('PizzaIngredients component tests', () => {
 		render(
 			<PizzaIngredients
 				t={{ quantity, ingredientTypeList }}
-				local='en'
+				locale='en'
 				ingredientList={ingredientList}
 			/>
 		)
-
 		;['All', 'Vegetable', 'Meat', 'Cheese', 'Sauce'].forEach((type) =>
 			expect(screen.getByRole('button', { name: type })).toBeInTheDocument()
 		)
@@ -52,7 +51,7 @@ describe('PizzaIngredients component tests', () => {
 		render(
 			<PizzaIngredients
 				t={{ quantity, ingredientTypeList }}
-				local='en'
+				locale='en'
 				ingredientList={ingredientList}
 			/>
 		)
@@ -82,7 +81,7 @@ describe('PizzaIngredients component tests', () => {
 		render(
 			<PizzaIngredients
 				t={{ quantity, ingredientTypeList }}
-				local='en'
+				locale='en'
 				ingredientList={ingredientList}
 			/>
 		)

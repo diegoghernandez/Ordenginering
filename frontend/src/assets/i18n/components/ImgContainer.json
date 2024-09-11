@@ -1,0 +1,12 @@
+{
+	"en": {
+		"showButton": "Show author image",
+		"title": "Image's author",
+		"discardButton": "Discard"
+	},
+	"es": {
+		"showButton": "Mostrar autor de la imagen",
+		"title": "Autor de la imagen",
+		"discardButton": "Descartar"
+	}
+}

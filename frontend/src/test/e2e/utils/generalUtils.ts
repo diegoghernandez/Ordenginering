@@ -8,7 +8,11 @@ export async function checkIfSelectQuantityHasTheRightQuantity(
 	await expect(element.locator('p').filter({ hasText: regex })).toBeVisible()
 }
 
-export async function addPizzaInMenu(page: Page, position: number) {
+export async function addPizzaInMenu(
+	page: Page,
+	position: number,
+	addButtonText: string
+) {
 	const articlesArray = await page
 		.getByRole('article')
 		.filter({ has: page.getByRole('link') })
@@ -18,7 +22,7 @@ export async function addPizzaInMenu(page: Page, position: number) {
 
 	await articlesArray
 		?.at(position - 1)
-		?.getByRole('button')
+		?.getByRole('button', { name: addButtonText })
 		.click()
 
 	await expect(page.getByRole('alert')).toBeVisible()

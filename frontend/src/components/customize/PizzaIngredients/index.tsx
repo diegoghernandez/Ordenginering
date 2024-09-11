@@ -1,9 +1,9 @@
+import { en } from '@/assets/i18n/pages/Customize.json'
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
-import { en } from '@/assets/i18n/pages/Customize.json'
 import type {
 	IngredientRequest,
 	LocalesString,
@@ -21,7 +21,7 @@ interface Props {
 		quantity: QuantityTranslation
 		ingredientTypeList: IngredientTypeTranslation
 	}
-	local: LocalesString
+	locale: LocalesString
 }
 
 const ingredientTypeList = en.ingredientTypeList
@@ -30,7 +30,7 @@ export function PizzaIngredients({
 	ingredientList,
 	prebuildIngredientIDs = [],
 	t,
-	local,
+	locale,
 }: Props) {
 	const ingredients = useDesireIngredients((state) => state.ingredients)
 	const addIngredient = useDesireIngredients((state) => state.addIngredient)
@@ -83,19 +83,20 @@ export function PizzaIngredients({
 						>
 							<>
 								<ImgContainer
+									locale={locale}
 									styleClass={Styles['ingredients-image']}
-									figcaptionText={ingredient?.authorImage?.[local]}
+									authorName={ingredient?.authorImage?.[locale]}
 								>
 									<img
 										src={`${IMAGE_CDN}/ingredients/${ingredient.fileNameImage}.avif`}
-										alt={ingredient.ingredientName[local]}
+										alt={ingredient.ingredientName[locale]}
 										width='130'
 										height='80'
 										loading='lazy'
 										decoding='async'
 									/>
 								</ImgContainer>
-								<h3>{ingredient.ingredientName[local]}</h3>
+								<h3>{ingredient.ingredientName[locale]}</h3>
 								<p>{t.quantity.name}</p>
 								<SelectQuantity
 									valueToShow={

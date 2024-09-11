@@ -58,7 +58,7 @@
       "button button";
    gap: 4px 12px;
 
-   & figure {
+   & > div:first-of-type {
       grid-area: image;
       width: 112px;
       height: 112px;
@@ -80,7 +80,7 @@
       grid-area: size;
    }
 
-   & > div:first-of-type {
+   & > ul:first-of-type {
       grid-area: ingredient;
       width: 100%;
    }

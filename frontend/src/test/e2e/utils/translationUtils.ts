@@ -84,7 +84,7 @@ type PizzaJSON = {
 }
 
 export function getLocalizedPizza(locale: string, imageName: string) {
-	const pizza: PizzaJSON[] = getJSON('../data/pizza.json')
+	const pizza: PizzaJSON[] = getJSON('../assets/data/pizza.json')
 
 	const currentPizza = pizza.filter(({ image }) => image.name === imageName)[0]
 
@@ -113,4 +113,12 @@ export function getLocalizedIngredient(locale: string, ingredient: string) {
 	return ingredients
 		.map((element) => element[locale as LocalesString])
 		.at(desireIngredientIndex)
+}
+
+export function getShowImageButtonTranslation(locale: string) {
+	const { showButton } = getJSON(
+		'../assets/i18n/components/ImgContainer.json'
+	)[locale]
+
+	return showButton
 }

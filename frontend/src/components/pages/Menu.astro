@@ -55,7 +55,12 @@ const getIngredients = (idsList: number[]) => {
 			{pizzaList.map((pizza, index) => (
 				<CardContainer styleClass='pizza-container'>
 					<>
-						<ImgContainer styleClass='pizza-image' figcaptionText={pizza.image.author[currentLocal]}>
+						<ImgContainer
+							client:load
+							styleClass='pizza-image' 
+							authorName={pizza.image.author[currentLocal]}
+							locale={currentLocal}
+						>
 							<Image 
 								src={getUrlImage(pizza.image.name)}
 								alt={`${pizza.name} pizza`}
@@ -106,12 +111,9 @@ const getIngredients = (idsList: number[]) => {
 
 	.pizza-image {
 		height: 140px;
-		border-radius: 16px;
-		overflow: hidden;
+
 		& img {
-			position: absolute;
-			height: fit-content;
-			/* top: -36px; */
+			object-fit: cover;
 		}
 	}
 </style>
