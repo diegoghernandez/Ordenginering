@@ -9,9 +9,9 @@ export async function goToLocalizedLink(
 	page: Page,
 	link: Links
 ) {
-	const { links } = getJSON('../i18n/components/navbar.json')[locale]
+	const { links } = getJSON('../assets/i18n/components/navbar.json')[locale]
 	const { accountButton, accountDialog } = getJSON(
-		'../i18n/components/accountButton.json'
+		'../assets/i18n/components/accountButton.json'
 	)[locale]
 	switch (link) {
 		case 'home':
@@ -34,10 +34,12 @@ export async function goToLocalizedLink(
 }
 
 export function shoppingCartTranslation(locale: string) {
-	const { shoppingCartButton } = getJSON('../i18n/components/navbar.json')[
+	const { shoppingCartButton } = getJSON(
+		'../assets/i18n/components/navbar.json'
+	)[locale]
+	const { checkoutLink } = getJSON('../assets/i18n/components/showOrder.json')[
 		locale
 	]
-	const { checkoutLink } = getJSON('../i18n/components/showOrder.json')[locale]
 
 	function getCheckoutLink(page: Page, numberOfProducts: number) {
 		return page.getByRole('link', {
@@ -54,9 +56,9 @@ export function shoppingCartTranslation(locale: string) {
 export function getLocalizedIngredientsButtonsFromCustomizePage(
 	locale: string
 ) {
-	const { ingredientTypeList } = getJSON('../i18n/pages/Customize.json')[
-		locale
-	]
+	const { ingredientTypeList } = getJSON(
+		'../assets/i18n/pages/Customize.json'
+	)[locale]
 
 	const ingredientList = ingredientTypeList.map(
 		(ingredient: string) =>

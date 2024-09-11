@@ -4,9 +4,11 @@ import { shoppingCartTranslation } from './translationUtils'
 
 export async function checkIfShoppingCartIsEmpty(locale: string, page: Page) {
 	const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
-	const { noOrders } = getJSON('../i18n/components/showOrder.json')[locale]
+	const { noOrders } = getJSON('../assets/i18n/components/showOrder.json')[
+		locale
+	]
 	const { closeLargeModalButton } = getJSON(
-		'../i18n/components/largeModal.json'
+		'../assets/i18n/components/largeModal.json'
 	)[locale]
 
 	await expect(
