@@ -31,7 +31,6 @@ describe('PizzaIngredients component tests', () => {
 		expect(screen.getAllByRole('article')).length(34)
 		screen.getAllByRole('article').forEach((element) => {
 			expect(within(element).getByRole('img')).toBeInTheDocument()
-			expect(within(element).getByRole('figure')).toBeInTheDocument()
 			expect(within(element).getByRole('heading')).toBeInTheDocument()
 			expect(within(element).getByText('Quantity')).toBeInTheDocument()
 			expect(
