@@ -67,6 +67,7 @@ const getIngredients = (idsList: number[]) => {
 								width='280'
 								height='220'
 								loading={index < 6 ? 'eager' : 'lazy'}
+								transition:name={pizza.image.name}
 							/>
 						</ImgContainer>
 						<div class='pizza-information'>
@@ -90,7 +91,11 @@ const getIngredients = (idsList: number[]) => {
 										(ingredient) => ({ id: ingredient.idIngredient, name: ingredient.ingredientName, quantity: 1 }))
 								}} 
 							/>
-							<a class={SECONDARY__BUTTON} href={getCustomizeUrl(pizzaList[index].name.en)}>
+							<a 
+								class={SECONDARY__BUTTON} 
+								href={getCustomizeUrl(pizzaList[index].name.en)}
+								data-astro-prefetch
+							>
 								{t.customize} {pizza.name[currentLocal].toLowerCase()}
 							</a>
 						</div>
