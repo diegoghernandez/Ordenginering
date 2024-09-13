@@ -24,7 +24,7 @@ interface Props {
 const { activeLink } = Astro.props
 ---
 
-<nav>
+<nav transition:animate="none">
    <div class='menu--movil'>
       <button id='menu-button' class='interaction--buttons' aria-label={t.menuButton}>
          <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' class='humbleicons hi-view-list'>

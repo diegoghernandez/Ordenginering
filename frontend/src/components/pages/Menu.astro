@@ -1,12 +1,12 @@
 ---
+import pizzaList from '@/assets/data/pizza.json'
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { AddPizza } from '@/components/menu/AddPizza'
+import { IMAGE_ANIMATION } from '@/constants/customAnimations'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { Size } from '@/constants/size'
 import { SECONDARY__BUTTON } from '@/constants/styles'
-import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
-import pizzaList from '@/assets/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
 import type { LocalesString, SeoTranslation } from '@/types'
@@ -49,14 +49,14 @@ const getIngredients = (idsList: number[]) => {
 	description={t.seo.description}
 	activeLink='Menu'
 >
-	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
+	<main>
 		<h1>{t.seo.h1}</h1>
 		<div>
 			{pizzaList.map((pizza, index) => (
 				<CardContainer styleClass='pizza-container'>
 					<>
 						<ImgContainer
-							client:load
+							client:idle
 							styleClass='pizza-image' 
 							authorName={pizza.image.author[currentLocal]}
 							locale={currentLocal}
@@ -68,6 +68,7 @@ const getIngredients = (idsList: number[]) => {
 								height='220'
 								loading={index < 6 ? 'eager' : 'lazy'}
 								transition:name={pizza.image.name}
+								transition:animate={IMAGE_ANIMATION}
 							/>
 						</ImgContainer>
 						<div class='pizza-information'>
@@ -119,6 +120,12 @@ const getIngredients = (idsList: number[]) => {
 
 		& img {
 			object-fit: cover;
+			opacity: 1;
+			transition: opacity 0.2s ease-in;
+
+			@starting-style {
+				opacity: 0;
+			}
 		}
 	}
 </style>

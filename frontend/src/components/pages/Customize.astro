@@ -1,10 +1,10 @@
 ---
+import pizzaList from '@/assets/data/pizza.json'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { PizzaData, type PizzaDataTranslation } from '@/components/customize/PizzaData'
 import { PizzaIngredients, type IngredientTypeTranslation } from '@/components/customize/PizzaIngredients'
+import { IMAGE_ANIMATION } from '@/constants/customAnimations'
 import { IMAGE_CDN } from '@/constants/imageCDN'
-import { MAIN__TAG__ANIMATION__NAME } from '@/constants/viewTransitions'
-import pizzaList from '@/assets/data/pizza.json'
 import Layout from '@/layouts/Layout.astro'
 import { getAllIngredients } from '@/services/ingredientsService'
 import type { LocalesObject, LocalesString, QuantityTranslation, SeoTranslation } from '@/types'
@@ -68,7 +68,7 @@ const getIngredients = () => {
 	description={t.seo.description}
 	activeLink='Customize'
 >
-	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
+	<main>
 		<div>
 			<ImgContainer
 				client:load
@@ -85,6 +85,7 @@ const getIngredients = () => {
 					decoding='sync'
 					loading='eager'
 					transition:name={getCurrentPizza().image.name}
+					transition:animate={IMAGE_ANIMATION}
 				/>
 			</ImgContainer>
 			<PizzaData 
