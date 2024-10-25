@@ -1,23 +1,26 @@
-import { CustomerMessage, CustomerRoleRepository } from '../../types'
+import { CustomerMessage, CustomerRoleRepository } from '../../types.js'
 
 export class HealthService {
-   #customerRoleRepository: CustomerRoleRepository
-   #customerMessage: CustomerMessage
+	#customerRoleRepository: CustomerRoleRepository
+	#customerMessage: CustomerMessage
 
-   constructor(customerRoleRepository: CustomerRoleRepository, customerMessage: CustomerMessage) {
-      this.#customerRoleRepository = customerRoleRepository
-      this.#customerMessage = customerMessage
-   }
+	constructor(
+		customerRoleRepository: CustomerRoleRepository,
+		customerMessage: CustomerMessage
+	) {
+		this.#customerRoleRepository = customerRoleRepository
+		this.#customerMessage = customerMessage
+	}
 
-   checkIfAllServicesAreAvailable = async () => {
-      try {
-         const value = await this.#customerRoleRepository.databaseIsAvailable()
-         this.#customerMessage.createChannel()
+	checkIfAllServicesAreAvailable = async () => {
+		try {
+			const value = await this.#customerRoleRepository.databaseIsAvailable()
+			await this.#customerMessage.createChannel()
 
-         return value
-      } catch (error) {
-         console.error(error)
-         return false
-      }
-   }
+			return value
+		} catch (error) {
+			console.error(error)
+			return false
+		}
+	}
 }

@@ -12,16 +12,22 @@ const PORT = GENERAL_SECRETS.PORT ?? 0
 app.use(express.json())
 
 app.use('/jwt', createJwtRouter(new CustomerRoleRepositoryImpl()))
-app.use('/jwt/health', createHealthRoute(new CustomerRoleRepositoryImpl(), new CustomerMessageImpl()))
+app.use(
+	'/jwt/health',
+	createHealthRoute(
+		new CustomerRoleRepositoryImpl(),
+		new CustomerMessageImpl()
+	)
+)
 
 const customerMessage = new CustomerMessageImpl()
-customerMessage.onSaveCustomerRole()
+await customerMessage.onSaveCustomerRole()
 
-const listen = app.listen(PORT, function(this: Server | null) {
-   if (this instanceof Server) {
-      const { port } = this.address() as AddressInfo
-      console.log(`Server running on port ${port}`)
-   }
+const listen = app.listen(PORT, function (this: Server | null) {
+	if (this instanceof Server) {
+		const { port } = this.address() as AddressInfo
+		console.log(`Server running on port ${port}`)
+	}
 })
 
 export { app, listen }
