@@ -3,10 +3,10 @@ import { CustomerEmail } from '../../contracts/services/CustomerEmail.js'
 import Welcome from '../../emails/Welcome.js'
 
 export class CustomerResend implements CustomerEmail {
-	#resend: Resend
+	#emailProvider
 
 	constructor(emailProvider: Resend) {
-		this.#resend = emailProvider
+		this.#emailProvider = emailProvider
 	}
 
 	async sendWelcome({
@@ -18,7 +18,7 @@ export class CustomerResend implements CustomerEmail {
 		token: string
 		locale: 'es' | 'en'
 	}) {
-		await this.#resend.emails.send({
+		await this.#emailProvider.emails.send({
 			from: 'onboarding@rd34124esend.dev',
 			to: email,
 			subject: 'Hello World',
