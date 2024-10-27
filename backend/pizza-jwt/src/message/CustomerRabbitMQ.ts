@@ -15,7 +15,7 @@ export class CustomerRabbitMQ implements CustomerMessage {
 	}
 
 	#onSaveCustomerRole = async () => {
-		const queue = 'q.save-customer-role'
+		const queue = 'q.pizza_customer.save_customer_role'
 
 		await this.#channel.consume(queue, async (msg) => {
 			const customerId = Number(

@@ -4,7 +4,7 @@ import { RABBIT_CONFIG } from '../constants/RabbitConfig.js'
 import { CustomerRabbitMQ } from '../message/CustomerRabbitMQ.js'
 import { CustomerRoleMysql } from '../repository/CustomerRoleMysql.js'
 
-const SAVE_CUSTOMER_QUEUE = 'q.save-customer-role'
+const SAVE_CUSTOMER_QUEUE = 'q.pizza_customer.save_customer_role'
 
 const connection = await connect(RABBIT_CONFIG)
 const channel = await connection.createChannel()
