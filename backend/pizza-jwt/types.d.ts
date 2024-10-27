@@ -22,5 +22,5 @@ interface CustomerRoleRepository {
 }
 
 interface CustomerMessage {
-	onSaveCustomerRole: () => Promise<void>
+	#onSaveCustomerRole: () => Promise<void>
 }

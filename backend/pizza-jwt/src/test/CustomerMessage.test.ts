@@ -21,7 +21,7 @@ describe('CustomerMessage tests', () => {
 	it('Should process the customer id but no save it, because is already in the database', async () => {
 		const customerRepository = new CustomerRoleMysql()
 		const customerMessage = new CustomerRabbitMQ(channel, customerRepository)
-		await customerMessage.onSaveCustomerRole()
+		await customerMessage.initialize()
 		vi.spyOn(customerRepository, 'existById')
 		vi.spyOn(customerRepository, 'save')
 
@@ -40,7 +40,7 @@ describe('CustomerMessage tests', () => {
 	it('Should process customer id and save it', async () => {
 		const customerRepository = new CustomerRoleMysql()
 		const customerMessage = new CustomerRabbitMQ(channel, customerRepository)
-		await customerMessage.onSaveCustomerRole()
+		await customerMessage.initialize()
 
 		vi.spyOn(customerRepository, 'existById')
 		expect(await customerRepository.existById(3463)).toBeFalsy()

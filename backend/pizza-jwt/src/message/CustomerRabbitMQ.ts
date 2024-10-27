@@ -10,7 +10,11 @@ export class CustomerRabbitMQ implements CustomerMessage {
 		this.#customerRepository = customerRepository
 	}
 
-	onSaveCustomerRole = async () => {
+	async initialize() {
+		await this.#onSaveCustomerRole()
+	}
+
+	#onSaveCustomerRole = async () => {
 		const queue = 'q.save-customer-role'
 
 		await this.#channel.consume(queue, async (msg) => {

@@ -6,6 +6,6 @@ import { CustomerRoleMysql } from './repository/CustomerRoleMysql.js'
 export async function initializeRabbitSetup() {
 	const connection = await connect(RABBIT_CONFIG)
 	const channel = await connection.createChannel()
-	const customerRepository = new CustomerRoleMysql()
-	new CustomerRabbitMQ(channel, customerRepository)
+
+	await new CustomerRabbitMQ(channel, new CustomerRoleMysql()).initialize()
 }
