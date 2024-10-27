@@ -1,0 +1,94 @@
+name: Test and publish pizza email image
+
+on:
+   push:
+      paths:
+         [
+            backend/pizza-email/**,
+            .github/workflows/pizza_email_workflow.yaml,
+            '!**.md',
+            '!**.MD',
+         ]
+      branches:
+         - main
+
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
+
+jobs:
+   test:
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: backend/pizza-email
+      steps:
+         - uses: actions/checkout@v4
+           with:
+              sparse-checkout: backend/pizza-email
+              fetch-depth: 0
+         - uses: pnpm/action-setup@v3
+           with:
+              version: 9
+         - uses: actions/setup-node@v4
+           with:
+              node-version: 20
+              cache: 'pnpm'
+              cache-dependency-path: backend/pizza-email/pnpm-lock.yaml
+         - name: Install dependencies
+           run: pnpm install --frozen-lockfile
+         - name: Test project
+           run: pnpm run test
+
+   buid_image:
+      needs: [test]
+      runs-on: ubuntu-22.04
+      defaults:
+         run:
+            working-directory: backend/pizza-email
+      steps:
+         - uses: actions/checkout@v4
+           with:
+              sparse-checkout: backend/pizza-email
+              fetch-depth: 0
+         - name: Build image
+           run: docker build -t diegoj4v/pizza-email .
+         - name: Login to Docker Hub
+           uses: docker/login-action@v3
+           with:
+              username: diegoj4v
+              password: ${{ secrets.DOCKERHUB_TOKEN }}
+         - name: Push image to docker hub
+           run: |
+              docker tag diegoj4v/pizza-email diegoj4v/pizza-email:latest
+              docker push diegoj4v/pizza-email:latest
+              docker tag diegoj4v/pizza-email diegoj4v/pizza-email:$(git rev-parse --short ${{ github.sha }})
+              docker push diegoj4v/pizza-email:$(git rev-parse --short ${{ github.sha }})
+
+   login__and__update__deployment:
+      needs: [buid_image]
+      runs-on: ubuntu-22.04
+      permissions:
+         id-token: write
+         contents: read
+      defaults:
+         run:
+            working-directory: k8s
+      steps:
+         - uses: actions/checkout@v4
+           with:
+              sparse-checkout: k8s
+              fetch-depth: 0
+         - id: 'auth'
+           name: 'Obtain access token by using workload identity federation'
+           uses: 'google-github-actions/auth@v2'
+           with:
+              workload_identity_provider: ${{ secrets.WIP }}
+              service_account: ${{ secrets.SERVICE_EMAIL }}
+         - name: Connect to GKE
+           uses: google-github-actions/get-gke-credentials@v2
+           with:
+              cluster_name: pizza-cluster
+              location: us-west2
+         - name: Update deployment image
+           run: kubectl set image deployment/pizza-email pizza-email=diegoj4v/pizza-email:$(git rev-parse --short ${{ github.sha }})
