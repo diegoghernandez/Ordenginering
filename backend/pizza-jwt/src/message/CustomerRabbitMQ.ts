@@ -18,11 +18,14 @@ export class CustomerRabbitMQ implements CustomerMessage {
 		const queue = 'q.pizza_customer.save_customer_role'
 
 		await this.#channel.consume(queue, async (msg) => {
-			const customerId = Number(
-				JSON.parse(msg?.content.toString() ?? '')?.customerId
+			const { customerId } = JSON.parse(
+				msg?.content.toString('utf8') ?? '{}'
 			)
 
-			if (!(await this.#customerRepository.existById(customerId))) {
+			if (
+				!(await this.#customerRepository.existById(customerId)) &&
+				customerId
+			) {
 				await this.#customerRepository.save(customerId)
 			}
 		})
