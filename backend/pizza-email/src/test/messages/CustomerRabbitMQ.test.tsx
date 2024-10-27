@@ -28,7 +28,7 @@ describe('CustomerMessage tests', () => {
 	it('Should verify if the queue "q.pizza_customer.welcome_email" is consumed with the desire data', async () => {
 		const resend = new Resend(process.env.RESEND_KEY)
 		const customerResend = new CustomerResend(resend)
-		new CustomerRabbitMQ(channel, customerResend)
+		await new CustomerRabbitMQ(channel, customerResend).initialize()
 		const data = {
 			email: 'test@test.test',
 			locale: 'es',

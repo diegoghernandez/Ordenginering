@@ -9,7 +9,10 @@ export class CustomerRabbitMQ implements CustomerMessage {
 	constructor(channel: Channel, customerEmail: CustomerEmail) {
 		this.#channel = channel
 		this.#customerEmail = customerEmail
-		this.#onSaveCustomer().catch((error) => console.error(error))
+	}
+
+	async initialize() {
+		await this.#onSaveCustomer()
 	}
 
 	async #onSaveCustomer() {
