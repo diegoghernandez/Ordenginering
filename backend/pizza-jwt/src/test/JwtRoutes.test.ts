@@ -1,13 +1,15 @@
 import assert from 'node:assert/strict'
 import supertest from 'supertest'
-import { afterAll, describe, it } from 'vitest'
-import { app, listen } from '../index.js'
+import { beforeEach, describe, it } from 'vitest'
+import { app } from '../app.js'
 
 const api = supertest(app)
 
 describe('Jwt routes tests', () => {
-	afterAll(() => {
-		listen.close()
+	beforeEach(() => {
+		const listen = app.listen()
+
+		return () => listen.close()
 	})
 
 	describe('create jwt route', () => {

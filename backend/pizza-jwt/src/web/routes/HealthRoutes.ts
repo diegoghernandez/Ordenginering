@@ -1,17 +1,13 @@
 import { Router } from 'express'
+import { CustomerRoleRepository } from '../../../types.js'
 import { HealthController } from '../controller/HealthController.js'
-import { CustomerMessage, CustomerRoleRepository } from '../../../types.js'
 
 export function createHealthRoute(
-	customerRoleRepository: CustomerRoleRepository,
-	customerMessage: CustomerMessage
+	customerRoleRepository: CustomerRoleRepository
 ) {
 	const healthRouter = Router()
 
-	const healthController = new HealthController(
-		customerRoleRepository,
-		customerMessage
-	)
+	const healthController = new HealthController(customerRoleRepository)
 
 	healthRouter.get('/liveness', healthController.healthLiveness)
 	healthRouter.get('/readiness', healthController.healthReadiness)

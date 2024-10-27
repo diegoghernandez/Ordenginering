@@ -1,21 +1,19 @@
-import { CustomerMessage, CustomerRoleRepository } from '../../types.js'
+import { connect } from 'amqplib'
+import { CustomerRoleRepository } from '../../types.js'
+import { RABBIT_CONFIG } from '../constants/RabbitConfig.js'
 
 export class HealthService {
 	#customerRoleRepository: CustomerRoleRepository
-	#customerMessage: CustomerMessage
 
-	constructor(
-		customerRoleRepository: CustomerRoleRepository,
-		customerMessage: CustomerMessage
-	) {
+	constructor(customerRoleRepository: CustomerRoleRepository) {
 		this.#customerRoleRepository = customerRoleRepository
-		this.#customerMessage = customerMessage
 	}
 
 	checkIfAllServicesAreAvailable = async () => {
 		try {
 			const value = await this.#customerRoleRepository.databaseIsAvailable()
-			await this.#customerMessage.createChannel()
+			const connection = await connect(RABBIT_CONFIG)
+			await connection.createChannel()
 
 			return value
 		} catch (error) {

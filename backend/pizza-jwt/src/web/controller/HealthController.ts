@@ -1,18 +1,12 @@
 import { Request, Response } from 'express'
-import { CustomerMessage, CustomerRoleRepository } from '../../../types.js'
+import { CustomerRoleRepository } from '../../../types.js'
 import { HealthService } from '../../service/HealthService.js'
 
 export class HealthController {
 	#healthService: HealthService
 
-	constructor(
-		customerRoleRepository: CustomerRoleRepository,
-		customerMessage: CustomerMessage
-	) {
-		this.#healthService = new HealthService(
-			customerRoleRepository,
-			customerMessage
-		)
+	constructor(customerRoleRepository: CustomerRoleRepository) {
+		this.#healthService = new HealthService(customerRoleRepository)
 	}
 
 	healthLiveness = async (_req: Request, res: Response) => {

@@ -1,33 +1,32 @@
-import express from 'express'
-import { CustomerMessageImpl } from './message/CustomerMessages.js'
-import { CustomerRoleRepositoryImpl } from './repository/CustomerRoleRepositoryImpl.js'
-import { createHealthRoute } from './web/routes/HealthRoutes.js'
-import { createJwtRouter } from './web/routes/JwtRoutes.js'
-import { GENERAL_SECRETS } from './env/generalSecrets.js'
+import { connect } from 'amqplib'
 import { Server } from 'node:http'
 import { AddressInfo } from 'node:net'
+import { app } from './app.js'
+import { RABBIT_CONFIG } from './constants/RabbitConfig.js'
+import { GENERAL_SECRETS } from './env/generalSecrets.js'
+import { CustomerMessageImpl } from './message/CustomerMessages.js'
+import { CustomerRoleRepositoryImpl } from './repository/CustomerRoleRepositoryImpl.js'
 
-const app = express()
-const PORT = GENERAL_SECRETS.PORT ?? 0
-app.use(express.json())
-
-app.use('/jwt', createJwtRouter(new CustomerRoleRepositoryImpl()))
-app.use(
-	'/jwt/health',
-	createHealthRoute(
-		new CustomerRoleRepositoryImpl(),
-		new CustomerMessageImpl()
-	)
-)
-
-const customerMessage = new CustomerMessageImpl()
+const connection = await connect(RABBIT_CONFIG)
+const channel = await connection.createChannel()
+const customerRepository = new CustomerRoleRepositoryImpl()
+const customerMessage = new CustomerMessageImpl(channel, customerRepository)
 await customerMessage.onSaveCustomerRole()
 
-const listen = app.listen(PORT, function (this: Server | null) {
+const SAVE_CUSTOMER_QUEUE = 'q.save-customer-role'
+
+await channel.assertExchange('e.pizza_customer.saved', 'fanout')
+await channel.assertQueue(SAVE_CUSTOMER_QUEUE, {
+	durable: false,
+	autoDelete: true,
+})
+await channel.bindQueue(SAVE_CUSTOMER_QUEUE, 'e.pizza_customer.saved', '')
+
+const PORT = GENERAL_SECRETS.PORT ?? 0
+
+app.listen(PORT, function (this: Server | null) {
 	if (this instanceof Server) {
 		const { port } = this.address() as AddressInfo
 		console.log(`Server running on port ${port}`)
 	}
 })
-
-export { app, listen }

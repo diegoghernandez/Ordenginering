@@ -1,12 +1,14 @@
 import supertest from 'supertest'
-import { afterAll, describe, expect, it } from 'vitest'
-import { app, listen } from '../index.js'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { app } from '../app.js'
 
 const api = supertest(app)
 
 describe.concurrent('Jwt routes tests', () => {
-	afterAll(() => {
-		listen.close()
+	beforeEach(() => {
+		const listen = app.listen()
+
+		return () => listen.close()
 	})
 
 	describe('healthLiveness tests', () => {
