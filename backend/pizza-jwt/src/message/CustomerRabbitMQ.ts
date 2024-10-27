@@ -1,7 +1,7 @@
 import { Channel } from 'amqplib'
 import { CustomerMessage, CustomerRoleRepository } from '../../types.js'
 
-export class CustomerMessageImpl implements CustomerMessage {
+export class CustomerRabbitMQ implements CustomerMessage {
 	#channel: Channel
 	#customerRepository: CustomerRoleRepository
 

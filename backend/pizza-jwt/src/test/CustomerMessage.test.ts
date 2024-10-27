@@ -1,8 +1,8 @@
 import { connect } from 'amqplib'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { RABBIT_CONFIG } from '../constants/RabbitConfig.js'
-import { CustomerMessageImpl } from '../message/CustomerMessages.js'
-import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl.js'
+import { CustomerRabbitMQ } from '../message/CustomerRabbitMQ.js'
+import { CustomerRoleMysql } from '../repository/CustomerRoleMysql.js'
 
 const SAVE_CUSTOMER_QUEUE = 'q.save-customer-role'
 
@@ -19,11 +19,8 @@ describe('CustomerMessage tests', () => {
 	beforeEach(async () => await channel.purgeQueue(SAVE_CUSTOMER_QUEUE))
 
 	it('Should process the customer id but no save it, because is already in the database', async () => {
-		const customerRepository = new CustomerRoleRepositoryImpl()
-		const customerMessage = new CustomerMessageImpl(
-			channel,
-			customerRepository
-		)
+		const customerRepository = new CustomerRoleMysql()
+		const customerMessage = new CustomerRabbitMQ(channel, customerRepository)
 		await customerMessage.onSaveCustomerRole()
 		vi.spyOn(customerRepository, 'existById')
 		vi.spyOn(customerRepository, 'save')
@@ -41,11 +38,8 @@ describe('CustomerMessage tests', () => {
 	})
 
 	it('Should process customer id and save it', async () => {
-		const customerRepository = new CustomerRoleRepositoryImpl()
-		const customerMessage = new CustomerMessageImpl(
-			channel,
-			customerRepository
-		)
+		const customerRepository = new CustomerRoleMysql()
+		const customerMessage = new CustomerRabbitMQ(channel, customerRepository)
 		await customerMessage.onSaveCustomerRole()
 
 		vi.spyOn(customerRepository, 'existById')

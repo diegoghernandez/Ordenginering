@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { CustomerRoleRepositoryImpl } from '../repository/CustomerRoleRepositoryImpl.js'
+import { CustomerRoleMysql } from '../repository/CustomerRoleMysql.js'
 import { HealthService } from '../service/HealthService.js'
 
-const healthService = new HealthService(new CustomerRoleRepositoryImpl())
+const healthService = new HealthService(new CustomerRoleMysql())
 
 describe('HealthService tests', () => {
 	describe('checkIfAllServicesAreAvailable tests', () => {
