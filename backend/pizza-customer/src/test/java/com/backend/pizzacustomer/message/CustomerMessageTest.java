@@ -24,7 +24,7 @@ class CustomerMessageTest implements RabbitTestContainer {
    @Autowired
    private CustomerMessage customerMessage;
 
-   @RabbitListener(queues = {"q.save-customer-role"})
+   @RabbitListener(queues = {"q.pizza_customer.save_customer_role"})
    public void onPaymentEvent(Map<String, Long> customerId) {
       log.info("Customer id: " + customerId);
    }

@@ -1,11 +1,11 @@
 package com.backend.pizzacustomer.service;
 
 import com.backend.pizzacustomer.TestDataUtil;
-import com.backend.pizzacustomer.config.RabbitTestConfiguration;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
+import com.backend.pizzacustomer.web.config.RabbitMQConfig;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.ValuesForChangeProfile;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @DataJpaTest
-@Import(RabbitTestConfiguration.class)
+@Import(RabbitMQConfig.class)
 @ExtendWith(OutputCaptureExtension.class)
 @ComponentScan(basePackages = "com.backend.pizzacustomer.domain")
 @ImportAutoConfiguration({BCryptPasswordEncoder.class, RabbitAutoConfiguration.class, JacksonAutoConfiguration.class})
@@ -47,7 +47,7 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
    private final static long ID__TO__REJECT = 34L;
    private final static long ID__TO__ACCEPT = 4234L;
 
-   @RabbitListener(queues = {"q.save-customer-role"})
+   @RabbitListener(queues = {"q.pizza_customer.save_customer_role"})
    public void onPaymentEvent(Map<String, Integer> customerId) {
       log.info("Customer id: " + customerId);
    }

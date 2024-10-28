@@ -1,11 +1,11 @@
 package com.backend.pizzacustomer.domain.message;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Component
+@Service
 public class CustomerMessage {
 
    private final RabbitTemplate rabbitTemplate;
@@ -15,6 +15,6 @@ public class CustomerMessage {
    }
 
    public void sendCustomerRoleMessage(long customerId) {
-      rabbitTemplate.convertAndSend("q.save-customer-role", Map.of("customerId", customerId));
+      rabbitTemplate.convertAndSend("e.pizza_customer.saved", "", Map.of("customerId", customerId));
    }
 }
