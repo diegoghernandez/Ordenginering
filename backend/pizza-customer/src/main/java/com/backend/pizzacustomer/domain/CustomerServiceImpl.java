@@ -1,5 +1,6 @@
 package com.backend.pizzacustomer.domain;
 
+import com.backend.pizzacustomer.domain.dto.CustomerSaveDto;
 import com.backend.pizzacustomer.domain.message.CustomerMessage;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
@@ -14,99 +15,103 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-   private final CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-   private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-   private final CustomerMessage customerMessage;
+    private final CustomerMessage customerMessage;
 
-   @Autowired
-   public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
-      this.customerRepository = customerRepository;
-      this.passwordEncoder = passwordEncoder;
-      this.customerMessage = customerMessage;
-   }
+    @Autowired
+    public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
+        this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.customerMessage = customerMessage;
+    }
 
-   @Override
-   public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
-      if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used");
-      else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
-         throw new NotAllowedException("No older enough");
+    @Override
+    public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
+        if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used");
+        else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
+            throw new NotAllowedException("No older enough");
 
-      var customer = CustomerEntity.builder()
-              .customerName(customerDto.customerName())
-              .email(customerDto.email())
-              .password(passwordEncoder.encode(customerDto.password()))
-              .birthDate(customerDto.birthDate())
-              .disable(false)
-              .creationTimestamp(LocalDateTime.now())
-              .build();
+        var customer = CustomerEntity.builder()
+                .customerName(customerDto.customerName())
+                .email(customerDto.email())
+                .password(passwordEncoder.encode(customerDto.password()))
+                .birthDate(customerDto.birthDate())
+                .disable(false)
+                .creationTimestamp(LocalDateTime.now())
+                .build();
 
-      var customerSaved = customerRepository.save(customer);
-      customerMessage.sendCustomerRoleMessage(customerSaved.getIdCustomer());
-   }
+        var customerSaved = customerRepository.save(customer);
 
-   @Override
-   public Optional<CustomerEntity> getCustomerById(long id) {
-      return customerRepository.findById(id);
-   }
+        customerMessage.sendToCustomerSaveExchange(new CustomerSaveDto(
+                customerSaved.getIdCustomer(),
+                customerSaved.getEmail(),
+                UUID.randomUUID().toString(),
+                "en"));
+    }
 
-   @Override
-   public Optional<CustomerEntity> getCustomerByEmail(String email) {
-      return customerRepository.findByEmail(email);
-   }
+    @Override
+    public Optional<CustomerEntity> getCustomerById(long id) {
+        return customerRepository.findById(id);
+    }
 
-   @Override
-   public Map.Entry<Integer, String> changeProfile(ValuesForChangeProfile valuesForChangeProfile) {
-      if (!customerRepository.existsById(valuesForChangeProfile.valuesForChangeDto().id()))
-         return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
+    @Override
+    public Optional<CustomerEntity> getCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
 
-      customerRepository.changeProfile(
-              valuesForChangeProfile.name(),
-              valuesForChangeProfile.birthDate(),
-              valuesForChangeProfile.valuesForChangeDto().id()
-      );
+    @Override
+    public Map.Entry<Integer, String> changeProfile(ValuesForChangeProfile valuesForChangeProfile) {
+        if (!customerRepository.existsById(valuesForChangeProfile.valuesForChangeDto().id()))
+            return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
-      return new AbstractMap.SimpleEntry<>(200, "Change profile correctly");
-   }
+        customerRepository.changeProfile(
+                valuesForChangeProfile.name(),
+                valuesForChangeProfile.birthDate(),
+                valuesForChangeProfile.valuesForChangeDto().id()
+        );
 
-   @Override
-   public Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto){
-      var result = validateNecessaryValues(forChangeDto, "Change password correctly");
+        return new AbstractMap.SimpleEntry<>(200, "Change profile correctly");
+    }
 
-      if (result.getKey().equals(200)) customerRepository.changePassword(
-              passwordEncoder.encode(newPassword),
-              forChangeDto.id()
-      );
+    @Override
+    public Map.Entry<Integer, String> changePassword(String newPassword, NecessaryValuesForChangeDto forChangeDto) {
+        var result = validateNecessaryValues(forChangeDto, "Change password correctly");
 
-      return result;
-   }
+        if (result.getKey().equals(200)) customerRepository.changePassword(
+                passwordEncoder.encode(newPassword),
+                forChangeDto.id()
+        );
 
-   @Override
-   public Map.Entry<Integer, String> changeEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto) {
-      var result = validateNecessaryValues(forChangeDto, "Change email correctly");
+        return result;
+    }
 
-      if (result.getKey().equals(200)) customerRepository.changeEmail(newEmail, forChangeDto.id());
+    @Override
+    public Map.Entry<Integer, String> changeEmail(String newEmail, NecessaryValuesForChangeDto forChangeDto) {
+        var result = validateNecessaryValues(forChangeDto, "Change email correctly");
 
-      return result;
-   }
+        if (result.getKey().equals(200)) customerRepository.changeEmail(newEmail, forChangeDto.id());
 
-   private Map.Entry<Integer, String> validateNecessaryValues(NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
-      if (!customerRepository.existsById(valuesForChangeDto.id())) return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
+        return result;
+    }
 
-      var customerEntity = customerRepository.findById(valuesForChangeDto.id()).get();
-      if (!passwordEncoder.matches(valuesForChangeDto.password(), customerEntity.getPassword())) {
-         return new AbstractMap.SimpleEntry<>(400, "Incorrect password");
-      }
+    private Map.Entry<Integer, String> validateNecessaryValues(NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
+        if (!customerRepository.existsById(valuesForChangeDto.id()))
+            return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
-      return new AbstractMap.SimpleEntry<>(200, desireMessage);
-   }
+        var customerEntity = customerRepository.findById(valuesForChangeDto.id()).get();
+        if (!passwordEncoder.matches(valuesForChangeDto.password(), customerEntity.getPassword())) {
+            return new AbstractMap.SimpleEntry<>(400, "Incorrect password");
+        }
+
+        return new AbstractMap.SimpleEntry<>(200, desireMessage);
+    }
 
 }

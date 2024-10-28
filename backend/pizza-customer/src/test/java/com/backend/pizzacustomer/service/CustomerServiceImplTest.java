@@ -1,6 +1,7 @@
 package com.backend.pizzacustomer.service;
 
 import com.backend.pizzacustomer.TestDataUtil;
+import com.backend.pizzacustomer.domain.dto.CustomerSaveDto;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
@@ -29,7 +30,6 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,8 +48,11 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
    private final static long ID__TO__ACCEPT = 4234L;
 
    @RabbitListener(queues = {"q.pizza_customer.save_customer_role"})
-   public void onPaymentEvent(Map<String, Integer> customerId) {
-      log.info("Customer id: " + customerId);
+   public void onPaymentEvent(CustomerSaveDto customerSaveDto) {
+      log.info("Customer id: " + customerSaveDto.getCustomerId());
+      log.info("Customer email: " + customerSaveDto.getEmail());
+      log.info("Token: " + customerSaveDto.getToken());
+      log.info("Locale: " + customerSaveDto.getLocale());
    }
 
    @Test
@@ -84,7 +87,7 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
       var customerSaved = customerService.getCustomerById(1).get();
 
       Awaitility.await().atMost(Duration.ofSeconds(5L))
-              .until(() -> capturedOutput.getOut().contains("Customer id: {customerId=1}"));
+              .until(() -> capturedOutput.getOut().contains("Customer id: " + customerSaved.getIdCustomer()));
 
       assertAll(
               () -> assertEquals(exceptionEmail.getMessage(), "Email already used"),
@@ -94,7 +97,10 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
               () -> assertEquals("original@name.com", customerSaved.getEmail()),
               () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
               () -> assertEquals(false, customerSaved.getDisable()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: {customerId=1}")
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: " + customerSaved.getIdCustomer()),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: " + customerSaved.getEmail()),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: "),
+              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en")
       );
    }
 

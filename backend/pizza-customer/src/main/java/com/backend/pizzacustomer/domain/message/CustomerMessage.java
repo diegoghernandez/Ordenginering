@@ -1,9 +1,8 @@
 package com.backend.pizzacustomer.domain.message;
 
+import com.backend.pizzacustomer.domain.dto.CustomerSaveDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class CustomerMessage {
@@ -14,7 +13,7 @@ public class CustomerMessage {
       this.rabbitTemplate = rabbitTemplate;
    }
 
-   public void sendCustomerRoleMessage(long customerId) {
-      rabbitTemplate.convertAndSend("e.pizza_customer.saved", "", Map.of("customerId", customerId));
+   public void sendToCustomerSaveExchange(CustomerSaveDto customerSaveDto) {
+      rabbitTemplate.convertAndSend("e.pizza_customer.saved", "", customerSaveDto);
    }
 }
