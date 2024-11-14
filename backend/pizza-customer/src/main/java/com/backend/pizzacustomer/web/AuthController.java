@@ -1,5 +1,7 @@
 package com.backend.pizzacustomer.web;
 
+import com.backend.pizzacustomer.constants.TokenStatus;
+import com.backend.pizzacustomer.domain.service.AuthService;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.env.CookiesProperties;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
@@ -12,74 +14,94 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-   private final CustomerService customerService;
+    private final CustomerService customerService;
 
-   private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
 
-   private final JwtClient jwtClient;
+    private final AuthenticationManager authenticationManager;
 
-   private final CookiesProperties cookiesProperties;
+    private final JwtClient jwtClient;
 
-   public AuthController(CustomerService customerService, AuthenticationManager authenticationManager, JwtClient jwtClient, CookiesProperties cookiesProperties) {
-      this.customerService = customerService;
-      this.authenticationManager = authenticationManager;
-      this.jwtClient = jwtClient;
-      this.cookiesProperties = cookiesProperties;
-   }
+    private final CookiesProperties cookiesProperties;
 
-   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
-      if (!customerDto.password().equals(customerDto.matchingPassword())) {
-         throw new NotAllowedException("Passwords don't match");
-      }
+    public AuthController(
+            CustomerService customerService,
+            AuthService authService,
+            AuthenticationManager authenticationManager,
+            JwtClient jwtClient,
+            CookiesProperties cookiesProperties
+    ) {
+        this.customerService = customerService;
+        this.authService = authService;
+        this.authenticationManager = authenticationManager;
+        this.jwtClient = jwtClient;
+        this.cookiesProperties = cookiesProperties;
+    }
 
-      customerService.saveCustomer(customerDto);
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
+        if (!customerDto.password().equals(customerDto.matchingPassword())) {
+            throw new NotAllowedException("Passwords don't match");
+        }
 
-      return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
-   }
+        customerService.saveCustomer(customerDto);
 
-   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
-      authenticationManager.authenticate(new
-              UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
+        return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
+    }
 
-      var customer =customerService.getCustomerByEmail(loginDto.email());
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
+        authenticationManager.authenticate(new
+                UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
 
-      String jwt = jwtClient.createJWT(customer.get().getIdCustomer());
+        var customer = customerService.getCustomerByEmail(loginDto.email());
 
-      var cookie = ResponseCookie.from("jwt", jwt)
-              .httpOnly(true)
-              .path("/")
-              .sameSite(cookiesProperties.sameSite())
-              .secure(cookiesProperties.secure())
-              .domain(cookiesProperties.domain())
-              .maxAge(TimeUnit.DAYS.toSeconds(15))
-              .build().toString();
+        String jwt = jwtClient.createJWT(customer.get().getIdCustomer());
 
-      var header = new HttpHeaders();
-      header.set(HttpHeaders.SET_COOKIE, cookie);
-      return new ResponseEntity<>(customer.get().getIdCustomer(), header, HttpStatus.OK);
-   }
+        var cookie = ResponseCookie.from("jwt", jwt)
+                .httpOnly(true)
+                .path("/")
+                .sameSite(cookiesProperties.sameSite())
+                .secure(cookiesProperties.secure())
+                .domain(cookiesProperties.domain())
+                .maxAge(TimeUnit.DAYS.toSeconds(15))
+                .build().toString();
 
-   @RequestMapping(value = "/logout", method = RequestMethod.HEAD)
-   public ResponseEntity<Void> logout() {
-      var cookie = ResponseCookie.from("jwt", "")
-              .httpOnly(true)
-              .path("/")
-              .sameSite(cookiesProperties.sameSite())
-              .secure(cookiesProperties.secure())
-              .domain(cookiesProperties.domain())
-              .maxAge(0)
-              .build().toString();
+        var header = new HttpHeaders();
+        header.set(HttpHeaders.SET_COOKIE, cookie);
+        return new ResponseEntity<>(customer.get().getIdCustomer(), header, HttpStatus.OK);
+    }
 
-      var header = new HttpHeaders();
-      header.set(HttpHeaders.SET_COOKIE, cookie);
-      return new ResponseEntity<>(header, HttpStatus.OK);
-   }
+    @RequestMapping(value = "/logout", method = RequestMethod.HEAD)
+    public ResponseEntity<Void> logout() {
+        var cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .path("/")
+                .sameSite(cookiesProperties.sameSite())
+                .secure(cookiesProperties.secure())
+                .domain(cookiesProperties.domain())
+                .maxAge(0)
+                .build().toString();
+
+        var header = new HttpHeaders();
+        header.set(HttpHeaders.SET_COOKIE, cookie);
+        return new ResponseEntity<>(header, HttpStatus.OK);
+    }
+
+    @GetMapping("/verify/{token}")
+    public ResponseEntity<TokenStatus> verifyAccount(@PathVariable UUID token) {
+        var tokenStatus = authService.veryAccount(token);
+
+        return switch (tokenStatus) {
+            case NONE, EXPIRED -> new ResponseEntity<>(tokenStatus, HttpStatus.BAD_REQUEST);
+            case SUCCESSFUL -> new ResponseEntity<>(tokenStatus, HttpStatus.OK);
+        };
+    }
 }

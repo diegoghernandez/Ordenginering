@@ -20,6 +20,11 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity, Long>
 
    @Modifying
    @Transactional
+   @Query("UPDATE CustomerEntity AS cust SET cust.disable = :status WHERE cust.idCustomer = :id")
+   void changeDisableStatus(boolean status, long id);
+
+   @Modifying
+   @Transactional
    @Query("UPDATE CustomerEntity AS cust SET cust.customerName = :name, cust.birthDate = :birthDate WHERE cust.idCustomer = :id")
    void changeProfile(@Param("name") String newName, @Param("birthDate") LocalDate birthDate, long id);
 

@@ -2,6 +2,8 @@ package com.backend.pizzacustomer.controller;
 
 import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.advice.PizzaCustomerExceptionHandler;
+import com.backend.pizzacustomer.constants.TokenStatus;
+import com.backend.pizzacustomer.domain.service.AuthService;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.AuthController;
@@ -29,6 +31,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -43,6 +46,9 @@ class AuthControllerTest implements SetUpForJwtClient {
 
    @MockBean
    private CustomerService customerService;
+
+   @MockBean
+   private AuthService authService;
 
    @MockBean
    private AuthenticationManager authenticationManager;
@@ -127,6 +133,33 @@ class AuthControllerTest implements SetUpForJwtClient {
                       .andExpect(MockMvcResultMatchers.content().string("4234"))
 
 
+      );
+   }
+
+   @Test
+   @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+   void verifyAccount() {
+      var tokenWrongId = UUID.randomUUID();
+      var tokenVerifiedId = UUID.randomUUID();
+
+      Mockito.when(authService.veryAccount(tokenWrongId))
+              .thenReturn(TokenStatus.NONE);
+
+      Mockito.when(authService.veryAccount(tokenVerifiedId))
+              .thenReturn(TokenStatus.SUCCESSFUL);
+
+      var objectMapper = new ObjectMapper();
+
+      assertAll(
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenWrongId)
+                              .contentType(MediaType.APPLICATION_JSON))
+                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                      .andExpect(MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(TokenStatus.NONE))),
+
+              () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenVerifiedId)
+                              .contentType(MediaType.APPLICATION_JSON))
+                      .andExpect(MockMvcResultMatchers.status().isOk())
+                      .andExpect(MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(TokenStatus.SUCCESSFUL)))
       );
    }
 }

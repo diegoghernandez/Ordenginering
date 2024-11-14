@@ -1,8 +1,10 @@
 package com.backend.pizzacustomer.domain;
 
+import com.backend.pizzacustomer.constants.TokenType;
 import com.backend.pizzacustomer.domain.dto.CustomerSaveDto;
 import com.backend.pizzacustomer.domain.message.CustomerMessage;
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.domain.service.TokenService;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.persistence.entity.CustomerEntity;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
@@ -22,13 +24,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
+    private final TokenService tokenService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final CustomerMessage customerMessage;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, TokenService tokenService, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
         this.customerRepository = customerRepository;
+        this.tokenService = tokenService;
         this.passwordEncoder = passwordEncoder;
         this.customerMessage = customerMessage;
     }
@@ -44,16 +49,21 @@ public class CustomerServiceImpl implements CustomerService {
                 .email(customerDto.email())
                 .password(passwordEncoder.encode(customerDto.password()))
                 .birthDate(customerDto.birthDate())
-                .disable(false)
+                .disable(true)
                 .creationTimestamp(LocalDateTime.now())
                 .build();
 
         var customerSaved = customerRepository.save(customer);
 
+        var tokenId = tokenService.createNewToken(
+                customerSaved.getIdCustomer(),
+                TokenType.VERIFICATION,
+                LocalDateTime.now().plusHours(2));
+
         customerMessage.sendToCustomerSaveExchange(new CustomerSaveDto(
                 customerSaved.getIdCustomer(),
                 customerSaved.getEmail(),
-                UUID.randomUUID().toString(),
+                tokenId,
                 "en"));
     }
 

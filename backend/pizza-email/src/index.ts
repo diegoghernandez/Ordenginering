@@ -3,4 +3,4 @@ import { initializeMessagesQueue } from './initializers/Message.js'
 
 await initializeMessagesQueue()
 
-http.createServer().listen(3000)
+http.createServer().listen(3003)

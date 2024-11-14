@@ -44,6 +44,18 @@ class CustomerRepositoryTest implements MysqlTestContainer {
 
    @Test
    @DisplayName("Should update the name and/or birthDate of a specific account with its id in the database")
+   void changeDisableStatus() {
+      customerRepository.changeDisableStatus(true, 31L);
+
+      var customerChangeNew = customerRepository.findById(31L).get();
+
+      assertAll(
+              () -> assertTrue(customerChangeNew.getDisable())
+      );
+   }
+
+   @Test
+   @DisplayName("Should update the name and/or birthDate of a specific account with its id in the database")
    void changeProfile() {
       customerRepository.changeProfile("New name", LocalDate.of(1990, Month.AUGUST, 2), 31L);
 

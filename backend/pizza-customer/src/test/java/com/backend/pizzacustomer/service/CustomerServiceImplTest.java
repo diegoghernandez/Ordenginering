@@ -90,13 +90,13 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
               .until(() -> capturedOutput.getOut().contains("Customer id: " + customerSaved.getIdCustomer()));
 
       assertAll(
-              () -> assertEquals(exceptionEmail.getMessage(), "Email already used"),
-              () -> assertEquals(exceptionAge.getMessage(), "No older enough"),
+              () -> assertEquals("Email already used", exceptionEmail.getMessage()),
+              () -> assertEquals("No older enough", exceptionAge.getMessage()),
               () -> assertEquals(1L, customerSaved.getIdCustomer()),
               () -> assertEquals("Name", customerSaved.getCustomerName()),
               () -> assertEquals("original@name.com", customerSaved.getEmail()),
               () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
-              () -> assertEquals(false, customerSaved.getDisable()),
+              () -> assertEquals(true, customerSaved.getDisable()),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: " + customerSaved.getIdCustomer()),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: " + customerSaved.getEmail()),
               () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: "),

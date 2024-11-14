@@ -37,7 +37,7 @@ class CustomerMessageTest implements RabbitTestContainer {
 
     @Test
     void sendToCustomerSaveExchange(CapturedOutput capturedOutput) {
-        var uuid = UUID.randomUUID().toString();
+        var uuid = UUID.randomUUID();
         customerMessage.sendToCustomerSaveExchange(new CustomerSaveDto(
                 32,
                 "email@email.com",
