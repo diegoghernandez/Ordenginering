@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   namespace: default
+   name: pizza-email
+   labels:
+      app: pizza-email
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: pizza-email
+   template:
+      metadata:
+         name: pizza-email
+         labels:
+            app: pizza-email
+      spec:
+         containers:
+            - name: pizza-email
+              image: diegoj4v/pizza-email:latest
+              imagePullPolicy: Always
+              lifecycle:
+                 preStop:
+                    exec:
+                       command: ['sh', '-c', 'sleep 10']
+              ports:
+                 - containerPort: 80
+              resources:
+                 limits:
+                    cpu: 200m
+                    memory: 240Mi
+                 requests:
+                    cpu: 120m
+                    memory: 100Mi
+              env:
+                 - name: SERVER_PORT
+                   value: '80'
+                 - name: RESEND_KEY
+                   valueFrom:
+                      secretKeyRef:
+                         name: resend-secret
+                         key: resend-key
+                 - name: RABBIT_PROTOCOL
+                   value: 'amqps'
+                 - name: RABBIT_PORT
+                   value: '5671'
+                 - name: RABBIT_HOST
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-host
+                 - name: RABBIT_USERNAME
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-user
+                 - name: RABBIT_PASSWORD
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-password
