@@ -1,0 +1,12 @@
+{
+	"en": {
+		"SUCCESSFUL": "Account verified successfully",
+		"EXPIRED": "Expired token",
+		"NONE": "Inexistent token"
+	},
+	"es": {
+		"SUCCESSFUL": "Cuenta verificada correctamente",
+		"EXPIRED": "Token expirado",
+		"NONE": "Token Inexistente"
+	}
+}
