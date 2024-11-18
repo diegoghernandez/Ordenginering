@@ -54,7 +54,9 @@ export async function registerCustomer(
 	}
 }
 
-export async function verifyAccount(token: string): Promise<TokenStatus> {
+export async function verifyAccount(
+	token: string | null
+): Promise<TokenStatus> {
 	const response = await fetch(`${API}/verify/${token}`, {
 		method: 'GET',
 		headers: {

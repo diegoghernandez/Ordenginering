@@ -1,17 +1,19 @@
 import verifyTranslation from '@/assets/i18n/pages/Verify.json'
 import { PRIMARY__BUTTON } from '@/constants/styles'
-import type { TokenStatus } from '@/types'
+import { verifyAccount } from '@/services/authService'
 
-const tokenStatus: TokenStatus = 'NONE'
-
-export function showVerifyAccountContent() {
+export async function showVerifyAccountContent() {
 	const locale = globalThis.location.pathname.includes('es') ? 'es' : 'en'
 	const t = verifyTranslation[locale]
 	const URL = globalThis.location.origin + `/client/${locale}`
 
 	const mainElement = document.querySelector('main')
 	const textElement = document.createElement('p')
-	textElement.textContent = t[tokenStatus]
+
+	const tokenStatus = await verifyAccount(
+		new URLSearchParams(document.location.search).get('token')
+	)
+	textElement.textContent = t.token[tokenStatus]
 	mainElement?.append(textElement)
 
 	switch (tokenStatus) {

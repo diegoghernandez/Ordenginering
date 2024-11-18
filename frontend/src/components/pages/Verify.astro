@@ -1,13 +1,23 @@
 ---
+import verifyTranslation from "@/assets/i18n/pages/Verify.json"
 import Layout from "@/layouts/Layout.astro"
+import type { LocalesString } from "@/types"
+
+interface Props {
+   locale: LocalesString
+}
+
+const { locale } = Astro.props
+const t = verifyTranslation[locale]
+
 ---
 
 <Layout
-   title="Test"
-   description="dsadf"
+   title={t.seo.title}
+   description={t.seo.description}
    activeLink=""
 >
-   <script src="@/scripts/verifyAccount"></script>
+   <script src="@/scripts/showVerifyAccountContent"></script>
    <main>
    </main>
 </Layout>
