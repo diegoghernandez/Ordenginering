@@ -25,7 +25,7 @@ export interface LocalesObject {
 
 export type LocalesString = 'en' | 'es'
 
-export type TokenStatus = 'SUCCESSFUL' | 'EXPIRED' | 'NONE'
+export type TokenStatus = 'SUCCESSFUL' | 'EXPIRED' | 'NONE' | 'ERROR'
 
 export interface Ingredient {
 	id: number
