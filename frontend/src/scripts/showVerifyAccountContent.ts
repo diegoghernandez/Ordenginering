@@ -4,7 +4,7 @@ import type { TokenStatus } from '@/types'
 
 const tokenStatus: TokenStatus = 'NONE'
 
-export function verifyAccount() {
+export function showVerifyAccountContent() {
 	const locale = globalThis.location.pathname.includes('es') ? 'es' : 'en'
 	const t = verifyTranslation[locale]
 	const URL = globalThis.location.origin + `/client/${locale}`
@@ -43,4 +43,4 @@ export function verifyAccount() {
 	}
 }
 
-verifyAccount()
+showVerifyAccountContent()
