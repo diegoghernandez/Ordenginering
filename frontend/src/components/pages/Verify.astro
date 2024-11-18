@@ -1,14 +1,17 @@
 ---
 import verifyTranslation from "@/assets/i18n/pages/Verify.json"
+import { PRIMARY__BUTTON } from "@/constants/styles"
 import Layout from "@/layouts/Layout.astro"
-import type { LocalesString } from "@/types"
+import type { LocalesString, TokenStatus } from "@/types"
 
 interface Props {
    locale: LocalesString
+   tokenStatus: TokenStatus
 }
 
-const { locale } = Astro.props
+const { locale, tokenStatus } = Astro.props
 const t = verifyTranslation[locale]
+
 
 ---
 
@@ -17,8 +20,29 @@ const t = verifyTranslation[locale]
    description={t.seo.description}
    activeLink=""
 >
-   <script src="@/scripts/showVerifyAccountContent"></script>
    <main>
+      {(() => {
+         switch (tokenStatus) {
+            case 'SUCCESSFUL':
+               return (
+                  <>
+                     <p>{t.token.SUCCESSFUL}</p>
+                     <a href={`${URL}/login`} class={PRIMARY__BUTTON}>Login</a>
+                  </>
+               )
+
+            case 'EXPIRED':
+               return (
+                  <>
+                     <p>{t.token.EXPIRED}</p>
+                     <button class={PRIMARY__BUTTON}>Resend token</button>
+                  </>
+               )
+            
+            default:
+               return null
+         }
+      })()}
    </main>
 </Layout>
 

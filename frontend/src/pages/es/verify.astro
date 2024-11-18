@@ -1,5 +1,12 @@
 ---
 import VerifyPage from "@/components/pages/Verify.astro"
+import { verifyAccount } from "@/services/authService"
+export const prerender = false
+
+const tokenStatus = await verifyAccount(Astro.params.token)
+
+if(tokenStatus === 'NONE') Astro.redirect('/404')
+
 ---
 
-<VerifyPage locale="es" />
+<VerifyPage locale="es" tokenStatus={'SUCCESSFUL'} />
