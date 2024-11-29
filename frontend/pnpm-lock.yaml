@@ -39,6 +39,9 @@ importers:
         specifier: 5.0.1
         version: 5.0.1(@types/react@18.3.12)(react@18.3.1)(use-sync-external-store@1.2.2(react@18.3.1))
     devDependencies:
+      '@mswjs/http-middleware':
+        specifier: 0.10.2
+        version: 0.10.2(msw@2.6.5(@types/node@22.9.0)(typescript@5.6.3))
       '@playwright/test':
         specifier: 1.49.0
         version: 1.49.0
@@ -995,6 +998,12 @@ packages:
   '@mswjs/cookies@1.1.1':
     resolution: {integrity: sha512-W68qOHEjx1iD+4VjQudlx26CPIoxmIAtK4ZCexU0/UJBG6jYhcuyzKJx+Iw8uhBIGd9eba64XgWVgo20it1qwA==}
     engines: {node: '>=18'}
+
+  '@mswjs/http-middleware@0.10.2':
+    resolution: {integrity: sha512-mgBUsindC0L30bzqFkHn9PgiKowhCndBV8m1SRY2ZFT1hHw1y+AEyVo2PFh5NfdSNrCruweZaM1A/Nx7raUFNA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      msw: '>=2.0.0'
 
   '@mswjs/interceptors@0.37.1':
     resolution: {integrity: sha512-SvE+tSpcX884RJrPCskXxoS965Ky/pYABDEhWW6oeSRhpUDLrS5nTvT5n1LLSDVDYvty4imVmXsy+3/ROVuknA==}
@@ -5235,6 +5244,14 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.4.15
 
   '@mswjs/cookies@1.1.1': {}
+
+  '@mswjs/http-middleware@0.10.2(msw@2.6.5(@types/node@22.9.0)(typescript@5.6.3))':
+    dependencies:
+      express: 4.21.1
+      msw: 2.6.5(@types/node@22.9.0)(typescript@5.6.3)
+      strict-event-emitter: 0.5.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@mswjs/interceptors@0.37.1':
     dependencies:

@@ -10,7 +10,6 @@
 		"astro": "astro",
 		"lint": "eslint src/ && stylelint src/**/*.css",
 		"test": "vitest",
-		"e2e-express": "node --watch src/mocks/expressServer.js",
 		"e2e:dev": "playwright test --ui",
 		"e2e:ci": "playwright test"
 	},
@@ -27,6 +26,7 @@
 		"zustand": "5.0.1"
 	},
 	"devDependencies": {
+		"@mswjs/http-middleware": "0.10.2",
 		"@playwright/test": "1.49.0",
 		"@testing-library/jest-dom": "6.6.3",
 		"@testing-library/react": "16.0.1",
