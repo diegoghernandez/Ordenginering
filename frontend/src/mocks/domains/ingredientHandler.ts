@@ -1,11 +1,11 @@
 import type { IngredientDto } from '@/types'
-import { getJSON } from '@/utils/getJSON.mjs'
 import { HttpResponse, http } from 'msw'
+import IngredientJSON from '../fixtures/ingredients.json' with { type: 'json' }
 
 const API = 'http://localhost:2222/ingredient'
 
 export const ingredientHandler = [
-   http.get(API, () => HttpResponse.json(getJSON('../mocks/fixtures/ingredients.json'))),
+   http.get(API, () => HttpResponse.json(IngredientJSON)),
 
    http.post(API, async ({ request }) => {
       const data = await request.formData()

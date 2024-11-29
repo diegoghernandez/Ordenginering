@@ -7,11 +7,11 @@ import { pizzaHandler } from '@/mocks/domains/pizzaHandler'
 import { customerHandler } from '@/mocks/domains/customerHandler'
 
 export const handlers = [
-   ...customerHandler,
-   ...authHandler,
-   ...changeCustomerHandler,
-   ...ingredientHandler,
-   ...pizzaHandler,
-   ...orderHandler,
-   ...jwtHandler
+	...customerHandler,
+	...authHandler,
+	...changeCustomerHandler,
+	...ingredientHandler,
+	...pizzaHandler,
+	...orderHandler,
+	...jwtHandler,
 ]
