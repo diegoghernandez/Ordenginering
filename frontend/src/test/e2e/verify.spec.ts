@@ -10,9 +10,7 @@ LOCALES.forEach((locale) => {
 	test.describe(`${locale}: Verify page tests`, () => {
 		test('Should render the verify SUCCESSFUL page correctly', async ({
 			page,
-			worker,
 		}) => {
-			await worker.use(...authHandler)
 			await page.goto(`/client/${locale}/verify?token=correct`)
 
 			await expect(page).toHaveTitle(t.seo.title)

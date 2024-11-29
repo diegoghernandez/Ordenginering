@@ -4,9 +4,13 @@ import { verifyAccount } from "@/services/authService"
 
 export const prerender = false
 
-const tokenStatus = await verifyAccount(Astro.params.token)
+const token = Astro.url.searchParams.get('token') ?? ''
 
-if(tokenStatus === 'NONE') Astro.redirect('/404')
+if (!token) return Astro.redirect('/404')
+
+const tokenStatus = await verifyAccount(token)
+
+if(tokenStatus === 'NONE') return Astro.redirect('/404')
 
 ---
 
