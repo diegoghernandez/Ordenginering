@@ -1,6 +1,5 @@
-import { authHandler } from '@/mocks/domains/authHandler'
-import { createServer } from '@mswjs/http-middleware'
+import { initializeMSWServers } from './mswServer'
 
 export default function globalSetup() {
-	createServer(undefined, ...authHandler).listen(8765)
+	initializeMSWServers()
 }

@@ -30,6 +30,7 @@ export default defineConfig({
 	},
 
 	globalSetup: './src/test/e2e/utils/global.e2e.setup.ts',
+	globalTeardown: './src/test/e2e/utils/global.e2e.teardown.ts',
 
 	/* Configure projects for major browsers */
 	projects: [
