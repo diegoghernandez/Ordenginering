@@ -1,5 +1,4 @@
 import { LOCALES } from '@/constants/locales'
-import { authHandler } from '@/mocks/domains/authHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { getJSON } from '@/utils/getJSON.mjs'
@@ -23,9 +22,7 @@ LOCALES.forEach((locale) => {
 
 		test('Should render the verify EXPIRED page correctly', async ({
 			page,
-			worker,
 		}) => {
-			await worker.use(...authHandler)
 			await page.goto(`/client/${locale}/verify?token=expired`)
 
 			await expect(page).toHaveTitle(t.seo.title)
