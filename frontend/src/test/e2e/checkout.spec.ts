@@ -23,6 +23,7 @@ LOCALES.forEach((locale) => {
 	test.describe(`${locale}: Checkout page tests`, () => {
 		test.beforeEach(async ({ page }) => {
 			await page.goto('/client/')
+			await page.waitForLoadState('load')
 			await changeLanguage(locale, page)
 		})
 
@@ -89,6 +90,7 @@ LOCALES.forEach((locale) => {
 				.click()
 			await shoppingCartTranslationUtils.getCheckoutLink(page, 4).click()
 			await expect(page).toHaveTitle(t.seo.title)
+			await page.waitForLoadState('load')
 
 			const labels = t.form.labels
 
