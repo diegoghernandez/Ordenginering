@@ -14,16 +14,13 @@ let httpOrderServer: Server
 
 export function initializeMSWServers() {
 	httpCustomerServer = createServer(
-		undefined,
 		...customerHandler,
 		...authHandler,
 		...changeCustomerHandler
 	).listen(8765)
-	httpIngredientServer = createServer(undefined, ...ingredientHandler).listen(
-		2222
-	)
-	httpJwtServer = createServer(undefined, ...jwtHandler).listen(3000)
-	httpOrderServer = createServer(undefined, ...orderHandler).listen(4436)
+	httpIngredientServer = createServer(...ingredientHandler).listen(2222)
+	httpJwtServer = createServer(...jwtHandler).listen(3000)
+	httpOrderServer = createServer(...orderHandler).listen(4436)
 }
 
 export function closeMSWServers() {
