@@ -1,3 +1,4 @@
+import showOrderTranslation from '@/assets/i18n/components/showOrder.json'
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
@@ -5,11 +6,9 @@ import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/constants/imageCDN'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/constants/styles'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
-import showOrderTranslation from '@/assets/i18n/components/showOrder.json'
 import type { LocalesString, Pizza } from '@/types'
 import { getPizzaPrice } from '@/utils/getPizzaPrice'
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import MotionNumber from 'motion-number'
 import { useEffect, useState } from 'react'
 import Styles from './ShowOrders.module.css'
 
@@ -35,9 +34,8 @@ export function ShowOrder({ currentLocal }: Props) {
 			<h2>
 				Total:{' '}
 				<strong>
-					$
-					<MotionNumber
-						value={pizzaList
+					{'$' +
+						pizzaList
 							.map((pizza) =>
 								getPizzaPrice(
 									pizza.pizzaIngredients?.length,
@@ -50,7 +48,6 @@ export function ShowOrder({ currentLocal }: Props) {
 									accumulator + currentValue,
 								0
 							)}
-					/>
 				</strong>
 			</h2>
 			<a
@@ -62,11 +59,11 @@ export function ShowOrder({ currentLocal }: Props) {
 			>
 				{t.checkoutLink.name + ' '}
 				<strong>
-					<MotionNumber
-						value={pizzaList
+					<p>
+						{pizzaList
 							.map(({ quantity }) => quantity)
 							.reduce((acc, current) => acc + current, 0)}
-					/>
+					</p>
 				</strong>
 				{' ' + t.checkoutLink.products}
 			</a>
@@ -96,14 +93,12 @@ export function ShowOrder({ currentLocal }: Props) {
 								</ImgContainer>
 								<h3>{pizzaInOrder.pizzaName[currentLocal]}</h3>
 								<p>
-									$
-									<MotionNumber
-										value={getPizzaPrice(
+									{'$' +
+										getPizzaPrice(
 											pizzaInOrder.pizzaIngredients.length,
 											pizzaInOrder.size,
 											pizzaInOrder.quantity
 										)}
-									/>
 								</p>
 								<p>
 									{t.size[pizzaInOrder.size.toLowerCase() as 'small']}
