@@ -8,6 +8,12 @@
 			"SUCCESSFUL": "Account verified successfully",
 			"EXPIRED": "Expired token",
 			"NONE": "Inexistent token"
+		},
+		"login": "Login",
+		"resend": "Resend token",
+		"responses": {
+			"SUCCESS": "If the email is associated to an account, you can check your email",
+			"SERVER": "Server problems"
 		}
 	},
 	"es": {
@@ -19,6 +25,12 @@
 			"SUCCESSFUL": "Cuenta verificada correctamente",
 			"EXPIRED": "Token expirado",
 			"NONE": "Token Inexistente"
+		},
+		"login": "Iniciar sesión",
+		"resend": "Reenviar token",
+		"responses": {
+			"SUCCESS": "Si el correo esta asociado a una cuenta, pueda revisar su correo",
+			"SERVER": "Problemas con el servidor"
 		}
 	}
 }
