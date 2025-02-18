@@ -1,42 +1,50 @@
 {
-   "en": {
-      "seo": {
-         "title": "Sign Up",
-         "description": "Put the necessary data to create your account",
-         "h1": "Create your account"
-      },
-      "haveAccount": "Have an account?",
-      "login": "Log in now",
-      "signUpFormTranslation": {
-         "submitLabel": "Sign Up",
-         "passwordError": "Passwords don't match",
-         "labels": {
-            "customerName": "Name",
-            "email": "Email",
-            "password": "Password",
-            "confirmPassword": "Confirm password",
-            "birthDate": "Birth Date"
-         }
-      }
-   },
-   "es": {
-      "seo": {
-         "title": "Regístrate",
-         "description": "Pon los datos necesarios para crear tu cuenta",
-         "h1": "Crea tu cuenta"
-      },
-      "haveAccount": "¿Tienes una cuenta?",
-      "login": "Inicia sesión",
-      "signUpFormTranslation": {
-         "submitLabel": "Regístrate",
-         "passwordError": "Las contraseñas no coinciden",
-         "labels": {
-            "customerName": "Nombre",
-            "email": "Email",
-            "password": "Contraseña",
-            "confirmPassword": "Confirmar contraseña",
-            "birthDate": "Cumpleaños"
-         }
-      }
-   }
+	"en": {
+		"seo": {
+			"title": "Sign Up",
+			"description": "Put the necessary data to create your account",
+			"h1": "Create your account"
+		},
+		"haveAccount": "Have an account?",
+		"login": "Log in now",
+		"signUpFormTranslation": {
+			"submitLabel": "Sign Up",
+			"passwordError": "Passwords don't match",
+			"labels": {
+				"customerName": "Name",
+				"email": "Email",
+				"password": "Password",
+				"confirmPassword": "Confirm password",
+				"birthDate": "Birth Date"
+			},
+			"responses": {
+				"CREATED": "Your account is almost ready! Check your email for verification",
+				"EMAIL": "Email already used"
+			}
+		}
+	},
+	"es": {
+		"seo": {
+			"title": "Regístrate",
+			"description": "Pon los datos necesarios para crear tu cuenta",
+			"h1": "Crea tu cuenta"
+		},
+		"haveAccount": "¿Tienes una cuenta?",
+		"login": "Inicia sesión",
+		"signUpFormTranslation": {
+			"submitLabel": "Regístrate",
+			"passwordError": "Las contraseñas no coinciden",
+			"labels": {
+				"customerName": "Nombre",
+				"email": "Email",
+				"password": "Contraseña",
+				"confirmPassword": "Confirmar contraseña",
+				"birthDate": "Cumpleaños"
+			},
+			"responses": {
+				"CREATED": "Tú cuenta esta casi lista. Revisa tú email para verificarla",
+				"EMAIL": "El correo ya esta usado"
+			}
+		}
+	}
 }
