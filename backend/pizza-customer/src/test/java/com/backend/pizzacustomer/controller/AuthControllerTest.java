@@ -91,7 +91,7 @@ class AuthControllerTest implements SetUpForJwtClient {
                                                             .contentType(MediaType.APPLICATION_JSON)
                                                             .content(objectMapper.writeValueAsString(successCustomer)))
                              .andExpect(MockMvcResultMatchers.status().isCreated())
-                             .andExpect(MockMvcResultMatchers.content().string("Account create successfully")),
+                             .andExpect(MockMvcResultMatchers.content().string("CREATED")),
 
                 () -> Mockito.verify(customerService, Mockito.times(1)).saveCustomer(Mockito.eq(successCustomer))
         );

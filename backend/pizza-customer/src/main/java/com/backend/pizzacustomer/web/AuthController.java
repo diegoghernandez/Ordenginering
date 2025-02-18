@@ -56,7 +56,7 @@ public class AuthController {
 
         customerService.saveCustomer(customerDto);
 
-        return new ResponseEntity<>("Account create successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
