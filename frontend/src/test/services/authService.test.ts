@@ -58,7 +58,7 @@ describe('Auth service tests', () => {
 					matchingPassword: '1234',
 					birthDate: '2002-2-12',
 				})
-			).rejects.toThrow('Email is already used')
+			).rejects.toThrow('EMAIL')
 		})
 
 		it('Should return a good message', async () => {
@@ -70,7 +70,7 @@ describe('Auth service tests', () => {
 				birthDate: '2002-2-12',
 			})
 
-			expect(content).toStrictEqual('Account create successfully')
+			expect(content).toStrictEqual('CREATED')
 		})
 	})
 
@@ -105,13 +105,13 @@ describe('Auth service tests', () => {
 
 		it('Should receive an error', async () => {
 			await expect(resendToken({ token: 'whatever' })).rejects.toThrow(
-				new StatusError('Server error', 400)
+				new StatusError('SERVER', 400)
 			)
 		})
 
-		it('Should send the token correctly', async () => {
+		it('Should resend the token correctly', async () => {
 			const tokenStatus = await resendToken({
-				token: '950f0699-d6be-4c54-8e6c-c5713ab53c43',
+				token: 'expired',
 			})
 
 			expect(tokenStatus).toStrictEqual('SUCCESS')

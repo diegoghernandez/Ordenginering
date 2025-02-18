@@ -44,14 +44,13 @@ export async function registerCustomer(
 	})
 
 	if (response.ok) return response.text()
-	else {
-		const errorResponse = await response.json()
-		throw new StatusError(
-			errorResponse.desc,
-			response.status,
-			errorResponse.fieldError
-		)
-	}
+
+	const errorResponse = await response.json()
+	throw new StatusError(
+		errorResponse.desc,
+		response.status,
+		errorResponse.fieldError
+	)
 }
 
 export async function verifyAccount(

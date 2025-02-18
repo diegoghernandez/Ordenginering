@@ -83,7 +83,9 @@ LOCALES.forEach((locale) => {
 				page.getByRole('alert').getByText('Warning')
 			).toBeVisible()
 			await expect(
-				page.getByRole('alert').getByText('Email is already used')
+				page
+					.getByRole('alert')
+					.getByText(t.signUpFormTranslation.responses['EMAIL'])
 			).toBeVisible()
 		})
 
@@ -107,7 +109,9 @@ LOCALES.forEach((locale) => {
 				page.getByRole('alert').getByText('Success', { exact: true })
 			).toBeVisible()
 			await expect(
-				page.getByRole('alert').getByText('Account create successfully')
+				page
+					.getByRole('alert')
+					.getByText(t.signUpFormTranslation.responses['CREATED'])
 			).toBeVisible()
 		})
 	})

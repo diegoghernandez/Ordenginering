@@ -46,13 +46,13 @@ export const authHandler = [
 			const newCustomer = await request.json()
 
 			if (newCustomer.email !== 'repeat@email.com') {
-				return HttpResponse.text('Account create successfully', {
+				return HttpResponse.text('CREATED', {
 					headers: CORS_HEADERS,
 				})
 			}
 
 			return HttpResponse.json(
-				{ desc: 'Email is already used', fieldError: null },
+				{ desc: 'EMAIL', fieldError: null },
 				{ status: 400, headers: CORS_HEADERS }
 			)
 		}
