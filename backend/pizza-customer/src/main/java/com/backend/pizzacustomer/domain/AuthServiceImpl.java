@@ -27,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
         var token = tokenService.getById(tokenId);
 
         var tokenStatus = TokenUtils.validateToken(token);
-        tokenService.deleteById(tokenId);
+        if (tokenStatus != TokenStatus.EXPIRED) tokenService.deleteById(tokenId);
 
         if (tokenStatus != TokenStatus.SUCCESSFUL) return tokenStatus;
 
@@ -38,5 +38,10 @@ public class AuthServiceImpl implements AuthService {
         }
 
         return tokenStatus;
+    }
+
+    @Override
+    public void resendVerificationToken(UUID tokenId) {
+        tokenService.resendToken(tokenId, TokenType.VERIFICATION, 10);
     }
 }

@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface AuthService {
 
     TokenStatus veryAccount(UUID tokenId);
+
+    void resendVerificationToken(UUID tokenId);
 }
