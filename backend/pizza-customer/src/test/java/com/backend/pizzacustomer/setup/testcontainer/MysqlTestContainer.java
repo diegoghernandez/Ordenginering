@@ -8,18 +8,18 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 public interface MysqlTestContainer {
 
-   MySQLContainer<?> databaseContainer = new MySQLContainer<>("mysql:8.2.0")
-           .withDatabaseName("pizzadatabase")
-           .withUsername("myuser")
-           .withPassword("verysecret");
+    MySQLContainer<?> databaseContainer = new MySQLContainer<>("mysql:8.2.0")
+            .withDatabaseName("pizzadatabase")
+            .withUsername("myuser")
+            .withPassword("verysecret");
 
-   @BeforeAll
-   static void setUp() {
-      databaseContainer.start();
-   }
+    @BeforeAll
+    static void setUp() {
+        databaseContainer.start();
+    }
 
-   @AfterAll
-   static void finish() {
-      databaseContainer.stop();
-   }
+    @AfterAll
+    static void finish() {
+        databaseContainer.stop();
+    }
 }
