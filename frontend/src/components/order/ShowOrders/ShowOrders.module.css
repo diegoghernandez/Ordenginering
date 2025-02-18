@@ -18,6 +18,12 @@
       pointer-events: none;
    }
 
+   & a {
+      display: flex;
+      place-content: center;
+      gap: 4px;
+   }
+
    & a ~ button {
       width: fit-content;
       color: var(--text-light-color);
