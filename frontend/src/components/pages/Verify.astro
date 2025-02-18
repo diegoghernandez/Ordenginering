@@ -1,5 +1,6 @@
 ---
 import verifyTranslation from "@/assets/i18n/pages/Verify.json"
+import { VerifyForm } from "@/components/security/VerifyForm"
 import { PRIMARY__BUTTON } from "@/constants/styles"
 import Layout from "@/layouts/Layout.astro"
 import type { LocalesString, TokenStatus } from "@/types"
@@ -11,7 +12,6 @@ interface Props {
 
 const { locale, tokenStatus } = Astro.props
 const t = verifyTranslation[locale]
-
 
 ---
 
@@ -26,17 +26,18 @@ const t = verifyTranslation[locale]
             case 'SUCCESSFUL':
                return (
                   <>
-                     <p>{t.token.SUCCESSFUL}</p>
-                     <a href={`${URL}/login`} class={PRIMARY__BUTTON}>Login</a>
+                     <h2>{t.token.SUCCESSFUL}</h2>
+                     <a href={`${URL}/login`} class={PRIMARY__BUTTON}>{t.login}</a>
                   </>
                )
 
             case 'EXPIRED':
                return (
-                  <>
-                     <p>{t.token.EXPIRED}</p>
-                     <button class={PRIMARY__BUTTON}>Resend token</button>
-                  </>
+                  <VerifyForm client:load t={{
+                     token: t.token.EXPIRED,
+                     resend: t.resend,
+                     responses: t.responses
+                  }} />
                )
             
             default:
@@ -46,12 +47,25 @@ const t = verifyTranslation[locale]
    </main>
 </Layout>
 
+<script>
+   document.addEventListener('astro:page-load', () => {
+      const forms = document.querySelectorAll('form')
+
+      for (const formElement of forms) {
+         if (formElement instanceof HTMLFormElement) {
+            formElement.addEventListener('submit', (event) => event.preventDefault())
+         }
+      }
+   
+   })
+</script>
+
 <style>
    main {
       display: grid;
-      place-content: center;
       gap: 16px;
       max-width: 50ch;
-      margin-inline: auto;
+      place-self: center;
+      place-content: center;
    }
 </style>
