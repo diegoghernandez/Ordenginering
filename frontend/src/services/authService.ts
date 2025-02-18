@@ -66,5 +66,24 @@ export async function verifyAccount(
 
 	if (response.status === 500) return 'ERROR'
 
-	return response.text() as Promise<TokenStatus>
+	return response.json() as Promise<TokenStatus>
+}
+
+export async function resendToken({
+	token,
+}: {
+	token: string
+}): Promise<string> {
+	const response = await fetch(`${API}/resend`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ token }),
+	})
+
+	if (response.ok) return response.text()
+
+	const errorResponse = await response.json()
+	throw new StatusError(errorResponse.desc, response.status)
 }

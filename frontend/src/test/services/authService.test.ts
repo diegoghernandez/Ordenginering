@@ -2,8 +2,10 @@ import {
 	logIn,
 	logOut,
 	registerCustomer,
+	resendToken,
 	verifyAccount,
 } from '@/services/authService'
+import { StatusError } from '@/services/exceptions/StatusError'
 import { describe, expect, it } from 'vitest'
 
 describe('Auth service tests', () => {
@@ -93,6 +95,26 @@ describe('Auth service tests', () => {
 			const tokenStatus = await verifyAccount('correct')
 
 			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
+		})
+	})
+
+	describe('resend token tests', () => {
+		it('Should be a function', () => {
+			expect(typeof resendToken).toBe('function')
+		})
+
+		it('Should receive an error', async () => {
+			await expect(resendToken({ token: 'whatever' })).rejects.toThrow(
+				new StatusError('Server error', 400)
+			)
+		})
+
+		it('Should send the token correctly', async () => {
+			const tokenStatus = await resendToken({
+				token: '950f0699-d6be-4c54-8e6c-c5713ab53c43',
+			})
+
+			expect(tokenStatus).toStrictEqual('SUCCESS')
 		})
 	})
 })
