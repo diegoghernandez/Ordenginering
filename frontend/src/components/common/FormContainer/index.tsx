@@ -9,7 +9,7 @@ interface Props {
       status: number;
       message: string;
    } | null;
-   children: Array<ReactElement | null>;
+   children?: Array<ReactElement> | ReactElement;
    submitButton: {
       label: string;
       isLoading: boolean;
