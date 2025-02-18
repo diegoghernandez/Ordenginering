@@ -1,9 +1,17 @@
+import { CORS_HEADERS } from '@/constants/corsHeaders'
 import type { CustomerDto, CustomerLogIn } from '@/types'
 import { http, HttpResponse, type PathParams } from 'msw'
 
 const API = 'http://localhost:8765/customer/auth'
 
 export const authHandler = [
+	http.options('*', () => {
+		return new Response(null, {
+			status: 200,
+			headers: CORS_HEADERS,
+		})
+	}),
+
 	http.post<PathParams<never>, CustomerLogIn>(
 		`${API}/login`,
 		async ({ request }) => {
@@ -14,11 +22,12 @@ export const authHandler = [
 					status: 200,
 					headers: {
 						'set-cookie': 'jwt=token; Domain=localhost; Path=/;',
+						...CORS_HEADERS,
 					},
 				})
 			}
 
-			return new HttpResponse(null, { status: 403 })
+			return new HttpResponse(null, { status: 403, headers: CORS_HEADERS })
 		}
 	),
 
@@ -37,12 +46,14 @@ export const authHandler = [
 			const newCustomer = await request.json()
 
 			if (newCustomer.email !== 'repeat@email.com') {
-				return HttpResponse.text('Account create successfully')
+				return HttpResponse.text('Account create successfully', {
+					headers: CORS_HEADERS,
+				})
 			}
 
 			return HttpResponse.json(
 				{ desc: 'Email is already used', fieldError: null },
-				{ status: 400 }
+				{ status: 400, headers: CORS_HEADERS }
 			)
 		}
 	),
@@ -51,12 +62,35 @@ export const authHandler = [
 		const token = params?.token
 
 		if (token === 'correct')
-			return HttpResponse.text('SUCCESSFUL', { status: 200 })
+			return HttpResponse.json('SUCCESSFUL', { status: 200 })
 
-		if (token === 'expired') {
-			return HttpResponse.text('EXPIRED', { status: 200 })
+		if (token === 'expired' || token === 'failure') {
+			return HttpResponse.json('EXPIRED', { status: 200 })
 		}
 
 		return new HttpResponse(null, { status: 500 })
 	}),
+
+	http.post<PathParams<never>, { token: string }>(
+		`${API}/resend`,
+		async ({ request }) => {
+			const { token } = await request.json()
+
+			if (token === 'expired')
+				return HttpResponse.text('SUCCESS', {
+					status: 200,
+					headers: CORS_HEADERS,
+				})
+
+			return HttpResponse.json(
+				{
+					desc: 'SERVER',
+				},
+				{
+					status: 400,
+					headers: CORS_HEADERS,
+				}
+			)
+		}
+	),
 ]
