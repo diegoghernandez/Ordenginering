@@ -9,6 +9,7 @@ import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.AuthController;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.LoginDto;
+import com.backend.pizzacustomer.web.dto.ResendDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -39,127 +40,128 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @ActiveProfiles("test")
 class AuthControllerTest implements SetUpForJwtClient {
 
-   private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-   @Autowired
-   private AuthController authController;
+    @Autowired
+    private AuthController authController;
 
-   @MockitoBean
-   private CustomerService customerService;
+    @MockitoBean
+    private CustomerService customerService;
 
-   @MockitoBean
-   private AuthService authService;
+    @MockitoBean
+    private AuthService authService;
 
-   @MockitoBean
-   private AuthenticationManager authenticationManager;
+    @MockitoBean
+    private AuthenticationManager authenticationManager;
 
-   @Autowired
-   private PizzaCustomerExceptionHandler exceptionHandler;
+    @Autowired
+    private PizzaCustomerExceptionHandler exceptionHandler;
 
-   @BeforeEach
-   public void setUp() {
-      this.mockMvc = MockMvcBuilders.standaloneSetup(authController)
-              .setControllerAdvice(exceptionHandler)
-              .build();
-   }
+    ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-   @Test
-   @DisplayName("Should register a customer correctly")
-   void registerCustomer() {
-      var passwordErrorCustomer = new CustomerDto(
-              "Name",
-              "norepeat@name.com",
-              "1234",
-              "43252543",
-              LocalDate.of(2004, 2, 2)
-      );
+    @BeforeEach
+    public void setUp() {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(authController).setControllerAdvice(exceptionHandler).build();
+    }
 
-      var successCustomer = new CustomerDto(
-              "Name",
-              "norepeat@name.com",
-              "1234",
-              "1234",
-              LocalDate.of(2004, 2, 2)
-      );
+    @Test
+    @DisplayName("Should register a customer correctly")
+    void registerCustomer() {
+        var passwordErrorCustomer = new CustomerDto(
+                "Name", "norepeat@name.com", "1234", "43252543",
+                LocalDate.of(2004, 2, 2));
 
-      var objectMapper = new ObjectMapper();
-      objectMapper.registerModule(new JavaTimeModule());
-      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        var successCustomer = new CustomerDto("Name", "norepeat@name.com", "1234", "1234", LocalDate.of(2004, 2, 2));
 
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(passwordErrorCustomer)))
-                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                      .andExpect(MockMvcResultMatchers.content().string("{\"desc\":\"Passwords don't match\",\"fieldError\":null}")),
+        assertAll(
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(objectMapper.writeValueAsString(
+                                                                    passwordErrorCustomer)))
+                             .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                             .andExpect(MockMvcResultMatchers.content()
+                                                             .string("{\"desc\":\"Passwords don't match\"," +
+                                                                             "\"fieldError\":null}")),
 
-              () -> Mockito.verify(customerService, Mockito.times(0))
-                      .saveCustomer(Mockito.eq(successCustomer)),
+                () -> Mockito.verify(customerService, Mockito.times(0)).saveCustomer(Mockito.eq(successCustomer)),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(successCustomer)))
-                      .andExpect(MockMvcResultMatchers.status().isCreated())
-                      .andExpect(MockMvcResultMatchers.content().string("Account create successfully")),
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(objectMapper.writeValueAsString(successCustomer)))
+                             .andExpect(MockMvcResultMatchers.status().isCreated())
+                             .andExpect(MockMvcResultMatchers.content().string("Account create successfully")),
 
-              () -> Mockito.verify(customerService, Mockito.times(1))
-                      .saveCustomer(Mockito.eq(successCustomer))
+                () -> Mockito.verify(customerService, Mockito.times(1)).saveCustomer(Mockito.eq(successCustomer))
+        );
+    }
 
-      );
-   }
+    @Test
+    @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+    void loginCustomer() {
+        var loginDto = new LoginDto("random@names.com", "1234");
 
-   @Test
-   @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
-   void loginCustomer() {
-      var loginDto = new LoginDto("random@names.com","1234");
+        Mockito.when(authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken("random@names.com", "1234"))).thenReturn(null);
 
-      Mockito.when(authenticationManager.authenticate(
-              new UsernamePasswordAuthenticationToken("random@names.com","1234")
-      )).thenReturn(null);
+        Mockito.when(customerService.getCustomerByEmail("random@names.com"))
+               .thenReturn(Optional.of(TestDataUtil.getCustomer()));
 
-      Mockito.when(customerService.getCustomerByEmail("random@names.com"))
-              .thenReturn(Optional.of(TestDataUtil.getCustomer()));
+        assertAll(() -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
+                                                              .contentType(MediaType.APPLICATION_JSON)
+                                                              .content(objectMapper.writeValueAsString(loginDto)))
+                               .andExpect(MockMvcResultMatchers.status().isOk())
+                               .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.SET_COOKIE))
+                               .andExpect(MockMvcResultMatchers.content().string("4234"))
+        );
+    }
 
-      var objectMapper = new ObjectMapper();
-      objectMapper.registerModule(new JavaTimeModule());
-      objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    @Test
+    @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+    void verifyAccount() {
+        var tokenWrongId = UUID.randomUUID();
+        var tokenVerifiedId = UUID.randomUUID();
 
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
-                              .contentType(MediaType.APPLICATION_JSON)
-                              .content(objectMapper.writeValueAsString(loginDto)))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.SET_COOKIE))
-                      .andExpect(MockMvcResultMatchers.content().string("4234"))
+        Mockito.when(authService.veryAccount(tokenWrongId)).thenReturn(TokenStatus.NONE);
 
+        Mockito.when(authService.veryAccount(tokenVerifiedId)).thenReturn(TokenStatus.SUCCESSFUL);
 
-      );
-   }
+        assertAll(
+                () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenWrongId)
+                                                            .contentType(MediaType.APPLICATION_JSON))
+                             .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                             .andExpect(MockMvcResultMatchers.content()
+                                                             .string(objectMapper.writeValueAsString(
+                                                                     TokenStatus.NONE))),
 
-   @Test
-   @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
-   void verifyAccount() {
-      var tokenWrongId = UUID.randomUUID();
-      var tokenVerifiedId = UUID.randomUUID();
+                () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenVerifiedId)
+                                                            .contentType(MediaType.APPLICATION_JSON))
+                             .andExpect(MockMvcResultMatchers.status().isOk())
+                             .andExpect(MockMvcResultMatchers.content()
+                                                             .string(objectMapper.writeValueAsString(
+                                                                     TokenStatus.SUCCESSFUL))));
+    }
 
-      Mockito.when(authService.veryAccount(tokenWrongId))
-              .thenReturn(TokenStatus.NONE);
+    @Test
+    @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+    void resendToken() {
+        var oldToken = UUID.randomUUID();
 
-      Mockito.when(authService.veryAccount(tokenVerifiedId))
-              .thenReturn(TokenStatus.SUCCESSFUL);
+        Mockito.doNothing().when(authService).resendVerificationToken(oldToken);
 
-      var objectMapper = new ObjectMapper();
+        assertAll(
+                () -> mockMvc.perform(
+                                     MockMvcRequestBuilders.post("/auth/resend")
+                                                           .contentType(MediaType.APPLICATION_JSON)
+                                                           .content(objectMapper.writeValueAsString(
+                                                                   new ResendDto(oldToken))))
+                             .andExpect(MockMvcResultMatchers.status().isOk())
+                             .andExpect(MockMvcResultMatchers.content().string("SUCCESS")),
 
-      assertAll(
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenWrongId)
-                              .contentType(MediaType.APPLICATION_JSON))
-                      .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                      .andExpect(MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(TokenStatus.NONE))),
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .resendVerificationToken(oldToken),
 
-              () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenVerifiedId)
-                              .contentType(MediaType.APPLICATION_JSON))
-                      .andExpect(MockMvcResultMatchers.status().isOk())
-                      .andExpect(MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(TokenStatus.SUCCESSFUL)))
-      );
-   }
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/resend")));
+    }
 }

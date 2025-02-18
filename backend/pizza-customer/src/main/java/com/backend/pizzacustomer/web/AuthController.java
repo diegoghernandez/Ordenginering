@@ -8,6 +8,7 @@ import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.web.client.JwtClient;
 import com.backend.pizzacustomer.web.dto.CustomerDto;
 import com.backend.pizzacustomer.web.dto.LoginDto;
+import com.backend.pizzacustomer.web.dto.ResendDto;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +47,9 @@ public class AuthController {
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDto customerDto) throws NotAllowedException {
+    public ResponseEntity<String> registerCustomer(
+            @Valid @RequestBody CustomerDto customerDto
+    ) throws NotAllowedException {
         if (!customerDto.password().equals(customerDto.matchingPassword())) {
             throw new NotAllowedException("Passwords don't match");
         }
@@ -59,20 +62,20 @@ public class AuthController {
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
         authenticationManager.authenticate(new
-                UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
+                                                   UsernamePasswordAuthenticationToken(
+                loginDto.email(), loginDto.password()));
 
         var customer = customerService.getCustomerByEmail(loginDto.email());
 
         String jwt = jwtClient.createJWT(customer.get().getIdCustomer());
 
         var cookie = ResponseCookie.from("jwt", jwt)
-                .httpOnly(true)
-                .path("/")
-                .sameSite(cookiesProperties.sameSite())
-                .secure(cookiesProperties.secure())
-                .domain(cookiesProperties.domain())
-                .maxAge(TimeUnit.DAYS.toSeconds(15))
-                .build().toString();
+                                   .httpOnly(true).path("/")
+                                   .sameSite(cookiesProperties.sameSite())
+                                   .secure(cookiesProperties.secure())
+                                   .domain(cookiesProperties.domain())
+                                   .maxAge(TimeUnit.DAYS.toSeconds(15))
+                                   .build().toString();
 
         var header = new HttpHeaders();
         header.set(HttpHeaders.SET_COOKIE, cookie);
@@ -82,13 +85,13 @@ public class AuthController {
     @RequestMapping(value = "/logout", method = RequestMethod.HEAD)
     public ResponseEntity<Void> logout() {
         var cookie = ResponseCookie.from("jwt", "")
-                .httpOnly(true)
-                .path("/")
-                .sameSite(cookiesProperties.sameSite())
-                .secure(cookiesProperties.secure())
-                .domain(cookiesProperties.domain())
-                .maxAge(0)
-                .build().toString();
+                                   .httpOnly(true)
+                                   .path("/")
+                                   .sameSite(cookiesProperties.sameSite())
+                                   .secure(cookiesProperties.secure())
+                                   .domain(cookiesProperties.domain())
+                                   .maxAge(0)
+                                   .build().toString();
 
         var header = new HttpHeaders();
         header.set(HttpHeaders.SET_COOKIE, cookie);
@@ -104,4 +107,13 @@ public class AuthController {
             case SUCCESSFUL -> new ResponseEntity<>(tokenStatus, HttpStatus.OK);
         };
     }
+
+    @PostMapping("/resend")
+    public ResponseEntity<String> resendToken(
+            @RequestBody @Valid ResendDto resendDto
+    ) {
+        authService.resendVerificationToken(resendDto.token());
+        return ResponseEntity.ok("SUCCESS");
+    }
+
 }
