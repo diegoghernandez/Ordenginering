@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -32,13 +31,12 @@ class TokenUtilsTest implements MysqlTestContainer {
     void validateToken() {
         var noneStatus = TokenUtils.validateToken(tokenService.getById(UUID.randomUUID()));
 
-
         var tokenExpired = tokenService.getById(
-                tokenService.createNewToken(32, TokenType.VERIFICATION, LocalDateTime.now().minusHours(2)));
+                tokenService.createNewToken(32, TokenType.VERIFICATION, 0));
         var expiredStatus = TokenUtils.validateToken(tokenExpired);
 
         var tokenSuccessful = tokenService.getById(
-                tokenService.createNewToken(32, TokenType.RESET_EMAIL, LocalDateTime.now().plusHours(2)));
+                tokenService.createNewToken(32, TokenType.RESET_EMAIL, 10));
         var successfulStatus = TokenUtils.validateToken(tokenSuccessful);
 
         assertAll(

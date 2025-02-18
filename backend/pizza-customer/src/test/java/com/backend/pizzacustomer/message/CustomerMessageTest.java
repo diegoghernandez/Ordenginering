@@ -27,12 +27,12 @@ class CustomerMessageTest implements RabbitTestContainer {
     @Autowired
     private CustomerMessage customerMessage;
 
-    @RabbitListener(queues = "q.pizza_customer.save_customer_role")
+    @RabbitListener(queues = "q.pizza_customer.save_customer_role" )
     public void onPaymentEvent(CustomerSaveDto customerSaveDto) {
-        log.info("Customer id: " + customerSaveDto.getCustomerId());
-        log.info("Customer email: " + customerSaveDto.getEmail());
-        log.info("Token: " + customerSaveDto.getToken());
-        log.info("Locale: " + customerSaveDto.getLocale());
+        log.info("Customer id: {}", customerSaveDto.getCustomerId());
+        log.info("Customer email: {}", customerSaveDto.getEmail());
+        log.info("Token: {}", customerSaveDto.getToken());
+        log.info("Locale: {}", customerSaveDto.getLocale());
     }
 
     @Test
@@ -42,16 +42,16 @@ class CustomerMessageTest implements RabbitTestContainer {
                 32,
                 "email@email.com",
                 uuid,
-                "en"));
+                "en" ));
 
         Awaitility.await().atMost(Duration.ofSeconds(5L))
-                .until(() -> capturedOutput.getOut().contains("Customer id: 32"));
+                  .until(() -> capturedOutput.getOut().contains("Customer id: 32" ));
 
         assertAll(
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 32"),
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: email@email.com"),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 32" ),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: email@email.com" ),
                 () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: " + uuid),
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en")
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en" )
         );
     }
 }

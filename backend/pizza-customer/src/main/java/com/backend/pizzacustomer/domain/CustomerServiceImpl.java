@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -31,7 +33,10 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMessage customerMessage;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, TokenService tokenService, PasswordEncoder passwordEncoder, CustomerMessage customerMessage) {
+    public CustomerServiceImpl(
+            CustomerRepository customerRepository, TokenService tokenService, PasswordEncoder passwordEncoder,
+            CustomerMessage customerMessage
+    ) {
         this.customerRepository = customerRepository;
         this.tokenService = tokenService;
         this.passwordEncoder = passwordEncoder;
@@ -40,25 +45,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
-        if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used");
+        if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used" );
         else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
-            throw new NotAllowedException("No older enough");
+            throw new NotAllowedException("No older enough" );
 
         var customer = CustomerEntity.builder()
-                .customerName(customerDto.customerName())
-                .email(customerDto.email())
-                .password(passwordEncoder.encode(customerDto.password()))
-                .birthDate(customerDto.birthDate())
-                .disable(true)
-                .creationTimestamp(LocalDateTime.now())
-                .build();
+                                     .customerName(customerDto.customerName())
+                                     .email(customerDto.email())
+                                     .password(passwordEncoder.encode(customerDto.password()))
+                                     .birthDate(customerDto.birthDate())
+                                     .disable(true)
+                                     .creationTimestamp(LocalDateTime.now())
+                                     .build();
 
         var customerSaved = customerRepository.save(customer);
 
         var tokenId = tokenService.createNewToken(
                 customerSaved.getIdCustomer(),
                 TokenType.VERIFICATION,
-                LocalDateTime.now().plusHours(2));
+                10);
 
         customerMessage.sendToCustomerSaveExchange(new CustomerSaveDto(
                 customerSaved.getIdCustomer(),
@@ -112,7 +117,8 @@ public class CustomerServiceImpl implements CustomerService {
         return result;
     }
 
-    private Map.Entry<Integer, String> validateNecessaryValues(NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
+    private Map.Entry<Integer, String> validateNecessaryValues(
+            NecessaryValuesForChangeDto valuesForChangeDto, String desireMessage) {
         if (!customerRepository.existsById(valuesForChangeDto.id()))
             return new AbstractMap.SimpleEntry<>(404, "Id doesn't exist");
 
