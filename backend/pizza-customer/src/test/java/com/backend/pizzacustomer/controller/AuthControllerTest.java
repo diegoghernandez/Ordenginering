@@ -7,9 +7,7 @@ import com.backend.pizzacustomer.domain.service.AuthService;
 import com.backend.pizzacustomer.domain.service.CustomerService;
 import com.backend.pizzacustomer.setup.SetUpForJwtClient;
 import com.backend.pizzacustomer.web.AuthController;
-import com.backend.pizzacustomer.web.dto.CustomerDto;
-import com.backend.pizzacustomer.web.dto.LoginDto;
-import com.backend.pizzacustomer.web.dto.ResendDto;
+import com.backend.pizzacustomer.web.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -118,37 +116,135 @@ class AuthControllerTest implements SetUpForJwtClient {
     }
 
     @Test
-    @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
-    void verifyAccount() {
-        var tokenWrongId = UUID.randomUUID();
-        var tokenVerifiedId = UUID.randomUUID();
+    @DisplayName("Should check the verification token and send the respective response")
+    void verifyToken() {
+        var badVerifyTokenDto = VerifyTokenDto.builder().token(UUID.randomUUID()).build();
+        var goodVerifyTokenDto = VerifyTokenDto.builder().token(UUID.randomUUID()).build();
 
-        Mockito.when(authService.veryAccount(tokenWrongId)).thenReturn(TokenStatus.NONE);
-
-        Mockito.when(authService.veryAccount(tokenVerifiedId)).thenReturn(TokenStatus.SUCCESSFUL);
+        Mockito.when(authService.verifyToken(badVerifyTokenDto)).thenReturn(TokenStatus.NONE);
+        Mockito.when(authService.verifyToken(goodVerifyTokenDto)).thenReturn(TokenStatus.SUCCESSFUL);
 
         assertAll(
-                () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenWrongId)
-                                                            .contentType(MediaType.APPLICATION_JSON))
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/verify")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(
+                                                                    objectMapper.writeValueAsString(badVerifyTokenDto)))
                              .andExpect(MockMvcResultMatchers.status().isBadRequest())
                              .andExpect(MockMvcResultMatchers.content()
                                                              .string(objectMapper.writeValueAsString(
                                                                      TokenStatus.NONE))),
 
-                () -> mockMvc.perform(MockMvcRequestBuilders.get("/auth/verify/" + tokenVerifiedId)
-                                                            .contentType(MediaType.APPLICATION_JSON))
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .verifyToken(badVerifyTokenDto),
+
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/verify")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(objectMapper.writeValueAsString(
+                                                                    goodVerifyTokenDto)))
                              .andExpect(MockMvcResultMatchers.status().isOk())
                              .andExpect(MockMvcResultMatchers.content()
                                                              .string(objectMapper.writeValueAsString(
-                                                                     TokenStatus.SUCCESSFUL))));
+                                                                     TokenStatus.SUCCESSFUL))),
+
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .verifyToken(goodVerifyTokenDto));
     }
 
     @Test
-    @DisplayName("Should log in with the right credentials and get a cookie or get a status 401")
+    @DisplayName("Should send a reset password token to the respective customer email")
+    void sendResetPasswordToken() {
+        var emailToSend = "random@names.com";
+
+        Mockito.doNothing().when(authService).sendResetPasswordToken(emailToSend);
+
+        assertAll(
+                () -> mockMvc.perform(
+                                     MockMvcRequestBuilders.post("/auth/send-reset-password")
+                                                           .contentType(MediaType.APPLICATION_JSON)
+                                                           .content(objectMapper.writeValueAsString(
+                                                                   new EmailDto(emailToSend))))
+                             .andExpect(MockMvcResultMatchers.status().isOk())
+                             .andExpect(MockMvcResultMatchers.content().string("SUCCESS")),
+
+                () -> Mockito.verify(authService, Mockito.times(1)).sendResetPasswordToken(emailToSend)
+        );
+    }
+
+    @Test
+    @DisplayName("Should reset the password if the token is valid and pass the password checks")
+    void resetPasswordToken() {
+        var emptyVerifyTokenDto = VerifyTokenDto.builder().token(UUID.randomUUID()).build();
+        var noMatchVerifyTokenDto = VerifyTokenDto.builder()
+                                                  .token(UUID.randomUUID())
+                                                  .newPassword("test")
+                                                  .repeatNewPassword("no-test")
+                                                  .build();
+        var badVerifyTokenDto = VerifyTokenDto.builder()
+                                              .token(UUID.randomUUID())
+                                              .newPassword("test")
+                                              .repeatNewPassword("test")
+                                              .build();
+        var goodVerifyTokenDto = VerifyTokenDto.builder()
+                                               .token(UUID.randomUUID())
+                                               .newPassword("test")
+                                               .repeatNewPassword("test")
+                                               .build();
+
+        Mockito.when(authService.verifyToken(badVerifyTokenDto)).thenReturn(TokenStatus.NONE);
+        Mockito.when(authService.verifyToken(goodVerifyTokenDto)).thenReturn(TokenStatus.SUCCESSFUL);
+
+        assertAll(
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/reset-password")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(
+                                                                    objectMapper.writeValueAsString(
+                                                                            emptyVerifyTokenDto)))
+                             .andExpect(MockMvcResultMatchers.status().isBadRequest()),
+
+                () -> Mockito.verify(authService, Mockito.times(0))
+                             .verifyToken(emptyVerifyTokenDto),
+
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/reset-password")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(
+                                                                    objectMapper.writeValueAsString(
+                                                                            noMatchVerifyTokenDto)))
+                             .andExpect(MockMvcResultMatchers.status().isBadRequest()),
+
+                () -> Mockito.verify(authService, Mockito.times(0))
+                             .verifyToken(noMatchVerifyTokenDto),
+
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/reset-password")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(
+                                                                    objectMapper.writeValueAsString(badVerifyTokenDto)))
+                             .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                             .andExpect(MockMvcResultMatchers.content()
+                                                             .string(objectMapper.writeValueAsString(
+                                                                     TokenStatus.NONE))),
+
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .verifyToken(badVerifyTokenDto),
+
+                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/reset-password")
+                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                            .content(objectMapper.writeValueAsString(
+                                                                    goodVerifyTokenDto)))
+                             .andExpect(MockMvcResultMatchers.status().isOk())
+                             .andExpect(MockMvcResultMatchers.content()
+                                                             .string(objectMapper.writeValueAsString(
+                                                                     TokenStatus.SUCCESSFUL))),
+
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .verifyToken(goodVerifyTokenDto));
+    }
+
+    @Test
+    @DisplayName("Should receive the expire token and resend it to the customer email")
     void resendToken() {
         var oldToken = UUID.randomUUID();
 
-        Mockito.doNothing().when(authService).resendVerificationToken(oldToken);
+        Mockito.doNothing().when(authService).resendToken(oldToken);
 
         assertAll(
                 () -> mockMvc.perform(
@@ -160,8 +256,7 @@ class AuthControllerTest implements SetUpForJwtClient {
                              .andExpect(MockMvcResultMatchers.content().string("SUCCESS")),
 
                 () -> Mockito.verify(authService, Mockito.times(1))
-                             .resendVerificationToken(oldToken),
-
-                () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/resend")));
+                             .resendToken(oldToken)
+        );
     }
 }

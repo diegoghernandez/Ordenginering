@@ -3,19 +3,17 @@ package com.backend.pizzacustomer.web;
 import com.backend.pizzacustomer.constants.TokenStatus;
 import com.backend.pizzacustomer.domain.service.AuthService;
 import com.backend.pizzacustomer.domain.service.CustomerService;
+import com.backend.pizzacustomer.domain.service.TokenService;
 import com.backend.pizzacustomer.env.CookiesProperties;
 import com.backend.pizzacustomer.exceptions.NotAllowedException;
 import com.backend.pizzacustomer.web.client.JwtClient;
-import com.backend.pizzacustomer.web.dto.CustomerDto;
-import com.backend.pizzacustomer.web.dto.LoginDto;
-import com.backend.pizzacustomer.web.dto.ResendDto;
+import com.backend.pizzacustomer.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -34,7 +32,7 @@ public class AuthController {
 
     public AuthController(
             CustomerService customerService,
-            AuthService authService,
+            AuthService authService, TokenService tokenService,
             AuthenticationManager authenticationManager,
             JwtClient jwtClient,
             CookiesProperties cookiesProperties
@@ -98,9 +96,31 @@ public class AuthController {
         return new ResponseEntity<>(header, HttpStatus.OK);
     }
 
-    @GetMapping("/verify/{token}")
-    public ResponseEntity<TokenStatus> verifyAccount(@PathVariable UUID token) {
-        var tokenStatus = authService.veryAccount(token);
+    @PostMapping("/verify")
+    public ResponseEntity<TokenStatus> verifyToken(@RequestBody @Valid VerifyTokenDto verifyTokenDto) {
+        var tokenStatus = authService.verifyToken(verifyTokenDto);
+
+        return switch (tokenStatus) {
+            case NONE, EXPIRED -> new ResponseEntity<>(tokenStatus, HttpStatus.BAD_REQUEST);
+            case SUCCESSFUL -> new ResponseEntity<>(tokenStatus, HttpStatus.OK);
+        };
+    }
+
+    @PostMapping("/send-reset-password")
+    public ResponseEntity<String> sendResetPasswordToken(@RequestBody @Valid EmailDto emailDto) {
+        authService.sendResetPasswordToken(emailDto.email());
+
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<TokenStatus> resetPasswordToken(@RequestBody @Valid VerifyTokenDto verifyTokenDto) {
+        if (verifyTokenDto.newPassword() == null || verifyTokenDto.repeatNewPassword() == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else if (!verifyTokenDto.newPassword().equals(verifyTokenDto.repeatNewPassword()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        var tokenStatus = authService.verifyToken(verifyTokenDto);
 
         return switch (tokenStatus) {
             case NONE, EXPIRED -> new ResponseEntity<>(tokenStatus, HttpStatus.BAD_REQUEST);
@@ -112,8 +132,7 @@ public class AuthController {
     public ResponseEntity<String> resendToken(
             @RequestBody @Valid ResendDto resendDto
     ) {
-        authService.resendVerificationToken(resendDto.token());
+        authService.resendToken(resendDto.token());
         return ResponseEntity.ok("SUCCESS");
     }
-
 }
