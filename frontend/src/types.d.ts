@@ -167,3 +167,9 @@ export interface QuantityTranslation {
 	decrease: string
 	increase: string
 }
+
+export interface VerifyTokenDto {
+	token: string
+	newPassword?: string
+	repeatNewPassword?: string
+}

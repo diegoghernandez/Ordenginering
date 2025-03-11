@@ -1,5 +1,10 @@
-import type { CustomerDto, CustomerLogIn, TokenStatus } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
+import type {
+	CustomerDto,
+	CustomerLogIn,
+	TokenStatus,
+	VerifyTokenDto,
+} from '@/types'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
 export const API = URL + '/customer/auth'
@@ -64,6 +69,26 @@ export async function verifyAccount(
 	})
 
 	if (response.status === 500) return 'ERROR'
+
+	return response.json() as Promise<TokenStatus>
+}
+
+export async function resetPassword({
+	token,
+	newPassword,
+	repeatNewPassword,
+}: VerifyTokenDto): Promise<TokenStatus> {
+	const response = await fetch(`${API}/reset-password`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ token, newPassword, repeatNewPassword }),
+	})
+
+	if (response.status === 500) throw new StatusError('SERVER', response.status)
+	else if (!response.ok)
+		throw new StatusError(await response.json(), response.status)
 
 	return response.json() as Promise<TokenStatus>
 }

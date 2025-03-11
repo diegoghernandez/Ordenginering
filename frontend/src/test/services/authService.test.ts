@@ -3,6 +3,7 @@ import {
 	logOut,
 	registerCustomer,
 	resendToken,
+	resetPassword,
 	verifyAccount,
 } from '@/services/authService'
 import { StatusError } from '@/services/exceptions/StatusError'
@@ -93,6 +94,47 @@ describe('Auth service tests', () => {
 
 		it('Should get the SUCCESSFUL response', async () => {
 			const tokenStatus = await verifyAccount('correct')
+
+			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
+		})
+	})
+
+	describe('reset password tests', () => {
+		it('Should be a function', () => {
+			expect(typeof resetPassword).toBe('function')
+		})
+
+		it('Should get the EXPIRED response', async () => {
+			const tokenStatus = await resetPassword({
+				token: 'expired',
+				newPassword: 'same',
+				repeatNewPassword: 'same',
+			})
+
+			expect(tokenStatus).toStrictEqual('EXPIRED')
+		})
+
+		it('Should get a bad request if the password are not equals', async () => {
+			await expect(
+				resetPassword({
+					token: 'correct',
+					newPassword: 'same',
+					repeatNewPassword: 'no-same',
+				})
+			).rejects.toThrowError(
+				new StatusError('BAD', 400, {
+					newPassword: 'NOT_MATCHING',
+					repeatNewPassword: 'NOT_MATCHING',
+				})
+			)
+		})
+
+		it('Should get the SUCCESSFUL response', async () => {
+			const tokenStatus = await resetPassword({
+				token: 'correct',
+				newPassword: 'same',
+				repeatNewPassword: 'same',
+			})
 
 			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
 		})

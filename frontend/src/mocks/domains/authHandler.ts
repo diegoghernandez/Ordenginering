@@ -1,5 +1,5 @@
 import { CORS_HEADERS } from '@/constants/corsHeaders'
-import type { CustomerDto, CustomerLogIn } from '@/types'
+import type { CustomerDto, CustomerLogIn, VerifyTokenDto } from '@/types'
 import { http, HttpResponse, type PathParams } from 'msw'
 
 const API = 'http://localhost:8765/customer/auth'
@@ -70,6 +70,31 @@ export const authHandler = [
 
 		return new HttpResponse(null, { status: 500 })
 	}),
+
+	http.post<PathParams<never>, VerifyTokenDto>(
+		`${API}/reset-password`,
+		async ({ request }) => {
+			const { token, newPassword, repeatNewPassword } = await request.json()
+
+			if (newPassword !== repeatNewPassword)
+				return new HttpResponse(null, { status: 400 })
+
+			if (token === 'correct')
+				return HttpResponse.json('SUCCESSFUL', {
+					status: 200,
+					headers: CORS_HEADERS,
+				})
+
+			if (token === 'expired' || token === 'failure') {
+				return HttpResponse.json('EXPIRED', {
+					status: 400,
+					headers: CORS_HEADERS,
+				})
+			}
+
+			return new HttpResponse(null, { status: 500, headers: CORS_HEADERS })
+		}
+	),
 
 	http.post<PathParams<never>, { token: string }>(
 		`${API}/resend`,
