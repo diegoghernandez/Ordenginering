@@ -35,154 +35,166 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @DataJpaTest
-@Import(RabbitMQConfig.class)
+@Import({BCryptPasswordEncoder.class, RabbitMQConfig.class})
 @ExtendWith(OutputCaptureExtension.class)
 @ComponentScan(basePackages = "com.backend.pizzacustomer.domain")
-@ImportAutoConfiguration({BCryptPasswordEncoder.class, RabbitAutoConfiguration.class, JacksonAutoConfiguration.class})
+@ImportAutoConfiguration({RabbitAutoConfiguration.class, JacksonAutoConfiguration.class})
 class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
 
-   @Autowired
-   private CustomerService customerService;
+    @Autowired
+    private CustomerService customerService;
 
-   private final static long ID__TO__REJECT = 34L;
-   private final static long ID__TO__ACCEPT = 4234L;
+    private final static long ID__TO__REJECT = 34L;
+    private final static long ID__TO__ACCEPT = 4234L;
 
-   @RabbitListener(queues = {"q.pizza_customer.save_customer_role"})
-   public void onPaymentEvent(CustomerSaveDto customerSaveDto) {
-      log.info("Customer id: " + customerSaveDto.getCustomerId());
-      log.info("Customer email: " + customerSaveDto.getEmail());
-      log.info("Token: " + customerSaveDto.getToken());
-      log.info("Locale: " + customerSaveDto.getLocale());
-   }
+    @RabbitListener(queues = {"q.pizza_customer.save_customer_role"})
+    public void onPaymentEvent(CustomerSaveDto customerSaveDto) {
+        log.info("Customer id: {}", customerSaveDto.getCustomerId());
+        log.info("Customer email: {}", customerSaveDto.getEmail());
+        log.info("Token: {}", customerSaveDto.getToken());
+        log.info("Locale: {}", customerSaveDto.getLocale());
+    }
 
-   @Test
-   @DisplayName("Should convert one customerDto to customerEntity to send it to the repository")
-   void saveCustomer(CapturedOutput capturedOutput) throws NotAllowedException {
-      Exception exceptionEmail = assertThrows(NotAllowedException.class,
-              () -> customerService.saveCustomer(new CustomerDto(
-                      "Name",
-                      "first@names.com",
-                      "1234",
-                      "1234",
-                      LocalDate.of(2004, 2, 2)
-              )));
+    @Test
+    @DisplayName("Should convert one customerDto to customerEntity to send it to the repository")
+    void saveCustomer(CapturedOutput capturedOutput) throws NotAllowedException {
+        Exception exceptionEmail = assertThrows(
+                NotAllowedException.class,
+                () -> customerService.saveCustomer(new CustomerDto(
+                        "Name",
+                        "first@names.com",
+                        "1234",
+                        "1234",
+                        LocalDate.of(2004, 2, 2)
+                )));
 
-      Exception exceptionAge = assertThrows(NotAllowedException.class,
-              () -> customerService.saveCustomer(new CustomerDto(
-                      "Name",
-                      "original@name.com",
-                      "1234",
-                      "1234",
-                      LocalDate.of(2010, 1, 26)
-              )));
+        Exception exceptionAge = assertThrows(
+                NotAllowedException.class,
+                () -> customerService.saveCustomer(new CustomerDto(
+                        "Name",
+                        "original@name.com",
+                        "1234",
+                        "1234",
+                        LocalDate.of(2010, 1, 26)
+                )));
 
-      customerService.saveCustomer(new CustomerDto(
-              "Name",
-              "original@name.com",
-              "1234",
-              "1234",
-              LocalDate.of(1998, 1, 26)
-      ));
+        customerService.saveCustomer(new CustomerDto(
+                "Name",
+                "original@name.com",
+                "1234",
+                "1234",
+                LocalDate.of(1998, 1, 26)
+        ));
 
-      var customerSaved = customerService.getCustomerById(1).get();
+        var customerSaved = customerService.getCustomerById(1).get();
 
-      Awaitility.await().atMost(Duration.ofSeconds(5L))
-              .until(() -> capturedOutput.getOut().contains("Customer id: " + customerSaved.getIdCustomer()));
+        Awaitility.await().atMost(Duration.ofSeconds(5L))
+                  .until(() -> capturedOutput.getOut().contains("Customer id: " + customerSaved.getIdCustomer()));
 
-      assertAll(
-              () -> assertEquals("Email already used", exceptionEmail.getMessage()),
-              () -> assertEquals("No older enough", exceptionAge.getMessage()),
-              () -> assertEquals(1L, customerSaved.getIdCustomer()),
-              () -> assertEquals("Name", customerSaved.getCustomerName()),
-              () -> assertEquals("original@name.com", customerSaved.getEmail()),
-              () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
-              () -> assertEquals(true, customerSaved.getDisable()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: " + customerSaved.getIdCustomer()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: " + customerSaved.getEmail()),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: "),
-              () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en")
-      );
-   }
+        assertAll(
+                () -> assertEquals("Email already used", exceptionEmail.getMessage()),
+                () -> assertEquals("No older enough", exceptionAge.getMessage()),
+                () -> assertEquals(1L, customerSaved.getIdCustomer()),
+                () -> assertEquals("Name", customerSaved.getCustomerName()),
+                () -> assertEquals("original@name.com", customerSaved.getEmail()),
+                () -> assertEquals(LocalDate.of(1998, 1, 26), customerSaved.getBirthDate()),
+                () -> assertEquals(true, customerSaved.getDisable()),
+                () -> Assertions.assertThat(capturedOutput.getOut())
+                                .contains("Customer id: " + customerSaved.getIdCustomer()),
+                () -> Assertions.assertThat(capturedOutput.getOut())
+                                .contains("Customer email: " + customerSaved.getEmail()),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: "),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en")
+        );
+    }
 
-   @Test
-   @DisplayName("Should return one customer with the specific id using the repository")
-   void getCustomerById() {
-      assertAll(
-              () -> assertTrue(customerService.getCustomerById(423432).isEmpty()),
-              () -> assertEquals(TestDataUtil.getCustomer().toString(), customerService.getCustomerById(ID__TO__ACCEPT).get().toString())
-      );
-   }
+    @Test
+    @DisplayName("Should return one customer with the specific id using the repository")
+    void getCustomerById() {
+        assertAll(
+                () -> assertTrue(customerService.getCustomerById(423432).isEmpty()),
+                () -> assertEquals(
+                        TestDataUtil.getCustomer().toString(),
+                        customerService.getCustomerById(ID__TO__ACCEPT).get().toString())
+        );
+    }
 
-   @Test
-   @DisplayName("Should return one customer with the specific email using the repository")
-   void getCustomerByEmail() {
-      assertAll(
-              () -> assertTrue(customerService.getCustomerByEmail("wrong@names.com").isEmpty()),
-              () -> assertEquals(TestDataUtil.getCustomer().toString(), customerService.getCustomerByEmail("random@names.com").get().toString())
-      );
-   }
+    @Test
+    @DisplayName("Should return one customer with the specific email using the repository")
+    void getCustomerByEmail() {
+        assertAll(
+                () -> assertTrue(customerService.getCustomerByEmail("wrong@names.com").isEmpty()),
+                () -> assertEquals(
+                        TestDataUtil.getCustomer().toString(),
+                        customerService.getCustomerByEmail("random@names.com").get().toString())
+        );
+    }
 
-   @Test
-   @DisplayName("Should change the name and/or birthDate of a customer using the repository with the specific id")
-   void changeProfile() {
-      var wrongIdMap = customerService.changeProfile(
-              new ValuesForChangeProfile(
-                      "Wrong",
-                      LocalDate.of(1990, Month.AUGUST, 2),
-                      TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT)
-              ));
+    @Test
+    @DisplayName("Should change the name and/or birthDate of a customer using the repository with the specific id")
+    void changeProfile() {
+        var wrongIdMap = customerService.changeProfile(
+                new ValuesForChangeProfile(
+                        "Wrong",
+                        LocalDate.of(1990, Month.AUGUST, 2),
+                        TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT)
+                ));
 
-      var goodMap = customerService.changeProfile(
-              new ValuesForChangeProfile(
-                      "Good",
-                      LocalDate.of(1990, Month.AUGUST, 2),
-                      TestDataUtil.getGoodNecessaryDtoForChangeMethods()
-              ));
+        var goodMap = customerService.changeProfile(
+                new ValuesForChangeProfile(
+                        "Good",
+                        LocalDate.of(1990, Month.AUGUST, 2),
+                        TestDataUtil.getGoodNecessaryDtoForChangeMethods()
+                ));
 
-      assertAll(
-              () -> assertEquals(404, wrongIdMap.getKey()),
-              () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
+        assertAll(
+                () -> assertEquals(404, wrongIdMap.getKey()),
+                () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
 
-              () -> assertEquals("Change profile correctly", goodMap.getValue()),
-              () -> assertEquals(200, goodMap.getKey())
-      );
-   }
+                () -> assertEquals("Change profile correctly", goodMap.getValue()),
+                () -> assertEquals(200, goodMap.getKey())
+        );
+    }
 
-   @Test
-   @DisplayName("Should change the password of a customer using the repository with the specific id")
-   void changePassword() {
-      var wrongIdMap = customerService.changePassword("1234", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));
-      var wrongPasswordMap = customerService.changePassword("1234", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__ACCEPT));
-      var goodMap = customerService.changePassword("4321", TestDataUtil.getGoodNecessaryDtoForChangeMethods());
+    @Test
+    @DisplayName("Should change the password of a customer using the repository with the specific id")
+    void changePassword() {
+        var wrongIdMap = customerService.changePassword(
+                "1234", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));
+        var wrongPasswordMap = customerService.changePassword(
+                "1234", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__ACCEPT));
+        var goodMap = customerService.changePassword("4321", TestDataUtil.getGoodNecessaryDtoForChangeMethods());
 
-      assertAll(
-              () -> assertEquals(404, wrongIdMap.getKey()),
-              () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
+        assertAll(
+                () -> assertEquals(404, wrongIdMap.getKey()),
+                () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
 
-              () -> assertEquals(400, wrongPasswordMap.getKey()),
-              () -> assertEquals("Incorrect password", wrongPasswordMap.getValue()),
+                () -> assertEquals(400, wrongPasswordMap.getKey()),
+                () -> assertEquals("Incorrect password", wrongPasswordMap.getValue()),
 
-              () -> assertEquals(200, goodMap.getKey()),
-              () -> assertEquals("Change password correctly", goodMap.getValue())
-      );
-   }
+                () -> assertEquals(200, goodMap.getKey()),
+                () -> assertEquals("Change password correctly", goodMap.getValue())
+        );
+    }
 
-   @Test
-   @DisplayName("Should change the email of a customer using the repository with the specific id")
-   void changeEmail() {
-      var wrongIdMap = customerService.changeEmail("wrong@email.com", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));
-      var wrongPasswordMap = customerService.changeEmail("wrong@email.com", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__ACCEPT));
-      var goodMap = customerService.changeEmail("good@email.com", TestDataUtil.getGoodNecessaryDtoForChangeMethods());
+    @Test
+    @DisplayName("Should change the email of a customer using the repository with the specific id")
+    void changeEmail() {
+        var wrongIdMap = customerService.changeEmail(
+                "wrong@email.com", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__REJECT));
+        var wrongPasswordMap = customerService.changeEmail(
+                "wrong@email.com", TestDataUtil.getWrongNecessaryDtoForChangeMethods(ID__TO__ACCEPT));
+        var goodMap = customerService.changeEmail("good@email.com", TestDataUtil.getGoodNecessaryDtoForChangeMethods());
 
-      assertAll(
-              () -> assertEquals(404, wrongIdMap.getKey()),
-              () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
+        assertAll(
+                () -> assertEquals(404, wrongIdMap.getKey()),
+                () -> assertEquals("Id doesn't exist", wrongIdMap.getValue()),
 
-              () -> assertEquals(400, wrongPasswordMap.getKey()),
-              () -> assertEquals("Incorrect password", wrongPasswordMap.getValue()),
+                () -> assertEquals(400, wrongPasswordMap.getKey()),
+                () -> assertEquals("Incorrect password", wrongPasswordMap.getValue()),
 
-              () -> assertEquals(200, goodMap.getKey()),
-              () -> assertEquals("Change email correctly", goodMap.getValue())
-      );
-   }
+                () -> assertEquals(200, goodMap.getKey()),
+                () -> assertEquals("Change email correctly", goodMap.getValue())
+        );
+    }
 }

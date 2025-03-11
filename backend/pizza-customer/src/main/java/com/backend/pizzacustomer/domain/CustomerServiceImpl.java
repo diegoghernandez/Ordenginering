@@ -45,9 +45,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDto customerDto) throws NotAllowedException {
-        if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used" );
+        if (customerRepository.existsByEmail(customerDto.email())) throw new NotAllowedException("Email already used");
         else if (!customerDto.birthDate().plusYears(18).isBefore(LocalDate.now()))
-            throw new NotAllowedException("No older enough" );
+            throw new NotAllowedException("No older enough");
 
         var customer = CustomerEntity.builder()
                                      .customerName(customerDto.customerName())
@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
         var tokenId = tokenService.createNewToken(
                 customerSaved.getIdCustomer(),
                 TokenType.VERIFICATION,
-                10);
+                20);
 
         customerMessage.sendToCustomerSaveExchange(new CustomerSaveDto(
                 customerSaved.getIdCustomer(),
