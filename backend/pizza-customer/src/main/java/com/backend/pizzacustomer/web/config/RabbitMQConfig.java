@@ -1,6 +1,9 @@
 package com.backend.pizzacustomer.web.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Declarables;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -40,10 +43,30 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Declarables fanoutExchangeBinding(FanoutExchange fanoutExchange, Queue roleQueue, Queue welcomeQueue) {
+    public Declarables saveCustomerExchangeBinding(
+            FanoutExchange saveCustomerExchange, Queue roleQueue, Queue welcomeQueue) {
         return new Declarables(
-                BindingBuilder.bind(roleQueue).to(fanoutExchange),
-                BindingBuilder.bind(welcomeQueue).to(fanoutExchange)
+                BindingBuilder.bind(roleQueue).to(saveCustomerExchange),
+                BindingBuilder.bind(welcomeQueue).to(saveCustomerExchange)
+        );
+
+    }
+
+    @Bean
+    public Queue resetPasswordEmailQueue() {
+        return new Queue("q.pizza_customer.reset_password_email", false);
+    }
+
+    @Bean
+    public FanoutExchange resetPasswordExchange() {
+        return new FanoutExchange("e.pizza_customer.reset_password");
+    }
+
+    @Bean
+    public Declarables resetPasswordExchangeBinding(
+            FanoutExchange resetPasswordExchange, Queue resetPasswordEmailQueue) {
+        return new Declarables(
+                BindingBuilder.bind(resetPasswordEmailQueue).to(resetPasswordExchange)
         );
 
     }
