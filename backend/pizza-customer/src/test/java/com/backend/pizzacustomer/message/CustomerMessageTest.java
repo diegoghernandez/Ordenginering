@@ -1,10 +1,12 @@
 package com.backend.pizzacustomer.message;
 
 import com.backend.pizzacustomer.domain.dto.CustomerSaveDto;
+import com.backend.pizzacustomer.domain.dto.ResetPasswordExchangeDto;
 import com.backend.pizzacustomer.domain.message.CustomerMessage;
 import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -27,7 +29,7 @@ class CustomerMessageTest implements RabbitTestContainer {
     @Autowired
     private CustomerMessage customerMessage;
 
-    @RabbitListener(queues = "q.pizza_customer.save_customer_role" )
+    @RabbitListener(queues = "q.pizza_customer.save_customer_role")
     public void onPaymentEvent(CustomerSaveDto customerSaveDto) {
         log.info("Customer id: {}", customerSaveDto.getCustomerId());
         log.info("Customer email: {}", customerSaveDto.getEmail());
@@ -42,16 +44,42 @@ class CustomerMessageTest implements RabbitTestContainer {
                 32,
                 "email@email.com",
                 uuid,
-                "en" ));
+                "en"));
 
         Awaitility.await().atMost(Duration.ofSeconds(5L))
-                  .until(() -> capturedOutput.getOut().contains("Customer id: 32" ));
+                  .until(() -> capturedOutput.getOut().contains("Customer id: 32"));
 
         assertAll(
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 32" ),
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: email@email.com" ),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer id: 32"),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Customer email: email@email.com"),
                 () -> Assertions.assertThat(capturedOutput.getOut()).contains("Token: " + uuid),
-                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en" )
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Locale: en")
+        );
+    }
+
+    @RabbitListener(queues = "q.pizza_customer.reset_password_email")
+    public void onResetPassword(ResetPasswordExchangeDto resetPasswordExchangeDto) {
+        log.info("Reset password email: {}", resetPasswordExchangeDto.email());
+        log.info("Reset password token: {}", resetPasswordExchangeDto.token());
+        log.info("Reset password locale: {}", resetPasswordExchangeDto.locale());
+    }
+
+    @Test
+    @DisplayName("Should send a token to the reset password exchange")
+    void sendToResetPasswordExchange(CapturedOutput capturedOutput) {
+        var uuid = UUID.randomUUID();
+        customerMessage.sendToResetPasswordExchange(new ResetPasswordExchangeDto(
+                "email@email.com",
+                uuid,
+                "en"));
+
+        Awaitility.await().atMost(Duration.ofSeconds(5L))
+                  .until(() -> capturedOutput.getOut().contains("Reset password email: email@email.com"));
+
+        assertAll(
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Reset password email: email@email.com"),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Reset password token: " + uuid),
+                () -> Assertions.assertThat(capturedOutput.getOut()).contains("Reset password locale: en")
         );
     }
 }
