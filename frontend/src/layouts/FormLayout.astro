@@ -21,15 +21,17 @@ const { title, description, h1Text, activeLink } = Astro.props
 </Layout>
 
 <script>
-   const forms = document.querySelectorAll('form')
+   document.addEventListener('astro:page-load', () => {
+      const forms = document.querySelectorAll('form')
 
-   for (const formElement of forms) {
-      if (formElement instanceof HTMLFormElement) {
-         formElement.addEventListener('submit', (event) => {
-            event.preventDefault()
-         })
+      for (const formElement of forms) {
+         if (formElement instanceof HTMLFormElement) {
+            formElement.addEventListener('submit', (event) => {
+               event.preventDefault()
+            })
+         }
       }
-   }
+   })
 </script>
 
 <style>
