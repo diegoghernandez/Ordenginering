@@ -23,8 +23,6 @@ export function ShowOrder({ currentLocal }: Props) {
 	const updatePizzaQuantity = useShoppingCart(
 		(state) => state.updatePizzaQuantity
 	)
-	const clearCart = useShoppingCart((state) => state.clearCart)
-
 	const t = showOrderTranslation[currentLocal]
 
 	useEffect(() => setPizza(pizzaList), [pizzaList])
@@ -67,7 +65,9 @@ export function ShowOrder({ currentLocal }: Props) {
 				</strong>
 				{' ' + t.checkoutLink.products}
 			</a>
-			<button onClick={() => clearCart()}>{t.removeItems}</button>
+			<button onClick={() => useShoppingCart.persist.clearStorage()}>
+				{t.removeItems}
+			</button>
 			{pizza ? (
 				pizza.length !== 0 ? (
 					pizza?.map((pizzaInOrder) => (
