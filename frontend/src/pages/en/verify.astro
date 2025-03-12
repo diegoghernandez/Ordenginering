@@ -1,6 +1,6 @@
 ---
 import VerifyPage from "@/components/pages/Verify.astro"
-import { verifyAccount } from "@/services/authService"
+import { verifyToken } from "@/services/authService"
 
 export const prerender = false
 
@@ -8,7 +8,7 @@ const token = Astro.url.searchParams.get('token') ?? ''
 
 if (!token) return Astro.redirect('/404')
 
-const tokenStatus = await verifyAccount(token)
+const tokenStatus = await verifyToken(token)
 
 if(tokenStatus === 'NONE') return Astro.redirect('/404')
 

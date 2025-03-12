@@ -5,7 +5,7 @@ import {
 	resendToken,
 	resetPassword,
 	sendResetPassword,
-	verifyAccount,
+	verifyToken,
 } from '@/services/authService'
 import { StatusError } from '@/services/exceptions/StatusError'
 import { describe, expect, it } from 'vitest'
@@ -76,25 +76,25 @@ describe('Auth service tests', () => {
 		})
 	})
 
-	describe('verifyAccount tests', () => {
+	describe('verifyToken tests', () => {
 		it('Should be a function', () => {
-			expect(typeof verifyAccount).toBe('function')
+			expect(typeof verifyToken).toBe('function')
 		})
 
 		it('Should get the ERROR response', async () => {
-			const tokenStatus = await verifyAccount('fail')
+			const tokenStatus = await verifyToken('fail')
 
 			expect(tokenStatus).toStrictEqual('ERROR')
 		})
 
 		it('Should get the EXPIRED response', async () => {
-			const tokenStatus = await verifyAccount('expired')
+			const tokenStatus = await verifyToken('expired')
 
 			expect(tokenStatus).toStrictEqual('EXPIRED')
 		})
 
 		it('Should get the SUCCESSFUL response', async () => {
-			const tokenStatus = await verifyAccount('correct')
+			const tokenStatus = await verifyToken('correct')
 
 			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
 		})
