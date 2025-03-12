@@ -1,109 +1,109 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: pizza-customer
-  labels:
-    app: pizza-customer
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+   namespace: default
+   name: pizza-customer
+   labels:
       app: pizza-customer
-  template:
-    metadata:
-      name: pizza-customer
-      labels:
-        app: pizza-customer
-    spec:
-      containers:
-        - name: pizza-customer
-          image: diegoj4v/pizza-customer:latest
-          imagePullPolicy: Always
-          readinessProbe:
-            httpGet:
-              port: 8080
-              path: /customer/actuator/health/readiness
-            initialDelaySeconds: 90
-            periodSeconds: 15
-            timeoutSeconds: 10
-            failureThreshold: 4
-          livenessProbe:
-            httpGet:
-              port: 8080
-              path: /customer/actuator/health/liveness
-            initialDelaySeconds: 90
-            periodSeconds: 15
-            timeoutSeconds: 10
-            failureThreshold: 4
-          lifecycle:
-            preStop:
-              exec:
-                command: [ "sh", "-c", "sleep 10" ]
-          ports:
-            - containerPort: 8080
-          resources:
-            limits:
-              cpu: 500m
-              memory: 480Mi 
-            requests:
-              cpu: 200m
-              memory: 480Mi
-          env:
-            - name: "JAVA_OPTS"
-              value: "-Xmx75M -XX:MaxMetaspaceSize=256M -XX:+UseG1GC -XX:ReservedCodeCacheSize=64M -Xss256K"
-            - name: SPRING_PROFILES_ACTIVE
-              value: prod
-            - name: SERVER_PORT
-              value: "8080"
-            - name: COOKIE_DOMAIN
-              value: ordeninginering.com
-            - name: MYSQL_DOMAIN
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: mysql_domain
-            - name: MYSQL_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: mysql_username
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: mysql_password
-            - name: SPRING_RABBITMQ_PORT
-              value: "5671"
-            - name: SPRING_RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-secret
-                  key: rabbitmq-host
-            - name: SPRING_RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-secret
-                  key: rabbitmq-user
-            - name: SPRING_RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-secret
-                  key: rabbitmq-password
-            - name: JWT_SERVICE_DOMAIN
-              valueFrom:
-                configMapKeyRef:
-                  name: client-configmap
-                  key: jwt_domain
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: pizza-customer
+   template:
+      metadata:
+         name: pizza-customer
+         labels:
+            app: pizza-customer
+      spec:
+         containers:
+            - name: pizza-customer
+              image: diegoj4v/pizza-customer:latest
+              imagePullPolicy: Always
+              readinessProbe:
+                 httpGet:
+                    port: 8080
+                    path: /apiu/customer/actuator/health/readiness
+                 initialDelaySeconds: 90
+                 periodSeconds: 15
+                 timeoutSeconds: 10
+                 failureThreshold: 4
+              livenessProbe:
+                 httpGet:
+                    port: 8080
+                    path: /apiu/customer/actuator/health/liveness
+                 initialDelaySeconds: 90
+                 periodSeconds: 15
+                 timeoutSeconds: 10
+                 failureThreshold: 4
+              lifecycle:
+                 preStop:
+                    exec:
+                       command: ['sh', '-c', 'sleep 10']
+              ports:
+                 - containerPort: 8080
+              resources:
+                 limits:
+                    cpu: 500m
+                    memory: 480Mi
+                 requests:
+                    cpu: 200m
+                    memory: 480Mi
+              env:
+                 - name: 'JAVA_OPTS'
+                   value: '-Xmx75M -XX:MaxMetaspaceSize=256M -XX:+UseG1GC -XX:ReservedCodeCacheSize=64M -Xss256K'
+                 - name: SPRING_PROFILES_ACTIVE
+                   value: prod
+                 - name: SERVER_PORT
+                   value: '8080'
+                 - name: COOKIE_DOMAIN
+                   value: ordeninginering.com
+                 - name: MYSQL_DOMAIN
+                   valueFrom:
+                      secretKeyRef:
+                         name: mysql-secret
+                         key: mysql_domain
+                 - name: MYSQL_USERNAME
+                   valueFrom:
+                      secretKeyRef:
+                         name: mysql-secret
+                         key: mysql_username
+                 - name: MYSQL_PASSWORD
+                   valueFrom:
+                      secretKeyRef:
+                         name: mysql-secret
+                         key: mysql_password
+                 - name: SPRING_RABBITMQ_PORT
+                   value: '5671'
+                 - name: SPRING_RABBITMQ_HOST
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-host
+                 - name: SPRING_RABBITMQ_USERNAME
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-user
+                 - name: SPRING_RABBITMQ_PASSWORD
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-secret
+                         key: rabbitmq-password
+                 - name: JWT_SERVICE_DOMAIN
+                   valueFrom:
+                      configMapKeyRef:
+                         name: client-configmap
+                         key: jwt_domain
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pizza-customer-svc
+   name: pizza-customer-svc
 spec:
-  selector:
-    app: pizza-customer
-  ports:
-    - port: 80
-      targetPort: 8080
+   selector:
+      app: pizza-customer
+   ports:
+      - port: 80
+        targetPort: 8080

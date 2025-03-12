@@ -3,7 +3,7 @@ import { StatusError } from '@/services/exceptions/StatusError'
 import type { CustomerRole } from '@/types'
 
 const URL = SERVER_DOMAIN_VARIABLES.JWT_DOMAIN ?? 'http://localhost:3000'
-const API = URL +  '/jwt'
+const API = URL +  '/api/jwt'
 
 export async function getRoles(token: string | undefined): Promise<CustomerRole> {
    const response = await fetch(`${API}/verify/${token}`, {

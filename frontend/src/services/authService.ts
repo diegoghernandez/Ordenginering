@@ -7,7 +7,7 @@ import type {
 } from '@/types'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
-export const API = URL + '/customer/auth'
+export const API = URL + '/api/customer/auth'
 
 export async function logIn(customerLogIn: CustomerLogIn): Promise<string> {
 	const response = await fetch(`${API}/login`, {

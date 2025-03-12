@@ -31,7 +31,7 @@ spec:
           livenessProbe:
             httpGet:
               port: 80
-              path: /jwt/health/liveness
+              path: /api/jwt/health/liveness
             initialDelaySeconds: 40
             periodSeconds: 15
             timeoutSeconds: 10

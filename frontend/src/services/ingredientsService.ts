@@ -2,7 +2,7 @@ import type { IngredientRequest } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:2222'
-const API = URL +  '/ingredient'
+const API = URL +  '/api/ingredient'
 
 export async function getAllIngredients(): Promise<Array<IngredientRequest>> {   
    const response = await fetch(API, {

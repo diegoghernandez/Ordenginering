@@ -2,7 +2,7 @@ import type { ValuesForChangeDto } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
 
 const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:8765'
-const API = URL +  '/customer/change'
+const API = URL +  '/api/customer/change'
 
 export interface ChangeProfileValues extends ValuesForChangeDto {
    name: string

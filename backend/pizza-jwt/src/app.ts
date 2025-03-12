@@ -8,7 +8,8 @@ app.use(express.json())
 
 const customerRepository = new CustomerRoleMysql()
 
-app.use('/jwt', createJwtRouter(customerRepository))
-app.use('/jwt/health', createHealthRoute(customerRepository))
+const base = '/api/jwt'
+app.use(base, createJwtRouter(customerRepository))
+app.use(base + '/health', createHealthRoute(customerRepository))
 
 export { app }

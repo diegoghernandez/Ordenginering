@@ -22,7 +22,7 @@ spec:
           readinessProbe:
             httpGet:
               port: 8080
-              path: /order/actuator/health/readiness
+              path: /api/order/actuator/health/readiness
             initialDelaySeconds: 90
             periodSeconds: 15
             timeoutSeconds: 10
@@ -30,7 +30,7 @@ spec:
           livenessProbe:
             httpGet:
               port: 8080
-              path: /order/actuator/health/liveness
+              path: /api/order/actuator/health/liveness
             initialDelaySeconds: 90
             periodSeconds: 15
             timeoutSeconds: 10

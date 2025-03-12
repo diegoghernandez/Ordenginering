@@ -2,7 +2,7 @@ import { CORS_HEADERS } from '@/constants/corsHeaders'
 import type { CustomerDto, CustomerLogIn, VerifyTokenDto } from '@/types'
 import { http, HttpResponse, type PathParams } from 'msw'
 
-const API = 'http://localhost:8765/customer/auth'
+const API = 'http://localhost:8765/api/customer/auth'
 
 export const authHandler = [
 	http.options('*', () => {

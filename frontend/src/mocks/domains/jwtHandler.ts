@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw'
 
-const API = 'http://localhost:3000/jwt'
+const API = 'http://localhost:3000/api/jwt'
 
 export const jwtHandler = [
 	http.get(`${API}/verify/:token`, ({ params }) => {

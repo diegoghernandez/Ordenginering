@@ -3,7 +3,7 @@ import type { OrderRequest } from '@/types'
 import { HttpResponse, http, type PathParams } from 'msw'
 import OrdenJSON from '../fixtures/orders.json' with { type: 'json' }
 
-const API = 'http://localhost:4436/order'
+const API = 'http://localhost:4436/api/order'
 
 export const orderHandler = [
 

@@ -3,7 +3,7 @@ import { StatusError } from '@/services/exceptions/StatusError'
 import { SERVER_DOMAIN_VARIABLES } from '@/env/serverDomainVariables'
 
 const URL = SERVER_DOMAIN_VARIABLES.ORDER_DOMAIN ?? 'http://localhost:4436'
-const API = URL +  '/order'
+const API = URL +  '/api/order'
 
 export async function getOrdersByAccount(id: number, cookie: string | undefined, page: number): Promise<PageOrder> {
    const jwtCookie = `jwt=${cookie ?? ''}; Path=/;`

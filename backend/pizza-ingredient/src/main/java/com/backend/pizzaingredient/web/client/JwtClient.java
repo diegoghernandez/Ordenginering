@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-@FeignClient(name = "pizza-jwt", url = "http://${jwt.service.domain}/jwt")
+@FeignClient(name = "pizza-jwt", url = "http://${jwt.service.domain}/api/jwt")
 public interface JwtClient {
 
-   @GetMapping(value = "/verify/{token}")
-   Optional<JwtResponseDto> validJwt(@PathVariable String token);
+    @GetMapping(value = "/verify/{token}")
+    Optional<JwtResponseDto> validJwt(@PathVariable String token);
 }

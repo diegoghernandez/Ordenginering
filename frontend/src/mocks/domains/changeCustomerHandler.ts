@@ -3,7 +3,7 @@ import type { ChangeProfileValues } from '@/services/changeCustomerService'
 import type { ValuesForChangeDto } from '@/types'
 import { HttpResponse, http, type PathParams } from 'msw'
 
-const API = 'http://localhost:8765/customer/change'
+const API = 'http://localhost:8765/api/customer/change'
 
 type ChangePasswordParam = {
 	password: string

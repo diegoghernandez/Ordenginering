@@ -2,7 +2,7 @@ import type { IngredientDto } from '@/types'
 import { HttpResponse, http } from 'msw'
 import IngredientJSON from '../fixtures/ingredients.json' with { type: 'json' }
 
-const API = 'http://localhost:2222/ingredient'
+const API = 'http://localhost:2222/api/ingredient'
 
 export const ingredientHandler = [
    http.get(API, () => HttpResponse.json(IngredientJSON)),

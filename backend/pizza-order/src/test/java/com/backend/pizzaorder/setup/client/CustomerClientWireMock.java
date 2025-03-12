@@ -9,21 +9,21 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public interface CustomerClientWireMock {
 
-   WireMockServer mockService = new WireMockServer(8765);
+    WireMockServer mockService = new WireMockServer(8765);
 
-   @BeforeAll
-   static void setupMockCustomerResponse() {
-      mockService.start();
+    @BeforeAll
+    static void setupMockCustomerResponse() {
+        mockService.start();
 
-      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/customer/exist/2"))
-              .willReturn(WireMock.status(200)));
+        mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/api/customer/exist/2"))
+                                    .willReturn(WireMock.status(200)));
 
-      mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/customer/exist/8789"))
-              .willReturn(WireMock.status(404)));
-   }
+        mockService.stubFor(WireMock.head(WireMock.urlPathEqualTo("/api/customer/exist/8789"))
+                                    .willReturn(WireMock.status(404)));
+    }
 
-   @AfterAll
-   static void finish() {
-      mockService.stop();
-   }
+    @AfterAll
+    static void finish() {
+        mockService.stop();
+    }
 }

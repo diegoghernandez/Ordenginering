@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { app } from '../app.js'
 
 const api = supertest(app)
+const base = '/api/jwt'
 
 describe.concurrent('Jwt routes tests', () => {
 	beforeEach(() => {
@@ -14,7 +15,7 @@ describe.concurrent('Jwt routes tests', () => {
 	describe('healthLiveness tests', () => {
 		it('Should return an object with startup data', async () => {
 			const { body } = await api
-				.get('/jwt/health/liveness')
+				.get(base + '/health/liveness')
 				.expect(200)
 				.expect('Content-Type', /application\/json/)
 
@@ -27,7 +28,7 @@ describe.concurrent('Jwt routes tests', () => {
 	describe('healthReadiness tests', () => {
 		it('Should return an object with startup data', async () => {
 			const { body } = await api
-				.get('/jwt/health/readiness')
+				.get(base + '/health/readiness')
 				.expect(200)
 				.expect('Content-Type', /application\/json/)
 

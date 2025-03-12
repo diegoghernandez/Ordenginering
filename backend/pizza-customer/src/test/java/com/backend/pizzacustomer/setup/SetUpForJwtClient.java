@@ -12,38 +12,39 @@ import org.springframework.test.context.DynamicPropertySource;
 @EnableFeignClients
 public interface SetUpForJwtClient {
 
-   WireMockServer mockService = new WireMockServer(3000);
+    WireMockServer mockService = new WireMockServer(3000);
 
-   @DynamicPropertySource
-   static void configureProperties(DynamicPropertyRegistry registry) {
-      registry.add("spring.jpa.defer-datasource-initialization", () -> false);
-      registry.add("spring.sql.init.mode", () -> "never");
-   }
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.jpa.defer-datasource-initialization", () -> false);
+        registry.add("spring.sql.init.mode", () -> "never");
+    }
 
-   @BeforeAll
-   static void setupMockJWtResponse() {
-      mockService.start();
+    @BeforeAll
+    static void setupMockJWtResponse() {
+        mockService.start();
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/4234"))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(200)
-                      .withBody("token")
-                      .withHeader("Content-Type", MediaType.TEXT_HTML_VALUE)));
+        mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/api/jwt/create/4234"))
+                                    .willReturn(WireMock.aResponse()
+                                                        .withStatus(200)
+                                                        .withBody("token")
+                                                        .withHeader("Content-Type", MediaType.TEXT_HTML_VALUE)));
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/create/95679"))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(400)
-                      .withBody("Email not valid")
-                      .withHeader("Content-Type", MediaType.TEXT_HTML_VALUE)));
+        mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/api/jwt/create/95679"))
+                                    .willReturn(WireMock.aResponse()
+                                                        .withStatus(400)
+                                                        .withBody("Email not valid")
+                                                        .withHeader("Content-Type", MediaType.TEXT_HTML_VALUE)));
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestDataUtil.getCookie().getValue()))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(200)
-                      .withBody("{\"id\": 321, \"role\":\"USER\"}")
-                      .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+        mockService.stubFor(
+                WireMock.get(WireMock.urlPathMatching("/api/jwt/verify/" + TestDataUtil.getCookie().getValue()))
+                        .willReturn(WireMock.aResponse()
+                                            .withStatus(200)
+                                            .withBody("{\"id\": 321, \"role\":\"USER\"}")
+                                            .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/invalid"))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(401)));
-   }
+        mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/api/jwt/verify/invalid"))
+                                    .willReturn(WireMock.aResponse()
+                                                        .withStatus(401)));
+    }
 }

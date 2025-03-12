@@ -10,20 +10,21 @@ import org.springframework.http.MediaType;
 @EnableFeignClients
 public interface JwtClientWireMock {
 
-   WireMockServer mockService = new WireMockServer(3000);
+    WireMockServer mockService = new WireMockServer(3000);
 
-   @BeforeAll
-   static void setupMockCustomerResponse() {
-      mockService.start();
+    @BeforeAll
+    static void setupMockCustomerResponse() {
+        mockService.start();
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/" + TestDataUtil.getCookie().getValue()))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(200)
-                      .withBody("{\"id\": 423, \"role\":\"USER\"}")
-                      .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
+        mockService.stubFor(
+                WireMock.get(WireMock.urlPathMatching("/api/jwt/verify/" + TestDataUtil.getCookie().getValue()))
+                        .willReturn(WireMock.aResponse()
+                                            .withStatus(200)
+                                            .withBody("{\"id\": 423, \"role\":\"USER\"}")
+                                            .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)));
 
-      mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/jwt/verify/invalid"))
-              .willReturn(WireMock.aResponse()
-                      .withStatus(401)));
-   }
+        mockService.stubFor(WireMock.get(WireMock.urlPathMatching("/api/jwt/verify/invalid"))
+                                    .willReturn(WireMock.aResponse()
+                                                        .withStatus(401)));
+    }
 }

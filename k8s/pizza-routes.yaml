@@ -11,7 +11,7 @@ spec:
           requestRedirect:
             path:
               type: ReplaceFullPath
-              replaceFullPath: /client/en
+              replaceFullPath: /en
             statusCode: 302
 
 ---
@@ -27,10 +27,10 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /customer/change
+            value: /api/customer/change
         - path:
             type: PathPrefix
-            value: /customer/auth
+            value: /api/customer/auth
       backendRefs:
         - kind: Service
           name: pizza-customer-svc
@@ -49,7 +49,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /order
+            value: /api/order
       backendRefs:
         - kind: Service
           name: pizza-order-svc
@@ -68,7 +68,7 @@ spec:
     - matches:
         - path:
             type: Exact
-            value: /ingredient
+            value: /api/ingredient
       backendRefs:
         - kind: Service
           name: pizza-ingredient-svc
@@ -87,7 +87,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /client
+            value: /
       backendRefs:
         - kind: Service
           name: pizza-client-svc
