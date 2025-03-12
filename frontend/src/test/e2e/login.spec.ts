@@ -123,9 +123,7 @@ LOCALES.forEach((locale) => {
 				page.getByRole('alert').getByText('Success', { exact: true })
 			).toBeVisible()
 			await expect(
-				page
-					.getByRole('alert')
-					.getByText(tForgotPassword.responses.SUCCESSFUL)
+				page.getByRole('alert').getByText(tForgotPassword.responses.SUCCESS)
 			).toBeVisible()
 		})
 	})

@@ -80,7 +80,7 @@ export const authHandler = [
 			const { email } = await request.json()
 
 			if (email)
-				return HttpResponse.text('SUCCESSFUL', {
+				return HttpResponse.text('SUCCESS', {
 					status: 200,
 					headers: CORS_HEADERS,
 				})
