@@ -10,12 +10,16 @@ import { goToLocalizedLink } from './utils/translationUtils'
 
 LOCALES.forEach((locale) => {
 	const t = getJSON('../assets/i18n/pages/Login.json')[locale]
+	const tForgotPassword = getJSON(
+		'../assets/i18n/components/ForgotPassword.json'
+	)[locale]
 	const { labels, form } = t.logInFormTranslation
 
 	test.describe(`${locale}: Log In page tests`, () => {
 		test.beforeEach(async ({ page }) => {
 			await page.goto('/client')
 			await changeLanguage(locale, page)
+			await page.waitForLoadState('load')
 			await goToLocalizedLink(locale, page, 'account')
 		})
 
@@ -31,11 +35,30 @@ LOCALES.forEach((locale) => {
 				page.getByText(`${t.accountQuestion} ${t.signUp}`)
 			).toBeVisible()
 
-			await expect(page.getByLabel(labels.email)).toBeVisible()
+			await expect(page.getByLabel(labels.email).first()).toBeVisible()
 			await expect(page.getByLabel(labels.password)).toBeVisible()
-
 			await expect(
 				page.getByRole('button', { name: form.submitLabel })
+			).toBeVisible()
+
+			await expect(
+				page.getByRole('button', { name: tForgotPassword.forgotButton })
+			).toBeVisible()
+			await page
+				.getByRole('button', { name: tForgotPassword.forgotButton })
+				.click()
+
+			await expect(
+				page.getByRole('heading', { name: tForgotPassword.title })
+			).toBeVisible()
+			await expect(page.getByLabel(labels.email).last()).toBeVisible()
+			await expect(
+				page
+					.getByRole('button', { name: tForgotPassword.forgotButton })
+					.last()
+			).toBeVisible()
+			await expect(
+				page.getByRole('button', { name: tForgotPassword.cancel })
 			).toBeVisible()
 		})
 
@@ -78,6 +101,32 @@ LOCALES.forEach((locale) => {
 
 			const { seo } = getJSON('../assets/i18n/pages/Home.json')[locale]
 			await expect(page).toHaveTitle(seo.title)
+		})
+
+		test('Should send an email for reset the password and receive a successful response', async ({
+			page,
+			worker,
+		}) => {
+			await page
+				.getByRole('button', { name: tForgotPassword.forgotButton })
+				.click()
+
+			await worker.use(...authHandler)
+
+			await page.getByLabel(labels.email).last().fill('success@example.com')
+			await page
+				.getByRole('button', { name: tForgotPassword.forgotButton })
+				.last()
+				.click()
+
+			await expect(
+				page.getByRole('alert').getByText('Success', { exact: true })
+			).toBeVisible()
+			await expect(
+				page
+					.getByRole('alert')
+					.getByText(tForgotPassword.responses.SUCCESSFUL)
+			).toBeVisible()
 		})
 	})
 })

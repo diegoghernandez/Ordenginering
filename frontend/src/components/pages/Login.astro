@@ -1,7 +1,7 @@
 ---
 import { LogInForm, type LogInFormTranslation } from '@/components/security/LogInForm'
 import FormLayout from '@/layouts/FormLayout.astro'
-import type { SeoTranslation } from '@/types'
+import type { LocalesString, SeoTranslation } from '@/types'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
    }
 }
 
+const locale = Astro.currentLocale as LocalesString ?? 'en' 
 const { t } = Astro.props
 ---
 
@@ -23,13 +24,15 @@ const { t } = Astro.props
 >
    <p>
       {t.accountQuestion}
-      <a href={getRelativeLocaleUrl(Astro.currentLocale ?? 'en', 'signup')}>{t.signUp}</a>
+      <a href={getRelativeLocaleUrl(locale, 'signup')}>{t.signUp}</a>
    </p>
-   <LogInForm client:load t={t.logInFormTranslation} />
+   <LogInForm client:load t={t.logInFormTranslation} locale={locale} />
 </FormLayout>
 
 <style>
    a {
-      color: #016BF8;
+      color: var(--blue);
+      text-decoration: underline;
+      text-underline-offset: 4px;
    }
 </style>
