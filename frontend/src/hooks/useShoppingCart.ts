@@ -1,6 +1,6 @@
-import { create } from 'zustand'
 import type { Pizza } from '@/types'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface CartState {
 	pizza: Pizza[]
@@ -11,6 +11,7 @@ interface CartState {
 		desireQuantity?: number
 	) => Pizza[]
 	removePizza: (idPizza: string) => void
+	clearStorage: () => void
 }
 
 export const useShoppingCart = create<CartState>()(
@@ -87,7 +88,13 @@ export const useShoppingCart = create<CartState>()(
 					}
 				})
 			},
+			clearStorage: () => {
+				set(() => {
+					useShoppingCart.persist.clearStorage()
+					return { pizza: [] }
+				})
+			},
 		}),
-		{ name: 'allPizza', storage: createJSONStorage(() => sessionStorage) }
+		{ name: 'allPizza' }
 	)
 )

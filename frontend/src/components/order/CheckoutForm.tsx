@@ -42,7 +42,7 @@ export function CheckoutForm({ countryList, currentLocale, t }: Props) {
 		OrderRequest,
 		string
 	>(saveOrder)
-	const pizzaList = useShoppingCart((state) => state.pizza)
+	const { pizza: pizzaList, clearStorage } = useShoppingCart()
 	const dialogRef = useRef<HTMLDialogElement>(null)
 
 	const labels = t.labels
@@ -72,7 +72,7 @@ export function CheckoutForm({ countryList, currentLocale, t }: Props) {
 			dialogRef.current instanceof HTMLDialogElement
 		) {
 			dialogRef.current.showModal()
-			useShoppingCart.persist.clearStorage()
+			clearStorage()
 		}
 	}, [response?.status])
 
