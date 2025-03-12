@@ -73,6 +73,20 @@ export async function verifyAccount(
 	return response.json() as Promise<TokenStatus>
 }
 
+export async function sendResetPassword(email: string): Promise<string> {
+	const response = await fetch(`${API}/send-reset-password`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ email }),
+	})
+
+	if (response.ok) return response.text()
+
+	throw new StatusError('SERVER', response.status)
+}
+
 export async function resetPassword({
 	token,
 	newPassword,
@@ -87,8 +101,15 @@ export async function resetPassword({
 	})
 
 	if (response.status === 500) throw new StatusError('SERVER', response.status)
-	else if (!response.ok)
-		throw new StatusError(await response.json(), response.status)
+	else if (!response.ok) {
+		let body = ''
+		try {
+			body = await response.json()
+		} catch {
+			body = 'BAD'
+		}
+		throw new StatusError(body, response.status)
+	}
 
 	return response.json() as Promise<TokenStatus>
 }

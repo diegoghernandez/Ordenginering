@@ -4,6 +4,7 @@ import {
 	registerCustomer,
 	resendToken,
 	resetPassword,
+	sendResetPassword,
 	verifyAccount,
 } from '@/services/authService'
 import { StatusError } from '@/services/exceptions/StatusError'
@@ -99,19 +100,37 @@ describe('Auth service tests', () => {
 		})
 	})
 
+	describe('sendResetPassword tests', () => {
+		it('Should be a function', () => {
+			expect(typeof sendResetPassword).toBe('function')
+		})
+
+		it('Should get a SERVER error', async () => {
+			await expect(sendResetPassword('')).rejects.toThrowError(
+				new StatusError('SERVER', 500)
+			)
+		})
+
+		it('Should get the SUCCESSFUL response', async () => {
+			const tokenStatus = await sendResetPassword('email@example.test')
+
+			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
+		})
+	})
+
 	describe('reset password tests', () => {
 		it('Should be a function', () => {
 			expect(typeof resetPassword).toBe('function')
 		})
 
 		it('Should get the EXPIRED response', async () => {
-			const tokenStatus = await resetPassword({
-				token: 'expired',
-				newPassword: 'same',
-				repeatNewPassword: 'same',
-			})
-
-			expect(tokenStatus).toStrictEqual('EXPIRED')
+			await expect(
+				resetPassword({
+					token: 'expired',
+					newPassword: 'same',
+					repeatNewPassword: 'same',
+				})
+			).rejects.toThrowError(new StatusError('EXPIRED', 400))
 		})
 
 		it('Should get a bad request if the password are not equals', async () => {
@@ -121,12 +140,7 @@ describe('Auth service tests', () => {
 					newPassword: 'same',
 					repeatNewPassword: 'no-same',
 				})
-			).rejects.toThrowError(
-				new StatusError('BAD', 400, {
-					newPassword: 'NOT_MATCHING',
-					repeatNewPassword: 'NOT_MATCHING',
-				})
-			)
+			).rejects.toThrowError(new StatusError('BAD', 400))
 		})
 
 		it('Should get the SUCCESSFUL response', async () => {

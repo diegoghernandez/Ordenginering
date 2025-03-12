@@ -71,6 +71,21 @@ export const authHandler = [
 		return new HttpResponse(null, { status: 500 })
 	}),
 
+	http.post<PathParams<never>, { email: string }>(
+		`${API}/send-reset-password`,
+		async ({ request }) => {
+			const { email } = await request.json()
+
+			if (email)
+				return HttpResponse.text('SUCCESSFUL', {
+					status: 200,
+					headers: CORS_HEADERS,
+				})
+
+			return new HttpResponse(null, { status: 500 })
+		}
+	),
+
 	http.post<PathParams<never>, VerifyTokenDto>(
 		`${API}/reset-password`,
 		async ({ request }) => {
