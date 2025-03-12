@@ -19,7 +19,7 @@ LOCALES.forEach((locale) => {
 				{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' },
 			])
 
-			await page.goto('/client/en/customer/32/orders')
+			await page.goto('/en/customer/32/orders')
 			await changeLanguage(locale, page)
 		})
 

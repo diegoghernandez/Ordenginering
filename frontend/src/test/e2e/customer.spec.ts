@@ -17,7 +17,7 @@ LOCALES.forEach((locale) => {
 				{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' },
 			])
 
-			await page.goto('/client/en/customer/32')
+			await page.goto('/en/customer/32')
 			await worker.use(...changeCustomerHandler)
 			await changeLanguage(locale, page)
 		})
@@ -51,13 +51,11 @@ LOCALES.forEach((locale) => {
 			await expect(
 				page.getByRole('heading', { name: profileFormTranslation.title })
 			).toBeVisible()
-			const profileArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', {
-						name: profileFormTranslation.title,
-					}),
-				})
+			const profileArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', {
+					name: profileFormTranslation.title,
+				}),
+			})
 			await expect(
 				profileArticle.getByLabel(profileFormTranslation.labels.name)
 			).toBeVisible()
@@ -73,13 +71,11 @@ LOCALES.forEach((locale) => {
 			await expect(
 				page.getByRole('heading', { name: passwordFormTranslation.title })
 			).toBeVisible()
-			const passwordArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', {
-						name: passwordFormTranslation.title,
-					}),
-				})
+			const passwordArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', {
+					name: passwordFormTranslation.title,
+				}),
+			})
 			await expect(
 				passwordArticle.getByLabel(
 					passwordFormTranslation.labels.currentPassword
@@ -104,13 +100,11 @@ LOCALES.forEach((locale) => {
 			await expect(
 				page.getByRole('heading', { name: emailFormTranslation.title })
 			).toBeVisible()
-			const emailArticle = page
-				.getByRole('article')
-				.filter({
-					has: page.getByRole('heading', {
-						name: emailFormTranslation.title,
-					}),
-				})
+			const emailArticle = page.getByRole('article').filter({
+				has: page.getByRole('heading', {
+					name: emailFormTranslation.title,
+				}),
+			})
 			await expect(
 				emailArticle.getByLabel(emailFormTranslation.labels.currentEmail)
 			).toBeVisible()
@@ -136,13 +130,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and get a error message', async ({
 				page,
 			}) => {
-				const profileArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: profileFormTranslation.title,
-						}),
-					})
+				const profileArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: profileFormTranslation.title,
+					}),
+				})
 
 				await profileArticle
 					.getByLabel(profileFormTranslation.labels.name)
@@ -166,13 +158,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and change the profile information correctly', async ({
 				page,
 			}) => {
-				const profileArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: profileFormTranslation.title,
-						}),
-					})
+				const profileArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: profileFormTranslation.title,
+					}),
+				})
 
 				await profileArticle
 					.getByLabel(profileFormTranslation.labels.name)
@@ -200,13 +190,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and get a error message', async ({
 				page,
 			}) => {
-				const passwordArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: passwordFormTranslation.title,
-						}),
-					})
+				const passwordArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: passwordFormTranslation.title,
+					}),
+				})
 
 				const currentPasswordLabel = passwordArticle.getByLabel(
 					passwordFormTranslation.labels.currentPassword
@@ -235,13 +223,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and change the password correctly', async ({
 				page,
 			}) => {
-				const passwordArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: passwordFormTranslation.title,
-						}),
-					})
+				const passwordArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: passwordFormTranslation.title,
+					}),
+				})
 
 				const currentPasswordLabel = passwordArticle.getByLabel(
 					passwordFormTranslation.labels.currentPassword
@@ -274,13 +260,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and get a error message', async ({
 				page,
 			}) => {
-				const emailArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: emailFormTranslation.title,
-						}),
-					})
+				const emailArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: emailFormTranslation.title,
+					}),
+				})
 
 				const currentPasswordLabel = emailArticle.getByLabel(
 					emailFormTranslation.labels.currentPassword
@@ -304,13 +288,11 @@ LOCALES.forEach((locale) => {
 			test('Should full the formulary and change the email correctly', async ({
 				page,
 			}) => {
-				const emailArticle = page
-					.getByRole('article')
-					.filter({
-						has: page.getByRole('heading', {
-							name: emailFormTranslation.title,
-						}),
-					})
+				const emailArticle = page.getByRole('article').filter({
+					has: page.getByRole('heading', {
+						name: emailFormTranslation.title,
+					}),
+				})
 
 				const currentPasswordLabel = emailArticle.getByLabel(
 					emailFormTranslation.labels.currentPassword

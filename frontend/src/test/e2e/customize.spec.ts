@@ -25,7 +25,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Customize page e2e tests`, () => {
 		test.beforeEach(async ({ page }) => {
-			await page.goto('/client/')
+			await page.goto('/')
 			await changeLanguage(locale, page)
 		})
 

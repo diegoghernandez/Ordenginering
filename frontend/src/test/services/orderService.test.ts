@@ -45,7 +45,7 @@ describe('Order service tests', () => {
 								en: 'Pepperoni',
 								es: 'Pepperoni',
 							},
-							pizzaImageName: '/client/images/pizza/pepperoni.jpg',
+							pizzaImageName: '/images/pizza/pepperoni.jpg',
 							pizzaImageAuthor: {
 								en: 'Author',
 								es: 'Autor',
@@ -94,7 +94,7 @@ describe('Order service tests', () => {
 							es: 'Pepperoni',
 						},
 						quantity: 2,
-						pizzaImageName: '/client/images/pizza/pepperoni.jpg',
+						pizzaImageName: '/images/pizza/pepperoni.jpg',
 						pizzaImageAuthor: {
 							en: 'Author',
 							es: 'Autor',

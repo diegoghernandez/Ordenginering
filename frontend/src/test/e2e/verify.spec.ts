@@ -10,7 +10,7 @@ LOCALES.forEach((locale) => {
 		test('Should render the verify EXPIRED page correctly', async ({
 			page,
 		}) => {
-			await page.goto(`/client/${locale}/verify?token=expired`)
+			await page.goto(`/${locale}/verify?token=expired`)
 
 			await expect(page).toHaveTitle(t.seo.title)
 
@@ -25,7 +25,7 @@ LOCALES.forEach((locale) => {
 		test('Should send the token to the respective email and get a server error', async ({
 			page,
 		}) => {
-			await page.goto(`/client/${locale}/verify?token=failure`)
+			await page.goto(`/${locale}/verify?token=failure`)
 
 			await expect(page).toHaveTitle(t.seo.title)
 
@@ -40,7 +40,7 @@ LOCALES.forEach((locale) => {
 		test('Should send the token to the respective email', async ({
 			page,
 		}) => {
-			await page.goto(`/client/${locale}/verify?token=expired`)
+			await page.goto(`/${locale}/verify?token=expired`)
 
 			await expect(page).toHaveTitle(t.seo.title)
 
@@ -56,7 +56,7 @@ LOCALES.forEach((locale) => {
 			page,
 		}) => {
 			await Promise.all([
-				page.goto(`/client/${locale}/verify?token=correct`),
+				page.goto(`/${locale}/verify?token=correct`),
 
 				expect(page).toHaveTitle(t.seo.title),
 

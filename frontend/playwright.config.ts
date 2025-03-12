@@ -70,9 +70,9 @@ export default defineConfig({
 		// },
 	],
 
-	webServer: {
-		command: 'pnpm run dev',
-		url: 'http://localhost:4321/client',
-		reuseExistingServer: true,
-	},
+	// webServer: {
+	// 	command: 'pnpm start',
+	// 	url: 'http://localhost:4321',
+	// 	reuseExistingServer: true,
+	// },
 })

@@ -5,12 +5,12 @@ const translationPathMiddleware = defineMiddleware((ctx, next) => {
 	const path = ctx.url.pathname
 
 	if (!path.includes('/en') && !path.includes('/es')) {
-		// return Response.redirect(new URL('/client/en', ctx.url), 302)
+		// return Response.redirect(new URL('/en', ctx.url), 302)
 		const redirectPath = ctx.request.headers
 			.get('accept-language')
 			?.includes('es')
-			? '/client/es'
-			: '/client/en'
+			? '/es'
+			: '/en'
 		return ctx.redirect(redirectPath, 302)
 	}
 

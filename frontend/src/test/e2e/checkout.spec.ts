@@ -22,7 +22,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Checkout page tests`, () => {
 		test.beforeEach(async ({ page }) => {
-			await page.goto('/client/')
+			await page.goto('/')
 			await page.waitForLoadState('load')
 			await changeLanguage(locale, page)
 		})
@@ -34,7 +34,7 @@ LOCALES.forEach((locale) => {
 			await context.addCookies([
 				{ name: 'jwt', value: 'token', domain: 'localhost', path: '/' },
 			])
-			await page.goto(`/client/${locale}/checkout`, {
+			await page.goto(`/${locale}/checkout`, {
 				waitUntil: 'load',
 			})
 

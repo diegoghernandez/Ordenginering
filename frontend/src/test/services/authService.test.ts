@@ -114,7 +114,7 @@ describe('Auth service tests', () => {
 		it('Should get the SUCCESSFUL response', async () => {
 			const tokenStatus = await sendResetPassword('email@example.test')
 
-			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
+			expect(tokenStatus).toStrictEqual('SUCCESS')
 		})
 	})
 

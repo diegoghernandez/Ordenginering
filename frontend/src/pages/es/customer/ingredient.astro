@@ -3,7 +3,7 @@ import IngredientPage from '@/components/pages/Ingredient.astro'
 
 export const prerender = false
 
-if(!Astro.cookies.has('jwt')) return Astro.redirect('/client/login')
+if(!Astro.cookies.has('jwt')) return Astro.redirect('/login')
 ---
 
 <IngredientPage 

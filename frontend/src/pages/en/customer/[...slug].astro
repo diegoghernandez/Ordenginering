@@ -18,7 +18,7 @@ try {
    customerRole = await getRoles(Astro.cookies.get('jwt')?.value)
 } catch (error) {
    console.error(error);
-   return Astro.redirect('/client/404')
+   return Astro.redirect('/404')
 }
 ---
 

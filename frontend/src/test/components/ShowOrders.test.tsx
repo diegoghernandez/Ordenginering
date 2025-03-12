@@ -158,7 +158,7 @@ const setPizza = () => {
 					en: 'Pepperoni',
 					es: 'Pepperoni',
 				},
-				pizzaImageName: '/client/images/pizza/pepperoni',
+				pizzaImageName: '/images/pizza/pepperoni',
 				pizzaImageAuthor: {
 					en: 'Author',
 					es: 'Autor',
@@ -190,7 +190,7 @@ const setPizza = () => {
 					en: 'BBQ Chicken',
 					es: 'Pollo BBQ',
 				},
-				pizzaImageName: '/client/images/pizza/pepperoni',
+				pizzaImageName: '/images/pizza/pepperoni',
 				pizzaImageAuthor: {
 					en: 'Author',
 					es: 'Autor',

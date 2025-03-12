@@ -13,7 +13,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Sign Up page tests`, () => {
 		test.beforeEach(async ({ page }) => {
-			await page.goto('/client/en/signup')
+			await page.goto('/en/signup')
 			await changeLanguage(locale, page)
 		})
 

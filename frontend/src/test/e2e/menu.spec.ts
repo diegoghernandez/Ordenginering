@@ -22,7 +22,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Menu page e2e tests`, () => {
 		test.beforeEach(async ({ page }) => {
-			await page.goto('/client/en/menu')
+			await page.goto('/en/menu')
 			await changeLanguage(locale, page)
 		})
 

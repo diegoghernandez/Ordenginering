@@ -17,7 +17,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Log In page tests`, () => {
 		test.beforeEach(async ({ page }) => {
-			await page.goto('/client')
+			await page.goto('/')
 			await changeLanguage(locale, page)
 			await page.waitForLoadState('load')
 			await goToLocalizedLink(locale, page, 'account')

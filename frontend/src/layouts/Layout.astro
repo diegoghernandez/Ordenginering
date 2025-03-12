@@ -20,11 +20,11 @@ const { title, description, activeLink } = Astro.props
 		<meta charset='UTF-8' />
 		<meta name='viewport' content='width=device-width' />
 		<title>{title}</title>
-		<link rel='icon' type='image/svg+xml' href='/client/favicon.svg' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='description' content={description} />
 		<meta name='generator' content={Astro.generator} />
 
-		<meta property='og:url' content='https://ordeninginering.com/client'>
+		<meta property='og:url' content='https://ordeninginering.com'>
 		<meta property='og:type' content='website'>
 		<meta property='og:title' content={title}>
 		<meta property='og:description' content={description}>
@@ -32,13 +32,13 @@ const { title, description, activeLink } = Astro.props
 
 		<meta name='twitter:card' content='summary_large_image'>
 		<meta property='twitter:domain' content='ordeninginering.com'>
-		<meta property='twitter:url' content='https://ordeninginering.com/client'>
+		<meta property='twitter:url' content='https://ordeninginering.com'>
 		<meta name='twitter:title' content={title}>
 		<meta name='twitter:description' content={description}>
 		<meta name='twitter:image' content='https://cdn.ordeninginering.com/image/menu-page.jpg'>
 
-		<script is:inline src='/client/languageRedirect.js'></script>
-		<script is:inline src='/client/applyTheme.js'></script>
+		<script is:inline src='/languageRedirect.js'></script>
+		<script is:inline src='/applyTheme.js'></script>
 		<ViewTransitions fallback='swap' />
 	</head>
 	<body>

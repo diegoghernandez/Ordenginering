@@ -8,7 +8,7 @@ LOCALES.forEach((locale) => {
 
 	test.describe(`${locale}: Reset password page tests`, () => {
 		test('Should render the page correctly', async ({ page }) => {
-			await page.goto(`/client/${locale}/reset-password`)
+			await page.goto(`/${locale}/reset-password`)
 
 			await expect(page).toHaveTitle(t.seo.title)
 
@@ -27,7 +27,7 @@ LOCALES.forEach((locale) => {
 		})
 
 		test("Should show the passwords don't match error", async ({ page }) => {
-			await page.goto(`/client/${locale}/reset-password`)
+			await page.goto(`/${locale}/reset-password`)
 
 			await page.getByLabel(t.labels.newPassword).fill('1234')
 			await page.getByLabel(t.labels.confirmNewPassword).fill('abcd')
@@ -42,7 +42,7 @@ LOCALES.forEach((locale) => {
 		})
 
 		test('Should show the EXPIRED response', async ({ page }) => {
-			await page.goto(`/client/${locale}/reset-password?token=expired`)
+			await page.goto(`/${locale}/reset-password?token=expired`)
 
 			await page.getByLabel(t.labels.newPassword).fill('1234')
 			await page.getByLabel(t.labels.confirmNewPassword).fill('1234')
@@ -57,7 +57,7 @@ LOCALES.forEach((locale) => {
 		test('Should be able to resend the EXPIRED token and get a successful response', async ({
 			page,
 		}) => {
-			await page.goto(`/client/${locale}/reset-password?token=expired`)
+			await page.goto(`/${locale}/reset-password?token=expired`)
 
 			await page.getByLabel(t.labels.newPassword).fill('1234')
 			await page.getByLabel(t.labels.confirmNewPassword).fill('1234')
@@ -69,7 +69,7 @@ LOCALES.forEach((locale) => {
 		})
 
 		test('Should show the SERVER error', async ({ page }) => {
-			await page.goto(`/client/${locale}/reset-password?token=server`)
+			await page.goto(`/${locale}/reset-password?token=server`)
 
 			await page.getByLabel(t.labels.newPassword).fill('1234')
 			await page.getByLabel(t.labels.confirmNewPassword).fill('1234')
@@ -79,7 +79,7 @@ LOCALES.forEach((locale) => {
 		})
 
 		test('Should show the SUCCESSFUL response', async ({ page }) => {
-			await page.goto(`/client/${locale}/reset-password?token=correct`)
+			await page.goto(`/${locale}/reset-password?token=correct`)
 
 			await page.getByLabel(t.labels.newPassword).fill('1234')
 			await page.getByLabel(t.labels.confirmNewPassword).fill('1234')
