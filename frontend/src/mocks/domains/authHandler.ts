@@ -58,18 +58,21 @@ export const authHandler = [
 		}
 	),
 
-	http.get(`${API}/verify/:token`, ({ params }) => {
-		const token = params?.token
+	http.post<PathParams<never>, VerifyTokenDto>(
+		`${API}/verify`,
+		async ({ request }) => {
+			const { token } = await request.json()
 
-		if (token === 'correct')
-			return HttpResponse.json('SUCCESSFUL', { status: 200 })
+			if (token === 'correct')
+				return HttpResponse.json('SUCCESSFUL', { status: 200 })
 
-		if (token === 'expired' || token === 'failure') {
-			return HttpResponse.json('EXPIRED', { status: 200 })
+			if (token === 'expired' || token === 'failure') {
+				return HttpResponse.json('EXPIRED', { status: 200 })
+			}
+
+			return new HttpResponse(null, { status: 500 })
 		}
-
-		return new HttpResponse(null, { status: 500 })
-	}),
+	),
 
 	http.post<PathParams<never>, { email: string }>(
 		`${API}/send-reset-password`,

@@ -82,19 +82,19 @@ describe('Auth service tests', () => {
 		})
 
 		it('Should get the ERROR response', async () => {
-			const tokenStatus = await verifyToken('fail')
+			const tokenStatus = await verifyToken({ token: 'fail' })
 
 			expect(tokenStatus).toStrictEqual('ERROR')
 		})
 
 		it('Should get the EXPIRED response', async () => {
-			const tokenStatus = await verifyToken('expired')
+			const tokenStatus = await verifyToken({ token: 'expired' })
 
 			expect(tokenStatus).toStrictEqual('EXPIRED')
 		})
 
 		it('Should get the SUCCESSFUL response', async () => {
-			const tokenStatus = await verifyToken('correct')
+			const tokenStatus = await verifyToken({ token: 'correct' })
 
 			expect(tokenStatus).toStrictEqual('SUCCESSFUL')
 		})

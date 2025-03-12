@@ -59,13 +59,14 @@ export async function registerCustomer(
 }
 
 export async function verifyToken(
-	token: string | undefined
+	verifyTokenDto: VerifyTokenDto
 ): Promise<TokenStatus> {
-	const response = await fetch(`${API}/verify/${token}`, {
-		method: 'GET',
+	const response = await fetch(`${API}/verify`, {
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
+		body: JSON.stringify(verifyTokenDto),
 	})
 
 	if (response.status === 500) return 'ERROR'
