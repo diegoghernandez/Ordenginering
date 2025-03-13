@@ -15,7 +15,6 @@ public class TokenServiceImpl implements TokenService {
 
     private final TokenRepository tokenRepository;
 
-
     public TokenServiceImpl(TokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
     }

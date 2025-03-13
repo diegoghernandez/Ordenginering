@@ -1,35 +1,42 @@
 package com.backend.pizzacustomer.service;
 
+
 import com.backend.pizzacustomer.TestDataUtil;
 import com.backend.pizzacustomer.constants.TokenType;
 import com.backend.pizzacustomer.domain.service.TokenService;
 import com.backend.pizzacustomer.persistence.repository.TokenRepository;
 import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
-import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
-import lombok.extern.slf4j.Slf4j;
+import com.backend.pizzacustomer.web.config.RabbitMQConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.system.OutputCaptureExtension;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
-@SpringBootTest
-@AutoConfigureDataJpa
-@ExtendWith(OutputCaptureExtension.class)
-public class TokenServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
+@DataJpaTest
+@ComponentScan(basePackages = "com.backend.pizzacustomer.domain")
+@Import({BCryptPasswordEncoder.class, RabbitMQConfig.class})
+@ImportAutoConfiguration({RabbitAutoConfiguration.class})
+class TokenServiceImplTest implements MysqlTestContainer {
 
     @Autowired
     private TokenService tokenService;
 
     @Autowired
     private TokenRepository tokenRepository;
+
+    @Autowired
+    private TestEntityManager testEntityManager;
 
     @Test
     @DisplayName("Should create a new token with the customer id, type and expiration time specified")
@@ -49,5 +56,33 @@ public class TokenServiceImplTest implements MysqlTestContainer, RabbitTestConta
         );
     }
 
+    @Test
+    @DisplayName("Should get the respective token with its id")
+    void getById() {
+        var token = tokenService.createNewToken(TestDataUtil.getCustomer().getIdCustomer(), TokenType.VERIFICATION, 10);
+        var tokenEntity = tokenService.getById(token);
 
+        assertAll(
+                () -> assertTrue(tokenService.getById(UUID.randomUUID()).isEmpty()),
+                () -> assertTrue(tokenEntity.isPresent())
+        );
+    }
+
+    @Test
+    @DisplayName("Should get the respective token with its id")
+    void deleteById() {
+        var token = tokenService.createNewToken(TestDataUtil.getCustomer().getIdCustomer(), TokenType.VERIFICATION, 10);
+        var tokenEntity = tokenService.getById(token);
+
+        testEntityManager.flush();
+        testEntityManager.clear();
+
+        tokenService.deleteById(token);
+        var emptyTokenEntity = tokenService.getById(token);
+
+        assertAll(
+                () -> assertTrue(tokenEntity.isPresent()),
+                () -> assertFalse(emptyTokenEntity.isPresent())
+        );
+    }
 }
