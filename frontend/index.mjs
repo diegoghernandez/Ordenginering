@@ -3,13 +3,6 @@ import { handler as ssrHandler } from './dist/server/entry.mjs'
 
 const app = express()
 
-/* app.use((req, _, next) => {
-   const colorTime = styleText('gray', new Date().toISOString())
-   const colorPath = styleText('white', req.path)
-   console.log(colorTime, colorPath)
-   next()
-}) */
-
 app.use((_, res, next) => {
 	res.setHeader(
 		'Content-Security-Policy',

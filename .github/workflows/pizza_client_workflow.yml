@@ -62,10 +62,8 @@ jobs:
           run: pnpm install --frozen-lockfile
         - name: Install Playwright Browsers
           run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
-        - name: Initialize express server
-          run: pnpm run e2e-express &
         - name: Build application
-          run: pnpm run build
+          run: (pnpm exec playwright test --ui --ui-port=14200 &) && pnpm run build
         - name: Initialize e2e tests
           run: (pnpm run start &) && pnpm run e2e:ci --project=${{ matrix.browser }}
           #--shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
