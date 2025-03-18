@@ -5,9 +5,9 @@
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"tsc": "tsc",
+		"tsc": "tsc && cp -r src/assets build/assets",
 		"start": "node build/index.js",
-		"dev": "tsx watch src/index.ts",
+		"dev": "tsx watch --env-file=.env src/index.ts",
 		"lint": "eslint src --report-unused-disable-directives",
 		"email:dev": "email dev --dir src/emails",
 		"test": "vitest"
