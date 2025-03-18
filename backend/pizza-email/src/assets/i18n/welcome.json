@@ -1,12 +1,14 @@
 {
 	"en": {
-		"preview": "Ordeninginering verification email",
-		"message": "Welcome to Ordeninginering! You are so close to start to orden pizza, but you need to activate your account first. Click below and we'll be good to go!",
+		"preview": "Ordenginering verification email",
+		"title": "Verify your account",
+		"message": "Welcome to Ordenginering! You are so close to start to orden pizza, but you need to activate your account first. Click below and we'll be good to go!",
 		"activationLink": "Activate your account"
 	},
 	"es": {
-		"preview": "",
-		"message": "",
-		"activationLink": ""
+		"preview": "Ordenginering correo de verificación",
+		"title": "Verifica tú cuenta",
+		"message": "¡Bienvenido a Ordenginering! Estás cerca de ordenar pizza, pero primero tienes que activar tu cuenta. Haz clic a continuación y ¡listo!",
+		"activationLink": "Activa tú cuenta"
 	}
 }
