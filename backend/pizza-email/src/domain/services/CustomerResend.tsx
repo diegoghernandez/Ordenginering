@@ -22,7 +22,7 @@ export class CustomerResend implements CustomerEmail {
 			from: 'onboarding@rd34124esend.dev',
 			to: email,
 			subject: 'Hello World',
-			react: <Welcome locale={locale} token={token} />,
+			react: <Welcome token={token} locale={locale} />,
 		})
 	}
 }

@@ -2,20 +2,23 @@ import {
 	Body,
 	Container,
 	Head,
+	Heading,
 	Html,
 	Link,
 	Preview,
 	Text,
 } from '@react-email/components'
 import { getTranslation } from '../utils/getTranslations.js'
+import { PizzaStyles } from './_components/PizzaStyles.js'
 
 interface Props {
 	token: string
 	locale: 'es' | 'en'
 }
 
-type WelcomeTranslation = {
+export type WelcomeTranslation = {
 	preview: string
+	title: string
 	message: string
 	activationLink: string
 }
@@ -24,19 +27,27 @@ export default function Welcome({ token, locale }: Props) {
 	const t = getTranslation<WelcomeTranslation>('welcome', locale)
 
 	return (
-		<Html>
-			<Head />
-			<Preview>{t.preview}</Preview>
-			<Body>
-				<Container>
-					<Text>{t.message}</Text>
-					<Link
-						href={`https://ordeninginering.com/client/${locale}/verify/${token}`}
-					>
-						{t.activationLink}
-					</Link>
-				</Container>
-			</Body>
-		</Html>
+		<PizzaStyles>
+			<Html>
+				<Head />
+				<Preview>{t.preview}</Preview>
+				<Body>
+					<Container>
+						<Heading className='text-primary font-serif text-pretty'>
+							{t.title}
+						</Heading>
+						<Text className='text-lg text-text-color font-serif text-pretty'>
+							{t.message}
+						</Text>
+						<Link
+							href={`https://ordenginering.com/${locale}/auth/verify/${token}`}
+							className='block h-9 pb-1 pt-2 bg-primary font-serif text-lg text-center text-pretty text-background rounded-lg'
+						>
+							{t.activationLink}
+						</Link>
+					</Container>
+				</Body>
+			</Html>
+		</PizzaStyles>
 	)
 }

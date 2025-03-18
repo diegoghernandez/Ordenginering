@@ -1,23 +1,26 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
-import Welcome from '../../emails/Welcome.js'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { LOCALES } from '../../constants/Locales.js'
+import Welcome, { WelcomeTranslation } from '../../emails/Welcome.js'
+import { getTranslation } from '../../utils/getTranslations.js'
 
-describe('Welcome component tests', () => {
-	it('Should render correctly', () => {
-		render(<Welcome locale='en' token='token' />)
+LOCALES.forEach((locale) => {
+	describe('Welcome component tests', () => {
+		afterEach(() => cleanup())
 
-		expect(
-			screen.getByText('Ordeninginering verification email')
-		).toBeDefined()
-		expect(
-			screen.getByText(
-				"Welcome to Ordeninginering! You are so close to start to orden pizza, but you need to activate your account first. Click below and we'll be good to go!"
+		it('Should render correctly', () => {
+			render(<Welcome token='token' locale={locale} />)
+			const t = getTranslation<WelcomeTranslation>('welcome', locale)
+
+			expect(screen.getByText(t.preview)).toBeDefined()
+			expect(screen.getByText(t.message)).toBeDefined()
+			expect(
+				screen.getByRole('link', { name: t.activationLink })
+			).toBeDefined()
+			expect(screen.getByRole('link')).toHaveProperty(
+				'href',
+				`https://ordenginering.com/${locale}/auth/verify/token`
 			)
-		).toBeDefined()
-		expect(screen.getByRole('link')).toBeDefined()
-		expect(screen.getByRole('link')).toHaveProperty(
-			'href',
-			'https://ordeninginering.com/client/en/verify/token'
-		)
+		})
 	})
 })

@@ -47,7 +47,7 @@ describe('CustomerMessage tests', () => {
 		channel.sendToQueue(WELCOME_QUEUE, Buffer.from(JSON.stringify(data)))
 
 		const html = await render(
-			<Welcome locale={data.locale as 'en'} token={data.token} />
+			<Welcome token={data.token} locale={data.locale as 'es'} />
 		)
 		await vi.waitFor(() => {
 			expect(customerResend.sendWelcome).toBeCalledTimes(1)
@@ -57,7 +57,8 @@ describe('CustomerMessage tests', () => {
 				from: 'onboarding@rd34124esend.dev',
 				to: 'test@test.test',
 				subject: 'Hello World',
-				html: html.replaceAll(/<!--.*?-->/g, ''),
+				html,
+				react: <Welcome token={data.token} locale={data.locale as 'es'} />,
 			})
 		})
 	})
