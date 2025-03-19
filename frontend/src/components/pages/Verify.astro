@@ -4,6 +4,7 @@ import { VerifyForm } from "@/components/security/VerifyForm"
 import { PRIMARY__BUTTON } from "@/constants/styles"
 import Layout from "@/layouts/Layout.astro"
 import type { LocalesString, TokenStatus } from "@/types"
+import { getRelativeLocaleUrl } from "astro:i18n"
 
 interface Props {
    locale: LocalesString
@@ -27,7 +28,7 @@ const t = verifyTranslation[locale]
                return (
                   <>
                      <h2>{t.token.SUCCESSFUL}</h2>
-                     <a href={`${URL}/login`} class={PRIMARY__BUTTON}>{t.login}</a>
+                     <a href={getRelativeLocaleUrl(locale, 'login')} class={PRIMARY__BUTTON}>{t.login}</a>
                   </>
                )
 
