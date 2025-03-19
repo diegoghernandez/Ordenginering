@@ -65,7 +65,8 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
                         "first@names.com",
                         "1234",
                         "1234",
-                        LocalDate.of(2004, 2, 2)
+                        LocalDate.of(2004, 2, 2),
+                        "es"
                 )));
 
         Exception exceptionAge = assertThrows(
@@ -75,7 +76,8 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
                         "original@name.com",
                         "1234",
                         "1234",
-                        LocalDate.of(2010, 1, 26)
+                        LocalDate.of(2010, 1, 26),
+                        "es"
                 )));
 
         customerService.saveCustomer(new CustomerDto(
@@ -83,7 +85,8 @@ class CustomerServiceImplTest implements MysqlTestContainer, RabbitTestContainer
                 "original@name.com",
                 "1234",
                 "1234",
-                LocalDate.of(1998, 1, 26)
+                LocalDate.of(1998, 1, 26),
+                "en"
         ));
 
         var customerSaved = customerService.getCustomerById(1).get();

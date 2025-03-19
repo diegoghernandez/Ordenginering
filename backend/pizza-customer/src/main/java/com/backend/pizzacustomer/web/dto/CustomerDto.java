@@ -8,9 +8,11 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record CustomerDto(
-        @NotBlank @Size(max=64) String customerName,
-        @Email @Size(max=64) String email,
+        @NotBlank @Size(max = 64) String customerName,
+        @Email @Size(max = 64) String email,
         @NotBlank String password,
         @NotBlank String matchingPassword,
-        @Past LocalDate birthDate
-) {}
+        @Past LocalDate birthDate,
+        @NotBlank String locale
+) {
+}

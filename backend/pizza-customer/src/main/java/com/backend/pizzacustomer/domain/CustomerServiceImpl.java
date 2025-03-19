@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customerSaved.getIdCustomer(),
                 customerSaved.getEmail(),
                 tokenId,
-                "en"));
+                customerDto.locale()));
     }
 
     @Override
