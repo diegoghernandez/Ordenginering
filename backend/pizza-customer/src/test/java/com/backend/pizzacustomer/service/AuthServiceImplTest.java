@@ -11,6 +11,7 @@ import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import com.backend.pizzacustomer.setup.testcontainer.MysqlTestContainer;
 import com.backend.pizzacustomer.setup.testcontainer.RabbitTestContainer;
 import com.backend.pizzacustomer.web.config.RabbitMQConfig;
+import com.backend.pizzacustomer.web.dto.EmailDto;
 import com.backend.pizzacustomer.web.dto.VerifyTokenDto;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -74,7 +75,7 @@ class AuthServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
     @DisplayName("Should send a token to reset the password to the respective email")
     void sendResetPasswordToken(CapturedOutput capturedOutput) {
         var customerEmail = TestDataUtil.getCustomer().getEmail();
-        authService.sendResetPasswordToken(customerEmail);
+        authService.sendResetPasswordToken(new EmailDto(customerEmail, "en"));
 
         Awaitility.await()
                   .atMost(Duration.ofSeconds(5L))
@@ -162,7 +163,7 @@ class AuthServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
 
         assertFalse(tokenService.getById(tokenId).isEmpty());
 
-        authService.resendToken(tokenId);
+        authService.resendToken(tokenId, "en");
 
         Awaitility.await()
                   .atMost(Duration.ofSeconds(5L))
@@ -185,7 +186,7 @@ class AuthServiceImplTest implements MysqlTestContainer, RabbitTestContainer {
 
         assertFalse(tokenService.getById(tokenId).isEmpty());
 
-        authService.resendToken(tokenId);
+        authService.resendToken(tokenId, "en");
 
         Awaitility.await()
                   .atMost(Duration.ofSeconds(5L))

@@ -59,8 +59,7 @@ public class AuthController {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> login(@RequestBody @Valid LoginDto loginDto) {
-        authenticationManager.authenticate(new
-                                                   UsernamePasswordAuthenticationToken(
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.email(), loginDto.password()));
 
         var customer = customerService.getCustomerByEmail(loginDto.email());
@@ -108,7 +107,7 @@ public class AuthController {
 
     @PostMapping("/send-reset-password")
     public ResponseEntity<String> sendResetPasswordToken(@RequestBody @Valid EmailDto emailDto) {
-        authService.sendResetPasswordToken(emailDto.email());
+        authService.sendResetPasswordToken(emailDto);
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
@@ -132,7 +131,7 @@ public class AuthController {
     public ResponseEntity<String> resendToken(
             @RequestBody @Valid ResendDto resendDto
     ) {
-        authService.resendToken(resendDto.token());
+        authService.resendToken(resendDto.token(), resendDto.locale());
         return ResponseEntity.ok("SUCCESS");
     }
 }

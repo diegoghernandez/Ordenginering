@@ -69,9 +69,11 @@ class AuthControllerTest implements SetUpForJwtClient {
     void registerCustomer() {
         var passwordErrorCustomer = new CustomerDto(
                 "Name", "norepeat@name.com", "1234", "43252543",
-                LocalDate.of(2004, 2, 2));
+                LocalDate.of(2004, 2, 2), "es");
 
-        var successCustomer = new CustomerDto("Name", "norepeat@name.com", "1234", "1234", LocalDate.of(2004, 2, 2));
+        var successCustomer = new CustomerDto(
+                "Name", "norepeat@name.com", "1234",
+                "1234", LocalDate.of(2004, 2, 2), "es");
 
         assertAll(
                 () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
@@ -83,7 +85,7 @@ class AuthControllerTest implements SetUpForJwtClient {
                                                              .string("{\"desc\":\"Passwords don't match\"," +
                                                                              "\"fieldError\":null}")),
 
-                () -> Mockito.verify(customerService, Mockito.times(0)).saveCustomer(Mockito.eq(successCustomer)),
+                () -> Mockito.verify(customerService, Mockito.times(0)).saveCustomer(successCustomer),
 
                 () -> mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                                                             .contentType(MediaType.APPLICATION_JSON)
@@ -91,7 +93,7 @@ class AuthControllerTest implements SetUpForJwtClient {
                              .andExpect(MockMvcResultMatchers.status().isCreated())
                              .andExpect(MockMvcResultMatchers.content().string("CREATED")),
 
-                () -> Mockito.verify(customerService, Mockito.times(1)).saveCustomer(Mockito.eq(successCustomer))
+                () -> Mockito.verify(customerService, Mockito.times(1)).saveCustomer(successCustomer)
         );
     }
 
@@ -155,18 +157,19 @@ class AuthControllerTest implements SetUpForJwtClient {
     void sendResetPasswordToken() {
         var emailToSend = "random@names.com";
 
-        Mockito.doNothing().when(authService).sendResetPasswordToken(emailToSend);
+        Mockito.doNothing().when(authService).sendResetPasswordToken(new EmailDto(emailToSend, "en"));
 
         assertAll(
                 () -> mockMvc.perform(
                                      MockMvcRequestBuilders.post("/auth/send-reset-password")
                                                            .contentType(MediaType.APPLICATION_JSON)
                                                            .content(objectMapper.writeValueAsString(
-                                                                   new EmailDto(emailToSend))))
+                                                                   new EmailDto(emailToSend, "en"))))
                              .andExpect(MockMvcResultMatchers.status().isOk())
                              .andExpect(MockMvcResultMatchers.content().string("SUCCESS")),
 
-                () -> Mockito.verify(authService, Mockito.times(1)).sendResetPasswordToken(emailToSend)
+                () -> Mockito.verify(authService, Mockito.times(1))
+                             .sendResetPasswordToken(new EmailDto(emailToSend, "en"))
         );
     }
 
@@ -244,19 +247,19 @@ class AuthControllerTest implements SetUpForJwtClient {
     void resendToken() {
         var oldToken = UUID.randomUUID();
 
-        Mockito.doNothing().when(authService).resendToken(oldToken);
+        Mockito.doNothing().when(authService).resendToken(oldToken, "en");
 
         assertAll(
                 () -> mockMvc.perform(
                                      MockMvcRequestBuilders.post("/auth/resend")
                                                            .contentType(MediaType.APPLICATION_JSON)
                                                            .content(objectMapper.writeValueAsString(
-                                                                   new ResendDto(oldToken))))
+                                                                   new ResendDto(oldToken, "en"))))
                              .andExpect(MockMvcResultMatchers.status().isOk())
                              .andExpect(MockMvcResultMatchers.content().string("SUCCESS")),
 
                 () -> Mockito.verify(authService, Mockito.times(1))
-                             .resendToken(oldToken)
+                             .resendToken(oldToken, "en")
         );
     }
 }

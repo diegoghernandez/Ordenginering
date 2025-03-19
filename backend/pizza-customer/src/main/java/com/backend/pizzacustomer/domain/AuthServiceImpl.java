@@ -9,6 +9,7 @@ import com.backend.pizzacustomer.domain.service.AuthService;
 import com.backend.pizzacustomer.domain.service.TokenService;
 import com.backend.pizzacustomer.persistence.repository.CustomerRepository;
 import com.backend.pizzacustomer.utils.TokenUtils;
+import com.backend.pizzacustomer.web.dto.EmailDto;
 import com.backend.pizzacustomer.web.dto.VerifyTokenDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void sendResetPasswordToken(String email) {
-        var customer = customerRepository.findByEmail(email);
+    public void sendResetPasswordToken(EmailDto emailDto) {
+        var customer = customerRepository.findByEmail(emailDto.email());
 
         if (customer.isPresent()) {
             var token = tokenService.createNewToken(customer.get().getIdCustomer(), TokenType.RESET_PASSWORD, 10);
 
             customerMessage.sendToResetPasswordExchange(new ResetPasswordExchangeDto(
-                    email,
+                    emailDto.email(),
                     token,
-                    "en"
+                    emailDto.locale()
             ));
         }
     }
@@ -72,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void resendToken(UUID tokenId) {
+    public void resendToken(UUID tokenId, String locale) {
         var token = tokenService.getById(tokenId);
 
         if (token.isPresent()) {
@@ -88,14 +89,14 @@ public class AuthServiceImpl implements AuthService {
                             tokenEntity.getIdCustomer(),
                             customerEntity.getEmail(),
                             tokenService.createNewToken(tokenEntity.getIdCustomer(), tokenType, 20),
-                            "en"
+                            locale
                     ));
                 }
 
                 case RESET_PASSWORD -> customerMessage.sendToResetPasswordExchange(new ResetPasswordExchangeDto(
                         customerEntity.getEmail(),
                         tokenService.createNewToken(tokenEntity.getIdCustomer(), tokenType, 10),
-                        "en"
+                        locale
                 ));
             }
         }
