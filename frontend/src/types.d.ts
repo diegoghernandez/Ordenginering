@@ -75,6 +75,7 @@ export interface CustomerDto {
 	password: string
 	matchingPassword: string
 	birthDate: string
+	locale: string
 }
 
 export interface Pizza {

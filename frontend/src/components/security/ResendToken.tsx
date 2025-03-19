@@ -3,6 +3,7 @@ import { Spin } from '@/components/common/Spin'
 import { SECONDARY__BUTTON } from '@/constants/styles'
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { resendToken } from '@/services/authService'
+import { getLocalFromUrl } from '@/utils/getLocalFromUrl'
 import { useRef } from 'react'
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 export function ResendToken({ t }: Props) {
 	const dialogRef = useRef<HTMLDialogElement>(null)
 	const { response, isLoading, handlePromise } = useServicePromise<
-		{ token: string },
+		{ token: string; locale: string },
 		string
 	>(resendToken)
 
@@ -27,6 +28,7 @@ export function ResendToken({ t }: Props) {
 		handlePromise({
 			token:
 				new URLSearchParams(document.location.search).get('token') ?? '',
+			locale: getLocalFromUrl(),
 		})
 	}
 

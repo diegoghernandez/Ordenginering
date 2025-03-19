@@ -74,7 +74,7 @@ export const authHandler = [
 		}
 	),
 
-	http.post<PathParams<never>, { email: string }>(
+	http.post<PathParams<never>, { email: string; locale: string }>(
 		`${API}/send-reset-password`,
 		async ({ request }) => {
 			const { email } = await request.json()
@@ -114,7 +114,7 @@ export const authHandler = [
 		}
 	),
 
-	http.post<PathParams<never>, { token: string }>(
+	http.post<PathParams<never>, { token: string; locale: string }>(
 		`${API}/resend`,
 		async ({ request }) => {
 			const { token } = await request.json()

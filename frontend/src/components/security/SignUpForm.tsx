@@ -4,6 +4,7 @@ import { useServicePromise } from '@/hooks/useServicePromise'
 import { registerCustomer } from '@/services/authService'
 import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'
+import { getLocalFromUrl } from '@/utils/getLocalFromUrl'
 
 export type SignUpFormTranslation = {
 	labels: {
@@ -44,6 +45,7 @@ export function SignUpForm({ t }: Props) {
 				password: getFormValue(labels.password, formValues),
 				matchingPassword: getFormValue(labels.confirmPassword, formValues),
 				birthDate: getFormValue(labels.birthDate, formValues),
+				locale: getLocalFromUrl(),
 			}
 
 			handlePromise(customerData)

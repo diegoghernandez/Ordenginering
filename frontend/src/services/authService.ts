@@ -74,13 +74,19 @@ export async function verifyToken(
 	return response.json() as Promise<TokenStatus>
 }
 
-export async function sendResetPassword(email: string): Promise<string> {
+export async function sendResetPassword({
+	email,
+	locale,
+}: {
+	email: string
+	locale: string
+}): Promise<string> {
 	const response = await fetch(`${API}/send-reset-password`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ email }),
+		body: JSON.stringify({ email, locale }),
 	})
 
 	if (response.ok) return response.text()
@@ -117,15 +123,17 @@ export async function resetPassword({
 
 export async function resendToken({
 	token,
+	locale,
 }: {
 	token: string
+	locale: string
 }): Promise<string> {
 	const response = await fetch(`${API}/resend`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token }),
+		body: JSON.stringify({ token, locale }),
 	})
 
 	if (response.ok) return response.text()

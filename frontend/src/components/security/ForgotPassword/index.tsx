@@ -10,6 +10,7 @@ import { getFormValue } from '@/utils/getFormValue'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Styles from './ForgotPassword.module.css'
+import { getLocalFromUrl } from '@/utils/getLocalFromUrl'
 
 interface Props {
 	locale: LocalesString
@@ -17,7 +18,7 @@ interface Props {
 
 export function ForgotPassword({ locale }: Props) {
 	const { response, error, isLoading, handlePromise } = useServicePromise<
-		string,
+		{ email: string; locale: string },
 		string
 	>(sendResetPassword)
 	const [canIUsePortal, setCanIUsePortal] = useState(false)
@@ -25,7 +26,10 @@ export function ForgotPassword({ locale }: Props) {
 	const t = forgotPassword[locale]
 
 	function handleData(formValues: FormData): void {
-		handlePromise(getFormValue(t.label, formValues))
+		handlePromise({
+			email: getFormValue(t.label, formValues),
+			locale: getLocalFromUrl(),
+		})
 	}
 
 	useEffect(() => {

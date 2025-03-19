@@ -1,6 +1,7 @@
 import { useServicePromise } from '@/hooks/useServicePromise'
 import { resendToken } from '@/services/authService'
 import { FormContainer } from '../common/FormContainer'
+import { getLocalFromUrl } from '@/utils/getLocalFromUrl'
 
 interface Props {
 	t: {
@@ -17,6 +18,7 @@ export function VerifyForm({ t }: Props) {
 		handlePromise({
 			token:
 				new URLSearchParams(document.location.search).get('token') ?? '',
+			locale: getLocalFromUrl(),
 		})
 
 	return (

@@ -59,6 +59,7 @@ describe('Auth service tests', () => {
 					password: '1234',
 					matchingPassword: '1234',
 					birthDate: '2002-2-12',
+					locale: 'en',
 				})
 			).rejects.toThrow('EMAIL')
 		})
@@ -70,6 +71,7 @@ describe('Auth service tests', () => {
 				password: '1234',
 				matchingPassword: '1234',
 				birthDate: '2002-2-12',
+				locale: 'en',
 			})
 
 			expect(content).toStrictEqual('CREATED')
@@ -106,13 +108,16 @@ describe('Auth service tests', () => {
 		})
 
 		it('Should get a SERVER error', async () => {
-			await expect(sendResetPassword('')).rejects.toThrowError(
-				new StatusError('SERVER', 500)
-			)
+			await expect(
+				sendResetPassword({ email: '', locale: 'en' })
+			).rejects.toThrowError(new StatusError('SERVER', 500))
 		})
 
 		it('Should get the SUCCESSFUL response', async () => {
-			const tokenStatus = await sendResetPassword('email@example.test')
+			const tokenStatus = await sendResetPassword({
+				email: 'email@example.test',
+				locale: 'en',
+			})
 
 			expect(tokenStatus).toStrictEqual('SUCCESS')
 		})
@@ -160,14 +165,15 @@ describe('Auth service tests', () => {
 		})
 
 		it('Should receive an error', async () => {
-			await expect(resendToken({ token: 'whatever' })).rejects.toThrow(
-				new StatusError('SERVER', 400)
-			)
+			await expect(
+				resendToken({ token: 'whatever', locale: 'en' })
+			).rejects.toThrow(new StatusError('SERVER', 400))
 		})
 
 		it('Should resend the token correctly', async () => {
 			const tokenStatus = await resendToken({
 				token: 'expired',
+				locale: 'en',
 			})
 
 			expect(tokenStatus).toStrictEqual('SUCCESS')
