@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-export function getTranslation<Translation>(
-	translationFile: string,
-	locale: 'es' | 'en'
-): Translation {
+export function getTranslation<Translation>(translationFile: string): {
+	en: Translation
+	es: Translation
+} {
 	return JSON.parse(
 		fs
 			.readFileSync(
@@ -14,5 +14,5 @@ export function getTranslation<Translation>(
 				)
 			)
 			.toString()
-	)[locale]
+	)
 }

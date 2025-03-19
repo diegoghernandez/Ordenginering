@@ -11,7 +11,7 @@ LOCALES.forEach((locale) => {
 
 		it('Should render correctly', () => {
 			render(<Welcome token='token' locale={locale} />)
-			const t = getTranslation<WelcomeTranslation>('welcome', locale)
+			const t = getTranslation<WelcomeTranslation>('welcome')[locale]
 
 			expect(screen.getByText(t.preview)).toBeDefined()
 			expect(screen.getByText(t.message)).toBeDefined()

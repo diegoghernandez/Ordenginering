@@ -24,8 +24,10 @@ export type WelcomeTranslation = {
 	activationLink: string
 }
 
+const welcomeTranslation = getTranslation<WelcomeTranslation>('welcome')
+
 export default function Welcome({ token, locale }: Props) {
-	const t = getTranslation<WelcomeTranslation>('welcome', locale)
+	const t = welcomeTranslation[locale]
 
 	return (
 		<PizzaStyles>

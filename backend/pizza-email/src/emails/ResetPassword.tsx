@@ -25,8 +25,11 @@ export type ResetPasswordTranslation = {
 	resetLink: string
 }
 
+const resetPasswordTranslation =
+	getTranslation<ResetPasswordTranslation>('resetPassword')
+
 export default function ResetPassword({ token, locale }: Props) {
-	const t = getTranslation<ResetPasswordTranslation>('resetPassword', locale)
+	const t = resetPasswordTranslation[locale]
 
 	return (
 		<PizzaStyles>

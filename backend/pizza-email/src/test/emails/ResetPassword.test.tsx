@@ -13,10 +13,8 @@ LOCALES.forEach((locale) => {
 
 		it('Should render correctly', () => {
 			render(<ResetPassword token='token' locale={locale} />)
-			const t = getTranslation<ResetPasswordTranslation>(
-				'resetPassword',
-				locale
-			)
+			const t =
+				getTranslation<ResetPasswordTranslation>('resetPassword')[locale]
 
 			expect(screen.getByText(t.preview)).toBeDefined()
 			expect(screen.getByText(t.message1)).toBeDefined()
