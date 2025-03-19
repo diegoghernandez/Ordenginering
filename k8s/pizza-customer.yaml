@@ -23,7 +23,7 @@ spec:
               readinessProbe:
                  httpGet:
                     port: 8080
-                    path: /apiu/customer/actuator/health/readiness
+                    path: /api/customer/actuator/health/readiness
                  initialDelaySeconds: 90
                  periodSeconds: 15
                  timeoutSeconds: 10
@@ -31,7 +31,7 @@ spec:
               livenessProbe:
                  httpGet:
                     port: 8080
-                    path: /apiu/customer/actuator/health/liveness
+                    path: /api/customer/actuator/health/liveness
                  initialDelaySeconds: 90
                  periodSeconds: 15
                  timeoutSeconds: 10
@@ -57,7 +57,7 @@ spec:
                  - name: SERVER_PORT
                    value: '8080'
                  - name: COOKIE_DOMAIN
-                   value: ordeninginering.com
+                   value: ordenginering.com
                  - name: MYSQL_DOMAIN
                    valueFrom:
                       secretKeyRef:
