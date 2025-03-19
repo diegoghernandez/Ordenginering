@@ -8,6 +8,7 @@ import {
 	Preview,
 	Text,
 } from '@react-email/components'
+import { CLIENT_DOMAIN } from '../constants/ClientDomain.js'
 import { getTranslation } from '../utils/getTranslations.js'
 import { PizzaStyles } from './_components/PizzaStyles.js'
 
@@ -40,7 +41,7 @@ export default function Welcome({ token, locale }: Props) {
 							{t.message}
 						</Text>
 						<Link
-							href={`https://ordenginering.com/${locale}/auth/verify/${token}`}
+							href={`${CLIENT_DOMAIN}/${locale}/verify?token=${token}`}
 							className='block h-9 pb-1 pt-2 bg-primary font-serif text-lg text-center text-pretty text-background rounded-lg'
 						>
 							{t.activationLink}

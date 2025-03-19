@@ -8,8 +8,9 @@ import {
 	Preview,
 	Text,
 } from '@react-email/components'
-import { PizzaStyles } from './_components/PizzaStyles.js'
+import { CLIENT_DOMAIN } from '../constants/ClientDomain.js'
 import { getTranslation } from '../utils/getTranslations.js'
+import { PizzaStyles } from './_components/PizzaStyles.js'
 
 interface Props {
 	token: string
@@ -41,7 +42,7 @@ export default function ResetPassword({ token, locale }: Props) {
 							{t.message1}
 						</Text>
 						<Link
-							href={`https://ordenginering.com/${locale}/auth/reset-password/${token}`}
+							href={`${CLIENT_DOMAIN}/${locale}/reset-password?token=${token}`}
 							className='block h-9 pb-1 pt-2 bg-primary font-serif text-lg text-center text-pretty text-background rounded-lg'
 						>
 							{t.resetLink}

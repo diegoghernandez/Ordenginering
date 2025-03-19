@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { LOCALES } from '../../constants/Locales.js'
 import Welcome, { WelcomeTranslation } from '../../emails/Welcome.js'
 import { getTranslation } from '../../utils/getTranslations.js'
+import { CLIENT_DOMAIN } from '../../constants/ClientDomain.js'
 
 LOCALES.forEach((locale) => {
 	describe('Welcome component tests', () => {
@@ -19,7 +20,7 @@ LOCALES.forEach((locale) => {
 			).toBeDefined()
 			expect(screen.getByRole('link')).toHaveProperty(
 				'href',
-				`https://ordenginering.com/${locale}/auth/verify/token`
+				`${CLIENT_DOMAIN}/${locale}/verify?token=token`
 			)
 		})
 	})

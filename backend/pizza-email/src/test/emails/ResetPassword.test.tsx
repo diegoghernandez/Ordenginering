@@ -5,6 +5,7 @@ import { getTranslation } from '../../utils/getTranslations.js'
 import ResetPassword, {
 	ResetPasswordTranslation,
 } from '../../emails/ResetPassword.js'
+import { CLIENT_DOMAIN } from '../../constants/ClientDomain.js'
 
 LOCALES.forEach((locale) => {
 	describe('Welcome component tests', () => {
@@ -23,7 +24,7 @@ LOCALES.forEach((locale) => {
 			expect(screen.getByText(t.message2)).toBeDefined()
 			expect(screen.getByRole('link')).toHaveProperty(
 				'href',
-				`https://ordenginering.com/${locale}/auth/reset-password/token`
+				`${CLIENT_DOMAIN}/${locale}/reset-password?token=token`
 			)
 		})
 	})
