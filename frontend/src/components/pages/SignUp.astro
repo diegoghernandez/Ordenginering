@@ -23,3 +23,11 @@ const { t } = Astro.props
    <p>{t.haveAccount} <a href={getLoginUrl(Astro.currentLocale ?? 'en')}>{t.login}</a></p>
    <SignUpForm client:load t={t.signUpFormTranslation} />
 </FormLayout>
+
+<style>
+   a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+   }
+</style>
