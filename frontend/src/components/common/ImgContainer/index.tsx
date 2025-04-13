@@ -1,5 +1,5 @@
 import ImgContainerTranslation from '@/assets/i18n/components/ImgContainer.json'
-import { SECONDARY__BUTTON } from '@/constants/styles'
+import { SECONDARY__BUTTON } from '@/lib/constants/styles'
 import { useRef, type ReactElement } from 'react'
 import Styles from './ImgContainer.module.css'
 import type { LocalesString } from '@/types'

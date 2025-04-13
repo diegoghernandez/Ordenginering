@@ -1,4 +1,4 @@
-import { CORS_HEADERS } from '@/constants/corsHeaders'
+import { CORS_HEADERS } from '@/lib/constants/corsHeaders'
 import type { OrderRequest } from '@/types'
 import { HttpResponse, http, type PathParams } from 'msw'
 import OrdenJSON from '../fixtures/orders.json' with { type: 'json' }

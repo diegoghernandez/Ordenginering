@@ -1,4 +1,4 @@
-import { LOCALES } from '@/constants/locales'
+import { LOCALES } from '@/lib/constants/locales'
 import { authHandler } from '@/mocks/domains/authHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import {

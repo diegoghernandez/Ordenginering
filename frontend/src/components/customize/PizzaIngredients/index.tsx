@@ -2,7 +2,7 @@ import { en } from '@/assets/i18n/pages/Customize.json'
 import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
-import { IMAGE_CDN } from '@/constants/imageCDN'
+import { IMAGE_CDN } from '@/lib/constants/imageCDN'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import type {
 	IngredientRequest,

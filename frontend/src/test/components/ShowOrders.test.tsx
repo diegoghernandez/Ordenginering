@@ -1,5 +1,5 @@
 import { ShowOrder } from '@/components/order/ShowOrders'
-import { Size } from '@/constants/size'
+import { Size } from '@/lib/constants/size'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 import {
 	cleanup,

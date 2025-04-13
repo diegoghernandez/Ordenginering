@@ -3,7 +3,7 @@ import { CustomSelect } from '@/components/common/CustomSelect'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { AddCustomizePizza } from '@/components/customize/AddCustomizePizza'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
-import { Size } from '@/constants/size'
+import { Size } from '@/lib/constants/size'
 import { useDesireIngredients } from '@/hooks/useDesireIngredients'
 import type {
 	IngredientRequest,

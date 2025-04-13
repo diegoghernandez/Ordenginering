@@ -1,5 +1,5 @@
 import { Callout } from '@/components/common/Callout'
-import { PRIMARY__BUTTON } from '@/constants/styles'
+import { PRIMARY__BUTTON } from '@/lib/constants/styles'
 import type { FormEvent, ReactElement } from 'react'
 import './FormContainer.module.css'
 

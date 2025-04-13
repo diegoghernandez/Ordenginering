@@ -1,4 +1,4 @@
-import { PRIMARY__BUTTON } from '@/constants/styles'
+import { PRIMARY__BUTTON } from '@/lib/constants/styles'
 import Styles from './SelectQuantity.module.css'
 
 interface Props {

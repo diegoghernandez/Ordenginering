@@ -2,7 +2,7 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { LargeModalContainer } from '@/components/common/LargeModalContainer'
-import { IMAGE_CDN } from '@/constants/imageCDN'
+import { IMAGE_CDN } from '@/lib/constants/imageCDN'
 import type { LocalesString, Order } from '@/types'
 import Styles from './OrderModal.module.css'
 

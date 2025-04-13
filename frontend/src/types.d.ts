@@ -1,4 +1,4 @@
-import type { Size } from '@/constants/size'
+import type { Size } from '@/lib/constants/size'
 
 interface Page {
 	pageable: {

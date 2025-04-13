@@ -1,4 +1,4 @@
-import { Size } from '@/constants/size'
+import { Size } from '@/lib/constants/size'
 import { getOrdersByAccount, saveOrder } from '@/services/orderService'
 import { getJSON } from '@/utils/getJSON.mjs'
 import { describe, expect, it } from 'vitest'

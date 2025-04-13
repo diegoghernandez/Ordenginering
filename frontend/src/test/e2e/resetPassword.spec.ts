@@ -1,4 +1,4 @@
-import { LOCALES } from '@/constants/locales'
+import { LOCALES } from '@/lib/constants/locales'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { findNavbarElements } from '@/test/e2e/utils/navbarUtils'
 import { getJSON } from '@/utils/getJSON.mjs'

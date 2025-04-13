@@ -1,4 +1,4 @@
-import { CORS_HEADERS } from '@/constants/corsHeaders'
+import { CORS_HEADERS } from '@/lib/constants/corsHeaders'
 import type { ChangeProfileValues } from '@/services/changeCustomerService'
 import type { ValuesForChangeDto } from '@/types'
 import { HttpResponse, http, type PathParams } from 'msw'

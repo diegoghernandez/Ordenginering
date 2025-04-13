@@ -1,4 +1,4 @@
-import { CORS_HEADERS } from '@/constants/corsHeaders'
+import { CORS_HEADERS } from '@/lib/constants/corsHeaders'
 import type { CustomerDto, CustomerLogIn, VerifyTokenDto } from '@/types'
 import { http, HttpResponse, type PathParams } from 'msw'
 

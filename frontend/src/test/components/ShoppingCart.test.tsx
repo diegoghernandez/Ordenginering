@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import { ShoppingCart } from '@/components/order/ShoppingCart'
-import { Size } from '@/constants/size'
+import { Size } from '@/lib/constants/size'
 import { useShoppingCart } from '@/hooks/useShoppingCart'
 
 describe('ShoppingCart component tests', () => {

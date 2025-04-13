@@ -1,4 +1,4 @@
-import { LOCALES } from '@/constants/locales'
+import { LOCALES } from '@/lib/constants/locales'
 import { orderHandler } from '@/mocks/domains/orderHandler'
 import { expect, test } from '@/test/e2e/utils/fixture'
 import { addPizzaInMenu } from '@/test/e2e/utils/generalUtils'
