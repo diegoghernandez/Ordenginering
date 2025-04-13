@@ -1,6 +1,6 @@
 import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { PRIMARY__BUTTON, SECONDARY__BUTTON } from '@/lib/constants/styles'
-import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { useShoppingCart } from '@/lib/hooks/useShoppingCart'
 import type { Ingredient, Pizza } from '@/types'
 import { useRef, useState } from 'react'
 import type { Characteristics } from './PizzaData'

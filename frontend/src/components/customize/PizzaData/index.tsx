@@ -4,7 +4,7 @@ import { IngredientsContainer } from '@/components/common/IngredientsContainer'
 import { AddCustomizePizza } from '@/components/customize/AddCustomizePizza'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { Size } from '@/lib/constants/size'
-import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { useDesireIngredients } from '@/lib/hooks/useDesireIngredients'
 import type {
 	IngredientRequest,
 	LocalesString,

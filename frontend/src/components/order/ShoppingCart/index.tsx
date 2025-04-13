@@ -1,4 +1,4 @@
-import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { useShoppingCart } from '@/lib/hooks/useShoppingCart'
 import { useState } from 'react'
 import Styles from './ShoppingCart.module.css'
 

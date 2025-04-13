@@ -1,6 +1,6 @@
 import { ShowOrder } from '@/components/order/ShowOrders'
 import { Size } from '@/lib/constants/size'
-import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { useShoppingCart } from '@/lib/hooks/useShoppingCart'
 import {
 	cleanup,
 	fireEvent,

@@ -1,7 +1,7 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { FormContainer } from '@/components/common/FormContainer'
 import { ForgotPassword } from '@/components/security/ForgotPassword'
-import { useServicePromise } from '@/hooks/useServicePromise'
+import { useServicePromise } from '@/lib/hooks/useServicePromise'
 import { logIn } from '@/services/authService'
 import type { CustomerLogIn, LocalesString } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'

@@ -1,5 +1,5 @@
 import { PizzaData } from '@/components/customize/PizzaData'
-import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { useDesireIngredients } from '@/lib/hooks/useDesireIngredients'
 import { en } from '@/assets/i18n/pages/Customize.json'
 import {
 	cleanup,

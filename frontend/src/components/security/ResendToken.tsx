@@ -1,7 +1,7 @@
 import { SmallModalContainer } from '@/components/common/SmallModalContainer'
 import { Spin } from '@/components/common/Spin'
 import { SECONDARY__BUTTON } from '@/lib/constants/styles'
-import { useServicePromise } from '@/hooks/useServicePromise'
+import { useServicePromise } from '@/lib/hooks/useServicePromise'
 import { resendToken } from '@/services/authService'
 import { getLocalFromUrl } from '@/utils/getLocalFromUrl'
 import { useRef } from 'react'

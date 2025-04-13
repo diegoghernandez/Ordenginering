@@ -1,7 +1,7 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { FormContainer } from '@/components/common/FormContainer'
 import { ResendToken } from '@/components/security/ResendToken'
-import { useServicePromise } from '@/hooks/useServicePromise'
+import { useServicePromise } from '@/lib/hooks/useServicePromise'
 import { resetPassword } from '@/services/authService'
 import type { TokenStatus, VerifyTokenDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'

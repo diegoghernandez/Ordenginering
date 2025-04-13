@@ -1,6 +1,6 @@
 import { IncreasePopover } from '@/components/menu/IncreasePopover'
 import { PRIMARY__BUTTON } from '@/lib/constants/styles'
-import { useShoppingCart } from '@/hooks/useShoppingCart'
+import { useShoppingCart } from '@/lib/hooks/useShoppingCart'
 import type { Pizza } from '@/types'
 import { useState } from 'react'
 import Styles from './AddPizza.module.css'

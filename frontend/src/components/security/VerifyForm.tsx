@@ -1,4 +1,4 @@
-import { useServicePromise } from '@/hooks/useServicePromise'
+import { useServicePromise } from '@/lib/hooks/useServicePromise'
 import { resendToken } from '@/services/authService'
 import { FormContainer } from '../common/FormContainer'
 import { getLocalFromUrl } from '@/utils/getLocalFromUrl'

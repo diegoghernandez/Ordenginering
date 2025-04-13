@@ -1,6 +1,6 @@
 import { CustomInput } from '@/components/common/CustomInput'
 import { FormContainer } from '@/components/common/FormContainer'
-import { useServicePromise } from '@/hooks/useServicePromise'
+import { useServicePromise } from '@/lib/hooks/useServicePromise'
 import { registerCustomer } from '@/services/authService'
 import type { CustomerDto } from '@/types'
 import { getFormValue } from '@/utils/getFormValue'

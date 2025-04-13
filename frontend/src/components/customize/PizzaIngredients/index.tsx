@@ -3,7 +3,7 @@ import { CardContainer } from '@/components/common/CardContainer'
 import { ImgContainer } from '@/components/common/ImgContainer'
 import { SelectQuantity } from '@/components/order/SelectQuantity'
 import { IMAGE_CDN } from '@/lib/constants/imageCDN'
-import { useDesireIngredients } from '@/hooks/useDesireIngredients'
+import { useDesireIngredients } from '@/lib/hooks/useDesireIngredients'
 import type {
 	IngredientRequest,
 	LocalesString,
