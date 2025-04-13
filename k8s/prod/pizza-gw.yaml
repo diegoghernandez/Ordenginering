@@ -11,4 +11,4 @@ spec:
     tls:
       mode: Terminate
       options:
-        networking.gke.io/pre-shared-certs: ordeninginering-com
+        networking.gke.io/pre-shared-certs: ordenginering-com

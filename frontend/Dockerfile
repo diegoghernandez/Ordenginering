@@ -11,7 +11,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 FROM base AS build
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN PUBLIC_URL=https://ordeninginering.com pnpm run build
+RUN PUBLIC_URL=https://ordenginering.com pnpm run build
 
 FROM base
 COPY --from=prod-deps /app/node_modules ./node_modules
