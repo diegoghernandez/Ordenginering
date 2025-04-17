@@ -42,21 +42,24 @@ spec:
                          name: resend-secret
                          key: resend-key
                  - name: RABBIT_PROTOCOL
-                   value: 'amqps'
+                   value: 'amqp'
                  - name: RABBIT_PORT
-                   value: '5671'
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-default-user
+                         key: port
                  - name: RABBIT_HOST
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-host
+                         name: rabbitmq-default-user
+                         key: host
                  - name: RABBIT_USERNAME
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-user
+                         name: rabbitmq-default-user
+                         key: username
                  - name: RABBIT_PASSWORD
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-password
+                         name: rabbitmq-default-user
+                         key: password

@@ -74,22 +74,25 @@ spec:
                          name: mysql-secret
                          key: mysql_password
                  - name: SPRING_RABBITMQ_PORT
-                   value: '5671'
+                   valueFrom:
+                      secretKeyRef:
+                         name: rabbitmq-default-user
+                         key: port
                  - name: SPRING_RABBITMQ_HOST
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-host
+                         name: rabbitmq-default-user
+                         key: host
                  - name: SPRING_RABBITMQ_USERNAME
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-user
+                         name: rabbitmq-default-user
+                         key: username
                  - name: SPRING_RABBITMQ_PASSWORD
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-secret
-                         key: rabbitmq-password
+                         name: rabbitmq-default-user
+                         key: password
                  - name: JWT_SERVICE_DOMAIN
                    valueFrom:
                       configMapKeyRef:
