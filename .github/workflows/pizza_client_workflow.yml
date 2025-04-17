@@ -63,7 +63,7 @@ jobs:
         - name: Install Playwright Browsers
           run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
         - name: Build application
-          run: (pnpm exec playwright test --ui --ui-port=14200 &) && pnpm run build
+          run: PUBLIC_URL=https://ordenginering.com pnpm run build
         - name: Initialize e2e tests
           run: (pnpm run start &) && pnpm run e2e:ci --project=${{ matrix.browser }}
           #--shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
