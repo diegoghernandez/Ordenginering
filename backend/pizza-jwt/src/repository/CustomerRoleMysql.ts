@@ -1,63 +1,63 @@
 import { ConnectionOptions, createPool } from 'mysql2/promise'
 import {
-	CustomerRole,
-	CustomerRoleId,
-	CustomerRoleRepository,
-	SelectOne,
+   CustomerRole,
+   CustomerRoleId,
+   CustomerRoleRepository,
+   SelectOne,
 } from '../../types.js'
 import { MYSQL_SECRETS } from '../env/mysqlSecrets.js'
 
 const MYSQL_CONFIG: ConnectionOptions = {
-	database: 'pizzadatabase',
-	host: MYSQL_SECRETS.MYSQL_DOMAIN ?? 'localhost',
-	port: 3306,
-	user: MYSQL_SECRETS.MYSQL_USERNAME ?? 'myuser',
-	password: MYSQL_SECRETS.MYSQL_PASSWORD ?? 'secret',
+   database: 'pizzadatabase',
+   host: MYSQL_SECRETS.MYSQL_DOMAIN ?? 'localhost',
+   port: Number(MYSQL_SECRETS.MYSQL_PORT ?? 3306),
+   user: MYSQL_SECRETS.MYSQL_USERNAME ?? 'myuser',
+   password: MYSQL_SECRETS.MYSQL_PASSWORD ?? 'secret',
 }
 
 const connection = createPool(MYSQL_CONFIG)
 
 export class CustomerRoleMysql implements CustomerRoleRepository {
-	databaseIsAvailable = async () => {
-		const [result] = await connection.query<SelectOne[]>('SELECT 1;')
+   databaseIsAvailable = async () => {
+      const [result] = await connection.query<SelectOne[]>('SELECT 1;')
 
-		return result.length !== 0
-	}
+      return result.length !== 0
+   }
 
-	existById = async (id: number) => {
-		const [result] = await connection.query<CustomerRoleId[]>(
-			'SELECT customer_role_id from customer_role WHERE customer_role_id = ? LIMIT 1;',
-			[id]
-		)
+   existById = async (id: number) => {
+      const [result] = await connection.query<CustomerRoleId[]>(
+         'SELECT customer_role_id from customer_role WHERE customer_role_id = ? LIMIT 1;',
+         [id]
+      )
 
-		return result.length !== 0
-	}
+      return result.length !== 0
+   }
 
-	geByCustomerRoleId = async (id: number) => {
-		const [customerRole] = await connection.query<CustomerRole[]>(
-			`
+   geByCustomerRoleId = async (id: number) => {
+      const [customerRole] = await connection.query<CustomerRole[]>(
+         `
          SELECT customer_role.customer_role_id, role.role_name  FROM customer_role
          JOIN role ON customer_role.role_id = role.role_id
          WHERE customer_role.customer_role_id = ?;
       `,
-			[id]
-		)
+         [id]
+      )
 
-		return customerRole
-	}
+      return customerRole
+   }
 
-	save = async (id: number) => {
-		await connection.query(
-			`
+   save = async (id: number) => {
+      await connection.query(
+         `
          INSERT INTO customer_role(customer_role_id, role_id) VALUES 
             (?, (SELECT role_id FROM role WHERE role_name = 'USER' LIMIT 1));
       `,
-			[id]
-		)
-	}
+         [id]
+      )
+   }
 
-	initializeTestContainersSetUp = async () => {
-		await connection.query(`
+   initializeTestContainersSetUp = async () => {
+      await connection.query(`
          CREATE TABLE IF NOT EXISTS role (
             role_id SMALLINT AUTO_INCREMENT,
             role_name VARCHAR(10) UNIQUE,
@@ -65,7 +65,7 @@ export class CustomerRoleMysql implements CustomerRoleRepository {
          );
       `)
 
-		await connection.query(`
+      await connection.query(`
          CREATE TABLE IF NOT EXISTS customer_role (
             customer_role_id BIGINT,
             role_id SMALLINT NOT NULL,
@@ -75,11 +75,11 @@ export class CustomerRoleMysql implements CustomerRoleRepository {
          );
       `)
 
-		await connection.query(
-			"INSERT INTO role(role_name) VALUES ('USER'), ('ADMIN'), ('DEMO');"
-		)
-		await connection.query(
-			'INSERT INTO customer_role(customer_role_id, role_id) VALUES (1, 1), (2, 1), (3, 3), (4, 1), (5, 2);'
-		)
-	}
+      await connection.query(
+         "INSERT INTO role(role_name) VALUES ('USER'), ('ADMIN'), ('DEMO');"
+      )
+      await connection.query(
+         'INSERT INTO customer_role(customer_role_id, role_id) VALUES (1, 1), (2, 1), (3, 3), (4, 1), (5, 2);'
+      )
+   }
 }
