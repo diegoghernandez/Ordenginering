@@ -1,34 +1,38 @@
 import type { IngredientRequest } from '@/types'
 import { StatusError } from '@/services/exceptions/StatusError'
 
-const URL = import.meta.env.PUBLIC_URL ?? 'http://localhost:2222'
-const API = URL +  '/api/ingredient'
+const URL = import.meta.env.INGREDIENT_URL ?? 'http://localhost:2222'
+const API = URL + '/api/ingredient'
 
-export async function getAllIngredients(): Promise<Array<IngredientRequest>> {   
-   const response = await fetch(API, {
-      method: 'GET',
-      mode: 'no-cors',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-   })
+export async function getAllIngredients(): Promise<Array<IngredientRequest>> {
+	const response = await fetch(API, {
+		method: 'GET',
+		mode: 'no-cors',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
 
-   if (response.ok) {
-      return await response.json()
-   }
+	if (response.ok) {
+		return await response.json()
+	}
 
-   throw new StatusError('Ingredients not found', 404)
+	throw new StatusError('Ingredients not found', 404)
 }
 
 export async function saveIngredient(formData: FormData): Promise<string> {
-   const response = await fetch(API, { 
-      method: 'POST',
-      credentials: 'include',
-      body: formData 
-   })
+	const response = await fetch(API, {
+		method: 'POST',
+		credentials: 'include',
+		body: formData,
+	})
 
-   if (response.ok) return response.text()
+	if (response.ok) return response.text()
 
-   const errorResponse = await response.json()
-   throw new StatusError(errorResponse.desc, response.status, errorResponse.fieldError)
+	const errorResponse = await response.json()
+	throw new StatusError(
+		errorResponse.desc,
+		response.status,
+		errorResponse.fieldError
+	)
 }
