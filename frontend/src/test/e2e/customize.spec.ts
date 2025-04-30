@@ -24,8 +24,9 @@ LOCALES.forEach((locale) => {
 	const pizzaEmptyName = locale === 'en' ? 'Empty pizza' : 'Pizza vacía'
 
 	test.describe(`${locale}: Customize page e2e tests`, () => {
-		test.beforeEach(async ({ page }) => {
-			await page.goto('/')
+		test.beforeEach(async ({ page, browserName }) => {
+			if (browserName === 'webkit') await page.goto('/en')
+			else await page.goto('/')
 			await changeLanguage(locale, page)
 		})
 

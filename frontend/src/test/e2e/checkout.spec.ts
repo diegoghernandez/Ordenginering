@@ -21,10 +21,11 @@ LOCALES.forEach((locale) => {
 	const shoppingCartTranslationUtils = shoppingCartTranslation(locale)
 
 	test.describe(`${locale}: Checkout page tests`, () => {
-		test.beforeEach(async ({ page }) => {
-			await page.goto('/')
-			await page.waitForLoadState('load')
+		test.beforeEach(async ({ page, browserName }) => {
+			if (browserName === 'webkit') await page.goto('/en')
+			else await page.goto('/')
 			await changeLanguage(locale, page)
+			await page.waitForLoadState('load')
 		})
 
 		test('Should render the checkout page correctly after login and get the cookie', async ({
