@@ -78,7 +78,9 @@ export class CustomerRabbitMQ implements CustomerMessage {
 		try {
 			msgContent = JSON.parse(msg.content.toString())
 		} catch (error) {
-			console.error('Process message error:', error?.message)
+			if (error instanceof SyntaxError) {
+				console.error('Process message error:', error?.message)
+			}
 			channel.reject(msg)
 			return
 		}
