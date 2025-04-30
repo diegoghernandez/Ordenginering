@@ -23,6 +23,8 @@ metadata:
 spec:
   parentRefs:
     - name: pizza-gw
+  hostnames:
+    - "ordenginering.com"
   rules:
     - matches:
         - path:
@@ -45,6 +47,8 @@ metadata:
 spec:
   parentRefs:
     - name: pizza-gw
+  hostnames:
+    - "ordenginering.com"
   rules:
     - matches:
         - path:
@@ -64,6 +68,8 @@ metadata:
 spec:
   parentRefs:
     - name: pizza-gw
+  hostnames:
+    - "ordenginering.com"
   rules:
     - matches:
         - path:
@@ -83,6 +89,8 @@ metadata:
 spec:
   parentRefs:
     - name: pizza-gw
+  hostnames:
+    - "ordenginering.com"
   rules:
     - matches:
         - path:
