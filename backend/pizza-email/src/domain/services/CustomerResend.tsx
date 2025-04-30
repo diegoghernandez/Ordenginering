@@ -7,6 +7,7 @@ import ResetPassword from '../../emails/ResetPassword.js'
 import Welcome from '../../emails/Welcome.js'
 
 export class CustomerResend implements CustomerEmail {
+	#senderEmail = 'Diego <sender@alerts.ordenginering.com>'
 	#emailProvider
 
 	constructor(emailProvider: Resend) {
@@ -15,18 +16,18 @@ export class CustomerResend implements CustomerEmail {
 
 	async sendWelcome({ email, token, locale }: EmailParams) {
 		await this.#emailProvider.emails.send({
-			from: 'Acme <onboarding@resend.dev>',
+			from: this.#senderEmail,
 			to: email,
-			subject: 'Hello World',
+			subject: 'Sender',
 			react: <Welcome token={token} locale={locale} />,
 		})
 	}
 
 	async resetPassword({ email, token, locale }: EmailParams) {
 		await this.#emailProvider.emails.send({
-			from: 'Acme <onboarding@resend.dev>',
+			from: this.#senderEmail,
 			to: email,
-			subject: 'Hello World',
+			subject: 'Sender',
 			react: <ResetPassword token={token} locale={locale} />,
 		})
 	}
