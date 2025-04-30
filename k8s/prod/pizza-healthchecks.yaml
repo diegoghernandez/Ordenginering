@@ -11,7 +11,7 @@ spec:
       type: HTTP
       httpHealthCheck:
         port: 80
-        requestPath: /client/health
+        requestPath: /health
   targetRef:
     group: ""
     kind: Service
@@ -32,7 +32,7 @@ spec:
       type: HTTP
       httpHealthCheck:
         port: 8080
-        requestPath: /customer/actuator/health/liveness
+        requestPath: /api/customer/actuator/health/liveness
   targetRef:
     group: ""
     kind: Service
@@ -53,7 +53,7 @@ spec:
       type: HTTP
       httpHealthCheck:
         port: 8080
-        requestPath: /ingredient/actuator/health/liveness
+        requestPath: /api/ingredient/actuator/health/liveness
   targetRef:
     group: ""
     kind: Service
@@ -74,7 +74,7 @@ spec:
       type: HTTP
       httpHealthCheck:
         port: 8080
-        requestPath: /order/actuator/health/liveness
+        requestPath: /api/order/actuator/health/liveness
   targetRef:
     group: ""
     kind: Service
