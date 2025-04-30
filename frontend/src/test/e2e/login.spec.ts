@@ -16,10 +16,14 @@ LOCALES.forEach((locale) => {
 	const { labels, form } = t.logInFormTranslation
 
 	test.describe(`${locale}: Log In page tests`, () => {
-		test.beforeEach(async ({ page }) => {
-			await page.goto('/')
-			await changeLanguage(locale, page)
-			await page.waitForLoadState('load')
+		test.beforeEach(async ({ page, browserName }) => {
+			if (browserName !== 'chromium') {
+				await page.goto(`/${locale}`)
+			} else {
+				await page.goto('/')
+				await changeLanguage(locale, page)
+				await page.waitForLoadState('load')
+			}
 			await goToLocalizedLink(locale, page, 'account')
 		})
 

@@ -45,7 +45,9 @@ export function LogInForm({ t, locale }: Props) {
 			localStorage.setItem('id', response.message)
 
 			setTimeout(() => {
-				if (history.length <= 2) globalThis.location.pathname = '/'
+				if (history.length <= 2)
+					globalThis.location.pathname =
+						globalThis.location.pathname.includes('/es') ? '/es' : '/en'
 				else history.back()
 			}, 1000)
 		}
