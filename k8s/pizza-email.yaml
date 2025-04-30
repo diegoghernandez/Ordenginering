@@ -44,22 +44,19 @@ spec:
                  - name: RABBIT_PROTOCOL
                    value: 'amqp'
                  - name: RABBIT_PORT
-                   valueFrom:
-                      secretKeyRef:
-                         name: rabbitmq-default-user
-                         key: port
+                   value: '5672'
                  - name: RABBIT_HOST
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-default-user
-                         key: host
+                         name: rabbitmq-secret
+                         key: rabbitmq_host
                  - name: RABBIT_USERNAME
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-default-user
-                         key: username
+                         name: rabbitmq-secret
+                         key: rabbitmq_username
                  - name: RABBIT_PASSWORD
                    valueFrom:
                       secretKeyRef:
-                         name: rabbitmq-default-user
-                         key: password
+                         name: rabbitmq-secret
+                         key: rabbitmq_password
