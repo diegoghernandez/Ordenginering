@@ -8,6 +8,7 @@ import ResetPassword from '../../emails/ResetPassword.js'
 
 const resend = new Resend(process.env.RESEND_KEY)
 const customerResend = new CustomerResend(resend)
+const senderEmail = 'Diego <sender@alerts.ordenginering.com>'
 
 LOCALES.forEach((locale) => {
 	describe(`${locale}: CustomerResend tests`, () => {
@@ -27,9 +28,9 @@ LOCALES.forEach((locale) => {
 			await vi.waitFor(() => {
 				expect(resend.emails.send).toBeCalledTimes(1)
 				expect(resend.emails.send).toHaveBeenCalledWith({
-					from: 'Acme <onboarding@resend.dev>',
+					from: senderEmail,
 					to: 'nuevo@email.com',
-					subject: 'Hello World',
+					subject: 'Sender',
 					html,
 					react: <Welcome token={data.token} locale={locale} />,
 				})
@@ -52,9 +53,9 @@ LOCALES.forEach((locale) => {
 			await vi.waitFor(() => {
 				expect(resend.emails.send).toBeCalledTimes(1)
 				expect(resend.emails.send).toHaveBeenCalledWith({
-					from: 'Acme <onboarding@resend.dev>',
+					from: senderEmail,
 					to: 'nuevo@email.com',
-					subject: 'Hello World',
+					subject: 'Sender',
 					html,
 					react: <ResetPassword token={data.token} locale={locale} />,
 				})
