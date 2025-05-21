@@ -11,19 +11,20 @@ import homeJSON from '@/assets/i18n/pages/Home.json'
 	activeLink='Home'
 >
 	<main transition:name={MAIN__TAG__ANIMATION__NAME}>
-		
+		<h1>Ordenginering</h1>
+		<p>Un innecesario sistema sobre-ingenierizado para ordenar pizzas</p>
 	</main>
 </Layout>
 
 <style>
 	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		min-height: 100svh;
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
+		display: grid;
+		place-content: center;
+		padding: 16px;
+		min-height: 80svh;
+
+		& p {
+			font-size: 1.2rem;
+		}
 	}
 </style>
